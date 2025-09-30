@@ -5,6 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
+import { SocketProvider } from "@/components/socket-provider"
 
 export const metadata: Metadata = {
   title: "O Sortudo - Irish Gaming Platform",
@@ -20,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
-        <Suspense fallback={null}>{children}</Suspense>
+        <SocketProvider>
+          <Suspense fallback={null}>{children}</Suspense>
+        </SocketProvider>
         <Analytics />
       </body>
     </html>

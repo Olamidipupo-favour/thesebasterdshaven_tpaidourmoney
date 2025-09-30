@@ -3,56 +3,30 @@
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Star, TrendingUp, Clock } from "lucide-react"
+import { Star, TrendingUp, Clock, Loader2 } from "lucide-react"
+import { useBoxes } from "@/hooks/use-boxes"
+import Link from "next/link"
 
-const featuredBoxes = [
-  {
-    id: 1,
-    name: "Amazon",
-    description: "Tech gadgets and electronics",
-    price: "$4.99",
-    image: "/amazon-mystery-box.jpg",
-    rarity: "Common",
-    rarityColor: "bg-gray-500",
-    odds: "1:5",
-    trending: true,
-  },
-  {
-    id: 2,
-    name: "Call Of Duty",
-    description: "Gaming gear and collectibles",
-    price: "$9.99",
-    image: "/call-of-duty-box.jpg",
-    rarity: "Rare",
-    rarityColor: "bg-blue-500",
-    odds: "1:10",
-    trending: false,
-  },
-  {
-    id: 3,
-    name: "Holidays",
-    description: "Seasonal surprises and gifts",
-    price: "$14.99",
-    image: "/holiday-mystery-box.jpg",
-    rarity: "Epic",
-    rarityColor: "bg-purple-500",
-    odds: "1:25",
-    trending: true,
-  },
-  {
-    id: 4,
-    name: "India",
-    description: "Cultural treasures and spices",
-    price: "$7.99",
-    image: "/india-cultural-box.jpg",
-    rarity: "Uncommon",
-    rarityColor: "bg-green-500",
-    odds: "1:8",
-    trending: false,
-  },
-]
+const rarityColors = {
+  common: "bg-gray-500",
+  rare: "bg-blue-500",
+  epic: "bg-purple-500",
+  legendary: "bg-yellow-500",
+}
 
 export function FeaturedBoxes() {
+  const { boxes, isLoading } = useBoxes()
+
+  if (isLoading) {
+    return (
+      <div className="mb-12 flex items-center justify-center py-12">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    )
+  }
+
+  const featuredBoxes = boxes?.filter((box) => box.trending).slice(0, 4) || []
+
   return (
     <div className="mb-12">
       <div className="text-center mb-8">
@@ -63,55 +37,58 @@ export function FeaturedBoxes() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {featuredBoxes.map((box) => (
-          <Card
-            key={box.id}
-            className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 overflow-hidden"
-          >
-            <div className="relative">
-              <img
-                src={box.image || "/placeholder.svg"}
-                alt={box.name}
-                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute top-3 left-3 flex gap-2">
-                <Badge className={`${box.rarityColor} text-white`}>{box.rarity}</Badge>
-                {box.trending && (
-                  <Badge variant="secondary" className="bg-chart-2/20 text-chart-2">
-                    <TrendingUp className="w-3 h-3 mr-1" />
-                    Hot
-                  </Badge>
-                )}
-              </div>
-              <div className="absolute top-3 right-3">
-                <div className="bg-black/50 backdrop-blur-sm rounded-full px-2 py-1 text-xs text-white">{box.odds}</div>
-              </div>
-            </div>
-
-            <div className="p-4">
-              <h3 className="text-xl font-bold text-foreground mb-2">{box.name}</h3>
-              <p className="text-sm text-muted-foreground mb-4">{box.description}</p>
-
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-2xl font-bold text-primary">{box.price}</span>
-                <div className="flex items-center text-yellow-500">
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4" />
+        {featuredBoxes.length > 0 ? (
+          featuredBoxes.map((box) => (
+            <Card
+              key={box.id}
+              className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 overflow-hidden"
+            >
+              <div className="relative">
+                <img
+                  src={box.image || "/placeholder.svg"}
+                  alt={box.name}
+                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute top-3 left-3 flex gap-2">
+                  <Badge className={`${rarityColors[box.rarity]} text-white capitalize`}>{box.rarity}</Badge>
+                  {box.trending && (
+                    <Badge variant="secondary" className="bg-chart-2/20 text-chart-2">
+                      <TrendingUp className="w-3 h-3 mr-1" />
+                      Hot
+                    </Badge>
+                  )}
                 </div>
               </div>
 
-              <Button className="w-full glow-effect group-hover:bg-primary/90">Open Box</Button>
+              <div className="p-4">
+                <h3 className="text-xl font-bold text-foreground mb-2">{box.name}</h3>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{box.description}</p>
 
-              <div className="flex items-center justify-center mt-2 text-xs text-muted-foreground">
-                <Clock className="w-3 h-3 mr-1" />
-                Last opened 2m ago
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-2xl font-bold text-primary">{box.price} coins</span>
+                  <div className="flex items-center text-yellow-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className={`w-4 h-4 ${i < 4 ? "fill-current" : ""}`} />
+                    ))}
+                  </div>
+                </div>
+
+                <Link href="#mystery-boxes">
+                  <Button className="w-full glow-effect group-hover:bg-primary/90">Open Box</Button>
+                </Link>
+
+                <div className="flex items-center justify-center mt-2 text-xs text-muted-foreground">
+                  <Clock className="w-3 h-3 mr-1" />
+                  Last opened 2m ago
+                </div>
               </div>
-            </div>
-          </Card>
-        ))}
+            </Card>
+          ))
+        ) : (
+          <div className="col-span-4 text-center py-12">
+            <p className="text-muted-foreground">No featured boxes available at the moment.</p>
+          </div>
+        )}
       </div>
     </div>
   )
