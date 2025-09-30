@@ -1,8 +1,5 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -21,127 +18,25 @@ import {
   Target,
   Award,
   Zap,
+  Loader2,
 } from "lucide-react"
-
-interface Transaction {
-  id: number
-  type: "deposit" | "withdrawal" | "win" | "loss" | "bonus"
-  amount: number
-  description: string
-  timestamp: string
-  status: "completed" | "pending" | "failed"
-}
-
-interface Achievement {
-  id: number
-  name: string
-  description: string
-  icon: React.ReactNode
-  progress: number
-  maxProgress: number
-  reward: number
-  unlocked: boolean
-}
-
-const mockTransactions: Transaction[] = [
-  {
-    id: 1,
-    type: "win",
-    amount: 250,
-    description: "Lucky Leprechaun Box - Four Leaf Clover Charm",
-    timestamp: "2025-01-21T10:30:00Z",
-    status: "completed",
-  },
-  {
-    id: 2,
-    type: "deposit",
-    amount: 125,
-    description: "USD Purchase - $4.99",
-    timestamp: "2025-01-21T10:25:00Z",
-    status: "completed",
-  },
-  {
-    id: 3,
-    type: "bonus",
-    amount: 50,
-    description: "Jump Irish Guy - Daily Play Bonus",
-    timestamp: "2025-01-21T09:15:00Z",
-    status: "completed",
-  },
-  {
-    id: 4,
-    type: "loss",
-    amount: -75,
-    description: "Celtic Keno - Game Play",
-    timestamp: "2025-01-21T08:45:00Z",
-    status: "completed",
-  },
-  {
-    id: 5,
-    type: "win",
-    amount: 500,
-    description: "Lucky Crash - 2.5x Multiplier",
-    timestamp: "2025-01-20T22:30:00Z",
-    status: "completed",
-  },
-]
-
-const achievements: Achievement[] = [
-  {
-    id: 1,
-    name: "First Steps",
-    description: "Open your first mystery box",
-    icon: <Gift className="w-5 h-5" />,
-    progress: 1,
-    maxProgress: 1,
-    reward: 25,
-    unlocked: true,
-  },
-  {
-    id: 2,
-    name: "Lucky Streak",
-    description: "Win 5 games in a row",
-    icon: <Star className="w-5 h-5" />,
-    progress: 3,
-    maxProgress: 5,
-    reward: 100,
-    unlocked: false,
-  },
-  {
-    id: 3,
-    name: "High Roller",
-    description: "Spend 1000 Local Coins in games",
-    icon: <Coins className="w-5 h-5" />,
-    progress: 750,
-    maxProgress: 1000,
-    reward: 200,
-    unlocked: false,
-  },
-  {
-    id: 4,
-    name: "Leprechaun's Friend",
-    description: "Play Jump Irish Guy 50 times",
-    icon: <Trophy className="w-5 h-5" />,
-    progress: 32,
-    maxProgress: 50,
-    reward: 150,
-    unlocked: false,
-  },
-]
+import {
+  useUserProfile,
+  useUserBalance,
+  useUserTransactions,
+  useUserAchievements,
+  useUserStats,
+} from "@/hooks/use-user"
+import { useAuth } from "@/hooks/use-auth"
+import type { Transaction } from "@/lib/api/types"
 
 export function UserDashboard() {
-  const [userStats] = useState({
-    totalCoins: 1250,
-    totalWins: 47,
-    totalLosses: 23,
-    winRate: 67.1,
-    totalWagered: 3450,
-    biggestWin: 500,
-    currentStreak: 3,
-    loyaltyLevel: 2,
-    loyaltyProgress: 65,
-    joinDate: "2024-12-15",
-  })
+  const { user: authUser } = useAuth()
+  const { user, isLoading: loadingProfile } = useUserProfile()
+  const { balance, isLoading: loadingBalance } = useUserBalance()
+  const { transactions, isLoading: loadingTransactions } = useUserTransactions()
+  const { achievements, isLoading: loadingAchievements } = useUserAchievements()
+  const { stats, isLoading: loadingStats } = useUserStats()
 
   const getTransactionIcon = (type: Transaction["type"]) => {
     switch (type) {
@@ -151,9 +46,9 @@ export function UserDashboard() {
         return <Wallet className="w-4 h-4 text-blue-500" />
       case "win":
         return <TrendingUp className="w-4 h-4 text-green-500" />
-      case "loss":
+      case "bet":
         return <TrendingUp className="w-4 h-4 text-red-500 rotate-180" />
-      case "bonus":
+      case "purchase":
         return <Gift className="w-4 h-4 text-yellow-500" />
       default:
         return <Coins className="w-4 h-4" />
@@ -164,11 +59,12 @@ export function UserDashboard() {
     switch (type) {
       case "deposit":
       case "win":
-      case "bonus":
         return "text-green-500"
       case "withdrawal":
-      case "loss":
+      case "bet":
         return "text-red-500"
+      case "purchase":
+        return "text-yellow-500"
       default:
         return "text-foreground"
     }
@@ -183,11 +79,24 @@ export function UserDashboard() {
     })
   }
 
+  if (loadingProfile || loadingBalance || loadingStats) {
+    return (
+      <div className="max-w-6xl mx-auto p-6 flex items-center justify-center min-h-screen">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    )
+  }
+
+  const displayUser = user || authUser
+  const winRate = stats ? ((stats.total_wins / stats.total_games_played) * 100).toFixed(1) : "0.0"
+
   return (
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back, lucky player! Here's your gaming overview.</p>
+        <p className="text-muted-foreground">
+          Welcome back, {displayUser?.username || "lucky player"}! Here's your gaming overview.
+        </p>
       </div>
 
       {/* Stats Overview */}
@@ -196,7 +105,9 @@ export function UserDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-muted-foreground">Local Coins</p>
-              <p className="text-2xl font-bold text-foreground">{userStats.totalCoins.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-foreground">
+                {balance?.coins.toLocaleString() || displayUser?.balance.toLocaleString() || 0}
+              </p>
             </div>
             <div className="p-3 bg-primary/20 rounded-full">
               <Coins className="w-6 h-6 text-primary" />
@@ -208,7 +119,7 @@ export function UserDashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-muted-foreground">Win Rate</p>
-              <p className="text-2xl font-bold text-green-500">{userStats.winRate}%</p>
+              <p className="text-2xl font-bold text-green-500">{winRate}%</p>
             </div>
             <div className="p-3 bg-green-500/20 rounded-full">
               <Target className="w-6 h-6 text-green-500" />
@@ -219,8 +130,8 @@ export function UserDashboard() {
         <Card className="bg-card border-border p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Biggest Win</p>
-              <p className="text-2xl font-bold text-secondary">{userStats.biggestWin}</p>
+              <p className="text-sm text-muted-foreground">Total Won</p>
+              <p className="text-2xl font-bold text-secondary">{stats?.total_won.toLocaleString() || 0}</p>
             </div>
             <div className="p-3 bg-secondary/20 rounded-full">
               <Trophy className="w-6 h-6 text-secondary" />
@@ -231,8 +142,8 @@ export function UserDashboard() {
         <Card className="bg-card border-border p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Current Streak</p>
-              <p className="text-2xl font-bold text-yellow-500">{userStats.currentStreak}</p>
+              <p className="text-sm text-muted-foreground">Games Played</p>
+              <p className="text-2xl font-bold text-yellow-500">{stats?.total_games_played || 0}</p>
             </div>
             <div className="p-3 bg-yellow-500/20 rounded-full">
               <Zap className="w-6 h-6 text-yellow-500" />
@@ -250,16 +161,14 @@ export function UserDashboard() {
                 <Award className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-foreground">Loyalty Level {userStats.loyaltyLevel}</h3>
+                <h3 className="text-lg font-bold text-foreground">Loyalty Level {displayUser?.level || 1}</h3>
                 <p className="text-sm text-muted-foreground">Lucky Clover Member</p>
               </div>
             </div>
-            <Badge className="bg-primary/20 text-primary border-primary/30">
-              {userStats.loyaltyProgress}% to next level
-            </Badge>
+            <Badge className="bg-primary/20 text-primary border-primary/30">{displayUser?.xp || 0} XP</Badge>
           </div>
 
-          <Progress value={userStats.loyaltyProgress} className="mb-4" />
+          <Progress value={(displayUser?.xp || 0) % 100} className="mb-4" />
 
           <div className="flex items-center justify-between text-sm">
             <span className="text-muted-foreground">Benefits: +5% bonus coins, priority support</span>
@@ -284,31 +193,42 @@ export function UserDashboard() {
                 <h3 className="text-lg font-bold text-foreground">Recent Transactions</h3>
               </div>
 
-              <div className="space-y-4">
-                {mockTransactions.map((transaction) => (
-                  <div
-                    key={transaction.id}
-                    className="flex items-center justify-between p-4 bg-background/50 rounded-lg"
-                  >
-                    <div className="flex items-center space-x-3">
-                      {getTransactionIcon(transaction.type)}
-                      <div>
-                        <p className="font-semibold text-foreground">{transaction.description}</p>
-                        <p className="text-sm text-muted-foreground">{formatDate(transaction.timestamp)}</p>
+              {loadingTransactions ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                </div>
+              ) : transactions && transactions.length > 0 ? (
+                <div className="space-y-4">
+                  {transactions.slice(0, 5).map((transaction) => (
+                    <div
+                      key={transaction.id}
+                      className="flex items-center justify-between p-4 bg-background/50 rounded-lg"
+                    >
+                      <div className="flex items-center space-x-3">
+                        {getTransactionIcon(transaction.type)}
+                        <div>
+                          <p className="font-semibold text-foreground">{transaction.description}</p>
+                          <p className="text-sm text-muted-foreground">{formatDate(transaction.created_at)}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className={`font-bold ${getTransactionColor(transaction.type)}`}>
+                          {transaction.amount > 0 ? "+" : ""}
+                          {transaction.amount} coins
+                        </p>
+                        <Badge
+                          variant={transaction.status === "completed" ? "default" : "secondary"}
+                          className="text-xs capitalize"
+                        >
+                          {transaction.status}
+                        </Badge>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className={`font-bold ${getTransactionColor(transaction.type)}`}>
-                        {transaction.amount > 0 ? "+" : ""}
-                        {transaction.amount} coins
-                      </p>
-                      <Badge variant={transaction.status === "completed" ? "default" : "secondary"} className="text-xs">
-                        {transaction.status}
-                      </Badge>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">No transactions yet</div>
+              )}
 
               <div className="mt-6 text-center">
                 <Button variant="outline">View All Transactions</Button>
@@ -325,48 +245,56 @@ export function UserDashboard() {
                 <h3 className="text-lg font-bold text-foreground">Achievements</h3>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {achievements.map((achievement) => (
-                  <div
-                    key={achievement.id}
-                    className={`p-4 rounded-lg border ${
-                      achievement.unlocked ? "bg-primary/10 border-primary/30" : "bg-background/50 border-border"
-                    }`}
-                  >
-                    <div className="flex items-start space-x-3">
-                      <div className={`p-2 rounded-full ${achievement.unlocked ? "bg-primary/20" : "bg-muted/20"}`}>
-                        {achievement.icon}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="font-semibold text-foreground">{achievement.name}</h4>
-                          {achievement.unlocked && (
-                            <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Unlocked</Badge>
-                          )}
+              {loadingAchievements ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="w-6 h-6 animate-spin text-primary" />
+                </div>
+              ) : achievements && achievements.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {achievements.map((achievement) => (
+                    <div
+                      key={achievement.id}
+                      className={`p-4 rounded-lg border ${
+                        achievement.unlocked ? "bg-primary/10 border-primary/30" : "bg-background/50 border-border"
+                      }`}
+                    >
+                      <div className="flex items-start space-x-3">
+                        <div className={`p-2 rounded-full ${achievement.unlocked ? "bg-primary/20" : "bg-muted/20"}`}>
+                          <Star className="w-5 h-5" />
                         </div>
-                        <p className="text-sm text-muted-foreground mb-3">{achievement.description}</p>
-
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between text-sm">
-                            <span>Progress</span>
-                            <span>
-                              {achievement.progress}/{achievement.maxProgress}
-                            </span>
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <h4 className="font-semibold text-foreground">{achievement.name}</h4>
+                            {achievement.unlocked && (
+                              <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Unlocked</Badge>
+                            )}
                           </div>
-                          <Progress value={(achievement.progress / achievement.maxProgress) * 100} className="h-2" />
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-muted-foreground">Reward:</span>
-                            <div className="flex items-center space-x-1">
-                              <Coins className="w-3 h-3 text-secondary" />
-                              <span className="font-semibold text-secondary">{achievement.reward}</span>
+                          <p className="text-sm text-muted-foreground mb-3">{achievement.description}</p>
+
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between text-sm">
+                              <span>Progress</span>
+                              <span>
+                                {achievement.progress}/{achievement.max_progress}
+                              </span>
+                            </div>
+                            <Progress value={(achievement.progress / achievement.max_progress) * 100} className="h-2" />
+                            <div className="flex items-center justify-between text-sm">
+                              <span className="text-muted-foreground">Reward:</span>
+                              <div className="flex items-center space-x-1">
+                                <Coins className="w-3 h-3 text-secondary" />
+                                <span className="font-semibold text-secondary">{achievement.reward_coins}</span>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">No achievements yet</div>
+              )}
             </div>
           </Card>
         </TabsContent>
@@ -378,19 +306,23 @@ export function UserDashboard() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Total Games Played</span>
-                  <span className="font-semibold">{userStats.totalWins + userStats.totalLosses}</span>
+                  <span className="font-semibold">{stats?.total_games_played || 0}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Games Won</span>
-                  <span className="font-semibold text-green-500">{userStats.totalWins}</span>
+                  <span className="font-semibold text-green-500">{stats?.total_wins || 0}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Games Lost</span>
-                  <span className="font-semibold text-red-500">{userStats.totalLosses}</span>
+                  <span className="font-semibold text-red-500">{stats?.total_losses || 0}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Total Wagered</span>
-                  <span className="font-semibold">{userStats.totalWagered.toLocaleString()} coins</span>
+                  <span className="font-semibold">{stats?.total_wagered.toLocaleString() || 0} coins</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Favorite Game</span>
+                  <span className="font-semibold">{stats?.favorite_game || "N/A"}</span>
                 </div>
               </div>
             </Card>
@@ -402,19 +334,32 @@ export function UserDashboard() {
                   <span className="text-muted-foreground">Member Since</span>
                   <div className="flex items-center space-x-1">
                     <Calendar className="w-4 h-4" />
-                    <span className="font-semibold">{new Date(userStats.joinDate).toLocaleDateString()}</span>
+                    <span className="font-semibold">
+                      {displayUser?.created_at ? new Date(displayUser.created_at).toLocaleDateString() : "N/A"}
+                    </span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Loyalty Level</span>
-                  <span className="font-semibold text-primary">Level {userStats.loyaltyLevel}</span>
+                  <span className="font-semibold text-primary">Level {displayUser?.level || 1}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Current Balance</span>
                   <div className="flex items-center space-x-1">
                     <Coins className="w-4 h-4 text-secondary" />
-                    <span className="font-semibold text-secondary">{userStats.totalCoins.toLocaleString()}</span>
+                    <span className="font-semibold text-secondary">
+                      {balance?.coins.toLocaleString() || displayUser?.balance.toLocaleString() || 0}
+                    </span>
                   </div>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground">Profit/Loss</span>
+                  <span
+                    className={`font-semibold ${(stats?.profit_loss || 0) >= 0 ? "text-green-500" : "text-red-500"}`}
+                  >
+                    {(stats?.profit_loss || 0) >= 0 ? "+" : ""}
+                    {stats?.profit_loss.toLocaleString() || 0} coins
+                  </span>
                 </div>
               </div>
             </Card>
