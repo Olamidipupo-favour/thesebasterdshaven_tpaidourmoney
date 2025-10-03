@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { 
-  Plus, 
+  MessageCircle, 
   Gift, 
   Trophy, 
   TrendingUp, 
@@ -71,7 +71,7 @@ export function FloatingActionButton() {
         {isOpen ? (
           <X className="w-6 h-6" />
         ) : (
-          <Plus className="w-6 h-6" />
+          <MessageCircle className="w-6 h-6" />
         )}
       </Button>
     </div>

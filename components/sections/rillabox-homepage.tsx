@@ -313,32 +313,37 @@ export function RillaBoxHomepage() {
         </div>
 
         {/* Featured Boxes Grid - EXACT RillaBox Style */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
           {featuredBoxes.map((box) => (
-            <Card key={box.id} className="group bg-card border-border hover:border-primary/50 transition-all duration-200 hover:shadow-md overflow-hidden group-hover:scale-105">
-              <div className="relative">
-                <img
-                  src={box.image}
-                  alt={box.name}
-                  className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-200"
-                />
-                <div className="absolute top-2 left-2">
-                  <Badge className="bg-primary text-primary-foreground text-xs px-2 py-1 group-hover:animate-pulse">
-                    {box.name}
-                  </Badge>
+            <Card key={box.id} className="group bg-card border-border hover:border-primary/50 transition-all duration-200 hover:shadow-lg overflow-hidden group-hover:scale-105 relative">
+              {/* Lightning Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent -skew-x-12 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+              
+              <div className="relative z-20">
+                <div className="relative">
+                  <img
+                    src={box.image}
+                    alt={box.name}
+                    className="w-full h-36 object-cover group-hover:scale-110 transition-transform duration-200"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <Badge className="bg-primary text-primary-foreground text-xs px-2 py-1 group-hover:animate-pulse">
+                      {box.name}
+                    </Badge>
+                  </div>
                 </div>
-              </div>
 
-              <div className="p-2">
-                <h3 className="text-xs font-bold text-foreground mb-1 truncate">{box.name}</h3>
-                <div className="flex items-center justify-between mb-2">
-                  <div className="text-sm font-bold text-primary">${box.salePrice}</div>
-                  <div className="text-xs text-muted-foreground line-through">${box.originalPrice}</div>
+                <div className="p-3">
+                  <h3 className="text-sm font-bold text-foreground mb-2 truncate">{box.name}</h3>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="text-lg font-bold text-primary">${box.salePrice}</div>
+                    <div className="text-sm text-muted-foreground line-through">${box.originalPrice}</div>
+                  </div>
+                  <Button className="w-full glow-effect text-sm py-2 h-9 group-hover:animate-pulse">
+                    <Gift className="w-4 h-4 mr-2 group-hover:animate-bounce" />
+                    Open Box
+                  </Button>
                 </div>
-                <Button className="w-full glow-effect text-xs py-1.5 h-8 group-hover:animate-pulse">
-                  <Gift className="w-3 h-3 mr-1 group-hover:animate-bounce" />
-                  Open Box
-                </Button>
               </div>
             </Card>
           ))}

@@ -224,8 +224,11 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
               {/* Live Drops Content - EXACT RillaBox Style with precise measurements */}
               <div className="flex-1 overflow-y-auto p-3 space-y-3">
                 {liveDrops.map((drop) => (
-                  <div key={drop.id} className={`bg-gradient-to-r ${drop.color} rounded-xl p-2.5 hover:scale-105 transition-transform duration-300 cursor-pointer`} style={{ height: '60px', borderRadius: '12px' }}>
-                    <div className="flex items-center space-x-3 h-full">
+                  <div key={drop.id} className={`bg-gradient-to-r ${drop.color} rounded-xl p-2.5 hover:scale-105 transition-transform duration-300 cursor-pointer relative overflow-hidden`} style={{ height: '60px', borderRadius: '12px' }}>
+                    {/* Lightning Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-pulse opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    <div className="flex items-center space-x-3 h-full relative z-10">
                       <div className="relative w-12 h-12 flex-shrink-0">
                         <img
                           src={drop.productImage}
