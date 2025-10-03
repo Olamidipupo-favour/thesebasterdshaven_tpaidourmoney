@@ -277,7 +277,7 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
 
           {/* Main Content - EXACT RillaBox Style */}
           <main className="flex-1 lg:ml-0">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               {children}
             </div>
           </main>

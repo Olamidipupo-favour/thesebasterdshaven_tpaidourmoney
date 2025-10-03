@@ -203,9 +203,9 @@ export function RillaBoxHomepage() {
   }, [])
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Hero Banner with Swiper - EXACT RillaBox Style */}
-      <section className="relative w-full mb-4">
+      <section className="relative w-full mb-6">
         <div className="relative w-full h-[300px] md:h-[400px] overflow-hidden rounded-lg shadow-md">
           {/* Banner Images */}
           <div className="relative w-full h-full">
@@ -266,7 +266,7 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* Game Modes Section - EXACT RillaBox Style */}
-      <section className="w-full mb-4">
+      <section className="w-full mb-6">
         <div className="flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 w-full max-w-4xl">
             <Link href="/" className="group block h-full">
@@ -306,14 +306,14 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* Featured Boxes Section - EXACT RillaBox Layout */}
-      <section className="mb-4">
-        <div className="text-center mb-4">
-          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-2">Featured boxes</h2>
-          <p className="text-sm text-muted-foreground">Discover & win the hottest items in our provably fair boxes</p>
+      <section className="mb-6">
+        <div className="text-center mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Featured boxes</h2>
+          <p className="text-base text-muted-foreground">Discover & win the hottest items in our provably fair boxes</p>
         </div>
 
         {/* Featured Boxes Grid - EXACT RillaBox Style */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-6">
           {featuredBoxes.map((box) => (
             <Card key={box.id} className="group bg-card border-border hover:border-primary/50 transition-all duration-200 hover:shadow-lg overflow-hidden group-hover:scale-105 relative">
               {/* Lightning Effect */}
@@ -359,7 +359,7 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* Stats Section - EXACT RillaBox Layout */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
           <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center group-hover:bg-primary/30 transition-colors duration-200">
             <Users className="w-4 h-4 text-primary group-hover:animate-bounce" />
@@ -382,7 +382,7 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* Weekly Race Section - EXACT RillaBox Layout */}
-      <section className="mb-4">
+      <section className="mb-6">
         <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 overflow-hidden relative">
           {/* Background Box Images */}
           <div className="absolute inset-0 opacity-10">
@@ -452,15 +452,15 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* How It Works Section - EXACT RillaBox Layout */}
-      <section className="mb-4">
-        <div className="text-center mb-6">
-          <h2 className="text-xl md:text-2xl font-bold text-foreground mb-3">How it works</h2>
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+      <section className="mb-6">
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">How it works</h2>
+          <p className="text-base text-muted-foreground max-w-3xl mx-auto">
             Check out how easy the unboxing process is at O Sortudo!
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {howItWorksSteps.map((step) => (
             <Card key={step.id} className="bg-card border-border overflow-hidden group hover:shadow-md transition-all duration-200 group-hover:scale-105">
               <div className="p-4 text-center">
@@ -482,14 +482,14 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* Provably Fair Section - EXACT RillaBox Layout */}
-      <section className="text-center mb-4">
-        <div className="flex items-center justify-center mb-4">
-          <Shield className="w-6 h-6 text-primary mr-2 animate-pulse" />
-          <h2 className="text-lg md:text-xl font-bold text-foreground">
+      <section className="text-center mb-6">
+        <div className="flex items-center justify-center mb-6">
+          <Shield className="w-8 h-8 text-primary mr-3 animate-pulse" />
+          <h2 className="text-xl md:text-2xl font-bold text-foreground">
             Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
           </h2>
         </div>
-        <p className="text-sm text-muted-foreground max-w-3xl mx-auto mb-4">
+        <p className="text-base text-muted-foreground max-w-4xl mx-auto mb-6">
           We uphold complete transparency and have no means of manipulating the outcome in any manner.
         </p>
         <Button className="glow-effect px-6 py-2 text-sm hover:animate-pulse">
@@ -498,8 +498,8 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* Features Section - EXACT RillaBox Layout */}
-      <section className="mb-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <section className="mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((feature) => (
             <Card key={feature.id} className="bg-card border-border overflow-hidden group hover:shadow-md transition-all duration-200 group-hover:scale-105">
               <div className="p-4 text-center">
@@ -518,7 +518,7 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* Payment Methods Section - EXACT RillaBox Layout */}
-      <section className="mb-4">
+      <section className="mb-6">
         <Card className="bg-card border-border overflow-hidden">
           <div className="p-4 md:p-6">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
