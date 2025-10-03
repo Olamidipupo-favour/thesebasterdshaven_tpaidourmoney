@@ -259,7 +259,7 @@ export function RillaBoxHomepage() {
             <img 
               src="https://rillabox.com/images/gorilla-landingpage2.png" 
               alt="O Sortudo Mystery Boxes" 
-              className="h-24 md:h-32 w-auto object-contain opacity-80"
+              className="h-24 md:h-32 w-auto object-contain opacity-80 animate-pulse"
             />
           </div>
         </div>
@@ -271,34 +271,34 @@ export function RillaBoxHomepage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 w-full max-w-4xl">
             <Link href="/" className="group block h-full">
               <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
-                <div className="w-full h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-md flex items-center justify-center mb-2">
-                  <Gift className="w-6 h-6 text-primary" />
+                <div className="w-full h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-md flex items-center justify-center mb-2 group-hover:from-primary/30 group-hover:to-secondary/30 transition-all duration-200">
+                  <Gift className="w-6 h-6 text-primary group-hover:animate-bounce" />
                 </div>
-                <span className="text-xs font-bold text-foreground">Mystery Boxes</span>
+                <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors duration-200">Mystery Boxes</span>
               </div>
             </Link>
             <Link href="/battles" className="group block h-full">
               <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
-                <div className="w-full h-20 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-md flex items-center justify-center mb-2">
-                  <Trophy className="w-6 h-6 text-secondary" />
+                <div className="w-full h-20 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-md flex items-center justify-center mb-2 group-hover:from-secondary/30 group-hover:to-primary/30 transition-all duration-200">
+                  <Trophy className="w-6 h-6 text-secondary group-hover:animate-bounce" />
                 </div>
-                <span className="text-xs font-bold text-foreground">Battles</span>
+                <span className="text-xs font-bold text-foreground group-hover:text-secondary transition-colors duration-200">Battles</span>
               </div>
             </Link>
             <Link href="/crash" className="group block h-full">
               <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
-                <div className="w-full h-20 bg-gradient-to-br from-chart-1/20 to-chart-2/20 rounded-md flex items-center justify-center mb-2">
-                  <Timer className="w-6 h-6 text-chart-1" />
+                <div className="w-full h-20 bg-gradient-to-br from-chart-1/20 to-chart-2/20 rounded-md flex items-center justify-center mb-2 group-hover:from-chart-1/30 group-hover:to-chart-2/30 transition-all duration-200">
+                  <Timer className="w-6 h-6 text-chart-1 group-hover:animate-pulse" />
                 </div>
-                <span className="text-xs font-bold text-foreground">Crash</span>
+                <span className="text-xs font-bold text-foreground group-hover:text-chart-1 transition-colors duration-200">Crash</span>
               </div>
             </Link>
             <Link href="/plinko" className="group block h-full">
               <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
-                <div className="w-full h-20 bg-gradient-to-br from-chart-3/20 to-chart-4/20 rounded-md flex items-center justify-center mb-2">
-                  <Target className="w-6 h-6 text-chart-3" />
+                <div className="w-full h-20 bg-gradient-to-br from-chart-3/20 to-chart-4/20 rounded-md flex items-center justify-center mb-2 group-hover:from-chart-3/30 group-hover:to-chart-4/30 transition-all duration-200">
+                  <Target className="w-6 h-6 text-chart-3 group-hover:animate-spin" />
                 </div>
-                <span className="text-xs font-bold text-foreground">Plinko</span>
+                <span className="text-xs font-bold text-foreground group-hover:text-chart-3 transition-colors duration-200">Plinko</span>
               </div>
             </Link>
           </div>
@@ -323,7 +323,7 @@ export function RillaBoxHomepage() {
                   className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-200"
                 />
                 <div className="absolute top-2 left-2">
-                  <Badge className="bg-primary text-primary-foreground text-xs px-2 py-1">
+                  <Badge className="bg-primary text-primary-foreground text-xs px-2 py-1 group-hover:animate-pulse">
                     {box.name}
                   </Badge>
                 </div>
@@ -335,8 +335,8 @@ export function RillaBoxHomepage() {
                   <div className="text-sm font-bold text-primary">${box.salePrice}</div>
                   <div className="text-xs text-muted-foreground line-through">${box.originalPrice}</div>
                 </div>
-                <Button className="w-full glow-effect text-xs py-1.5 h-8">
-                  <Gift className="w-3 h-3 mr-1" />
+                <Button className="w-full glow-effect text-xs py-1.5 h-8 group-hover:animate-pulse">
+                  <Gift className="w-3 h-3 mr-1 group-hover:animate-bounce" />
                   Open Box
                 </Button>
               </div>
@@ -355,22 +355,22 @@ export function RillaBoxHomepage() {
 
       {/* Stats Section - EXACT RillaBox Layout */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
-        <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3">
-          <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-            <Users className="w-4 h-4 text-primary" />
+        <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
+          <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center group-hover:bg-primary/30 transition-colors duration-200">
+            <Users className="w-4 h-4 text-primary group-hover:animate-bounce" />
           </div>
           <div>
-            <div className="text-lg font-bold text-foreground">993,881+</div>
+            <div className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-200">993,881+</div>
             <div className="text-xs text-muted-foreground">Users</div>
           </div>
         </div>
         
-        <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3">
-          <div className="w-8 h-8 bg-secondary/20 rounded-full flex items-center justify-center">
-            <Gift className="w-4 h-4 text-secondary" />
+        <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
+          <div className="w-8 h-8 bg-secondary/20 rounded-full flex items-center justify-center group-hover:bg-secondary/30 transition-colors duration-200">
+            <Gift className="w-4 h-4 text-secondary group-hover:animate-bounce" />
           </div>
           <div>
-            <div className="text-lg font-bold text-foreground">3,917,122+</div>
+            <div className="text-lg font-bold text-foreground group-hover:text-secondary transition-colors duration-200">3,917,122+</div>
             <div className="text-xs text-muted-foreground">Mystery Boxes Opened</div>
           </div>
         </div>
@@ -390,11 +390,11 @@ export function RillaBoxHomepage() {
               {/* Left Side - Race Info */}
               <div className="flex-1 text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start space-x-2 mb-3">
-                  <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center animate-pulse">
                     <img src="https://rillabox.s3.amazonaws.com/media/LeaderboardReward/trophy.png" alt="Trophy" className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-foreground">$10,000</div>
+                    <div className="text-2xl font-bold text-foreground animate-pulse">$10,000</div>
                     <div className="text-sm font-semibold text-primary">Weekly Race</div>
                   </div>
                 </div>
@@ -428,8 +428,8 @@ export function RillaBoxHomepage() {
                   </div>
                 </div>
 
-                <Button size="sm" className="glow-effect px-4 py-2 text-sm">
-                  <Trophy className="w-4 h-4 mr-1" />
+                <Button size="sm" className="glow-effect px-4 py-2 text-sm hover:animate-pulse">
+                  <Trophy className="w-4 h-4 mr-1 animate-bounce" />
                   View Race
                 </Button>
               </div>
@@ -437,8 +437,8 @@ export function RillaBoxHomepage() {
               {/* Right Side - Box Images - EXACT RillaBox Style */}
               <div className="flex-shrink-0">
                 <div className="flex space-x-2">
-                  <img src="https://rillabox.com/images/box3.png" alt="Box3" className="w-16 h-16 object-contain" />
-                  <img src="https://rillabox.com/images/box4.png" alt="Box4" className="w-16 h-16 object-contain" />
+                  <img src="https://rillabox.com/images/box3.png" alt="Box3" className="w-16 h-16 object-contain animate-bounce" />
+                  <img src="https://rillabox.com/images/box4.png" alt="Box4" className="w-16 h-16 object-contain animate-bounce" style={{ animationDelay: '0.5s' }} />
                 </div>
               </div>
             </div>
@@ -460,8 +460,8 @@ export function RillaBoxHomepage() {
             <Card key={step.id} className="bg-card border-border overflow-hidden group hover:shadow-md transition-all duration-200 group-hover:scale-105">
               <div className="p-4 text-center">
                 <div className="flex items-center justify-between mb-4">
-                  <img src={step.icon} alt={step.title} className="w-6 h-6" />
-                  <Badge className="bg-primary text-primary-foreground text-xs px-2 py-1">
+                  <img src={step.icon} alt={step.title} className="w-6 h-6 group-hover:animate-bounce" />
+                  <Badge className="bg-primary text-primary-foreground text-xs px-2 py-1 group-hover:animate-pulse">
                     STEP {step.id}
                   </Badge>
                 </div>
@@ -479,7 +479,7 @@ export function RillaBoxHomepage() {
       {/* Provably Fair Section - EXACT RillaBox Layout */}
       <section className="text-center mb-4">
         <div className="flex items-center justify-center mb-4">
-          <Shield className="w-6 h-6 text-primary mr-2" />
+          <Shield className="w-6 h-6 text-primary mr-2 animate-pulse" />
           <h2 className="text-lg md:text-xl font-bold text-foreground">
             Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
           </h2>
@@ -487,7 +487,7 @@ export function RillaBoxHomepage() {
         <p className="text-sm text-muted-foreground max-w-3xl mx-auto mb-4">
           We uphold complete transparency and have no means of manipulating the outcome in any manner.
         </p>
-        <Button className="glow-effect px-6 py-2 text-sm">
+        <Button className="glow-effect px-6 py-2 text-sm hover:animate-pulse">
           Learn more
         </Button>
       </section>
@@ -519,7 +519,7 @@ export function RillaBoxHomepage() {
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               {/* Left Side - Payment Info */}
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center animate-pulse">
                   <img src="https://rillabox.com/icons/payment-icon.svg" alt="Payment" className="w-4 h-4" />
                 </div>
                 <div>
