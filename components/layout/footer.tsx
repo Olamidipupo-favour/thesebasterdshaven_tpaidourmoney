@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Card } from "@/components/ui/card"
+import { Instagram, Facebook, MessageCircle, Twitter } from "lucide-react"
 
 export function Footer() {
   return (
@@ -11,7 +12,13 @@ export function Footer() {
           {/* Logo Section */}
           <div className="md:col-span-1">
             <div className="flex items-center space-x-2 mb-6">
-              <img src="https://rillabox.com/logo/rillabox-logo.png" alt="O SORTUDO" className="h-8 w-auto" />
+              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                <span className="text-primary-foreground font-bold text-lg">🍀</span>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-foreground">O SORTUDO</h1>
+                <p className="text-xs text-muted-foreground">Irish Gaming Platform</p>
+              </div>
             </div>
           </div>
 
@@ -79,17 +86,17 @@ export function Footer() {
               <div>
                 <h2 className="text-lg font-bold text-foreground mb-4">Follow Us</h2>
                 <div className="flex space-x-4">
-                  <a href="https://www.instagram.com/rillaboxofficial/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
-                    <img src="https://rillabox.com/icons/instagram-filled.svg" alt="Instagram" className="w-4 h-4" />
+                  <a href="https://www.instagram.com/osortudo/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
+                    <Instagram className="w-4 h-4" />
                   </a>
-                  <a href="https://www.facebook.com/people/RillaBox/100094306086732/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
-                    <img src="https://rillabox.com/icons/facebook-filled.svg" alt="Facebook" className="w-4 h-4" />
+                  <a href="https://www.facebook.com/osortudo/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
+                    <Facebook className="w-4 h-4" />
                   </a>
-                  <a href="https://t.me/+SfKiB6OCwzdmNmU0" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
-                    <img src="https://rillabox.com/icons/telegram-filled.svg" alt="Telegram" className="w-4 h-4" />
+                  <a href="https://t.me/osortudo" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
+                    <MessageCircle className="w-4 h-4" />
                   </a>
-                  <a href="https://twitter.com/RillaBox" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
-                    <img src="https://rillabox.com/icons/twitter-filled.svg" alt="Twitter" className="w-4 h-4" />
+                  <a href="https://twitter.com/osortudo" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
+                    <Twitter className="w-4 h-4" />
                   </a>
                 </div>
               </div>
@@ -98,7 +105,7 @@ export function Footer() {
               <div>
                 <h2 className="text-lg font-bold text-foreground mb-4">Contact Us</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  For any inquiries, contact us at support@rillabox.com. We're here to assist you!
+                  For any inquiries, contact us at support@osortudo.com. We're here to assist you!
                 </p>
               </div>
             </div>
