@@ -23,6 +23,8 @@ import { useAuth } from "@/hooks/use-auth"
 import { LoginDialog } from "@/components/auth/login-dialog"
 import { RegisterDialog } from "@/components/auth/register-dialog"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { FloatingActionButton } from "@/components/ui/fab"
+import { Footer } from "@/components/layout/footer"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -277,6 +279,12 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
             </div>
           </main>
         </div>
+
+        {/* Footer - EXACT RillaBox Footer */}
+        <Footer />
+
+        {/* Floating Action Button - EXACT RillaBox FAB */}
+        <FloatingActionButton />
       </div>
 
       <LoginDialog
