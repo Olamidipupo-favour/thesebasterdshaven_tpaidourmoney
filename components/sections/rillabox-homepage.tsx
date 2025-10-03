@@ -51,51 +51,7 @@ const heroBanners = [
   }
 ]
 
-// Live Drops Data - EXACT RillaBox Live Drops
-const liveDrops = [
-  {
-    id: 1,
-    productImage: "https://cdn.rillabox.com/media/products/removal.ai_3e5fb7cd-3778-4576-b156-97ab292a2bf1-image_1.png",
-    boxImage: "https://cdn.rillabox.com/media/boxes/JORDAN_EXCLUSIVE-mock_box.png",
-    title: "Jordan 6 Retro - Black Infrared (2019)",
-    price: 449.00,
-    color: "from-blue-600 to-black"
-  },
-  {
-    id: 2,
-    productImage: "https://cdn.rillabox.com/media/products/removal.ai_730bec1d-a26c-45ad-9154-0b97be3e0f30-bape-college-tee-ss22-navy_1.png",
-    boxImage: "https://cdn.rillabox.com/media/boxes/BAPE-budget-mock_box.png",
-    title: "BAPE College Tee (SS22) - Navy",
-    price: 134.00,
-    color: "from-blue-600 to-black"
-  },
-  {
-    id: 3,
-    productImage: "https://cdn.rillabox.com/media/products/removal.ai_917e6adf-ab89-49c1-9ec1-f4980e89a3c9-image_1.png",
-    boxImage: "https://cdn.rillabox.com/media/boxes/08-GOPRO-Box-mock_box.png",
-    title: "GoPro Dual Battery Charger & Enduro Batteries",
-    price: 69.49,
-    color: "from-green-500 to-black"
-  },
-  {
-    id: 4,
-    productImage: "https://cdn.rillabox.com/media/products/removal.ai_1712f721-d42e-47f6-b9e4-76ddea516b21_geg_1.png",
-    boxImage: "https://cdn.rillabox.com/media/boxes/DIOR-budget-mock_box.png",
-    title: "Book: Dior By Dior",
-    price: 18.99,
-    color: "from-green-500 to-black"
-  },
-  {
-    id: 5,
-    productImage: "https://cdn.rillabox.com/media/products/removal.ai_7602004c-e92c-415c-b0b2-0514fe07625b-image_1.png",
-    boxImage: "https://cdn.rillabox.com/media/boxes/SUPREME-X_TNF-mock_box.png",
-    title: "Supreme The North Face Arc Logo Organizer - Black",
-    price: 58.89,
-    color: "from-gray-500 to-black"
-  }
-]
-
-// Featured Boxes - EXACT RillaBox Data
+// Featured Boxes - EXACT RillaBox Data with precise styling
 const featuredBoxes = [
   {
     id: 1,
@@ -301,39 +257,43 @@ export function RillaBoxHomepage() {
       </section>
 
       {/* Game Modes Section - EXACT RillaBox Style */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
-        <Link href="/" className="group">
-          <div className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/50 transition-all duration-300">
-            <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center mb-3">
-              <Gift className="w-12 h-12 text-primary" />
-            </div>
-            <span className="text-lg font-bold text-foreground">Mystery Boxes</span>
+      <section className="w-full">
+        <div className="flex justify-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-6xl">
+            <Link href="/" className="group block h-full">
+              <div className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/50 transition-all duration-300 h-full">
+                <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center mb-3">
+                  <Gift className="w-12 h-12 text-primary" />
+                </div>
+                <span className="text-lg font-bold text-foreground">Mystery Boxes</span>
+              </div>
+            </Link>
+            <Link href="/battles" className="group block h-full">
+              <div className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/50 transition-all duration-300 h-full">
+                <div className="w-full h-32 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-lg flex items-center justify-center mb-3">
+                  <Trophy className="w-12 h-12 text-secondary" />
+                </div>
+                <span className="text-lg font-bold text-foreground">Battles</span>
+              </div>
+            </Link>
+            <Link href="/crash" className="group block h-full">
+              <div className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/50 transition-all duration-300 h-full">
+                <div className="w-full h-32 bg-gradient-to-br from-chart-1/20 to-chart-2/20 rounded-lg flex items-center justify-center mb-3">
+                  <Timer className="w-12 h-12 text-chart-1" />
+                </div>
+                <span className="text-lg font-bold text-foreground">Crash</span>
+              </div>
+            </Link>
+            <Link href="/plinko" className="group block h-full">
+              <div className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/50 transition-all duration-300 h-full">
+                <div className="w-full h-32 bg-gradient-to-br from-chart-3/20 to-chart-4/20 rounded-lg flex items-center justify-center mb-3">
+                  <Target className="w-12 h-12 text-chart-3" />
+                </div>
+                <span className="text-lg font-bold text-foreground">Plinko</span>
+              </div>
+            </Link>
           </div>
-        </Link>
-        <Link href="/battles" className="group">
-          <div className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/50 transition-all duration-300">
-            <div className="w-full h-32 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-lg flex items-center justify-center mb-3">
-              <Trophy className="w-12 h-12 text-secondary" />
-            </div>
-            <span className="text-lg font-bold text-foreground">Battles</span>
-          </div>
-        </Link>
-        <Link href="/crash" className="group">
-          <div className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/50 transition-all duration-300">
-            <div className="w-full h-32 bg-gradient-to-br from-chart-1/20 to-chart-2/20 rounded-lg flex items-center justify-center mb-3">
-              <Timer className="w-12 h-12 text-chart-1" />
-            </div>
-            <span className="text-lg font-bold text-foreground">Crash</span>
-          </div>
-        </Link>
-        <Link href="/plinko" className="group">
-          <div className="bg-card border border-border rounded-lg p-4 text-center hover:border-primary/50 transition-all duration-300">
-            <div className="w-full h-32 bg-gradient-to-br from-chart-3/20 to-chart-4/20 rounded-lg flex items-center justify-center mb-3">
-              <Target className="w-12 h-12 text-chart-3" />
-            </div>
-            <span className="text-lg font-bold text-foreground">Plinko</span>
-          </div>
-        </Link>
+        </div>
       </section>
 
       {/* Featured Boxes Section - EXACT RillaBox Layout */}

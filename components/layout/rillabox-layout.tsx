@@ -38,7 +38,7 @@ interface RillaBoxLayoutProps {
   children: React.ReactNode
 }
 
-// Live Drops Data - EXACT RillaBox Live Drops
+// Live Drops Data - EXACT RillaBox Live Drops with precise styling
 const liveDrops = [
   {
     id: 1,
@@ -214,18 +214,18 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
           } lg:translate-x-0 lg:static lg:inset-0`}>
             <div className="flex flex-col h-full">
               {/* Sidebar Header - EXACT RillaBox Style */}
-              <div className="p-4 border-b border-sidebar-border">
+              <div className="p-3 border-b border-sidebar-border">
                 <div className="flex items-center justify-between">
                   <h1 className="text-lg font-semibold text-sidebar-foreground">LIVE DROPS</h1>
                   <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
                 </div>
               </div>
 
-              {/* Live Drops Content - EXACT RillaBox Style */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-3">
+              {/* Live Drops Content - EXACT RillaBox Style with precise measurements */}
+              <div className="flex-1 overflow-y-auto p-3 space-y-3">
                 {liveDrops.map((drop) => (
-                  <div key={drop.id} className={`bg-gradient-to-r ${drop.color} rounded-lg p-3 hover:scale-105 transition-transform duration-300 cursor-pointer`}>
-                    <div className="flex items-center space-x-3">
+                  <div key={drop.id} className={`bg-gradient-to-r ${drop.color} rounded-xl p-2.5 hover:scale-105 transition-transform duration-300 cursor-pointer`} style={{ height: '60px', borderRadius: '12px' }}>
+                    <div className="flex items-center space-x-3 h-full">
                       <div className="relative w-12 h-12 flex-shrink-0">
                         <img
                           src={drop.productImage}
@@ -250,7 +250,7 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
               </div>
 
               {/* Sidebar Footer - EXACT RillaBox Style */}
-              <div className="p-4 border-t border-sidebar-border">
+              <div className="p-3 border-t border-sidebar-border">
                 <Button
                   variant="ghost"
                   size="sm"
