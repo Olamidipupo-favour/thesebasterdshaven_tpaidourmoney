@@ -1,10 +1,10 @@
-import { RillaBoxLayout } from "@/components/layout/rillabox-layout"
+import { OSortudoLayout } from "@/components/layout/rillabox-layout"
 import { UserDashboard } from "@/components/user-dashboard"
 
 export default function DashboardPage() {
   return (
-    <RillaBoxLayout>
+    <OSortudoLayout>
       <UserDashboard />
-    </RillaBoxLayout>
+    </OSortudoLayout>
   )
 }

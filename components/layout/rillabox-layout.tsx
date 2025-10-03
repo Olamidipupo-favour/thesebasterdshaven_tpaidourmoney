@@ -34,11 +34,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-interface RillaBoxLayoutProps {
+interface OSortudoLayoutProps {
   children: React.ReactNode
 }
 
-// Live Drops Data - EXACT RillaBox Live Drops with precise styling
+// Live Drops Data - EXACT O Sortudo Live Drops with precise styling
 const liveDrops = [
   {
     id: 1,
@@ -82,7 +82,7 @@ const liveDrops = [
   }
 ]
 
-export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
+export function OSortudoLayout({ children }: OSortudoLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [showLoginDialog, setShowLoginDialog] = useState(false)
   const [showRegisterDialog, setShowRegisterDialog] = useState(false)
@@ -105,16 +105,22 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
   return (
     <>
       <div className="min-h-screen bg-background">
-        {/* Top Navigation Bar - EXACT RillaBox Header */}
+        {/* Top Navigation Bar - EXACT O Sortudo Header */}
         <header className="bg-card border-b border-border sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
-              {/* Logo - EXACT RillaBox Logo */}
+              {/* Logo - EXACT O Sortudo Logo */}
               <Link href="/" className="flex items-center space-x-2">
-                <img src="https://rillabox.com/logo/rillabox-logo.png" alt="O SORTUDO" className="h-8 w-auto" />
+                <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                  <span className="text-primary-foreground font-bold text-lg">🍀</span>
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-foreground">O SORTUDO</h1>
+                  <p className="text-xs text-muted-foreground">Irish Gaming Platform</p>
+                </div>
               </Link>
 
-              {/* Desktop Navigation - EXACT RillaBox Navigation */}
+              {/* Desktop Navigation - EXACT O Sortudo Navigation */}
               <div className="hidden md:flex items-center space-x-6">
                 <Link href="/">
                   <Button variant="ghost" className="flex items-center space-x-2">
@@ -206,14 +212,14 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
           </div>
         </header>
 
-        {/* Main Layout - EXACT RillaBox Structure */}
+        {/* Main Layout - EXACT O Sortudo Structure */}
         <div className="flex">
-          {/* Left Sidebar - EXACT RillaBox Live Drops Sidebar */}
+          {/* Left Sidebar - EXACT O Sortudo Live Drops Sidebar */}
           <div className={`fixed inset-y-0 left-0 z-50 w-80 bg-sidebar border-r border-sidebar-border transform transition-transform duration-300 ease-in-out ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full'
           } lg:translate-x-0 lg:static lg:inset-0`}>
             <div className="flex flex-col h-full">
-              {/* Sidebar Header - EXACT RillaBox Style */}
+              {/* Sidebar Header - EXACT O Sortudo Style */}
               <div className="p-3 border-b border-sidebar-border">
                 <div className="flex items-center justify-between">
                   <h1 className="text-lg font-semibold text-sidebar-foreground">LIVE DROPS</h1>
@@ -221,7 +227,7 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
                 </div>
               </div>
 
-              {/* Live Drops Content - EXACT RillaBox Style with precise measurements */}
+              {/* Live Drops Content - EXACT O Sortudo Style with precise measurements */}
               <div className="flex-1 overflow-y-auto p-3 space-y-3">
                 {liveDrops.map((drop) => (
                   <div key={drop.id} className={`bg-gradient-to-r ${drop.color} rounded-xl p-2.5 hover:scale-105 transition-transform duration-300 cursor-pointer relative overflow-hidden`} style={{ height: '60px', borderRadius: '12px' }}>
@@ -252,7 +258,7 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
                 ))}
               </div>
 
-              {/* Sidebar Footer - EXACT RillaBox Style */}
+              {/* Sidebar Footer - EXACT O Sortudo Style */}
               <div className="p-3 border-t border-sidebar-border">
                 <Button
                   variant="ghost"
@@ -275,7 +281,7 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
             />
           )}
 
-          {/* Main Content - EXACT RillaBox Style */}
+          {/* Main Content - EXACT O Sortudo Style */}
           <main className="flex-1 lg:ml-0">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               {children}
@@ -283,10 +289,10 @@ export function RillaBoxLayout({ children }: RillaBoxLayoutProps) {
           </main>
         </div>
 
-        {/* Footer - EXACT RillaBox Footer */}
+        {/* Footer - EXACT O Sortudo Footer */}
         <Footer />
 
-        {/* Floating Action Button - EXACT RillaBox FAB */}
+        {/* Floating Action Button - EXACT O Sortudo FAB */}
         <FloatingActionButton />
       </div>
 

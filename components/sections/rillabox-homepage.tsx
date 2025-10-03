@@ -23,7 +23,7 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 
-// Hero Banner Data - EXACT RillaBox Banners
+// Hero Banner Data - EXACT O Sortudo Banners
 const heroBanners = [
   {
     id: 1,
@@ -51,7 +51,7 @@ const heroBanners = [
   }
 ]
 
-// Featured Boxes - EXACT RillaBox Data with precise styling
+// Featured Boxes - EXACT O Sortudo Data with precise styling
 const featuredBoxes = [
   {
     id: 1,
@@ -104,7 +104,7 @@ const featuredBoxes = [
   }
 ]
 
-// How It Works Steps - EXACT RillaBox Steps
+// How It Works Steps - EXACT O Sortudo Steps
 const howItWorksSteps = [
   {
     id: 1,
@@ -132,7 +132,7 @@ const howItWorksSteps = [
   }
 ]
 
-// Features - EXACT RillaBox Features
+// Features - EXACT O Sortudo Features
 const features = [
   {
     id: 1,
@@ -154,7 +154,7 @@ const features = [
   }
 ]
 
-// Payment Methods - EXACT RillaBox Payment Methods
+// Payment Methods - EXACT O Sortudo Payment Methods
 const paymentMethods = [
   { name: "Visa", icon: "https://rillabox.com/icons/visa-image.png" },
   { name: "Master Card", icon: "https://rillabox.com/icons/mastercard-icon.png" },
@@ -166,7 +166,7 @@ const paymentMethods = [
   { name: "Solana", icon: "https://rillabox.com/icons/solana-logo.png" }
 ]
 
-export function RillaBoxHomepage() {
+export function OSortudoHomepage() {
   const [currentBanner, setCurrentBanner] = useState(0)
   const [timeLeft, setTimeLeft] = useState({
     days: 2,
@@ -204,7 +204,7 @@ export function RillaBoxHomepage() {
 
   return (
     <div className="space-y-8">
-      {/* Hero Banner with Swiper - EXACT RillaBox Style */}
+      {/* Hero Banner with Swiper - EXACT O Sortudo Style */}
       <section className="relative w-full mb-6">
         <div className="relative w-full h-[300px] md:h-[400px] overflow-hidden rounded-lg shadow-md">
           {/* Banner Images */}
@@ -227,7 +227,7 @@ export function RillaBoxHomepage() {
             ))}
           </div>
 
-          {/* Navigation Arrows - EXACT RillaBox Style */}
+          {/* Navigation Arrows - EXACT O Sortudo Style */}
           <button
             onClick={() => setCurrentBanner((prev) => (prev - 1 + heroBanners.length) % heroBanners.length)}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md hover:scale-105 z-10"
@@ -241,7 +241,7 @@ export function RillaBoxHomepage() {
             <ChevronRight className="w-4 h-4" />
           </button>
 
-          {/* Dots Indicator - EXACT RillaBox Style */}
+          {/* Dots Indicator - EXACT O Sortudo Style */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
             {heroBanners.map((_, index) => (
               <button
@@ -254,18 +254,16 @@ export function RillaBoxHomepage() {
             ))}
           </div>
 
-          {/* Gorilla Image - EXACT RillaBox Style */}
+          {/* O Sortudo Mascot - Irish Leprechaun */}
           <div className="absolute bottom-0 right-0 pointer-events-none z-0">
-            <img 
-              src="https://rillabox.com/images/gorilla-landingpage2.png" 
-              alt="O Sortudo Mystery Boxes" 
-              className="h-24 md:h-32 w-auto object-contain opacity-80 animate-pulse"
-            />
+            <div className="text-6xl md:text-8xl animate-bounce" style={{ animationDuration: '3s' }}>
+              🍀
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Game Modes Section - EXACT RillaBox Style */}
+      {/* Game Modes Section - EXACT O Sortudo Style */}
       <section className="w-full mb-6">
         <div className="flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 w-full max-w-4xl">
@@ -305,14 +303,14 @@ export function RillaBoxHomepage() {
         </div>
       </section>
 
-      {/* Featured Boxes Section - EXACT RillaBox Layout */}
+      {/* Featured Boxes Section - EXACT O Sortudo Layout */}
       <section className="mb-6">
         <div className="text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Featured boxes</h2>
           <p className="text-base text-muted-foreground">Discover & win the hottest items in our provably fair boxes</p>
         </div>
 
-        {/* Featured Boxes Grid - EXACT RillaBox Style */}
+        {/* Featured Boxes Grid - EXACT O Sortudo Style */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-6">
           {featuredBoxes.map((box) => (
             <Card key={box.id} className="group bg-card border-border hover:border-primary/50 transition-all duration-200 hover:shadow-lg overflow-hidden group-hover:scale-105 relative">
@@ -349,7 +347,7 @@ export function RillaBoxHomepage() {
           ))}
         </div>
 
-        {/* Shop All Button - EXACT RillaBox Style */}
+        {/* Shop All Button - EXACT O Sortudo Style */}
         <div className="text-center">
           <Button variant="outline" size="sm" className="px-6 py-2 text-sm">
             <ShoppingCart className="w-4 h-4 mr-2" />
@@ -358,7 +356,7 @@ export function RillaBoxHomepage() {
         </div>
       </section>
 
-      {/* Stats Section - EXACT RillaBox Layout */}
+      {/* Stats Section - EXACT O Sortudo Layout */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
           <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center group-hover:bg-primary/30 transition-colors duration-200">
@@ -381,7 +379,7 @@ export function RillaBoxHomepage() {
         </div>
       </section>
 
-      {/* Weekly Race Section - EXACT RillaBox Layout */}
+      {/* Weekly Race Section - EXACT O Sortudo Layout */}
       <section className="mb-6">
         <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 overflow-hidden relative">
           {/* Background Box Images */}
@@ -408,7 +406,7 @@ export function RillaBoxHomepage() {
                   Participate in our Weekly Race simply by playing on O Sortudo!
                 </p>
 
-                {/* Countdown Timer - EXACT RillaBox Style */}
+                {/* Countdown Timer - EXACT O Sortudo Style */}
                 <div className="mb-4">
                   <div className="flex items-center justify-center lg:justify-start space-x-1 mb-2">
                     <img src="https://rillabox.com/images/timer.svg" alt="Timer" className="w-3 h-3" />
@@ -439,7 +437,7 @@ export function RillaBoxHomepage() {
                 </Button>
               </div>
 
-              {/* Right Side - Box Images - EXACT RillaBox Style */}
+              {/* Right Side - Box Images - EXACT O Sortudo Style */}
               <div className="flex-shrink-0">
                 <div className="flex space-x-2">
                   <img src="https://rillabox.com/images/box3.png" alt="Box3" className="w-16 h-16 object-contain animate-bounce" />
@@ -451,7 +449,7 @@ export function RillaBoxHomepage() {
         </Card>
       </section>
 
-      {/* How It Works Section - EXACT RillaBox Layout */}
+      {/* How It Works Section - EXACT O Sortudo Layout */}
       <section className="mb-6">
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">How it works</h2>
@@ -481,7 +479,7 @@ export function RillaBoxHomepage() {
         </div>
       </section>
 
-      {/* Provably Fair Section - EXACT RillaBox Layout */}
+      {/* Provably Fair Section - EXACT O Sortudo Layout */}
       <section className="text-center mb-6">
         <div className="flex items-center justify-center mb-6">
           <Shield className="w-8 h-8 text-primary mr-3 animate-pulse" />
@@ -497,7 +495,7 @@ export function RillaBoxHomepage() {
         </Button>
       </section>
 
-      {/* Features Section - EXACT RillaBox Layout */}
+      {/* Features Section - EXACT O Sortudo Layout */}
       <section className="mb-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {features.map((feature) => (
@@ -517,7 +515,7 @@ export function RillaBoxHomepage() {
         </div>
       </section>
 
-      {/* Payment Methods Section - EXACT RillaBox Layout */}
+      {/* Payment Methods Section - EXACT O Sortudo Layout */}
       <section className="mb-6">
         <Card className="bg-card border-border overflow-hidden">
           <div className="p-4 md:p-6">
