@@ -1,11 +1,10 @@
-import { Navigation } from "@/components/navigation"
+import { RillaBoxLayout } from "@/components/layout/rillabox-layout"
 import { UserDashboard } from "@/components/user-dashboard"
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
+    <RillaBoxLayout>
       <UserDashboard />
-    </div>
+    </RillaBoxLayout>
   )
 }

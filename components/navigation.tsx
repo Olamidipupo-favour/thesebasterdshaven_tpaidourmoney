@@ -40,9 +40,9 @@ export function Navigation() {
 
   return (
     <>
-      <nav className="bg-card border-b border-border sticky top-0 z-50">
+      <nav className="bg-card/95 border-b border-border sticky top-0 z-50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2">
               <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center coin-spin">
@@ -54,28 +54,26 @@ export function Navigation() {
               </div>
             </Link>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation - RillaBox Style */}
             <div className="hidden md:flex items-center space-x-6">
               <Link href="/">
                 <Button variant="ghost" className="flex items-center space-x-2">
-                  <Home className="w-4 h-4" />
-                  <span>Home</span>
+                  <Gift className="w-4 h-4" />
+                  <span>Mystery Boxes</span>
                 </Button>
               </Link>
-              <Button variant="ghost" className="flex items-center space-x-2">
-                <Gift className="w-4 h-4" />
-                <span>Games</span>
-              </Button>
               <Button variant="ghost" className="flex items-center space-x-2">
                 <Trophy className="w-4 h-4" />
-                <span>Rewards</span>
+                <span>Battles</span>
               </Button>
-              <Link href="/dashboard">
-                <Button variant="ghost" className="flex items-center space-x-2">
-                  <User className="w-4 h-4" />
-                  <span>Dashboard</span>
-                </Button>
-              </Link>
+              <Button variant="ghost" className="flex items-center space-x-2">
+                <Home className="w-4 h-4" />
+                <span>Crash</span>
+              </Button>
+              <Button variant="ghost" className="flex items-center space-x-2">
+                <Coins className="w-4 h-4" />
+                <span>Plinko</span>
+              </Button>
             </div>
 
             <div className="hidden md:flex items-center space-x-4">
@@ -148,17 +146,21 @@ export function Navigation() {
               <div className="px-2 pt-2 pb-3 space-y-1">
                 <Link href="/">
                   <Button variant="ghost" className="w-full justify-start">
-                    <Home className="w-4 h-4 mr-2" />
-                    Home
+                    <Gift className="w-4 h-4 mr-2" />
+                    Mystery Boxes
                   </Button>
                 </Link>
                 <Button variant="ghost" className="w-full justify-start">
-                  <Gift className="w-4 h-4 mr-2" />
-                  Games
+                  <Trophy className="w-4 h-4 mr-2" />
+                  Battles
                 </Button>
                 <Button variant="ghost" className="w-full justify-start">
-                  <Trophy className="w-4 h-4 mr-2" />
-                  Rewards
+                  <Home className="w-4 h-4 mr-2" />
+                  Crash
+                </Button>
+                <Button variant="ghost" className="w-full justify-start">
+                  <Coins className="w-4 h-4 mr-2" />
+                  Plinko
                 </Button>
                 <Link href="/dashboard">
                   <Button variant="ghost" className="w-full justify-start">

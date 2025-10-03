@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { TrendingUp, Zap, Clock } from "lucide-react"
@@ -48,7 +49,7 @@ export function LiveDropsSidebar() {
 
   return (
     <div className="w-80 bg-sidebar border-r border-sidebar-border h-screen overflow-y-auto">
-      <div className="p-4">
+      <div className="p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold text-sidebar-foreground flex items-center">
             <div
@@ -141,13 +142,13 @@ export function LiveDropsSidebar() {
           </Tabs>
         )}
 
-        <div className="flex items-center justify-between mt-4">
-          <button className="glow-effect" size="sm">
+        <div className="flex items-center justify-between mt-6 space-x-2">
+          <Button variant="outline" size="sm" className="flex-1">
             View All Live Drops
-          </button>
-          <button className="glow-effect" size="sm">
+          </Button>
+          <Button variant="outline" size="sm" className="flex-1">
             View All Recent Drops
-          </button>
+          </Button>
         </div>
       </div>
     </div>
