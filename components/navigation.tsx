@@ -56,7 +56,7 @@ export function Navigation() {
 
             {/* Desktop Navigation - RillaBox Style */}
             <div className="hidden md:flex items-center space-x-6">
-              <Link href="/">
+              <Link href="/boxes">
                 <Button variant="ghost" className="flex items-center space-x-2">
                   <Gift className="w-4 h-4" />
                   <span>Mystery Boxes</span>
@@ -144,7 +144,7 @@ export function Navigation() {
           {isMenuOpen && (
             <div className="md:hidden border-t border-border bg-card">
               <div className="px-2 pt-2 pb-3 space-y-1">
-                <Link href="/">
+                <Link href="/boxes">
                   <Button variant="ghost" className="w-full justify-start">
                     <Gift className="w-4 h-4 mr-2" />
                     Mystery Boxes

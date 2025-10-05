@@ -69,7 +69,7 @@ export function HeroSection() {
                     </div>
                   </div>
 
-                  <Link href="#mystery-boxes">
+                  <Link href="/mystery-box">
                     <Button className="w-full glow-effect group-hover:bg-primary/90 text-sm py-2">
                       <Gift className="w-4 h-4 mr-2" />
                       Open Mystery Box

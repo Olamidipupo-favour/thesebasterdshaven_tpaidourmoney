@@ -182,3 +182,34 @@ export function useBoxBattle(battleId: string | null) {
     isConnected,
   }
 }
+
+export function useLiveStats() {
+  const [stats, setStats] = useState<{
+    total_players_online: number
+    total_games_active: number
+    total_wagered_today: number
+    biggest_win_today: number
+  } | null>(null)
+  const { isConnected } = useSocket()
+
+  useEffect(() => {
+    if (!isConnected) return
+
+    // Listen for live stats updates
+    const handleStatsUpdate = (data: any) => {
+      console.log("[v0] Live stats updated:", data)
+      setStats(data)
+    }
+
+    socketService.on(SOCKET_EVENTS.LIVE_STATS_UPDATE, handleStatsUpdate)
+
+    return () => {
+      socketService.off(SOCKET_EVENTS.LIVE_STATS_UPDATE, handleStatsUpdate)
+    }
+  }, [isConnected])
+
+  return {
+    stats,
+    isConnected,
+  }
+}
