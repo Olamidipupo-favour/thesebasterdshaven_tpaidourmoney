@@ -92,7 +92,7 @@ export function FeaturedBoxesSection() {
                 </div>
 
                 <div className="space-y-3">
-                  <Link href="#mystery-boxes">
+                  <Link href="/boxes">
                     <Button className="w-full glow-effect group-hover:bg-primary/90 text-lg py-3">
                       <Gift className="w-5 h-5 mr-2" />
                       Open Mystery Box

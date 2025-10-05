@@ -4,8 +4,7 @@ import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { TrendingUp, Zap, Clock } from "lucide-react"
+import { TrendingUp, Zap, Clock, User } from "lucide-react"
 import { liveService } from "@/lib/api/services/live.service"
 import { useLiveDrops } from "@/hooks/use-socket"
 import type { LiveDrop } from "@/lib/api/types"
@@ -32,7 +31,7 @@ export function LiveDropsSidebar() {
     fetchInitialDrops()
   }, [])
 
-  const allDrops = [...realtimeDrops, ...initialDrops].slice(0, 10)
+  const allDrops = [...realtimeDrops, ...initialDrops].slice(0, 6)
 
   const formatTimeAgo = (timestamp: string) => {
     const now = new Date()
@@ -55,7 +54,7 @@ export function LiveDropsSidebar() {
             <div
               className={`w-2 h-2 rounded-full mr-2 ${isConnected ? "bg-primary animate-pulse" : "bg-gray-500"}`}
             ></div>
-            LIVE DROPS
+            🔥 LIVE DROPS
           </h2>
           <Badge variant="secondary" className="bg-primary/20 text-primary">
             <TrendingUp className="w-3 h-3 mr-1" />
@@ -67,79 +66,41 @@ export function LiveDropsSidebar() {
           <div className="flex items-center justify-center py-8">
             <Zap className="w-6 h-6 animate-spin text-primary" />
           </div>
+        ) : allDrops.length > 0 ? (
+          <div className="space-y-3">
+            {allDrops.map((drop, index) => (
+              <Card 
+                key={`${drop.id}-${index}`} 
+                className="bg-card border-border overflow-hidden group hover:shadow-md transition-all duration-200"
+              >
+                <div className="p-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-semibold text-foreground truncate">
+                        {drop.user.username}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        won {drop.item.name}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-sm font-bold text-primary">
+                        ${drop.item.value}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        from {drop.box.name}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
         ) : (
-          <Tabs defaultValue="live" className="space-y-3">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="live" className="rounded-none">
-                Live
-              </TabsTrigger>
-              <TabsTrigger value="recent" className="rounded-none">
-                Recent
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="live">
-              {realtimeDrops.length > 0 ? (
-                realtimeDrops.map((drop, index) => (
-                  <Card
-                    key={`${drop.id}-${index}`}
-                    className="p-3 bg-sidebar-accent border-sidebar-border hover:bg-sidebar-accent/80 transition-colors cursor-pointer animate-in fade-in slide-in-from-top-2"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src={drop.item.image || "/placeholder.svg"}
-                        alt={drop.item.name}
-                        className="w-12 h-12 rounded-lg object-cover"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-medium text-sidebar-foreground truncate">{drop.box.name}</h3>
-                        <p className="text-xs text-sidebar-foreground/60">Won by {drop.user.username}</p>
-                        <div className="flex items-center justify-between mt-1">
-                          <span className="text-sm font-bold text-primary">${drop.item.value.toFixed(2)}</span>
-                          <div className="flex items-center text-xs text-sidebar-foreground/60">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {formatTimeAgo(drop.timestamp)}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                ))
-              ) : (
-                <div className="text-center py-8 text-sidebar-foreground/60 text-sm">No live drops</div>
-              )}
-            </TabsContent>
-            <TabsContent value="recent">
-              {initialDrops.length > 0 ? (
-                initialDrops.map((drop, index) => (
-                  <Card
-                    key={`${drop.id}-${index}`}
-                    className="p-3 bg-sidebar-accent border-sidebar-border hover:bg-sidebar-accent/80 transition-colors cursor-pointer animate-in fade-in slide-in-from-top-2"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <img
-                        src={drop.item.image || "/placeholder.svg"}
-                        alt={drop.item.name}
-                        className="w-12 h-12 rounded-lg object-cover"
-                      />
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-medium text-sidebar-foreground truncate">{drop.box.name}</h3>
-                        <p className="text-xs text-sidebar-foreground/60">Won by {drop.user.username}</p>
-                        <div className="flex items-center justify-between mt-1">
-                          <span className="text-sm font-bold text-primary">${drop.item.value.toFixed(2)}</span>
-                          <div className="flex items-center text-xs text-sidebar-foreground/60">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {formatTimeAgo(drop.timestamp)}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                ))
-              ) : (
-                <div className="text-center py-8 text-sidebar-foreground/60 text-sm">No recent drops</div>
-              )}
-            </TabsContent>
-          </Tabs>
+          <div className="text-center py-8 text-sidebar-foreground/60 text-sm">No live drops</div>
         )}
 
         <div className="flex items-center justify-between mt-6 space-x-2">

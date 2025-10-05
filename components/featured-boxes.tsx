@@ -73,7 +73,7 @@ export function FeaturedBoxes() {
                   </div>
                 </div>
 
-                <Link href="#mystery-boxes">
+                <Link href="/boxes">
                   <Button className="w-full glow-effect group-hover:bg-primary/90">Open Box</Button>
                 </Link>
 

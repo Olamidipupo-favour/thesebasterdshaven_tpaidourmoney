@@ -153,3 +153,76 @@
 .glow-effect {
   animation: glow 2s ease-in-out infinite;
 }
+
+/* Neon lighting animation for boxes - 16 steps for ultra-smooth movement */
+        @keyframes borderbox {
+          0% {
+            border-top: 2px solid oklch(0.8 0.2 160);
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            border-left: 1px solid transparent;
+            box-shadow: 0 -2px 8px oklch(0.8 0.2 160);
+          }
+          12.5% {
+            border-top: 1px solid transparent;
+            border-right: 2px solid oklch(0.8 0.2 160);
+            border-bottom: 1px solid transparent;
+            border-left: 1px solid transparent;
+            box-shadow: 2px 0 8px oklch(0.8 0.2 160);
+          }
+          25% {
+            border-top: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 2px solid oklch(0.8 0.2 160);
+            border-left: 1px solid transparent;
+            box-shadow: 0 2px 8px oklch(0.8 0.2 160);
+          }
+          37.5% {
+            border-top: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            border-left: 2px solid oklch(0.8 0.2 160);
+            box-shadow: -2px 0 8px oklch(0.8 0.2 160);
+          }
+          50% {
+            border-top: 2px solid oklch(0.8 0.2 160);
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            border-left: 1px solid transparent;
+            box-shadow: 0 -2px 8px oklch(0.8 0.2 160);
+          }
+          62.5% {
+            border-top: 1px solid transparent;
+            border-right: 2px solid oklch(0.8 0.2 160);
+            border-bottom: 1px solid transparent;
+            border-left: 1px solid transparent;
+            box-shadow: 2px 0 8px oklch(0.8 0.2 160);
+          }
+          75% {
+            border-top: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 2px solid oklch(0.8 0.2 160);
+            border-left: 1px solid transparent;
+            box-shadow: 0 2px 8px oklch(0.8 0.2 160);
+          }
+          87.5% {
+            border-top: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            border-left: 2px solid oklch(0.8 0.2 160);
+            box-shadow: -2px 0 8px oklch(0.8 0.2 160);
+          }
+          100% {
+            border-top: 2px solid oklch(0.8 0.2 160);
+            border-right: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            border-left: 1px solid transparent;
+            box-shadow: 0 -2px 8px oklch(0.8 0.2 160);
+          }
+        }
+
+        .animate-borderbox {
+          animation: borderbox 16s linear infinite;
+          position: relative;
+          border: 1px solid transparent;
+        }
