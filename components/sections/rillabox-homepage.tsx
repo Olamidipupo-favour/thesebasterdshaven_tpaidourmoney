@@ -277,7 +277,7 @@ export function OSortudoHomepage() {
       <section className="w-full mb-6">
         <div className="flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 w-full max-w-4xl">
-            <Link href="/mystery-box" className="group block h-full">
+            <Link href="/boxes" className="group block h-full">
               <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
                 <div className="w-full h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-md flex items-center justify-center mb-2 group-hover:from-primary/30 group-hover:to-secondary/30 transition-all duration-200 relative overflow-hidden">
                   <Gift className="w-6 h-6 text-primary group-hover:animate-spin transition-transform duration-300" />
