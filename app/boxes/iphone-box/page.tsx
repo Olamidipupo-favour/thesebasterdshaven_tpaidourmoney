@@ -4,9 +4,10 @@ import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone } from "lucide-react"
+import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone, User } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
+import { useLiveDrops } from "@/hooks/use-socket"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/layout/footer"
 
@@ -314,6 +315,21 @@ export default function IPhoneBoxPage() {
     setBoxOpening(false)
   }
 
+  // Payment Methods - From Homepage
+  const paymentMethods = [
+    { name: "Visa", icon: "https://rillabox.com/icons/visa-image.png" },
+    { name: "Master Card", icon: "https://rillabox.com/icons/mastercard-icon.png" },
+    { name: "Skirlls", icon: "https://rillabox.com/icons/skirlls.png" },
+    { name: "Google Pay", icon: "https://rillabox.com/icons/google-pay.png" },
+    { name: "Tether", icon: "https://rillabox.com/icons/tether.png" },
+    { name: "Bitcoin", icon: "https://rillabox.com/icons/bitcoin.png" },
+    { name: "Ethereum", icon: "https://rillabox.com/icons/ethereum.png" },
+    { name: "Solana", icon: "https://rillabox.com/icons/solana-logo.png" }
+  ]
+
+  // Live drops hook
+  const { drops } = useLiveDrops()
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -339,9 +355,64 @@ export default function IPhoneBoxPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Box Section */}
-          <div className="lg:col-span-2">
+        <div className="flex flex-col xl:flex-row gap-8">
+          {/* Live Drops Sidebar */}
+          <div className="hidden xl:block w-80 flex-shrink-0 bg-sidebar border-r border-sidebar-border">
+            <div className="p-6">
+              {/* Live Drops Section - Real-time Activity */}
+              <section className="mb-6">
+                <div className="text-center mb-4">
+                  <h2 className="text-xl font-bold text-foreground mb-2">🔥 Live Drops</h2>
+                  <p className="text-sm text-muted-foreground">See what others are winning right now!</p>
+                </div>
+                
+                {drops && drops.length > 0 ? (
+                  <div className="grid grid-cols-1 gap-4">
+                    {drops.slice(0, 6).map((drop: any, index: number) => (
+                      <Card 
+                        key={`${drop.id}-${index}`} 
+                        className="bg-card border-border overflow-hidden group hover:shadow-md transition-all duration-200"
+                      >
+                        <div className="p-3">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
+                              <User className="w-4 h-4 text-primary" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-semibold text-foreground truncate">
+                                {drop.user.username}
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                won {drop.item.name}
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-sm font-bold text-primary">
+                                ${drop.item.value}
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                from {drop.box.name}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-8 text-muted-foreground text-sm">
+                    No live drops at the moment
+                  </div>
+                )}
+              </section>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <div className="flex-1">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Main Box Section */}
+              <div className="lg:col-span-2">
             <Card className="bg-card border-border overflow-hidden">
               <div className="p-6">
                 {!wonPrize && !isSpinning && !isDemoSpinning ? (
@@ -440,120 +511,135 @@ export default function IPhoneBoxPage() {
                   </div>
                 ) : (isSpinning || isDemoSpinning) ? (
                   <div className="text-center space-y-6">
-                    {/* Box Image - Same as before spinning */}
-                    <div className="relative mx-auto w-80 h-80">
-                      <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center border-2 border-primary/20 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
-                        <div className="relative z-10 text-center">
-                          <div className="w-36 h-36 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 group">
-                            <Smartphone className="w-20 h-20 text-primary group-hover:scale-105 transition-transform duration-300 animate-spin" />
-                          </div>
-                          <h2 className="text-2xl font-bold text-foreground mb-2">
-                            {isDemoSpinning ? "Demo Spinning..." : "Opening Box..."}
-                          </h2>
-                          <p className="text-muted-foreground">Revealing your prize...</p>
-                        </div>
+                    {/* Horizontal Spinner with Box in Center */}
+                    <div className="relative max-w-4xl mx-auto">
+                      {/* Arrow indicators */}
+                      <div className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10">
+                        <div className="w-0 h-0 border-t-8 border-b-8 border-r-12 border-t-transparent border-b-transparent border-r-white"></div>
                       </div>
-                      <div className="absolute -top-2 -right-2">
-                        <Badge className="bg-primary text-primary-foreground font-bold px-3 py-1">
-                          iPhone Box
-                        </Badge>
+                      <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
+                        <div className="w-0 h-0 border-t-8 border-b-8 border-l-12 border-t-transparent border-b-transparent border-l-white"></div>
                       </div>
-                      {boxOpening && (
-                        <div className="absolute inset-0 bg-primary/20 rounded-2xl animate-ping"></div>
-                      )}
-                    </div>
 
-                    {/* Spinning Items Display - Scroll Bar Animation */}
-                    {spinningItems.length > 0 && (
-                      <div className="bg-muted/50 rounded-lg p-6 max-w-2xl mx-auto">
-                        <div className="text-foreground font-bold mb-4 text-center">Spinning through items...</div>
-                        <div className="relative h-40 overflow-hidden rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10">
-                          {/* Scrollable container */}
-                          <div 
-                            className="flex space-x-6 h-full items-center transition-transform duration-75 ease-linear"
-                            style={{
-                              transform: `translateX(-${currentSpinIndex * 120}px)`,
-                              width: `${spinningItems.length * 120}px`
-                            }}
-                          >
-                            {spinningItems.map((item, index) => (
-                              <div 
-                                key={`${item.id}-${index}`}
-                                className="flex-shrink-0 w-28 h-28 rounded-xl flex items-center justify-center transition-all duration-200"
-                                style={{
-                                  backgroundColor: getRarityColor(item.rarity) + '30',
-                                  boxShadow: index === currentSpinIndex ? `0 0 20px ${getRarityColor(item.rarity)}50` : 'none',
-                                  transform: index === currentSpinIndex ? 'scale(1.1)' : 'scale(0.9)',
-                                  opacity: index === currentSpinIndex ? 1 : 0.6
-                                }}
-                              >
-                                <img 
-                                  src={item.image} 
-                                  alt={item.name}
-                                  className="w-24 h-24 object-contain"
-                                  onError={(e) => {
-                                    e.currentTarget.src = "/placeholder.svg"
+                      {/* Horizontal scrolling items */}
+                      <div className="relative h-48 overflow-hidden">
+                        <div
+                          className="flex items-center space-x-8 h-full transition-transform duration-75 ease-linear"
+                          style={{
+                            transform: `translateX(calc(50% - 200px - ${currentSpinIndex * 200}px))`,
+                            width: `${spinningItems.length * 200}px`
+                          }}
+                        >
+                          {spinningItems.map((item, index) => (
+                            <div
+                              key={`${item.id}-${index}`}
+                              className="flex-shrink-0 w-32 h-32 flex items-center justify-center transition-all duration-200"
+                              style={{
+                                transform: index === currentSpinIndex ? 'scale(1.1)' : 'scale(0.8)',
+                                opacity: index === currentSpinIndex ? 1 : 0.6
+                              }}
+                            >
+                              {index === currentSpinIndex ? (
+                                // Center box - iPhone Mystery Box (when this item is selected)
+                                <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center border-2 border-primary/30 relative">
+                                  <div className="text-center">
+                                    <div className="w-16 h-16 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-xl flex items-center justify-center mb-2">
+                                      <Smartphone className="w-8 h-8 text-primary" />
+                                    </div>
+                                    <div className="text-xs font-bold text-primary">1%</div>
+                                    <div className="text-xs text-primary">iPhone</div>
+                                  </div>
+                                </div>
+                              ) : (
+                                // Other items
+                                <div
+                                  className="w-24 h-24 rounded-xl flex items-center justify-center"
+                                  style={{
+                                    backgroundColor: getRarityColor(item.rarity) + '30',
+                                    boxShadow: index === currentSpinIndex ? `0 0 20px ${getRarityColor(item.rarity)}50` : 'none'
                                   }}
-                                />
-                              </div>
-                            ))}
-                          </div>
-                          
-                          {/* Center highlight indicator */}
-                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                            <div className="w-32 h-32 border-2 border-primary rounded-xl animate-pulse shadow-lg shadow-primary/30" />
-                          </div>
-                        </div>
-                        
-                        {/* Progress indicator */}
-                        <div className="mt-4 flex justify-center space-x-2">
-                          {Array.from({ length: Math.min(10, spinningItems.length) }).map((_, index) => (
-                            <div 
-                              key={index}
-                              className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                                index === currentSpinIndex % 10 ? 'bg-primary scale-125' : 'bg-muted-foreground/30'
-                              }`}
-                            />
+                                >
+                                  <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-20 h-20 object-contain"
+                                    onError={(e) => {
+                                      e.currentTarget.src = "/placeholder.svg"
+                                    }}
+                                  />
+                                </div>
+                              )}
+                            </div>
                           ))}
                         </div>
+
+                        {/* Center highlight box */}
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                          <div className="w-36 h-36 border-2 border-primary rounded-2xl animate-pulse shadow-lg shadow-primary/30" />
+                        </div>
                       </div>
-                    )}
+
+                      <div className="text-foreground font-bold mt-4">
+                        {isDemoSpinning ? "Demo Spinning..." : "Opening Box..."}
+                      </div>
+                    </div>
                   </div>
                 ) : wonPrize ? (
                   <div className="text-center space-y-6">
-                    {/* Won Prize Display */}
-                    <div className="relative mx-auto w-80 h-80">
-                      <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 rounded-2xl flex items-center justify-center border-2 border-primary/30 animate-bounce">
-                        <div className="text-center">
-                          <div className="w-36 h-36 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center overflow-hidden hover:scale-110 transition-transform duration-500 group">
-                            <img 
-                              src={wonPrize.image} 
-                              alt={wonPrize.name}
-                              className="w-32 h-32 object-contain group-hover:scale-105 transition-transform duration-500"
-                              onError={(e) => {
-                                e.currentTarget.src = "/placeholder.svg"
-                              }}
-                            />
+                    {/* Clickable Box - Opens to reveal prize */}
+                    {!boxOpening ? (
+                      <div className="relative mx-auto w-80 h-80">
+                        <div 
+                          className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center border-2 border-primary/20 relative overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 group"
+                          onClick={() => setBoxOpening(true)}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+                          <div className="relative z-10 text-center">
+                            <div className="w-36 h-36 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                              <Smartphone className="w-20 h-20 text-primary group-hover:scale-105 transition-transform duration-300" />
+                            </div>
+                            <h2 className="text-2xl font-bold text-foreground mb-2">Click to Open!</h2>
+                            <p className="text-muted-foreground">Your prize is inside</p>
                           </div>
-                          <h2 className="text-2xl font-bold text-foreground mb-2">Congratulations!</h2>
-                          <p className="text-primary font-bold">{wonPrize.name}</p>
+                          <div className="absolute -top-2 -right-2">
+                            <Badge className="bg-primary text-primary-foreground font-bold px-3 py-1">
+                              iPhone Box
+                            </Badge>
+                          </div>
                         </div>
                       </div>
-                      <div className="absolute -top-2 -right-2">
-                        <Badge 
-                          className={`capitalize font-bold px-3 py-1 ${
-                            wonPrize.rarity === 'legendary' ? 'bg-yellow-100 text-yellow-800' :
-                            wonPrize.rarity === 'epic' ? 'bg-purple-100 text-purple-800' :
-                            wonPrize.rarity === 'rare' ? 'bg-blue-100 text-blue-800' :
-                            wonPrize.rarity === 'common' ? 'bg-green-100 text-green-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}
-                        >
-                          {wonPrize.rarity}
-                        </Badge>
+                    ) : (
+                      /* Box Opening Animation - Shows selected item */
+                      <div className="relative mx-auto w-80 h-80 animate-bounce">
+                        <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 rounded-2xl flex items-center justify-center border-2 border-primary/30">
+                          <div className="text-center">
+                            <div className="w-36 h-36 mx-auto mb-4 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-2xl flex items-center justify-center">
+                              <img
+                                src={wonPrize.image}
+                                alt={wonPrize.name}
+                                className="w-32 h-32 object-contain"
+                                onError={(e) => {
+                                  e.currentTarget.src = "/placeholder.svg"
+                                }}
+                              />
+                            </div>
+                            <h2 className="text-2xl font-bold text-foreground mb-2">Congratulations!</h2>
+                            <p className="text-primary font-bold">{wonPrize.name}</p>
+                            <Badge 
+                              className={`capitalize font-bold px-3 py-1 mt-2 ${
+                                wonPrize.rarity === 'legendary' ? 'bg-yellow-100 text-yellow-800' :
+                                wonPrize.rarity === 'epic' ? 'bg-purple-100 text-purple-800' :
+                                wonPrize.rarity === 'rare' ? 'bg-blue-100 text-blue-800' :
+                                wonPrize.rarity === 'common' ? 'bg-green-100 text-green-800' :
+                                'bg-gray-100 text-gray-800'
+                              }`}
+                            >
+                              {wonPrize.rarity}
+                            </Badge>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     <div className="space-y-4">
                       <div className="text-3xl font-bold text-primary">${wonPrize.value.toFixed(2)}</div>
@@ -670,56 +756,75 @@ export default function IPhoneBoxPage() {
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Box Info */}
-            <Card className="bg-card border-border">
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-foreground mb-4">Box Information</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Price:</span>
-                    <span className="font-bold text-foreground">$2.79 / 70 Coins</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Items:</span>
-                    <span className="font-bold text-foreground">15 Items</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Total Value:</span>
-                    <span className="font-bold text-primary">$2,000+</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
+              {/* Sidebar */}
+              <div className="space-y-6">
+                {/* Payment Methods - From Homepage */}
+                <Card className="bg-card border-border overflow-hidden">
+                  <div className="p-4 md:p-6">
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                      {/* Left Side - Payment Info */}
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center animate-pulse">
+                          <img src="https://rillabox.com/icons/payment-icon.svg" alt="Payment" className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h2 className="text-lg font-bold text-foreground">Payment</h2>
+                          <h3 className="text-sm font-semibold text-muted-foreground">Methods</h3>
+                        </div>
+                      </div>
 
-            {/* Recent Wins */}
-            <Card className="bg-card border-border">
-              <div className="p-6">
-                <h3 className="text-lg font-bold text-foreground mb-4">Recent Wins</h3>
-                <div className="space-y-3">
-                  {[
-                    { user: "Player1", item: "iPhone 16 - Ultramarine", value: "$799.99", time: "2 min ago" },
-                    { user: "Player2", item: "iPhone 16e - White", value: "$599.99", time: "5 min ago" },
-                    { user: "Player3", item: "iPhone 12 - Black", value: "$249.99", time: "8 min ago" },
-                  ].map((win, index) => (
-                    <div key={index} className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                        <Smartphone className="w-4 h-4 text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium text-foreground">{win.user}</div>
-                        <div className="text-xs text-muted-foreground">{win.item}</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm font-bold text-primary">{win.value}</div>
-                        <div className="text-xs text-muted-foreground">{win.time}</div>
+                      {/* Right Side - Payment Cards */}
+                      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
+                        {paymentMethods.map((method, index) => (
+                          <div
+                            key={index}
+                            className="flex flex-col items-center justify-center p-2 bg-muted/20 rounded-md hover:bg-muted/40 transition-colors duration-200 group"
+                          >
+                            <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center mb-1 group-hover:scale-110 transition-transform duration-200 shadow-sm">
+                              <img src={method.icon} alt={method.name} className="w-4 h-4 object-contain" />
+                            </div>
+                            <span className="text-xs font-medium text-foreground text-center">{method.name}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
+                  </div>
+                </Card>
+
+                {/* Information Section - Like Boxes Page */}
+                <div className="space-y-4">
+                  <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-green-500/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+                    <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/30 group-hover:scale-110 transition-all duration-300">
+                      <Star className="w-8 h-8 text-green-500 group-hover:animate-pulse" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-green-500 transition-colors duration-300">100% Authentic Items</h3>
+                    <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      At RillaBox, every item you receive is verified authentic from StockX or official retailers, guaranteeing you the real deal every time.
+                    </p>
+                  </Card>
+
+                  <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+                    <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/30 group-hover:scale-110 transition-all duration-300">
+                      <Gift className="w-8 h-8 text-primary group-hover:animate-bounce" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">Exchange Unwanted Items</h3>
+                    <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      Convert all items in your inventory into instant cash on RillaBox. Unbox something that perfectly matches your style with no fees or hidden costs.
+                    </p>
+                  </Card>
+
+                  <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-chart-2/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+                    <div className="w-16 h-16 bg-chart-2/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-chart-2/30 group-hover:scale-110 transition-all duration-300">
+                      <Zap className="w-8 h-8 text-chart-2 group-hover:animate-pulse" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-chart-2 transition-colors duration-300">Worldwide Shipping</h3>
+                    <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                      Claim your prize & have it delivered to your doorstep, or withdraw the value.
+                    </p>
+                  </Card>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
 
