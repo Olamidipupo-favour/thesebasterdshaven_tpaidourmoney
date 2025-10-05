@@ -10,6 +10,22 @@ import { useAuth } from "@/hooks/use-auth"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/layout/footer"
 
+// Function to get rarity color based on application theme
+const getRarityColor = (rarity: string) => {
+  switch (rarity.toLowerCase()) {
+    case 'legendary':
+      return '#FFBE0B' // Gold
+    case 'epic':
+      return '#A800E0' // Purple
+    case 'rare':
+      return '#0078D7' // Blue
+    case 'common':
+      return '#52CA19' // Green
+    default:
+      return '#6F6868' // Gray
+  }
+}
+
 // Exact iPhone items from Rillabox HTML
 const iphoneItems = [
   {
@@ -220,6 +236,7 @@ export default function IPhoneBoxPage() {
     setSpinningItems(tripleItems)
     setCurrentSpinIndex(0)
     
+    let spinSpeed = 80
     const spinInterval = setInterval(() => {
       setCurrentSpinIndex(prev => {
         if (prev >= tripleItems.length - 1) {
@@ -231,16 +248,20 @@ export default function IPhoneBoxPage() {
           }, 500)
           return prev
         }
+        // Gradually slow down as we approach the end
+        if (prev > tripleItems.length - 10) {
+          spinSpeed = Math.min(spinSpeed + 20, 300)
+        }
         return prev + 1
       })
-    }, 100)
+    }, spinSpeed)
 
     setTimeout(() => {
       setBoxOpening(true)
       setTimeout(() => {
         setBoxOpening(false)
       }, 2000)
-    }, 1500)
+    }, 1000)
   }
 
   // Real spin function
@@ -258,6 +279,7 @@ export default function IPhoneBoxPage() {
 
     await new Promise(resolve => setTimeout(resolve, 1000))
 
+    let spinSpeed = 80
     const spinInterval = setInterval(() => {
       setCurrentSpinIndex(prev => {
         if (prev >= tripleItems.length - 1) {
@@ -269,16 +291,20 @@ export default function IPhoneBoxPage() {
           }, 500)
           return prev
         }
+        // Gradually slow down as we approach the end
+        if (prev > tripleItems.length - 10) {
+          spinSpeed = Math.min(spinSpeed + 20, 300)
+        }
         return prev + 1
       })
-    }, 100)
+    }, spinSpeed)
 
     setTimeout(() => {
       setBoxOpening(true)
       setTimeout(() => {
         setBoxOpening(false)
       }, 2000)
-    }, 1500)
+    }, 1000)
   }
 
   const resetGame = () => {
@@ -325,15 +351,15 @@ export default function IPhoneBoxPage() {
                       <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center border-2 border-primary/20 relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
                         <div className="relative z-10 text-center">
-                          <div className="w-32 h-32 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-xl flex items-center justify-center">
-                            <Smartphone className="w-16 h-16 text-primary" />
+                          <div className="w-36 h-36 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 group">
+                            <Smartphone className="w-20 h-20 text-primary group-hover:scale-105 transition-transform duration-300" />
                           </div>
                           <h2 className="text-2xl font-bold text-foreground mb-2">1% iPhone Mystery Box</h2>
                           <p className="text-muted-foreground">Open to reveal your prize!</p>
                         </div>
                       </div>
                       <div className="absolute -top-2 -right-2">
-                        <Badge className="bg-chart-2 text-black font-bold px-3 py-1">
+                        <Badge className="bg-primary text-primary-foreground font-bold px-3 py-1">
                           iPhone Box
                         </Badge>
                       </div>
@@ -352,7 +378,7 @@ export default function IPhoneBoxPage() {
                           variant={paymentMethod === "usd" ? "default" : "outline"}
                           size="lg"
                           onClick={() => setPaymentMethod("usd")}
-                          className="bg-chart-2 hover:bg-chart-2/90 text-black font-bold"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
                         >
                           $2.79 USD
                         </Button>
@@ -388,7 +414,7 @@ export default function IPhoneBoxPage() {
                         <Button
                           onClick={handleDemoSpin}
                           size="lg"
-                          className="bg-chart-5 hover:bg-chart-5/90 text-white px-6 py-3 font-bold"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 font-bold"
                         >
                           <Zap className="w-4 h-4 mr-2" />
                           Demo Spin
@@ -396,7 +422,7 @@ export default function IPhoneBoxPage() {
                         <Button
                           onClick={handleRealSpin}
                           size="lg"
-                          className="bg-gradient-to-r from-chart-2 to-chart-2/80 hover:from-chart-2/90 hover:to-chart-2/70 text-black px-6 py-3 font-bold"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 font-bold"
                           disabled={!isAuthenticated}
                         >
                           <Gift className="w-4 h-4 mr-2" />
@@ -404,7 +430,7 @@ export default function IPhoneBoxPage() {
                         </Button>
                         <Button
                           size="lg"
-                          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-bold"
+                          className="bg-destructive hover:bg-destructive/90 text-destructive-foreground px-6 py-3 font-bold"
                         >
                           <Zap className="w-4 h-4 mr-2" />
                           Fast Spin
@@ -414,32 +440,82 @@ export default function IPhoneBoxPage() {
                   </div>
                 ) : (isSpinning || isDemoSpinning) ? (
                   <div className="text-center space-y-6">
-                    {/* Spinning Animation - Exact Rillabox Style */}
+                    {/* Box Image - Same as before spinning */}
                     <div className="relative mx-auto w-80 h-80">
-                      <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center border-2 border-primary/30 animate-pulse">
-                        <div className="text-center">
-                          <Smartphone className="w-16 h-16 text-primary animate-spin mx-auto mb-4" />
+                      <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center border-2 border-primary/20 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+                        <div className="relative z-10 text-center">
+                          <div className="w-36 h-36 mx-auto mb-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl flex items-center justify-center hover:scale-110 transition-transform duration-300 group">
+                            <Smartphone className="w-20 h-20 text-primary group-hover:scale-105 transition-transform duration-300 animate-spin" />
+                          </div>
                           <h2 className="text-2xl font-bold text-foreground mb-2">
                             {isDemoSpinning ? "Demo Spinning..." : "Opening Box..."}
                           </h2>
                           <p className="text-muted-foreground">Revealing your prize...</p>
                         </div>
                       </div>
+                      <div className="absolute -top-2 -right-2">
+                        <Badge className="bg-primary text-primary-foreground font-bold px-3 py-1">
+                          iPhone Box
+                        </Badge>
+                      </div>
                       {boxOpening && (
-                        <div className="absolute inset-0 bg-chart-2/20 rounded-2xl animate-ping"></div>
+                        <div className="absolute inset-0 bg-primary/20 rounded-2xl animate-ping"></div>
                       )}
                     </div>
 
-                    {/* Spinning Items Display - Rillabox Style */}
+                    {/* Spinning Items Display - Scroll Bar Animation */}
                     {spinningItems.length > 0 && (
-                      <div className="bg-muted/50 rounded-lg p-4 max-w-md mx-auto">
-                        <div className="text-foreground font-bold mb-2">Spinning through:</div>
-                        <div className="flex items-center space-x-2 text-sm">
+                      <div className="bg-muted/50 rounded-lg p-6 max-w-2xl mx-auto">
+                        <div className="text-foreground font-bold mb-4 text-center">Spinning through items...</div>
+                        <div className="relative h-40 overflow-hidden rounded-lg bg-gradient-to-br from-primary/10 to-secondary/10">
+                          {/* Scrollable container */}
                           <div 
-                            className="w-3 h-3 rounded-full" 
-                            style={{ backgroundColor: spinningItems[currentSpinIndex]?.glowColor || '#52CA19' }}
-                          ></div>
-                          <span className="text-muted-foreground">{spinningItems[currentSpinIndex]?.name}</span>
+                            className="flex space-x-6 h-full items-center transition-transform duration-75 ease-linear"
+                            style={{
+                              transform: `translateX(-${currentSpinIndex * 120}px)`,
+                              width: `${spinningItems.length * 120}px`
+                            }}
+                          >
+                            {spinningItems.map((item, index) => (
+                              <div 
+                                key={`${item.id}-${index}`}
+                                className="flex-shrink-0 w-28 h-28 rounded-xl flex items-center justify-center transition-all duration-200"
+                                style={{
+                                  backgroundColor: getRarityColor(item.rarity) + '30',
+                                  boxShadow: index === currentSpinIndex ? `0 0 20px ${getRarityColor(item.rarity)}50` : 'none',
+                                  transform: index === currentSpinIndex ? 'scale(1.1)' : 'scale(0.9)',
+                                  opacity: index === currentSpinIndex ? 1 : 0.6
+                                }}
+                              >
+                                <img 
+                                  src={item.image} 
+                                  alt={item.name}
+                                  className="w-24 h-24 object-contain"
+                                  onError={(e) => {
+                                    e.currentTarget.src = "/placeholder.svg"
+                                  }}
+                                />
+                              </div>
+                            ))}
+                          </div>
+                          
+                          {/* Center highlight indicator */}
+                          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                            <div className="w-32 h-32 border-2 border-primary rounded-xl animate-pulse shadow-lg shadow-primary/30" />
+                          </div>
+                        </div>
+                        
+                        {/* Progress indicator */}
+                        <div className="mt-4 flex justify-center space-x-2">
+                          {Array.from({ length: Math.min(10, spinningItems.length) }).map((_, index) => (
+                            <div 
+                              key={index}
+                              className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                                index === currentSpinIndex % 10 ? 'bg-primary scale-125' : 'bg-muted-foreground/30'
+                              }`}
+                            />
+                          ))}
                         </div>
                       </div>
                     )}
@@ -448,24 +524,32 @@ export default function IPhoneBoxPage() {
                   <div className="text-center space-y-6">
                     {/* Won Prize Display */}
                     <div className="relative mx-auto w-80 h-80">
-                      <div className="w-full h-full bg-gradient-to-br from-chart-2/20 to-chart-2/40 rounded-2xl flex items-center justify-center border-2 border-chart-2/30 animate-bounce">
+                      <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 rounded-2xl flex items-center justify-center border-2 border-primary/30 animate-bounce">
                         <div className="text-center">
-                          <div className="w-32 h-32 mx-auto mb-4 bg-white/90 rounded-xl flex items-center justify-center overflow-hidden">
+                          <div className="w-36 h-36 mx-auto mb-4 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl flex items-center justify-center overflow-hidden hover:scale-110 transition-transform duration-500 group">
                             <img 
                               src={wonPrize.image} 
                               alt={wonPrize.name}
-                              className="w-full h-full object-contain"
+                              className="w-32 h-32 object-contain group-hover:scale-105 transition-transform duration-500"
                               onError={(e) => {
                                 e.currentTarget.src = "/placeholder.svg"
                               }}
                             />
                           </div>
                           <h2 className="text-2xl font-bold text-foreground mb-2">Congratulations!</h2>
-                          <p className="text-chart-2 font-bold">{wonPrize.name}</p>
+                          <p className="text-primary font-bold">{wonPrize.name}</p>
                         </div>
                       </div>
                       <div className="absolute -top-2 -right-2">
-                        <Badge className="bg-chart-2 text-black capitalize font-bold px-3 py-1">
+                        <Badge 
+                          className={`capitalize font-bold px-3 py-1 ${
+                            wonPrize.rarity === 'legendary' ? 'bg-yellow-100 text-yellow-800' :
+                            wonPrize.rarity === 'epic' ? 'bg-purple-100 text-purple-800' :
+                            wonPrize.rarity === 'rare' ? 'bg-blue-100 text-blue-800' :
+                            wonPrize.rarity === 'common' ? 'bg-green-100 text-green-800' :
+                            'bg-gray-100 text-gray-800'
+                          }`}
+                        >
                           {wonPrize.rarity}
                         </Badge>
                       </div>
@@ -503,16 +587,16 @@ export default function IPhoneBoxPage() {
                     <div 
                       className="border-t-2 border-b-2 p-4"
                       style={{ 
-                        borderTopColor: item.glowColor, 
-                        borderBottomColor: item.glowColor 
+                        borderTopColor: getRarityColor(item.rarity), 
+                        borderBottomColor: getRarityColor(item.rarity) 
                       }}
                     >
                       <div className="text-center">
-                        <div className="w-16 h-16 mx-auto mb-3 bg-white rounded-lg flex items-center justify-center overflow-hidden">
+                        <div className="w-28 h-28 mx-auto mb-3 rounded-xl flex items-center justify-center overflow-hidden hover:scale-110 transition-transform duration-300 group">
                           <img 
                             src={item.image} 
                             alt={item.name}
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                             onError={(e) => {
                               e.currentTarget.src = "/placeholder.svg"
                             }}
@@ -520,6 +604,18 @@ export default function IPhoneBoxPage() {
                         </div>
                         <h3 className="text-sm font-bold text-foreground mb-2">{item.name}</h3>
                         <div className="text-lg font-bold text-primary mb-2">${item.value}</div>
+                        <Badge 
+                          variant="secondary" 
+                          className={`text-xs mb-2 ${
+                            item.rarity === 'legendary' ? 'bg-yellow-100 text-yellow-800' :
+                            item.rarity === 'epic' ? 'bg-purple-100 text-purple-800' :
+                            item.rarity === 'rare' ? 'bg-blue-100 text-blue-800' :
+                            item.rarity === 'common' ? 'bg-green-100 text-green-800' :
+                            'bg-gray-100 text-gray-800'
+                          }`}
+                        >
+                          {item.rarity}
+                        </Badge>
                         <div className="text-xs text-muted-foreground">{item.probability}%</div>
                       </div>
                     </div>
@@ -534,34 +630,41 @@ export default function IPhoneBoxPage() {
               <p className="text-muted-foreground mb-6">Explore other boxes in a similar price range or niche</p>
               
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                {similarBoxes.map((box) => (
-                  <Card key={box.id} className="bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-200">
-                    <div 
-                      className="border-t-2 border-b-2 p-4"
-                      style={{ 
-                        borderTopColor: box.borderColor, 
-                        borderBottomColor: box.borderColor 
-                      }}
+                {similarBoxes.map((box, index) => (
+                  <Link key={box.id} href={`/boxes/${box.id}`}>
+                    <Card 
+                      className="bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/10 hover:scale-105 cursor-pointer animate-borderbox h-full"
+                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                      <div className="text-center">
-                        <div className="w-16 h-16 mx-auto mb-3 bg-white rounded-lg flex items-center justify-center overflow-hidden">
-                          <img 
-                            src={box.image} 
-                            alt={box.name}
-                            className="w-full h-full object-contain"
-                            onError={(e) => {
-                              e.currentTarget.src = "/placeholder.svg"
-                            }}
-                          />
-                        </div>
-                        <h3 className="text-sm font-bold text-foreground mb-2">{box.name}</h3>
-                        <div className="space-y-1">
-                          <div className="text-xs text-muted-foreground line-through">${box.originalPrice}</div>
-                          <div className="text-sm font-bold text-primary">${box.currentPrice}</div>
+                      <div 
+                        className="border-t-2 border-b-2 p-4 h-full flex flex-col"
+                        style={{ 
+                          borderTopColor: box.borderColor, 
+                          borderBottomColor: box.borderColor 
+                        }}
+                      >
+                        <div className="text-center flex-1 flex flex-col justify-between">
+                          <div>
+                            <div className="w-32 h-32 mx-auto mb-3 rounded-xl flex items-center justify-center overflow-hidden hover:scale-110 transition-transform duration-300 group">
+                              <img 
+                                src={box.image} 
+                                alt={box.name}
+                                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                                onError={(e) => {
+                                  e.currentTarget.src = "/placeholder.svg"
+                                }}
+                              />
+                            </div>
+                            <h3 className="text-sm font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-200 line-clamp-2">{box.name}</h3>
+                          </div>
+                          <div className="space-y-1 mt-auto">
+                            <div className="text-xs text-muted-foreground line-through group-hover:text-muted-foreground/80 transition-colors duration-200">${box.originalPrice}</div>
+                            <div className="text-sm font-bold text-primary group-hover:text-primary/80 transition-colors duration-200">${box.currentPrice}</div>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </Link>
                 ))}
               </div>
             </div>

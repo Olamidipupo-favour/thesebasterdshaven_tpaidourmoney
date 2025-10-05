@@ -4,13 +4,13 @@ import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Coins, Gift, Star, Users, Clock, TrendingUp, Zap, User } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Coins, Gift, Star, Users, Clock, TrendingUp, Zap, User, Eye, X } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/layout/footer"
 import { useLiveDrops } from "@/hooks/use-socket"
-import { Eye } from "lucide-react"
 
 // Exact boxes from Rillabox with proper pricing
 const boxes = [
@@ -112,10 +112,60 @@ const boxes = [
   }
 ]
 
+// Mock items for each box
+const boxItems = {
+  "iphone-box": [
+    { id: 1, name: "iPhone 15 Pro Max 256GB", value: 1199, rarity: "Legendary", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-15-Pro-Max-256GB.png" },
+    { id: 2, name: "iPhone 15 Pro 128GB", value: 999, rarity: "Epic", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-15-Pro-128GB.png" },
+    { id: 3, name: "iPhone 15 128GB", value: 799, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-15-128GB.png" },
+    { id: 4, name: "iPhone 14 Pro Max 128GB", value: 899, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-14-Pro-Max-128GB.png" },
+    { id: 5, name: "iPhone 14 Pro 128GB", value: 699, rarity: "Uncommon", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-14-Pro-128GB.png" },
+    { id: 6, name: "iPhone 14 128GB", value: 599, rarity: "Common", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-14-128GB.png" },
+    { id: 7, name: "iPhone 13 Pro Max 128GB", value: 799, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-13-Pro-Max-128GB.png" },
+    { id: 8, name: "iPhone 13 Pro 128GB", value: 599, rarity: "Uncommon", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-13-Pro-128GB.png" },
+    { id: 9, name: "iPhone 13 128GB", value: 499, rarity: "Common", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-13-128GB.png" },
+    { id: 10, name: "iPhone 12 Pro Max 128GB", value: 699, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-12-Pro-Max-128GB.png" },
+    { id: 11, name: "iPhone 12 Pro 128GB", value: 499, rarity: "Uncommon", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-12-Pro-128GB.png" },
+    { id: 12, name: "iPhone 12 128GB", value: 399, rarity: "Common", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-12-128GB.png" },
+    { id: 13, name: "iPhone SE 3rd Gen 128GB", value: 299, rarity: "Common", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-SE-3rd-Gen-128GB.png" },
+    { id: 14, name: "iPhone 11 128GB", value: 199, rarity: "Common", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-11-128GB.png" },
+    { id: 15, name: "iPhone XR 128GB", value: 99, rarity: "Common", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-XR-128GB.png" }
+  ],
+  "1-percent-pc": [
+    { id: 1, name: "RTX 4090 Gaming PC", value: 2500, rarity: "Legendary", image: "https://rillabox.s3.amazonaws.com/media/items/RTX-4090-PC.png" },
+    { id: 2, name: "RTX 4080 Gaming PC", value: 1800, rarity: "Epic", image: "https://rillabox.s3.amazonaws.com/media/items/RTX-4080-PC.png" },
+    { id: 3, name: "RTX 4070 Gaming PC", value: 1200, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/RTX-4070-PC.png" },
+    { id: 4, name: "RTX 4060 Gaming PC", value: 800, rarity: "Uncommon", image: "https://rillabox.s3.amazonaws.com/media/items/RTX-4060-PC.png" },
+    { id: 5, name: "RTX 3060 Gaming PC", value: 600, rarity: "Common", image: "https://rillabox.s3.amazonaws.com/media/items/RTX-3060-PC.png" }
+  ],
+  "apple-budget": [
+    { id: 1, name: "AirPods Pro 2nd Gen", value: 249, rarity: "Epic", image: "https://rillabox.s3.amazonaws.com/media/items/AirPods-Pro-2nd-Gen.png" },
+    { id: 2, name: "AirPods 3rd Gen", value: 179, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/AirPods-3rd-Gen.png" },
+    { id: 3, name: "Apple Watch Series 9", value: 399, rarity: "Epic", image: "https://rillabox.s3.amazonaws.com/media/items/Apple-Watch-Series-9.png" },
+    { id: 4, name: "Apple Watch SE", value: 249, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/Apple-Watch-SE.png" },
+    { id: 5, name: "Magic Mouse", value: 79, rarity: "Uncommon", image: "https://rillabox.s3.amazonaws.com/media/items/Magic-Mouse.png" }
+  ],
+  "apple-premium": [
+    { id: 1, name: "MacBook Pro 16-inch M3 Max", value: 3999, rarity: "Legendary", image: "https://rillabox.s3.amazonaws.com/media/items/MacBook-Pro-16-M3-Max.png" },
+    { id: 2, name: "MacBook Pro 14-inch M3 Pro", value: 2499, rarity: "Epic", image: "https://rillabox.s3.amazonaws.com/media/items/MacBook-Pro-14-M3-Pro.png" },
+    { id: 3, name: "MacBook Air 15-inch M2", value: 1299, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/MacBook-Air-15-M2.png" },
+    { id: 4, name: "iPad Pro 12.9-inch M2", value: 1099, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/iPad-Pro-12.9-M2.png" },
+    { id: 5, name: "Studio Display", value: 1599, rarity: "Epic", image: "https://rillabox.s3.amazonaws.com/media/items/Studio-Display.png" }
+  ],
+  "apple-vs-android": [
+    { id: 1, name: "iPhone 15 Pro Max", value: 1199, rarity: "Legendary", image: "https://rillabox.s3.amazonaws.com/media/items/iPhone-15-Pro-Max.png" },
+    { id: 2, name: "Samsung Galaxy S24 Ultra", value: 1199, rarity: "Legendary", image: "https://rillabox.s3.amazonaws.com/media/items/Galaxy-S24-Ultra.png" },
+    { id: 3, name: "Google Pixel 8 Pro", value: 999, rarity: "Epic", image: "https://rillabox.s3.amazonaws.com/media/items/Pixel-8-Pro.png" },
+    { id: 4, name: "OnePlus 12", value: 799, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/OnePlus-12.png" },
+    { id: 5, name: "Xiaomi 14 Pro", value: 699, rarity: "Rare", image: "https://rillabox.s3.amazonaws.com/media/items/Xiaomi-14-Pro.png" }
+  ]
+}
+
 export default function BoxesPage() {
   const { user, isAuthenticated } = useAuth()
   const { drops } = useLiveDrops()
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const [selectedBox, setSelectedBox] = useState<string | null>(null)
 
   const categories = ["all", "Electronics", "Gaming", "Fashion", "Technology"]
   const filteredBoxes = selectedCategory === "all" 
@@ -226,11 +276,54 @@ export default function BoxesPage() {
                 
                 {/* Eye Icon - Top Right */}
                 <div className="absolute top-2 right-2 z-10">
-                  <Link href={box.id === "iphone-box" ? "/boxes/iphone-box" : `/boxes/${box.id}`}>
-                    <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors cursor-pointer">
-                      <Eye className="w-4 h-4 text-white" />
-                    </div>
-                  </Link>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors cursor-pointer">
+                        <Eye className="w-4 h-4 text-white" />
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle className="text-2xl font-bold text-center">
+                          {box.name} - Items
+                        </DialogTitle>
+                      </DialogHeader>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                        {boxItems[box.id as keyof typeof boxItems]?.map((item) => (
+                          <Card key={item.id} className="p-4 hover:shadow-lg transition-shadow">
+                            <div className="flex items-center space-x-4">
+                              <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <img 
+                                  src={item.image} 
+                                  alt={item.name}
+                                  className="w-12 h-12 object-contain"
+                                  onError={(e) => {
+                                    e.currentTarget.src = '/placeholder.svg'
+                                  }}
+                                />
+                              </div>
+                              <div className="flex-1">
+                                <h3 className="font-semibold text-sm">{item.name}</h3>
+                                <p className="text-lg font-bold text-primary">${item.value}</p>
+                                <Badge 
+                                  variant="secondary" 
+                                  className={`text-xs ${
+                                    item.rarity === 'Legendary' ? 'bg-yellow-100 text-yellow-800' :
+                                    item.rarity === 'Epic' ? 'bg-purple-100 text-purple-800' :
+                                    item.rarity === 'Rare' ? 'bg-blue-100 text-blue-800' :
+                                    item.rarity === 'Uncommon' ? 'bg-green-100 text-green-800' :
+                                    'bg-gray-100 text-gray-800'
+                                  }`}
+                                >
+                                  {item.rarity}
+                                </Badge>
+                              </div>
+                            </div>
+                          </Card>
+                        ))}
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </div>
 
                 {/* Box Image Container - Exact Rillabox Style */}
