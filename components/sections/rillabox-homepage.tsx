@@ -273,126 +273,541 @@ export function OSortudoHomepage() {
         </div>
       </section>
 
-      {/* Game Modes Section - EXACT O Sortudo Style */}
-      <section className="w-full mb-6">
+      {/* Game Modes Section - BIGGER Rillabox Style */}
+      <section className="w-full mb-8">
         <div className="flex justify-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 w-full max-w-4xl">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-6xl">
+            {/* Mystery Boxes - BIGGER with enhanced box opening animation */}
             <Link href="/boxes" className="group block h-full">
-              <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
-                <div className="w-full h-20 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-md flex items-center justify-center mb-2 group-hover:from-primary/30 group-hover:to-secondary/30 transition-all duration-200 relative overflow-hidden">
-                  <Gift className="w-6 h-6 text-primary group-hover:animate-spin transition-transform duration-300" />
-                  {/* Box opening animation overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/20 to-orange-500/20 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:animate-pulse"></div>
-                  {/* Spinning items effect */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-4 h-4 bg-yellow-400 rounded-full animate-ping"></div>
+              <div className="bg-card border border-border rounded-xl p-4 text-center hover:border-primary/50 hover:shadow-2xl transition-all duration-300 h-full group-hover:scale-105 group-hover:shadow-primary/20">
+                <div className="w-full h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-lg flex items-center justify-center mb-4 group-hover:from-primary/30 group-hover:to-secondary/30 transition-all duration-300 relative overflow-hidden">
+                  {/* Main gift box icon */}
+                  <Gift className="w-12 h-12 text-primary group-hover:animate-spin transition-transform duration-500" />
+                  
+                  {/* Enhanced box opening animation overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/30 to-orange-500/30 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:animate-pulse"></div>
+                  
+                  {/* Enhanced items flying out animation */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    {/* Flying items with different sizes and colors */}
+                    <div className="w-4 h-4 bg-yellow-400 rounded-full animate-ping absolute top-3 left-3"></div>
+                    <div className="w-3 h-3 bg-orange-400 rounded-full animate-ping absolute top-6 right-4" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-3 h-3 bg-red-400 rounded-full animate-ping absolute bottom-4 left-6" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-4 h-4 bg-green-400 rounded-full animate-ping absolute bottom-3 right-3" style={{ animationDelay: '0.3s' }}></div>
+                    <div className="w-2 h-2 bg-purple-400 rounded-full animate-ping absolute top-8 left-8" style={{ animationDelay: '0.4s' }}></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full animate-ping absolute bottom-6 right-6" style={{ animationDelay: '0.5s' }}></div>
+                    <div className="w-3 h-3 bg-blue-400 rounded-full animate-ping absolute top-4 right-8" style={{ animationDelay: '0.6s' }}></div>
+                    <div className="w-3 h-3 bg-indigo-400 rounded-full animate-ping absolute bottom-8 left-4" style={{ animationDelay: '0.7s' }}></div>
+                  </div>
+                  
+                  {/* Sparkle effects */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute top-2 left-2 w-1 h-1 bg-white rounded-full animate-ping"></div>
+                    <div className="absolute top-4 right-2 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="absolute bottom-2 left-4 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
+                    <div className="absolute bottom-4 right-4 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
+                </div>
+                </div>
+                <span className="text-sm font-bold text-foreground group-hover:text-primary transition-colors duration-300">Mystery Boxes</span>
+              </div>
+            </Link>
+            
+            {/* Find the Prize - BIGGER with enhanced number selection animation */}
+            <Link href="/find-prize" className="group block h-full">
+              <div className="bg-card border border-border rounded-xl p-4 text-center hover:border-primary/50 hover:shadow-2xl transition-all duration-300 h-full group-hover:scale-105 group-hover:shadow-primary/20">
+                <div className="w-full h-32 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-lg flex items-center justify-center mb-4 group-hover:from-secondary/30 group-hover:to-primary/30 transition-all duration-300 relative overflow-hidden">
+                  <Target className="w-12 h-12 text-secondary group-hover:animate-bounce transition-transform duration-500" />
+                  
+                  {/* Enhanced number selection animation */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="grid grid-cols-4 gap-1">
+                      <div className="w-3 h-3 bg-blue-400 rounded-sm animate-pulse"></div>
+                      <div className="w-3 h-3 bg-green-400 rounded-sm animate-pulse" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-3 h-3 bg-yellow-400 rounded-sm animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-3 h-3 bg-red-400 rounded-sm animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+                      <div className="w-3 h-3 bg-purple-400 rounded-sm animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                      <div className="w-3 h-3 bg-pink-400 rounded-sm animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                      <div className="w-3 h-3 bg-indigo-400 rounded-sm animate-pulse" style={{ animationDelay: '0.6s' }}></div>
+                      <div className="w-3 h-3 bg-orange-400 rounded-sm animate-pulse" style={{ animationDelay: '0.7s' }}></div>
+                      <div className="w-3 h-3 bg-cyan-400 rounded-sm animate-pulse" style={{ animationDelay: '0.8s' }}></div>
+                </div>
+                  </div>
+                  
+                  {/* Number highlighting effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute top-4 left-4 w-2 h-2 bg-white rounded-full animate-ping"></div>
+                    <div className="absolute top-4 right-4 w-2 h-2 bg-white rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
+                    <div className="absolute bottom-4 left-4 w-2 h-2 bg-white rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
+                    <div className="absolute bottom-4 right-4 w-2 h-2 bg-white rounded-full animate-ping" style={{ animationDelay: '0.9s' }}></div>
                   </div>
                 </div>
-                <span className="text-xs font-bold text-foreground group-hover:text-primary transition-colors duration-200">Mystery Boxes</span>
+                <span className="text-sm font-bold text-foreground group-hover:text-secondary transition-colors duration-300">Find the Prize</span>
               </div>
             </Link>
-            <Link href="/battles" className="group block h-full">
-              <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
-                <div className="w-full h-20 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-md flex items-center justify-center mb-2 group-hover:from-secondary/30 group-hover:to-primary/30 transition-all duration-200">
-                  <Trophy className="w-6 h-6 text-secondary group-hover:animate-bounce" />
+            
+            {/* Climb to the Top - BIGGER with enhanced tower building animation */}
+            <Link href="/climb-top" className="group block h-full">
+              <div className="bg-card border border-border rounded-xl p-4 text-center hover:border-primary/50 hover:shadow-2xl transition-all duration-300 h-full group-hover:scale-105 group-hover:shadow-primary/20">
+                <div className="w-full h-32 bg-gradient-to-br from-chart-1/20 to-chart-2/20 rounded-lg flex items-center justify-center mb-4 group-hover:from-chart-1/30 group-hover:to-chart-2/30 transition-all duration-300 relative overflow-hidden">
+                  <Timer className="w-12 h-12 text-chart-1 group-hover:animate-pulse transition-transform duration-500" />
+                  
+                  {/* Enhanced tower building animation */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="flex flex-col items-center space-y-1">
+                      <div className="w-4 h-2 bg-yellow-400 rounded-sm animate-bounce"></div>
+                      <div className="w-5 h-2 bg-orange-400 rounded-sm animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                      <div className="w-6 h-2 bg-red-400 rounded-sm animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-7 h-2 bg-purple-400 rounded-sm animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+                      <div className="w-8 h-2 bg-pink-400 rounded-sm animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                      <div className="w-9 h-2 bg-indigo-400 rounded-sm animate-bounce" style={{ animationDelay: '0.5s' }}></div>
                 </div>
-                <span className="text-xs font-bold text-foreground group-hover:text-secondary transition-colors duration-200">Battles</span>
+                  </div>
+                  
+                  {/* Tower completion sparkles */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute top-2 left-2 w-1 h-1 bg-white rounded-full animate-ping"></div>
+                    <div className="absolute top-2 right-2 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="absolute top-4 left-4 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
+                    <div className="absolute top-4 right-4 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
+                  </div>
+                </div>
+                <span className="text-sm font-bold text-foreground group-hover:text-chart-1 transition-colors duration-300">Climb to the Top</span>
               </div>
             </Link>
-            <Link href="/crash" className="group block h-full">
-              <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
-                <div className="w-full h-20 bg-gradient-to-br from-chart-1/20 to-chart-2/20 rounded-md flex items-center justify-center mb-2 group-hover:from-chart-1/30 group-hover:to-chart-2/30 transition-all duration-200">
-                  <Timer className="w-6 h-6 text-chart-1 group-hover:animate-pulse" />
+            
+            {/* Chicken Road - BIGGER with enhanced road/car animation */}
+            <Link href="/chicken-road" className="group block h-full">
+              <div className="bg-card border border-border rounded-xl p-4 text-center hover:border-primary/50 hover:shadow-2xl transition-all duration-300 h-full group-hover:scale-105 group-hover:shadow-primary/20">
+                <div className="w-full h-32 bg-gradient-to-br from-chart-3/20 to-chart-4/20 rounded-lg flex items-center justify-center mb-4 group-hover:from-chart-3/30 group-hover:to-chart-4/30 transition-all duration-300 relative overflow-hidden">
+                  <Target className="w-12 h-12 text-chart-3 group-hover:animate-spin transition-transform duration-500" />
+                  
+                  {/* Enhanced road/car animation */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="w-full h-full flex items-end justify-center">
+                      <div className="w-12 h-4 bg-gray-400 rounded-sm relative">
+                        {/* Road lines */}
+                        <div className="absolute top-1 left-2 w-1 h-1 bg-yellow-400 rounded-full animate-ping"></div>
+                        <div className="absolute top-1 left-6 w-1 h-1 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="absolute top-1 right-2 w-1 h-1 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
+                        
+                        {/* Car lights */}
+                        <div className="absolute -top-2 left-2 w-2 h-2 bg-yellow-400 rounded-full animate-ping"></div>
+                        <div className="absolute -top-2 right-2 w-2 h-2 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.1s' }}></div>
+                        
+                        {/* Moving car effect */}
+                        <div className="absolute -top-1 left-1 w-3 h-2 bg-red-400 rounded-sm animate-pulse"></div>
+                        <div className="absolute -top-1 right-1 w-3 h-2 bg-blue-400 rounded-sm animate-pulse" style={{ animationDelay: '0.3s' }}></div>
                 </div>
-                <span className="text-xs font-bold text-foreground group-hover:text-chart-1 transition-colors duration-200">Crash</span>
-              </div>
-            </Link>
-            <Link href="/plinko" className="group block h-full">
-              <div className="bg-card border border-border rounded-lg p-2 text-center hover:border-primary/50 hover:shadow-md transition-all duration-200 h-full group-hover:scale-105">
-                <div className="w-full h-20 bg-gradient-to-br from-chart-3/20 to-chart-4/20 rounded-md flex items-center justify-center mb-2 group-hover:from-chart-3/30 group-hover:to-chart-4/30 transition-all duration-200">
-                  <Target className="w-6 h-6 text-chart-3 group-hover:animate-spin" />
+                    </div>
+                  </div>
+                  
+                  {/* Road dust effects */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute bottom-2 left-4 w-1 h-1 bg-gray-300 rounded-full animate-ping"></div>
+                    <div className="absolute bottom-2 right-4 w-1 h-1 bg-gray-300 rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="absolute bottom-4 left-6 w-1 h-1 bg-gray-300 rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
+                    <div className="absolute bottom-4 right-6 w-1 h-1 bg-gray-300 rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
+                  </div>
                 </div>
-                <span className="text-xs font-bold text-foreground group-hover:text-chart-3 transition-colors duration-200">Plinko</span>
+                <span className="text-sm font-bold text-foreground group-hover:text-chart-3 transition-colors duration-300">Chicken Road</span>
               </div>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Featured Boxes Section - EXACT O Sortudo Layout */}
-      <section className="mb-6">
-        <div className="text-center mb-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Featured boxes</h2>
-          <p className="text-base text-muted-foreground">Discover & win the hottest items in our provably fair boxes</p>
+      {/* Featured Boxes Section - EXACT Rillabox Layout */}
+      <section className="mb-8">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Featured boxes</h2>
+          <p className="text-lg text-muted-foreground">Discover & win the hottest items in our provably fair boxes</p>
         </div>
 
-        {/* Featured Boxes Grid - EXACT O Sortudo Style */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-6">
-          {boxesLoading ? (
-            // Loading skeleton
-            Array.from({ length: 4 }).map((_, index) => (
-              <Card key={index} className="bg-card border-border overflow-hidden">
-                <div className="animate-pulse">
-                  <div className="w-full h-36 bg-muted"></div>
-                  <div className="p-3">
-                    <div className="h-4 bg-muted rounded mb-2"></div>
-                    <div className="h-6 bg-muted rounded mb-3"></div>
-                    <div className="h-9 bg-muted rounded"></div>
+        {/* Featured Boxes Grid - EXACT Rillabox Style */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+          {/* Balance Booster Box */}
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+            {/* Continuous Green Light Animation Around Edge */}
+            <div className="absolute inset-0 overflow-hidden z-10">
+              {/* Top edge light */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
+              {/* Right edge light */}
+              <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              {/* Bottom edge light */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
+              {/* Left edge light */}
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              
+              {/* Corner lights */}
+              <div className="absolute top-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+              <div className="absolute top-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.25s' }}></div>
+              <div className="absolute bottom-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
+            </div>
+            
+            <div className="relative z-20">
+              <div className="relative">
+                <img
+                  src="https://cdn.rillabox.com/media/boxes/BOOST-Box-mock_box_0mrPs54.png"
+                  alt="Balance Booster"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-primary text-primary-foreground text-sm px-3 py-1 group-hover:animate-pulse">
+                    Balance Booster
+                  </Badge>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-green-500 text-white text-sm px-3 py-1 animate-pulse">
+                    🔥 Hot
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-foreground mb-3">Balance Booster</h3>
+                <p className="text-sm text-muted-foreground mb-4">Boost your balance with guaranteed rewards</p>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-2xl font-bold text-primary">$2.59</div>
+                  <div className="text-sm text-muted-foreground line-through">$4.29</div>
+                </div>
+                <Button className="w-full glow-effect text-sm py-3 h-12 group-hover:animate-pulse">
+                  <Gift className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                  Open Box
+                </Button>
                   </div>
                 </div>
               </Card>
-            ))
-          ) : (
-            (boxes || []).slice(0, 7).map((box) => (
-              <Card key={box.id} className="group bg-card border-border hover:border-primary/50 transition-all duration-200 hover:shadow-lg overflow-hidden group-hover:scale-105 relative">
-                {/* Lightning Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent -skew-x-12 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
+
+          {/* Dubai Bling Box */}
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+            {/* Continuous Green Light Animation Around Edge */}
+            <div className="absolute inset-0 overflow-hidden z-10">
+              {/* Top edge light */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
+              {/* Right edge light */}
+              <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              {/* Bottom edge light */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
+              {/* Left edge light */}
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              
+              {/* Corner lights */}
+              <div className="absolute top-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+              <div className="absolute top-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.25s' }}></div>
+              <div className="absolute bottom-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
+            </div>
                 
                 <div className="relative z-20">
                   <div className="relative">
                     <img
-                      src={box.image}
-                      alt={box.name}
-                      className="w-full h-36 object-cover group-hover:scale-110 transition-transform duration-200"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <Badge className="bg-primary text-primary-foreground text-xs px-2 py-1 group-hover:animate-pulse">
-                        {box.name}
+                  src="https://cdn.rillabox.com/media/boxes/14_DUBAI_BLING-Box-mock_box_1_9pAZR1t.png"
+                  alt="Dubai Bling"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-primary text-primary-foreground text-sm px-3 py-1 group-hover:animate-pulse">
+                    Dubai Bling
                       </Badge>
                     </div>
-                    {box.trending && (
-                      <div className="absolute top-3 right-3">
-                        <Badge className="bg-red-500 text-white text-xs px-2 py-1 animate-pulse">
-                          🔥 Trending
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-yellow-500 text-white text-sm px-3 py-1 animate-pulse">
+                    💎 Luxury
                         </Badge>
                       </div>
-                    )}
                   </div>
 
-                  <div className="p-3">
-                    <h3 className="text-sm font-bold text-foreground mb-2 truncate">{box.name}</h3>
-                    <p className="text-xs text-muted-foreground mb-2 line-clamp-2">{box.description}</p>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="text-lg font-bold text-primary">${box.price}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {box.total_value && `Value: $${box.total_value}`}
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-foreground mb-3">Dubai Bling</h3>
+                <p className="text-sm text-muted-foreground mb-4">Luxury items from the city of gold</p>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-2xl font-bold text-primary">$609.99</div>
+                  <div className="text-sm text-muted-foreground line-through">$724.49</div>
+                      </div>
+                <Button className="w-full glow-effect text-sm py-3 h-12 group-hover:animate-pulse">
+                  <Gift className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                  Open Box
+                </Button>
+                    </div>
+            </div>
+          </Card>
+
+          {/* FENDI Box */}
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative ring-2 ring-primary/20">
+            {/* Continuous Green Light Animation Around Edge */}
+            <div className="absolute inset-0 overflow-hidden z-10">
+              {/* Top edge light */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
+              {/* Right edge light */}
+              <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              {/* Bottom edge light */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
+              {/* Left edge light */}
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              
+              {/* Corner lights */}
+              <div className="absolute top-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+              <div className="absolute top-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.25s' }}></div>
+              <div className="absolute bottom-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
+            </div>
+            
+            <div className="relative z-20">
+              <div className="relative">
+                <img
+                  src="https://cdn.rillabox.com/media/boxes/10-FENDI-Box-mock_box_1_fzB4ZYD.png"
+                  alt="FENDI"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-primary text-primary-foreground text-sm px-3 py-1 group-hover:animate-pulse">
+                    FENDI
+                  </Badge>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-purple-500 text-white text-sm px-3 py-1 animate-pulse">
+                    ⭐ Featured
+                  </Badge>
                       </div>
                     </div>
-                    <Button className="w-full glow-effect text-sm py-2 h-9 group-hover:animate-pulse">
-                      <Gift className="w-4 h-4 mr-2 group-hover:animate-bounce" />
+
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-foreground mb-3">FENDI</h3>
+                <p className="text-sm text-muted-foreground mb-4">Italian luxury fashion and accessories</p>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-2xl font-bold text-primary">$184.99</div>
+                  <div className="text-sm text-muted-foreground line-through">$219.99</div>
+                </div>
+                <Button className="w-full glow-effect text-sm py-3 h-12 group-hover:animate-pulse">
+                  <Gift className="w-5 h-5 mr-2 group-hover:animate-bounce" />
                       Open Box
                     </Button>
                   </div>
                 </div>
               </Card>
-            ))
-          )}
+
+          {/* Fresh Kicks Box */}
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+            {/* Continuous Green Light Animation Around Edge */}
+            <div className="absolute inset-0 overflow-hidden z-10">
+              {/* Top edge light */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
+              {/* Right edge light */}
+              <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              {/* Bottom edge light */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
+              {/* Left edge light */}
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              
+              {/* Corner lights */}
+              <div className="absolute top-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+              <div className="absolute top-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.25s' }}></div>
+              <div className="absolute bottom-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
         </div>
 
-        {/* Shop All Button - EXACT O Sortudo Style */}
+            <div className="relative z-20">
+              <div className="relative">
+                <img
+                  src="https://cdn.rillabox.com/media/boxes/15_FRESH_KICKS-Box-mock_box_xq1VUNu.png"
+                  alt="Fresh Kicks"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-primary text-primary-foreground text-sm px-3 py-1 group-hover:animate-pulse">
+                    Fresh Kicks
+                  </Badge>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-pink-500 text-white text-sm px-3 py-1 animate-pulse">
+                    👟 Sneakers
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-foreground mb-3">Fresh Kicks</h3>
+                <p className="text-sm text-muted-foreground mb-4">Latest sneaker drops and streetwear</p>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-2xl font-bold text-primary">$24.49</div>
+                  <div className="text-sm text-muted-foreground line-through">$28.99</div>
+                </div>
+                <Button className="w-full glow-effect text-sm py-3 h-12 group-hover:animate-pulse">
+                  <Gift className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                  Open Box
+                </Button>
+              </div>
+            </div>
+          </Card>
+
+          {/* Gamers Paradise Box */}
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+            {/* Continuous Green Light Animation Around Edge */}
+            <div className="absolute inset-0 overflow-hidden z-10">
+              {/* Top edge light */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
+              {/* Right edge light */}
+              <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              {/* Bottom edge light */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
+              {/* Left edge light */}
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              
+              {/* Corner lights */}
+              <div className="absolute top-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+              <div className="absolute top-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.25s' }}></div>
+              <div className="absolute bottom-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
+            </div>
+            
+            <div className="relative z-20">
+              <div className="relative">
+                <img
+                  src="https://cdn.rillabox.com/media/boxes/13_GAMERS_PARADISE-Box-mock_box_DU69psF.png"
+                  alt="Gamers Paradise"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-primary text-primary-foreground text-sm px-3 py-1 group-hover:animate-pulse">
+                    Gamers Paradise
+                  </Badge>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-blue-500 text-white text-sm px-3 py-1 animate-pulse">
+                    🎮 Gaming
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-foreground mb-3">Gamers Paradise</h3>
+                <p className="text-sm text-muted-foreground mb-4">Gaming gear and tech accessories</p>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-2xl font-bold text-primary">$25.99</div>
+                  <div className="text-sm text-muted-foreground line-through">$29.49</div>
+                </div>
+                <Button className="w-full glow-effect text-sm py-3 h-12 group-hover:animate-pulse">
+                  <Gift className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                  Open Box
+                </Button>
+              </div>
+            </div>
+          </Card>
+
+          {/* Risky Rolex Box */}
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+            {/* Continuous Green Light Animation Around Edge */}
+            <div className="absolute inset-0 overflow-hidden z-10">
+              {/* Top edge light */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
+              {/* Right edge light */}
+              <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              {/* Bottom edge light */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
+              {/* Left edge light */}
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              
+              {/* Corner lights */}
+              <div className="absolute top-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+              <div className="absolute top-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.25s' }}></div>
+              <div className="absolute bottom-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
+            </div>
+            
+            <div className="relative z-20">
+              <div className="relative">
+                <img
+                  src="https://cdn.rillabox.com/media/boxes/Risky-Rolex_mFTekxw.png"
+                  alt="Risky Rolex"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-primary text-primary-foreground text-sm px-3 py-1 group-hover:animate-pulse">
+                    Risky Rolex
+                  </Badge>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-red-500 text-white text-sm px-3 py-1 animate-pulse">
+                    ⚠️ Risky
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-foreground mb-3">Risky Rolex</h3>
+                <p className="text-sm text-muted-foreground mb-4">High-risk, high-reward luxury watches</p>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-2xl font-bold text-primary">$8.39</div>
+                  <div className="text-sm text-muted-foreground line-through">$10.49</div>
+                </div>
+                <Button className="w-full glow-effect text-sm py-3 h-12 group-hover:animate-pulse">
+                  <Gift className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                  Open Box
+                </Button>
+              </div>
+            </div>
+          </Card>
+
+          {/* Travel Box */}
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+            {/* Continuous Green Light Animation Around Edge */}
+            <div className="absolute inset-0 overflow-hidden z-10">
+              {/* Top edge light */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse"></div>
+              {/* Right edge light */}
+              <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              {/* Bottom edge light */}
+              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
+              {/* Left edge light */}
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-transparent via-green-400 to-transparent animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              
+              {/* Corner lights */}
+              <div className="absolute top-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+              <div className="absolute top-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.25s' }}></div>
+              <div className="absolute bottom-0 left-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
+            </div>
+            
+            <div className="relative z-20">
+              <div className="relative">
+                <img
+                  src="https://cdn.rillabox.com/media/boxes/02_TRAVEL_-Box-mock_box_1_uk1ofGC.png"
+                  alt="Travel"
+                  className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                />
+                <div className="absolute top-4 left-4">
+                  <Badge className="bg-primary text-primary-foreground text-sm px-3 py-1 group-hover:animate-pulse">
+                    Travel
+                  </Badge>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-cyan-500 text-white text-sm px-3 py-1 animate-pulse">
+                    ✈️ Travel
+                  </Badge>
+                </div>
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-foreground mb-3">Travel</h3>
+                <p className="text-sm text-muted-foreground mb-4">Travel essentials and accessories</p>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-2xl font-bold text-primary">$9.49</div>
+                  <div className="text-sm text-muted-foreground line-through">$11.29</div>
+                </div>
+                <Button className="w-full glow-effect text-sm py-3 h-12 group-hover:animate-pulse">
+                  <Gift className="w-5 h-5 mr-2 group-hover:animate-bounce" />
+                  Open Box
+                </Button>
+              </div>
+            </div>
+          </Card>
+        </div>
+
+        {/* Shop All Button - EXACT Rillabox Style */}
         <div className="text-center">
-          <Button variant="outline" size="sm" className="px-6 py-2 text-sm">
-            <ShoppingCart className="w-4 h-4 mr-2" />
+          <Button variant="outline" size="lg" className="px-8 py-3 text-base">
+            <ShoppingCart className="w-5 h-5 mr-2" />
             Shop All
           </Button>
         </div>
