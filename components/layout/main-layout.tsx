@@ -15,7 +15,7 @@ export function MainLayout({ children, showSidebar = true }: MainLayoutProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      {/* Navigation is rendered globally via RootLayout */}
       
       {/* Main Content Area - RillaBox Exact Layout */}
       <div className="flex">
@@ -26,16 +26,17 @@ export function MainLayout({ children, showSidebar = true }: MainLayoutProps) {
           </div>
         )}
         
-        {/* Main Content - Full width on mobile, with sidebar on desktop */}
-        <main className="flex-1 min-h-screen">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            {children}
-          </div>
-        </main>
+        {/* Right Column: Main Content + Footer (footer aligned to the right of sidebar) */}
+        <div className="flex-1 min-h-screen flex flex-col">
+          <main className="flex-1">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+              {children}
+            </div>
+          </main>
+          {/* Footer appears only under the main content column */}
+          <Footer />
+        </div>
       </div>
-
-      {/* Footer */}
-      <Footer />
 
       {/* Mobile Sidebar Overlay */}
       {showSidebar && sidebarOpen && (
