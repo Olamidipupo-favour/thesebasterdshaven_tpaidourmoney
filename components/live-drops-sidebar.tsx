@@ -75,6 +75,17 @@ export function LiveDropsSidebar() {
       ]
     : allDrops
 
+  // Gradient palettes (7 colors so the first item color changes each rotation)
+  const gradientPalettes = [
+    "from-red-600/40 via-red-500/20",
+    "from-blue-600/40 via-blue-500/20",
+    "from-purple-600/40 via-purple-500/20",
+    "from-pink-600/40 via-pink-500/20",
+    "from-amber-500/40 via-amber-400/20",
+    "from-cyan-500/40 via-cyan-400/20",
+    "from-teal-500/40 via-teal-400/20",
+  ]
+
   return (
     <div className="w-80 bg-sidebar border-r border-sidebar-border h-screen overflow-y-auto">
       <div className="p-6">
@@ -89,40 +100,37 @@ export function LiveDropsSidebar() {
           </div>
         ) : displayedDrops.length > 0 ? (
           <div className="space-y-3">
-            {displayedDrops.map((drop, index) => (
-              <Card
-                key={`${drop.id}-${index}`}
-                className="relative overflow-hidden rounded-xl bg-[#0e1713] border-none group"
-              >
-                {/* Animated gradient strip to match old design */}
-                <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/40 via-emerald-500/20 to-transparent animate-pulse" />
-                <div className="relative p-3">
-                  <div className="flex items-center gap-3">
-                    {/* Product image */}
-                    <div className="w-10 h-10 rounded-md bg-black/30 border border-white/5 overflow-hidden flex items-center justify-center">
-                      {drop.item.image ? (
-                        <img src={drop.item.image} alt={drop.item.name} className="w-full h-full object-cover" />
-                      ) : (
-                        <User className="w-5 h-5 text-primary" />
-                      )}
-                    </div>
-
-                    {/* Title */}
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-semibold text-white truncate">
-                        {drop.item.name}
+            {displayedDrops.map((drop, index) => {
+              const palette = gradientPalettes[(rotationIndex + index) % gradientPalettes.length]
+              return (
+                <Card
+                  key={`${drop.id}-${index}`}
+                  className="relative overflow-hidden rounded-xl bg-[#0e1713] border-none group"
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-r ${palette} to-transparent animate-pulse`} />
+                  <div className="relative p-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-md bg-black/30 border border-white/5 overflow-hidden flex items-center justify-center">
+                        {drop.item.image ? (
+                          <img src={drop.item.image} alt={drop.item.name} className="w-full h-full object-cover" />
+                        ) : (
+                          <User className="w-5 h-5 text-primary" />
+                        )}
                       </div>
-                      <div className="text-[11px] text-white/70 truncate">{drop.user.username}</div>
-                    </div>
-
-                    {/* Price */}
-                    <div className="text-right">
-                      <div className="text-base font-bold text-white">${drop.item.value}</div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-semibold text-white truncate">
+                          {drop.item.name}
+                        </div>
+                        <div className="text-[11px] text-white/70 truncate">{drop.user.username}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-base font-bold text-white">${drop.item.value}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              )
+            })}
           </div>
         ) : (
           <div className="text-center py-8 text-sidebar-foreground/60 text-sm">No live drops</div>
