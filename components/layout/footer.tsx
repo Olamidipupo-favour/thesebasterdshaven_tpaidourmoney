@@ -1,127 +1,91 @@
 "use client"
 
 import Link from "next/link"
-import { Card } from "@/components/ui/card"
 import { Instagram, Facebook, MessageCircle, Twitter } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="bg-card border-t border-border mt-16">
+    <footer className="mt-16 rounded-t-2xl bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14] border-t border-[#1f6b4a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-          {/* Logo Section */}
+          {/* Brand & Description */}
           <div className="md:col-span-1">
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">🍀</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">O SORTUDO</h1>
-                <p className="text-xs text-muted-foreground">Irish Gaming Platform</p>
-              </div>
+            <div className="flex items-center space-x-3 mb-4">
+              <img src="/logo/OSORTUDO LOGO 1.png" alt="O Sortudo" className="w-32 h-auto" />
             </div>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+              The ultimate gaming platform for skill-based games and real prizes
+            </p>
           </div>
 
-          {/* Legal Section */}
+          {/* Legal */}
           <div className="md:col-span-1">
-            <h2 className="text-lg font-bold text-foreground mb-4">Legal</h2>
+            <h2 className="text-lg font-bold text-foreground mb-4">LEGAL</h2>
             <div className="space-y-2">
-              <Link href="/privacy" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Terms of Service
-              </Link>
-              <Link href="/shipping" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Shipping & Return Policy
-              </Link>
-              <Link href="/aml" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                AML Policy
-              </Link>
+              <Link href="/privacy" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
+              <Link href="/shipping" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Shipping & Return Policy</Link>
+              <Link href="/aml" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">AML Policy</Link>
             </div>
           </div>
 
-          {/* Games Section */}
+          {/* Games */}
           <div className="md:col-span-1">
-            <h2 className="text-lg font-bold text-foreground mb-4">Games</h2>
+            <h2 className="text-lg font-bold text-foreground mb-4">GAMES</h2>
             <div className="space-y-2">
-              <Link href="/" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Mystery Boxes
-              </Link>
-              <Link href="/battles" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Battles
-              </Link>
-              <Link href="/crash" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Crash
-              </Link>
-              <Link href="/plinko" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                Plinko
-              </Link>
+              <Link href="/" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Mystery Boxes</Link>
+              <Link href="/battles" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Battles</Link>
+              <Link href="/crash" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Crash</Link>
+              <Link href="/plinko" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Plinko</Link>
             </div>
           </div>
 
-          {/* Help Section */}
+          {/* Help */}
           <div className="md:col-span-1">
-            <h2 className="text-lg font-bold text-foreground mb-4">Help</h2>
+            <h2 className="text-lg font-bold text-foreground mb-4">HELP</h2>
             <div className="space-y-2">
-              <Link href="/help/deposit" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                'How can I deposit on O Sortudo?'
-              </Link>
-              <Link href="/help/fairness" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                'How does Provable Fairness work?'
-              </Link>
-              <Link href="/help/shipping" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                'How does shipping work?'
-              </Link>
-              <Link href="/help/countries" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                'Which countries does O Sortudo ship to?'
-              </Link>
+              <Link href="/help/deposit" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">How can I deposit on O Sortudo?</Link>
+              <Link href="/help/fairness" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">How does Provable Fairness work?</Link>
+              <Link href="/help/shipping" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">How does shipping work?</Link>
+              <Link href="/help/countries" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Which countries does O Sortudo ship to?</Link>
             </div>
           </div>
 
-          {/* Follow Us & Contact Section */}
+          {/* Follow Us & Contact */}
           <div className="md:col-span-1">
             <div className="space-y-6">
-              {/* Follow Us */}
               <div>
-                <h2 className="text-lg font-bold text-foreground mb-4">Follow Us</h2>
-                <div className="flex space-x-4">
-                  <a href="https://www.instagram.com/osortudo/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
+                <h2 className="text-lg font-bold text-foreground mb-4">FOLLOW US</h2>
+                <div className="flex space-x-3">
+                  <a href="https://www.instagram.com/osortudo/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center text-[#22c55e] shadow-inner hover:border-[#28da6a]">
                     <Instagram className="w-4 h-4" />
                   </a>
-                  <a href="https://www.facebook.com/osortudo/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
-                    <Facebook className="w-4 h-4" />
+                  <a href="https://twitter.com/osortudo" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center text-[#22c55e] shadow-inner hover:border-[#28da6a]">
+                    <Twitter className="w-4 h-4" />
                   </a>
-                  <a href="https://t.me/osortudo" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
+                  <a href="https://t.me/osortudo" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center text-[#22c55e] shadow-inner hover:border-[#28da6a]">
                     <MessageCircle className="w-4 h-4" />
                   </a>
-                  <a href="https://twitter.com/osortudo" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-muted/20 rounded-full flex items-center justify-center hover:bg-muted/40 transition-colors">
-                    <Twitter className="w-4 h-4" />
+                  <a href="https://www.facebook.com/osortudo/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center text-[#22c55e] shadow-inner hover:border-[#28da6a]">
+                    <Facebook className="w-4 h-4" />
                   </a>
                 </div>
               </div>
 
-              {/* Contact Us */}
               <div>
-                <h2 className="text-lg font-bold text-foreground mb-4">Contact Us</h2>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  For any inquiries, contact us at support@osortudo.com. We're here to assist you!
-                </p>
+                <h2 className="text-lg font-bold text-foreground mb-4">CONTACT US</h2>
+                <div className="space-y-1 text-sm">
+                  <a href="mailto:support@osortudo.com" className="block text-[#22c55e] hover:underline">support@osortudo.com</a>
+                  <a href="tel:+1234567890" className="block text-muted-foreground hover:text-foreground">+1 (234) 567-890</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Copyright Section */}
-        <div className="border-t border-border mt-8 pt-8 text-center">
-          <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">
-              © 2025 O Sortudo. All Rights Reserved
-            </p>
-            <p className="text-xs text-muted-foreground max-w-4xl mx-auto">
-              O Sortudo is a brand name of TechNexus Ltd, Reg No: HE 449023, Having its registered address at 25 Voukourestiou Street, Neptune House, Limassol, 3045 Cyprus
-            </p>
-          </div>
+        {/* Copyright */}
+        <div className="border-t border-[#1f6b4a]/40 mt-8 pt-8 text-center">
+          <p className="text-sm text-muted-foreground">© 2025 O Sortudo. All rights reserved.</p>
         </div>
       </div>
     </footer>

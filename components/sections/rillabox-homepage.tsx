@@ -264,12 +264,16 @@ export function OSortudoHomepage() {
             ))}
           </div>
 
-          {/* O Sortudo Mascot - Irish Leprechaun */}
-          <div className="absolute bottom-0 right-0 pointer-events-none z-0">
-            <div className="text-6xl md:text-8xl animate-bounce" style={{ animationDuration: '3s' }}>
-              🍀
+          {/* O Sortudo Mascot - Show only on Telegram (4th) banner */}
+          {heroBanners[currentBanner]?.id === 4 && (
+            <div className="absolute bottom-0 right-2 md:right-6 pointer-events-none z-10">
+              <img
+                src="/logo/mascot%20001.png"
+                alt="Sortudo Mascot"
+                className="w-[140px] h-[140px] md:w-[220px] md:h-[220px] object-contain drop-shadow-xl"
+              />
             </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -934,7 +938,7 @@ export function OSortudoHomepage() {
 
       {/* Weekly Race Section - EXACT O Sortudo Layout */}
       <section className="mb-6">
-        <Card className="bg-gradient-to-r from-primary/10 to-secondary/10 border-primary/20 overflow-hidden relative">
+        <Card className="rounded-2xl bg-[#0b1e17] border border-[#153226] overflow-hidden relative">
           {/* Background Box Images */}
           <div className="absolute inset-0 opacity-10">
             <img src="https://rillabox.com/images/box1.png" alt="Box1" className="absolute top-0 left-0 w-16 h-16 object-contain" />
@@ -946,55 +950,48 @@ export function OSortudoHomepage() {
               {/* Left Side - Race Info */}
               <div className="flex-1 text-center lg:text-left">
                 <div className="flex items-center justify-center lg:justify-start space-x-2 mb-3">
-                  <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center animate-pulse">
+                  <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
                     <img src="https://rillabox.s3.amazonaws.com/media/LeaderboardReward/trophy.png" alt="Trophy" className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-foreground animate-pulse">$10,000</div>
-                    <div className="text-sm font-semibold text-primary">Weekly Race</div>
+                    <div className="text-2xl font-bold text-[#facc15]">$10,000</div>
+                    <div className="text-sm font-semibold text-primary uppercase tracking-wide">Weekly Race</div>
                   </div>
                 </div>
 
                 <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
-                  Participate in our Weekly Race simply by playing on O Sortudo!
+                  Participate in our Weekly Race simply by playing on RillaBox!
                 </p>
 
-                {/* Countdown Timer - EXACT O Sortudo Style */}
-                <div className="mb-4">
-                  <div className="flex items-center justify-center lg:justify-start space-x-1 mb-2">
-                    <img src="https://rillabox.com/images/timer.svg" alt="Timer" className="w-3 h-3" />
-                    <span className="text-sm font-semibold text-foreground">Race ends</span>
-                  </div>
-                  <div className="flex items-center justify-center lg:justify-start space-x-2">
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{timeLeft.days.toString().padStart(2, '0')}D</div>
+                {/* Countdown Timer - Boxed style with label */}
+                <div className="flex flex-col items-center lg:items-start gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
+                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.days.toString().padStart(2, '0')}</div>
+                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">D</div>
                     </div>
-                    <div className="text-sm text-muted-foreground">:</div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{timeLeft.hours.toString().padStart(2, '0')}H</div>
+                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
+                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.hours.toString().padStart(2, '0')}</div>
+                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">H</div>
                     </div>
-                    <div className="text-sm text-muted-foreground">:</div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{timeLeft.minutes.toString().padStart(2, '0')}M</div>
+                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
+                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.minutes.toString().padStart(2, '0')}</div>
+                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">M</div>
                     </div>
-                    <div className="text-sm text-muted-foreground">:</div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{timeLeft.seconds.toString().padStart(2, '0')}S</div>
+                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
+                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.seconds.toString().padStart(2, '0')}</div>
+                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">S</div>
                     </div>
                   </div>
+                  <div className="text-[11px] md:text-xs text-muted-foreground uppercase tracking-wide">UNTIL NEXT RACE</div>
                 </div>
-
-                <Button size="sm" className="glow-effect px-4 py-2 text-sm hover:animate-pulse">
-                  <Trophy className="w-4 h-4 mr-1 animate-bounce" />
-                  View Race
-                </Button>
               </div>
 
               {/* Right Side - Box Images - EXACT O Sortudo Style */}
               <div className="flex-shrink-0">
                 <div className="flex space-x-2">
-                  <img src="https://rillabox.com/images/box3.png" alt="Box3" className="w-16 h-16 object-contain animate-bounce" />
-                  <img src="https://rillabox.com/images/box4.png" alt="Box4" className="w-16 h-16 object-contain animate-bounce" style={{ animationDelay: '0.5s' }} />
+                  <img src="https://rillabox.com/images/box3.png" alt="Box3" className="w-16 h-16 object-contain" />
+                  <img src="https://rillabox.com/images/box4.png" alt="Box4" className="w-16 h-16 object-contain" />
                 </div>
               </div>
             </div>
@@ -1005,102 +1002,93 @@ export function OSortudoHomepage() {
       {/* How It Works Section - EXACT O Sortudo Layout */}
       <section className="mb-6">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">How it works</h2>
-          <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-            Check out how easy the unboxing process is at O Sortudo!
-          </p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">How It Works</h2>
+          <p className="text-sm md:text-base text-muted-foreground">Get started in just 4 simple steps</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {howItWorksSteps.map((step) => (
-            <Card key={step.id} className="bg-card border-border overflow-hidden group hover:shadow-md transition-all duration-200 group-hover:scale-105">
-              <div className="p-4 text-center">
+            <Card
+              key={step.id}
+              className={`relative rounded-2xl bg-[#0b1e17] border border-[#163526] overflow-hidden ${step.id === 2 ? 'ring-2 ring-[#22c55e]/60 shadow-[0_0_25px_rgba(34,197,94,0.25)]' : ''}`}
+            >
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#22c55e]/60" />
+              <div className="p-5">
                 <div className="flex items-center justify-between mb-4">
-                  <img src={step.icon} alt={step.title} className="w-6 h-6 group-hover:animate-bounce" />
-                  <Badge className="bg-primary text-primary-foreground text-xs px-2 py-1 group-hover:animate-pulse">
-                    STEP {step.id}
-                  </Badge>
+                  <span className="text-[11px] md:text-xs font-semibold text-[#22c55e] uppercase">STEP {step.id}</span>
+                  <img src={step.icon} alt={step.title} className="w-6 h-6" />
                 </div>
-
-                <h3 className="text-sm font-bold text-foreground mb-2">{step.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {step.description}
-                </p>
+                <h3 className="text-base md:text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{step.description}</p>
               </div>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Provably Fair Section - EXACT O Sortudo Layout */}
-      <section className="text-center mb-6">
-        <div className="flex items-center justify-center mb-6">
-          <Shield className="w-8 h-8 text-primary mr-3 animate-pulse" />
-          <h2 className="text-xl md:text-2xl font-bold text-foreground">
-            Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
-          </h2>
-        </div>
-        <p className="text-base text-muted-foreground max-w-4xl mx-auto mb-6">
-          We uphold complete transparency and have no means of manipulating the outcome in any manner.
-        </p>
-        <Button className="glow-effect px-6 py-2 text-sm hover:animate-pulse">
-          Learn more
-        </Button>
-      </section>
-
-      {/* Features Section - EXACT O Sortudo Layout */}
-      <section className="mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {features.map((feature) => (
-            <Card key={feature.id} className="bg-card border-border overflow-hidden group hover:shadow-md transition-all duration-200 group-hover:scale-105">
-              <div className="p-4 text-center">
-                <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-200">
-                  <img src={feature.icon} alt={feature.title} className="w-6 h-6" />
+      {/* Payment Methods Bar - Match Design */}
+      <section className="mb-10">
+        <div className="rounded-xl border border-[#1f6b4a] bg-gradient-to-r from-[#0e1f17] via-[#0b1a14] to-[#0e1f17] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#1f6b4a] text-white text-xs font-semibold tracking-wide">PAYMENT METHODS</span>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap justify-end">
+              {paymentMethods.map((method) => (
+                <div key={method.name} className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner">
+                  <img src={method.icon} alt={method.name} className="w-5 h-5 object-contain" />
                 </div>
-
-                <h3 className="text-sm font-bold text-foreground mb-2">{feature.title}</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">
-                  {feature.description}
-                </p>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Payment Methods Section - EXACT O Sortudo Layout */}
-      <section className="mb-6">
-        <Card className="bg-card border-border overflow-hidden">
-          <div className="p-4 md:p-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              {/* Left Side - Payment Info */}
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center animate-pulse">
-                  <img src="https://rillabox.com/icons/payment-icon.svg" alt="Payment" className="w-4 h-4" />
-                </div>
-                <div>
-                  <h2 className="text-lg font-bold text-foreground">Payment</h2>
-                  <h3 className="text-sm font-semibold text-muted-foreground">Methods</h3>
-                </div>
-              </div>
-
-              {/* Right Side - Payment Cards */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
-                {paymentMethods.map((method, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center justify-center p-2 bg-muted/20 rounded-md hover:bg-muted/40 transition-colors duration-200 group"
-                  >
-                    <div className="w-8 h-8 bg-white rounded-md flex items-center justify-center mb-1 group-hover:scale-110 transition-transform duration-200 shadow-sm">
-                      <img src={method.icon} alt={method.name} className="w-4 h-4 object-contain" />
-                    </div>
-                    <span className="text-xs font-medium text-foreground text-center">{method.name}</span>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
-        </Card>
+        </div>
+      </section>
+
+      {/* Why Choose O Sortudo - Match Design */}
+      <section className="relative mb-6 rounded-2xl overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14]" />
+        <div className="relative px-6 py-12 md:py-16 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground">Why Choose O Sortudo?</h2>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground">Experience the best in online gaming with our innovative platform</p>
+
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Win Real Prizes */}
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 rounded-full bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner mb-3">
+                <Gift className="w-6 h-6 text-[#22c55e]" />
+              </div>
+              <h3 className="text-base md:text-lg font-semibold text-foreground">Win Real Prizes</h3>
+              <p className="mt-1 text-xs md:text-sm text-muted-foreground max-w-xs">Compete in tournaments and win real money, gift cards, and exclusive rewards.</p>
+            </div>
+
+            {/* Play with Friends */}
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 rounded-full bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner mb-3">
+                <Users className="w-6 h-6 text-[#22c55e]" />
+              </div>
+              <h3 className="text-base md:text-lg font-semibold text-foreground">Play with Friends</h3>
+              <p className="mt-1 text-xs md:text-sm text-muted-foreground max-w-xs">Challenge your friends and family to exciting games and see who comes out on top.</p>
+            </div>
+
+            {/* Secure & Fair */}
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 rounded-full bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner mb-3">
+                <Shield className="w-6 h-6 text-[#22c55e]" />
+              </div>
+              <h3 className="text-base md:text-lg font-semibold text-foreground">Secure & Fair</h3>
+              <p className="mt-1 text-xs md:text-sm text-muted-foreground max-w-xs">All games are provably fair and secure. Your data and winnings are always protected.</p>
+            </div>
+
+            {/* Instant Play */}
+            <div className="flex flex-col items-center text-center">
+              <div className="w-12 h-12 rounded-full bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner mb-3">
+                <Timer className="w-6 h-6 text-[#22c55e]" />
+              </div>
+              <h3 className="text-base md:text-lg font-semibold text-foreground">Instant Play</h3>
+              <p className="mt-1 text-xs md:text-sm text-muted-foreground max-w-xs">No downloads required. Start playing instantly in your browser on any device.</p>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   )

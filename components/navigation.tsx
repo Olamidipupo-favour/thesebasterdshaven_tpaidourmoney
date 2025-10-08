@@ -3,19 +3,12 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Home, Gift, Trophy, Coins, Menu, X, User, LogOut } from "lucide-react"
+import { Home, Gift, Trophy, Coins, Menu, X, User, LogOut, ShoppingBag, ArrowLeftRight } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { LoginDialog } from "@/components/auth/login-dialog"
 import { RegisterDialog } from "@/components/auth/register-dialog"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function Navigation() {
@@ -23,6 +16,7 @@ export function Navigation() {
   const [showLoginDialog, setShowLoginDialog] = useState(false)
   const [showRegisterDialog, setShowRegisterDialog] = useState(false)
   const { user, isAuthenticated, logout } = useAuth()
+  const [shopOpen, setShopOpen] = useState(false)
 
   const handleSwitchToRegister = () => {
     setShowLoginDialog(false)
@@ -43,37 +37,56 @@ export function Navigation() {
       <nav className="bg-card/95 border-b border-border sticky top-0 z-50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center coin-spin">
-                <span className="text-primary-foreground font-bold text-lg">🍀</span>
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">O SORTUDO</h1>
-                <p className="text-xs text-muted-foreground">Irish Gaming Platform</p>
-              </div>
+            {/* Logo: Keep wordmark only (mascot moved to hero banner) */}
+            <Link href="/" className="flex items-center">
+              <img
+                src="/logo/OSORTUDO%20LOGO%201.png"
+                alt="Sortudo Logo"
+                className="h-8 object-contain"
+              />
             </Link>
 
-            {/* Desktop Navigation - RillaBox Style */}
+            {/* Desktop Navigation - Shop dropdown with Buy/Trade + Earn to Play (opens on hover) */}
             <div className="hidden md:flex items-center space-x-6">
-              <Link href="/boxes">
+              {/* Wrap in a hover container so moving from trigger to menu keeps it open */}
+              <div onMouseEnter={() => setShopOpen(true)} onMouseLeave={() => setShopOpen(false)} className="relative">
+                <DropdownMenu open={shopOpen} onOpenChange={setShopOpen}>
+                  {/* Use native trigger to avoid ref warning so dropdown works reliably */}
+                  <DropdownMenuTrigger
+                    className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground"
+                    aria-expanded={shopOpen}
+                    onClick={() => setShopOpen(prev => !prev)}
+                  >
+                    <Gift className="w-4 h-4" />
+                    <span>Shop</span>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="start"
+                    sideOffset={8}
+                    className="z-[60] mt-2 min-w-[260px] p-0 rounded-xl overflow-hidden bg-popover shadow-xl border border-border"
+                  >
+                    <DropdownMenuItem asChild className="px-4 py-3 text-base">
+                      <Link href="/shop/buy" className="cursor-pointer flex items-center gap-3 w-full">
+                        <ShoppingBag className="w-5 h-5" />
+                        <span>Buy</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild className="px-4 py-3 text-base">
+                      <Link href="/shop/trade" className="cursor-pointer flex items-center gap-3 w-full">
+                        <ArrowLeftRight className="w-5 h-5" />
+                        <span>Trade</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              <Link href="/earn">
                 <Button variant="ghost" className="flex items-center space-x-2">
-                  <Gift className="w-4 h-4" />
-                  <span>Mystery Boxes</span>
+                  <Coins className="w-4 h-4" />
+                  <span>Earn to Play</span>
                 </Button>
               </Link>
-              <Button variant="ghost" className="flex items-center space-x-2">
-                <Trophy className="w-4 h-4" />
-                <span>Battles</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-2">
-                <Home className="w-4 h-4" />
-                <span>Crash</span>
-              </Button>
-              <Button variant="ghost" className="flex items-center space-x-2">
-                <Coins className="w-4 h-4" />
-                <span>Plinko</span>
-              </Button>
             </div>
 
             <div className="hidden md:flex items-center space-x-4">
@@ -84,9 +97,13 @@ export function Navigation() {
                   <span className="text-xs text-muted-foreground">Local Coins</span>
                 </div>
               )}
-              <Badge variant="secondary" className="bg-chart-2/20 text-chart-2">
-                $10K RACE
-              </Badge>
+              <Link
+                href="/weekly-race"
+                className="btn btn-link me-md-auto text-decoration-none d-md-flex d-none position-relative leaderboard-btn"
+                title="10k Race"
+              >
+                <img src="https://rillabox.com/images/race-bg.svg" alt="10k Race" />
+              </Link>
 
               {isAuthenticated && user ? (
                 <DropdownMenu>
@@ -144,24 +161,32 @@ export function Navigation() {
           {isMenuOpen && (
             <div className="md:hidden border-t border-border bg-card">
               <div className="px-2 pt-2 pb-3 space-y-1">
-                <Link href="/boxes">
+                {/* Mobile: Shop dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="w-full justify-start">
+                      <Gift className="w-4 h-4 mr-2" />
+                      Shop
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-full">
+                    <DropdownMenuItem asChild>
+                      <Link href="/shop/buy" className="cursor-pointer w-full">Buy</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/shop/trade" className="cursor-pointer w-full">Trade</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+
+                {/* Mobile: Earn to Play */}
+                <Link href="/earn">
                   <Button variant="ghost" className="w-full justify-start">
-                    <Gift className="w-4 h-4 mr-2" />
-                    Mystery Boxes
+                    <Coins className="w-4 h-4 mr-2" />
+                    Earn to Play
                   </Button>
                 </Link>
-                <Button variant="ghost" className="w-full justify-start">
-                  <Trophy className="w-4 h-4 mr-2" />
-                  Battles
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <Home className="w-4 h-4 mr-2" />
-                  Crash
-                </Button>
-                <Button variant="ghost" className="w-full justify-start">
-                  <Coins className="w-4 h-4 mr-2" />
-                  Plinko
-                </Button>
+
                 <Link href="/dashboard">
                   <Button variant="ghost" className="w-full justify-start">
                     <User className="w-4 h-4 mr-2" />
