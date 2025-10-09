@@ -47,6 +47,16 @@ const getRarityGlowClass = (rarity: string) => {
   }
 }
 
+// Fisher-Yates shuffle algorithm for randomizing item order per column
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 // First 10 items from Rillabox HTML - exact data with images
 const iphoneItems = [
   {
@@ -194,12 +204,20 @@ const similarBoxes = [
 ]
 
 export default function IPhoneBoxPage() {
+  // Item step constants for vertical columns
+  const ITEM_BOX_PX = 144 // h-36
+  const ITEM_MARGIN_Y_TOTAL_PX = 64 // my-8 top+bottom
+  const ITEM_STEP_PX = ITEM_BOX_PX + ITEM_MARGIN_Y_TOTAL_PX // 208
+  const HALF_ITEM_STEP_PX = ITEM_STEP_PX / 2 // 104
+
   const { user, isAuthenticated } = useAuth()
   const [isSpinning, setIsSpinning] = useState(false)
   const [isDemoSpinning, setIsDemoSpinning] = useState(false)
-  const [wonPrize, setWonPrize] = useState<any>(null)
+  const [wonPrizes, setWonPrizes] = useState<any[]>([])
   const [spinningItems, setSpinningItems] = useState<any[]>([])
-  const [currentSpinIndex, setCurrentSpinIndex] = useState(0)
+  const [columnSpinIndices, setColumnSpinIndices] = useState<number[]>([])
+  const [columnItems, setColumnItems] = useState<any[][]>([])
+  const [columnOrder, setColumnOrder] = useState<number[]>([])
   const [boxOpening, setBoxOpening] = useState(false) // Start closed
   const [boxDisappearing, setBoxDisappearing] = useState(false)
   const [isGameInProgress, setIsGameInProgress] = useState(false)
@@ -250,14 +268,14 @@ export default function IPhoneBoxPage() {
     setIsFastSpin(!isFastSpin)
   }
 
-  // Demo spin function with enhanced animation sequence
+  // Demo spin function with enhanced animation sequence - Multi-column version
   const handleDemoSpin = async () => {
     if (isGameInProgress) return
 
-    // If there's already a prize showing, smoothly transition to new spin
-    if (wonPrize) {
+    // If there's already prizes showing, smoothly transition to new spin
+    if (wonPrizes.length > 0) {
       // Smoothly hide the current winning box and info
-      setWonPrize(null)
+      setWonPrizes([])
       // Small delay to let the winning box fade out before starting new spin
       setTimeout(() => {
         setBoxOpening(false)
@@ -266,7 +284,7 @@ export default function IPhoneBoxPage() {
       }, 200)
     } else {
       // Reset animations for retriggering from initial state
-      setWonPrize(null)
+      setWonPrizes([])
       setBoxOpening(false)
       setBoxDisappearing(false)
     }
@@ -284,7 +302,7 @@ export default function IPhoneBoxPage() {
     }
     
     // Determine initial delay based on current state
-    const initialDelay = wonPrize ? 200 : 0
+    const initialDelay = wonPrizes.length > 0 ? 200 : 0
     
     // Step 1: Box opening animation (items stay in place)
     timeouts.current.push(window.setTimeout(() => {
@@ -296,70 +314,108 @@ export default function IPhoneBoxPage() {
         
         // Step 3: Now set up the spinning items and start animation
         timeouts.current.push(window.setTimeout(() => {
-          // Create a large array of items for smooth scrolling
+          // Create column data - one shuffled array per column
+          const columnsData: any[][] = []
+          const centerIndices: number[] = []
+          
+          for (let col = 0; col < quantity; col++) {
           const extendedItems: typeof iphoneItems = []
+            const shuffledItems = shuffleArray(iphoneItems)
           for (let i = 0; i < 30; i++) {
-            extendedItems.push(...iphoneItems)
+              extendedItems.push(...shuffledItems)
+            }
+            columnsData.push(extendedItems)
+            centerIndices.push(Math.floor(extendedItems.length / 2))
           }
-          setSpinningItems(extendedItems)
-          setCurrentSpinIndex(Math.floor(extendedItems.length / 2))
+          
+          // Create shuffled column order for display
+          const randomOrder = Array.from({ length: quantity }, (_, i) => i)
+          setColumnOrder(shuffleArray(randomOrder))
+          
+          setColumnItems(columnsData)
+          setColumnSpinIndices(centerIndices)
           setIsSpinning(true)
-          startEnhancedSpinning(extendedItems, true)
+          startMultiColumnSpinning(columnsData, true)
         }, 800))
       }, 1800)) // 1.8 second delay to see items behind open box
     }, initialDelay)) // Dynamic delay based on current state
   }
 
-  // Enhanced spinning: smooth animation that lands perfectly on one item
-  const startEnhancedSpinning = (items: typeof iphoneItems, isDemo: boolean) => {
-    let currentIndex = Math.floor(items.length / 2)
+  // Multi-column spinning: orchestrates multiple vertical columns spinning simultaneously
+  const startMultiColumnSpinning = (columnsData: any[][], isDemo: boolean) => {
+    const numColumns = columnsData.length
+    const currentIndices = columnsData.map(col => Math.floor(col.length / 2))
     let steps = 0
-    const speedMultiplier = isFastSpin ? 0.3 : 1 // Fast spin is 3x faster
-    let speed = 50 * speedMultiplier // Start fast
-    const totalSteps = isFastSpin ? 60 : 80 // Fewer steps for fast spin
-    const finalItem = Math.floor(Math.random() * iphoneItems.length)
-    const center = Math.floor(items.length / 2)
+    const speedMultiplier = isFastSpin ? 0.3 : 1
+    let speed = 50 * speedMultiplier
+    const totalSteps = isFastSpin ? 60 : 80
     
-    // Place the winning item at the center position in the extended items array
-    const modifiedItems = [...items]
-    modifiedItems[center] = iphoneItems[finalItem]
-    setSpinningItems(modifiedItems)
+    // Select different winning items for each column
+    const usedItems = new Set<string>()
+    const finalItems: number[] = []
+    for (let col = 0; col < numColumns; col++) {
+      let randomIndex: number
+      let attempts = 0
+      do {
+        randomIndex = Math.floor(Math.random() * iphoneItems.length)
+        attempts++
+      } while (usedItems.has(iphoneItems[randomIndex].id) && attempts < 50)
+      
+      finalItems.push(randomIndex)
+      usedItems.add(iphoneItems[randomIndex].id)
+    }
     
-    // Ensure the target lands exactly at the center position
-    const targetIndex = center
+    // Place winning items at center positions
+    const modifiedColumnsData = columnsData.map((columnArray, colIndex) => {
+      const modified = [...columnArray]
+      const center = Math.floor(columnArray.length / 2)
+      modified[center] = iphoneItems[finalItems[colIndex]]
+      return modified
+    })
+    setColumnItems(modifiedColumnsData)
+    
+    // Target indices for each column
+    const targetIndices = modifiedColumnsData.map(col => Math.floor(col.length / 2))
 
     const tick = () => {
-      setCurrentSpinIndex(currentIndex)
+      setColumnSpinIndices([...currentIndices])
       playClick()
       steps++
 
-      // Calculate progress (0 to 1)
       const progress = steps / totalSteps
 
-        // Ease out: slow down gradually at the end
+      // Update all columns simultaneously
         if (progress < 0.7) {
-          // Fast phase - move quickly through items
-          currentIndex += 1
+        // Fast phase
+        for (let col = 0; col < numColumns; col++) {
+          currentIndices[col] += 1
+        }
           speed = 40 * speedMultiplier
         } else {
-          // Slow down phase - decelerate smoothly toward center
+        // Slow down phase
           const remainingSteps = totalSteps - steps
-          const distanceToTarget = Math.abs(targetIndex - currentIndex)
+        let allLanded = true
+        
+        for (let col = 0; col < numColumns; col++) {
+          const distanceToTarget = Math.abs(targetIndices[col] - currentIndices[col])
           
           if (distanceToTarget > 0) {
-            currentIndex += currentIndex < targetIndex ? 1 : -1
-            // Exponential slow down
+            allLanded = false
+            currentIndices[col] += currentIndices[col] < targetIndices[col] ? 1 : -1
+          }
+        }
+        
             speed = (50 + (remainingSteps * 8)) * speedMultiplier
-          } else {
-            // Landed on target - stop and show result
-            const selectedItem = iphoneItems[finalItem]
+        
+        if (allLanded) {
+          // All columns landed - collect prizes
+          const winningItems = finalItems.map(idx => iphoneItems[idx])
             timeouts.current.push(window.setTimeout(() => {
-              setWonPrize(selectedItem)
+            setWonPrizes(winningItems)
               setIsSpinning(false)
               
               if (isDemo) {
                 setIsDemoSpinning(false)
-                // Reset after 3 seconds for demo
                 timeouts.current.push(window.setTimeout(() => {
                   resetGame()
                 }, 3000))
@@ -369,20 +425,26 @@ export default function IPhoneBoxPage() {
           }
         }
 
-      // Keep in bounds
-      if (currentIndex < 0) currentIndex = 0
-      if (currentIndex >= items.length) currentIndex = items.length - 1
+      // Keep in bounds for all columns
+      for (let col = 0; col < numColumns; col++) {
+        if (currentIndices[col] < 0) currentIndices[col] = 0
+        if (currentIndices[col] >= columnsData[col].length) {
+          currentIndices[col] = columnsData[col].length - 1
+        }
+      }
 
       // Continue ticking
       if (steps < totalSteps) {
         timeouts.current.push(window.setTimeout(tick, speed))
       } else {
-        // Force land on target if we haven't reached it
-        currentIndex = targetIndex
-        setCurrentSpinIndex(currentIndex)
-        const selectedItem = iphoneItems[finalItem]
+        // Force land on targets
+        for (let col = 0; col < numColumns; col++) {
+          currentIndices[col] = targetIndices[col]
+        }
+        setColumnSpinIndices([...currentIndices])
+        const winningItems = finalItems.map(idx => iphoneItems[idx])
         timeouts.current.push(window.setTimeout(() => {
-          setWonPrize(selectedItem)
+          setWonPrizes(winningItems)
           setIsSpinning(false)
           
           if (isDemo) {
@@ -398,12 +460,12 @@ export default function IPhoneBoxPage() {
     tick()
   }
 
-  // Real spin function
+  // Real spin function - Multi-column version
   const handleRealSpin = async () => {
     if (isGameInProgress) return
 
     // Reset animations for retriggering
-    setWonPrize(null)
+    setWonPrizes([])
     setBoxOpening(false)
     setBoxDisappearing(false)
 
@@ -428,23 +490,38 @@ export default function IPhoneBoxPage() {
         
         // Step 3: Now set up the spinning items and start animation
         timeouts.current.push(window.setTimeout(() => {
-          // Create a large array of items for smooth scrolling
+          // Create column data - one shuffled array per column
+          const columnsData: any[][] = []
+          const centerIndices: number[] = []
+          
+          for (let col = 0; col < quantity; col++) {
           const extendedItems: typeof iphoneItems = []
+            const shuffledItems = shuffleArray(iphoneItems)
           for (let i = 0; i < 30; i++) {
-            extendedItems.push(...iphoneItems)
+              extendedItems.push(...shuffledItems)
+            }
+            columnsData.push(extendedItems)
+            centerIndices.push(Math.floor(extendedItems.length / 2))
           }
-          setSpinningItems(extendedItems)
-          setCurrentSpinIndex(Math.floor(extendedItems.length / 2))
-          startEnhancedSpinning(extendedItems, false)
+          
+          // Create shuffled column order for display
+          const randomOrder = Array.from({ length: quantity }, (_, i) => i)
+          setColumnOrder(shuffleArray(randomOrder))
+          
+          setColumnItems(columnsData)
+          setColumnSpinIndices(centerIndices)
+          startMultiColumnSpinning(columnsData, false)
         }, 800))
       }, 1800)) // 1.8 second delay to see items behind open box
     }, 0)) // Using timeout to force re-trigger
   }
 
   const resetGame = () => {
-    setWonPrize(null)
+    setWonPrizes([])
     setSpinningItems([])
-    setCurrentSpinIndex(0)
+    setColumnSpinIndices([])
+    setColumnItems([])
+    setColumnOrder([])
     setBoxOpening(false)
     setBoxDisappearing(false)
     setShowBoxOnWinner(false)
@@ -520,7 +597,7 @@ export default function IPhoneBoxPage() {
           </Button>
         </div>
 
-             {/* Unified Game Animation Container */}
+             {/* Unified Game Animation Container - Horizontal (qty=1) or Multi-Column Vertical (qty>1) */}
              <div 
                 className="relative mb-8 h-[450px] rounded-2xl overflow-hidden"
                 style={{
@@ -536,57 +613,137 @@ export default function IPhoneBoxPage() {
                   <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[20px] border-l-transparent border-r-transparent border-t-white animate-pulse"></div>
                 </div>
                 
-                {/* Item Strip - Now handles both idle and spinning states */}
-                <div 
-                  className="absolute inset-0 flex items-center overflow-hidden"
-                  style={{ 
-                    filter: 'none', 
-                    opacity: 1.0,
-                    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
-                    maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)'
-                  }}
-                >
+                {/* Conditional Layout: Horizontal for qty=1, Vertical Columns for qty>1 */}
+                {quantity === 1 ? (
+                  // Original Horizontal Layout for quantity = 1
                   <div 
-                    className={`flex items-center ${isSpinning ? 'transition-transform duration-100 ease-out' : ''}`}
-                    style={{
-                      transform: isSpinning 
-                        ? `translateX(calc(50% - ${currentSpinIndex * 120}px - 60px))` // Perfect center alignment: 120px width / 2 = 60px
-                        : 'translateX(calc(50% - 1200px))', // Adjusted for perfect centering
-                      width: isSpinning ? `${spinningItems.length * 120}px` : 'auto'
+                    className="absolute inset-0 flex items-center overflow-hidden"
+                    style={{ 
+                      filter: 'none', 
+                      opacity: 1.0,
+                      WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+                      maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)'
                     }}
                   >
-                    {(isSpinning ? spinningItems : Array.from({ length: 20 }).map((_, i) => iphoneItems[i % iphoneItems.length])).map((item, index) => {
-                      const rarityColor = getRarityColor(item.rarity)
-                      const isWinningItem = wonPrize && item.id === wonPrize.id && index === currentSpinIndex
+                    <div 
+                      className={`flex items-center ${isSpinning ? 'transition-transform duration-100 ease-out' : ''}`}
+                      style={{
+                        transform: isSpinning && columnSpinIndices[0] !== undefined
+                          ? `translateX(calc(50% - ${columnSpinIndices[0] * 120}px - 60px))`
+                          : 'translateX(calc(50% - 1200px))',
+                        width: isSpinning && columnItems[0] ? `${columnItems[0].length * 120}px` : 'auto'
+                      }}
+                    >
+                      {(isSpinning && columnItems[0] ? columnItems[0] : Array.from({ length: 20 }).map((_, i) => iphoneItems[i % iphoneItems.length])).map((item, index) => {
+                        const rarityColor = getRarityColor(item.rarity)
+                        const isWinningItem = wonPrizes.some(prize => prize.id === item.id) && columnSpinIndices[0] === index
 
-                      return (
-                        <div key={`item-${index}`} className="w-24 h-24 mx-3 rounded-xl flex items-center justify-center shrink-0 relative"
-                          style={{ 
-                            backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.1)',
-                            backdropFilter: 'blur(8px)',
-                            border: `1px solid ${rarityColor}80`,
-                            boxShadow: isWinningItem 
-                              ? `0 0 40px ${rarityColor}, 0 0 60px ${rarityColor}cc, 0 0 80px ${rarityColor}80`
-                              : `0 0 25px ${rarityColor}, 0 0 40px ${rarityColor}80, 0 0 60px ${rarityColor}40, 0 4px 12px rgba(0,0,0,0.5)`
-                          }}
-                        >
-                          <img src={item.image} alt={item.name} className="w-16 h-16 object-contain opacity-90" onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
-                          <div 
-                            className="absolute inset-0 rounded-xl pointer-events-none"
-                            style={{
-                              background: `radial-gradient(circle at center, ${rarityColor}40 0%, ${rarityColor}20 40%, transparent 70%)`
+                        return (
+                          <div key={`item-${index}`} className="w-24 h-24 mx-3 rounded-xl flex items-center justify-center shrink-0 relative"
+                            style={{ 
+                              backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                              backdropFilter: 'blur(8px)',
+                              border: `1px solid ${rarityColor}80`,
+                              boxShadow: isWinningItem 
+                                ? `0 0 40px ${rarityColor}, 0 0 60px ${rarityColor}cc, 0 0 80px ${rarityColor}80`
+                                : `0 0 25px ${rarityColor}, 0 0 40px ${rarityColor}80, 0 0 60px ${rarityColor}40, 0 4px 12px rgba(0,0,0,0.5)`
                             }}
-                          />
-                        </div>
-                      )
-                    })}
+                          >
+                            <img src={item.image} alt={item.name} className="w-16 h-16 object-contain opacity-90" onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
+                            <div 
+                              className="absolute inset-0 rounded-xl pointer-events-none"
+                              style={{
+                                background: `radial-gradient(circle at center, ${rarityColor}40 0%, ${rarityColor}20 40%, transparent 70%)`
+                              }}
+                            />
+                          </div>
+                        )
+                      })}
+                    </div>
                   </div>
-                </div>
-
-                {/* 3D Box - Manages its own appearance */}
-                {!wonPrize && !boxDisappearing && (
+                ) : (
+                  // Multi-Column Vertical Layout for quantity > 1
                   <div 
-                    className="flex h-full justify-center items-center cursor-pointer relative z-20"
+                    className="absolute inset-0 flex items-center justify-center overflow-x-auto overflow-y-hidden px-2 sm:px-4"
+                    style={{ 
+                      filter: 'none', 
+                      opacity: 1.0
+                    }}
+                  >
+                    <div 
+                      className={`grid ${
+                        quantity === 2 ? 'grid-cols-2 gap-4 sm:gap-8' :
+                        quantity === 3 ? 'grid-cols-3 gap-3 sm:gap-6' :
+                        'grid-cols-4 gap-2 sm:gap-4'
+                      } max-w-full mx-auto`}
+                    >
+                      {Array.from({ length: quantity }).map((_, displayIndex) => {
+                        // Use shuffled column order if available, otherwise sequential
+                        const columnIndex = columnOrder.length > 0 ? columnOrder[displayIndex] : displayIndex
+                        
+                        const columnItemsArray = isSpinning && columnItems[columnIndex] 
+                          ? columnItems[columnIndex] 
+                          : Array.from({ length: 10 }).map((_, i) => iphoneItems[i % iphoneItems.length])
+                        
+                        const spinIndex = columnSpinIndices[columnIndex] || 0
+                        const halfList = (columnItemsArray.length * ITEM_STEP_PX) / 2
+                        
+                        return (
+                          <div 
+                            key={`column-${columnIndex}`}
+                            className="flex flex-col items-center overflow-hidden h-[550px]"
+                            style={{
+                              WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)',
+                              maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
+                            }}
+                          >
+                            <div 
+                              className={`flex flex-col items-center ${isSpinning ? 'transition-transform duration-100 ease-out' : ''}`}
+                              style={{
+                                transform: isSpinning 
+                                  ? `translateY(calc(50% - ${spinIndex * ITEM_STEP_PX}px - ${HALF_ITEM_STEP_PX}px))`
+                                  : `translateY(calc(50% - ${halfList}px))`
+                              }}
+                            >
+                              {columnItemsArray.map((item, index) => {
+                                const rarityColor = getRarityColor(item.rarity)
+                                const isWinningItem = wonPrizes.some(prize => prize.id === item.id) && spinIndex === index
+
+                                return (
+                                  <div 
+                                    key={`item-${columnIndex}-${index}`} 
+                                    className="w-28 h-28 sm:w-36 sm:h-36 my-6 sm:my-8 rounded-xl flex items-center justify-center shrink-0 relative"
+                                    style={{ 
+                                      backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                                      backdropFilter: 'blur(8px)',
+                                      border: `1px solid ${rarityColor}80`,
+                                      boxShadow: isWinningItem 
+                                        ? `0 0 40px ${rarityColor}, 0 0 60px ${rarityColor}cc, 0 0 80px ${rarityColor}80`
+                                        : `0 0 25px ${rarityColor}, 0 0 40px ${rarityColor}80, 0 0 60px ${rarityColor}40, 0 4px 12px rgba(0,0,0,0.5)`
+                                    }}
+                                  >
+                                    <img src={item.image} alt={item.name} className="w-20 h-20 sm:w-24 sm:h-24 object-contain opacity-90" onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
+                                    <div 
+                                      className="absolute inset-0 rounded-xl pointer-events-none"
+                                      style={{
+                                        background: `radial-gradient(circle at center, ${rarityColor}40 0%, ${rarityColor}20 40%, transparent 70%)`
+                                      }}
+                                    />
+                                  </div>
+                                )
+                              })}
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* 3D Box - Centered and overlapping columns */}
+                {wonPrizes.length === 0 && !boxDisappearing && (
+                  <div 
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 cursor-pointer"
                     onMouseEnter={() => setIsBoxHovered(true)}
                     onMouseLeave={() => setIsBoxHovered(false)}
                   >
@@ -600,8 +757,8 @@ export default function IPhoneBoxPage() {
                   </div>
                 )}
                 
-                {/* Box and winning item info container */}
-                {wonPrize && (
+                {/* Box and winning items info container */}
+                {wonPrizes.length > 0 && (
                   <div 
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center"
                     style={{
@@ -619,12 +776,21 @@ export default function IPhoneBoxPage() {
                       </Suspense>
                     </div>
                     
-                    {/* Winning item info directly under the box */}
+                    {/* Winning items info directly under the box */}
                     <div className="text-center">
                       <div className="bg-black/60 backdrop-blur-md px-6 py-3 rounded-xl border border-white/20">
                         <p className="text-white font-bold text-lg mb-1">You Won!</p>
-                        <p className="text-green-400 font-semibold text-xl">${wonPrize.value}</p>
-                        <p className="text-white/80 text-sm">{wonPrize.name}</p>
+                        <p className="text-green-400 font-semibold text-xl">
+                          ${wonPrizes.reduce((sum, prize) => sum + prize.value, 0).toFixed(2)}
+                        </p>
+                        <p className="text-white/80 text-sm">{wonPrizes.length} items won!</p>
+                        {wonPrizes.length <= 3 && (
+                          <div className="mt-2 text-xs text-white/70 space-y-1">
+                            {wonPrizes.map((prize, idx) => (
+                              <div key={idx}>{prize.name}</div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -654,7 +820,7 @@ export default function IPhoneBoxPage() {
                   disabled={!isAuthenticated || isGameInProgress}
                 >
                   <Gift className="w-4 h-4 mr-2" />
-                  Open for $2.79
+                  Open for ${(2.79 * quantity).toFixed(2)}
                 </Button>
                 <Button
                   onClick={handleFastSpin}
