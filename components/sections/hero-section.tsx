@@ -28,9 +28,9 @@ export function HeroSection() {
             featuredBoxes.map((box) => (
               <Card
                 key={box.id}
-                className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 overflow-hidden relative"
+                className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 overflow-hidden relative flex flex-col h-full"
               >
-                <div className="relative">
+                <div className="relative flex-shrink-0">
                   <img
                     src={box.image || "/placeholder.svg"}
                     alt={box.name}
@@ -57,7 +57,7 @@ export function HeroSection() {
                   </div>
                 </div>
 
-                <div className="p-4">
+                <div className="p-4 flex flex-col flex-1">
                   <h3 className="text-lg font-bold text-foreground mb-2">{box.name}</h3>
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-1">
@@ -69,12 +69,14 @@ export function HeroSection() {
                     </div>
                   </div>
 
-                  <Link href="/boxes">
-                    <Button className="w-full glow-effect group-hover:bg-primary/90 text-sm py-2">
-                      <Gift className="w-4 h-4 mr-2" />
-                      Open Mystery Box
-                    </Button>
-                  </Link>
+                  <div className="mt-auto">
+                    <Link href="/boxes">
+                      <Button className="w-full glow-effect group-hover:bg-primary/90 text-sm py-2">
+                        <Gift className="w-4 h-4 mr-2" />
+                        Open Mystery Box
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               </Card>
             ))

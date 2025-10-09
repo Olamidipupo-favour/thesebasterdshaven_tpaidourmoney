@@ -48,9 +48,9 @@ export function FeaturedBoxesSection() {
           featuredBoxes.map((box) => (
             <Card
               key={box.id}
-              className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 overflow-hidden relative"
+              className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 overflow-hidden relative flex flex-col h-full"
             >
-              <div className="relative">
+              <div className="relative flex-shrink-0">
                 <img
                   src={box.image || "/placeholder.svg"}
                   alt={box.name}
@@ -75,7 +75,7 @@ export function FeaturedBoxesSection() {
                 </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-1">
                 <h3 className="text-2xl font-bold text-foreground mb-3">{box.name}</h3>
                 <p className="text-muted-foreground mb-6 line-clamp-2">{box.description}</p>
 
@@ -91,7 +91,7 @@ export function FeaturedBoxesSection() {
                   </div>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-3 mt-auto">
                   <Link href="/boxes">
                     <Button className="w-full glow-effect group-hover:bg-primary/90 text-lg py-3">
                       <Gift className="w-5 h-5 mr-2" />

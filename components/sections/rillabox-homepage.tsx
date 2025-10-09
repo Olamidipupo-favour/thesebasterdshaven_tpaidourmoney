@@ -430,7 +430,7 @@ export function OSortudoHomepage() {
         {/* Featured Boxes Grid - EXACT Rillabox Style */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
           {/* Balance Booster Box */}
-          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative flex flex-col h-full">
             {/* Continuous Green Light Animation Around Edge */}
             <div className="absolute inset-0 overflow-hidden z-10">
               {/* Top edge light */}
@@ -449,8 +449,8 @@ export function OSortudoHomepage() {
               <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
             </div>
             
-            <div className="relative z-20">
-              <div className="relative">
+            <div className="relative z-20 flex flex-col flex-1">
+              <div className="relative flex-shrink-0">
                 <img
                   src="https://cdn.rillabox.com/media/boxes/BOOST-Box-mock_box_0mrPs54.png"
                   alt="Balance Booster"
@@ -468,7 +468,7 @@ export function OSortudoHomepage() {
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">Balance Booster</h3>
                 <p className="text-sm text-muted-foreground mb-4">Boost your balance with guaranteed rewards</p>
                 <div className="flex items-center justify-between mb-4">
@@ -484,7 +484,7 @@ export function OSortudoHomepage() {
               </Card>
 
           {/* Dubai Bling Box */}
-          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative flex flex-col h-full">
             {/* Continuous Green Light Animation Around Edge */}
             <div className="absolute inset-0 overflow-hidden z-10">
               {/* Top edge light */}
@@ -503,8 +503,8 @@ export function OSortudoHomepage() {
               <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
             </div>
                 
-                <div className="relative z-20">
-                  <div className="relative">
+                <div className="relative z-20 flex flex-col flex-1">
+                  <div className="relative flex-shrink-0">
                     <img
                   src="https://cdn.rillabox.com/media/boxes/14_DUBAI_BLING-Box-mock_box_1_9pAZR1t.png"
                   alt="Dubai Bling"
@@ -522,7 +522,7 @@ export function OSortudoHomepage() {
                       </div>
                   </div>
 
-              <div className="p-4">
+              <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">Dubai Bling</h3>
                 <p className="text-sm text-muted-foreground mb-4">Luxury items from the city of gold</p>
                 <div className="flex items-center justify-between mb-4">
@@ -538,7 +538,7 @@ export function OSortudoHomepage() {
           </Card>
 
           {/* FENDI Box */}
-          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative ring-2 ring-primary/20">
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative ring-2 ring-primary/20 flex flex-col h-full">
             {/* Continuous Green Light Animation Around Edge */}
             <div className="absolute inset-0 overflow-hidden z-10">
               {/* Top edge light */}
@@ -557,8 +557,8 @@ export function OSortudoHomepage() {
               <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
             </div>
             
-            <div className="relative z-20">
-              <div className="relative">
+            <div className="relative z-20 flex flex-col flex-1">
+              <div className="relative flex-shrink-0">
                 <img
                   src="https://cdn.rillabox.com/media/boxes/10-FENDI-Box-mock_box_1_fzB4ZYD.png"
                   alt="FENDI"
@@ -576,7 +576,7 @@ export function OSortudoHomepage() {
                       </div>
                     </div>
 
-              <div className="p-4">
+              <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">FENDI</h3>
                 <p className="text-sm text-muted-foreground mb-4">Italian luxury fashion and accessories</p>
                 <div className="flex items-center justify-between mb-4">
@@ -592,7 +592,7 @@ export function OSortudoHomepage() {
               </Card>
 
           {/* Fresh Kicks Box */}
-          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative flex flex-col h-full">
             {/* Continuous Green Light Animation Around Edge */}
             <div className="absolute inset-0 overflow-hidden z-10">
               {/* Top edge light */}
@@ -611,8 +611,8 @@ export function OSortudoHomepage() {
               <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
         </div>
 
-            <div className="relative z-20">
-              <div className="relative">
+            <div className="relative z-20 flex flex-col flex-1">
+              <div className="relative flex-shrink-0">
                 <img
                   src="https://cdn.rillabox.com/media/boxes/15_FRESH_KICKS-Box-mock_box_xq1VUNu.png"
                   alt="Fresh Kicks"
@@ -630,7 +630,7 @@ export function OSortudoHomepage() {
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">Fresh Kicks</h3>
                 <p className="text-sm text-muted-foreground mb-4">Latest sneaker drops and streetwear</p>
                 <div className="flex items-center justify-between mb-4">
@@ -646,7 +646,7 @@ export function OSortudoHomepage() {
           </Card>
 
           {/* Gamers Paradise Box */}
-          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative flex flex-col h-full">
             {/* Continuous Green Light Animation Around Edge */}
             <div className="absolute inset-0 overflow-hidden z-10">
               {/* Top edge light */}
@@ -665,8 +665,8 @@ export function OSortudoHomepage() {
               <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
             </div>
             
-            <div className="relative z-20">
-              <div className="relative">
+            <div className="relative z-20 flex flex-col flex-1">
+              <div className="relative flex-shrink-0">
                 <img
                   src="https://cdn.rillabox.com/media/boxes/13_GAMERS_PARADISE-Box-mock_box_DU69psF.png"
                   alt="Gamers Paradise"
@@ -684,7 +684,7 @@ export function OSortudoHomepage() {
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">Gamers Paradise</h3>
                 <p className="text-sm text-muted-foreground mb-4">Gaming gear and tech accessories</p>
                 <div className="flex items-center justify-between mb-4">
@@ -700,7 +700,7 @@ export function OSortudoHomepage() {
           </Card>
 
           {/* Risky Rolex Box */}
-          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative flex flex-col h-full">
             {/* Continuous Green Light Animation Around Edge */}
             <div className="absolute inset-0 overflow-hidden z-10">
               {/* Top edge light */}
@@ -719,8 +719,8 @@ export function OSortudoHomepage() {
               <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
             </div>
             
-            <div className="relative z-20">
-              <div className="relative">
+            <div className="relative z-20 flex flex-col flex-1">
+              <div className="relative flex-shrink-0">
                 <img
                   src="https://cdn.rillabox.com/media/boxes/Risky-Rolex_mFTekxw.png"
                   alt="Risky Rolex"
@@ -738,7 +738,7 @@ export function OSortudoHomepage() {
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">Risky Rolex</h3>
                 <p className="text-sm text-muted-foreground mb-4">High-risk, high-reward luxury watches</p>
                 <div className="flex items-center justify-between mb-4">
@@ -754,7 +754,7 @@ export function OSortudoHomepage() {
           </Card>
 
           {/* Travel Box */}
-          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative">
+          <Card className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl overflow-hidden group-hover:scale-105 relative flex flex-col h-full">
             {/* Continuous Green Light Animation Around Edge */}
             <div className="absolute inset-0 overflow-hidden z-10">
               {/* Top edge light */}
@@ -773,8 +773,8 @@ export function OSortudoHomepage() {
               <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-full animate-ping" style={{ animationDelay: '0.75s' }}></div>
             </div>
             
-            <div className="relative z-20">
-              <div className="relative">
+            <div className="relative z-20 flex flex-col flex-1">
+              <div className="relative flex-shrink-0">
                 <img
                   src="https://cdn.rillabox.com/media/boxes/02_TRAVEL_-Box-mock_box_1_uk1ofGC.png"
                   alt="Travel"
@@ -792,7 +792,7 @@ export function OSortudoHomepage() {
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">Travel</h3>
                 <p className="text-sm text-muted-foreground mb-4">Travel essentials and accessories</p>
                 <div className="flex items-center justify-between mb-4">

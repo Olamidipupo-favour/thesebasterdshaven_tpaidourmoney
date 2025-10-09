@@ -179,15 +179,15 @@ export function GamesGrid() {
         {filteredGames.map((game) => (
           <Card
             key={game.id}
-            className={`bg-card border-border overflow-hidden transition-all duration-300 cursor-pointer group ${
+            className={`bg-card border-border overflow-hidden transition-all duration-300 cursor-pointer group flex flex-col h-full ${
               hoveredGame === game.id ? "border-primary/50 shadow-lg scale-105" : ""
             }`}
             onMouseEnter={() => setHoveredGame(game.id)}
             onMouseLeave={() => setHoveredGame(null)}
           >
-            <div className="p-6">
+            <div className="p-6 flex flex-col flex-1">
               {/* Header */}
-              <div className="flex items-start justify-between mb-4">
+              <div className="flex items-start justify-between mb-4 flex-shrink-0">
                 <div className={`p-3 rounded-lg ${categoryColors[game.category]} transition-colors`}>{game.icon}</div>
                 <div className="flex flex-col items-end space-y-1">
                   {game.isLive && (
@@ -245,24 +245,26 @@ export function GamesGrid() {
               </div>
 
               {/* Action Button */}
-              <Button className="w-full glow-effect group-hover:bg-primary/90 transition-colors" size="sm">
-                {game.category === "earn" ? (
-                  <>
-                    <Play className="w-4 h-4 mr-2" />
-                    Play & Earn
-                  </>
-                ) : (
-                  <>
-                    <Trophy className="w-4 h-4 mr-2" />
-                    Play Now
-                  </>
-                )}
-              </Button>
+              <div className="mt-auto">
+                <Button className="w-full glow-effect group-hover:bg-primary/90 transition-colors" size="sm">
+                  {game.category === "earn" ? (
+                    <>
+                      <Play className="w-4 h-4 mr-2" />
+                      Play & Earn
+                    </>
+                  ) : (
+                    <>
+                      <Trophy className="w-4 h-4 mr-2" />
+                      Play Now
+                    </>
+                  )}
+                </Button>
+              </div>
             </div>
 
             {/* Hover Effect Overlay */}
             <div
-              className={`absolute inset-0 bg-primary/5 transition-opacity duration-300 ${
+              className={`absolute inset-0 bg-primary/5 transition-opacity duration-300 pointer-events-none ${
                 hoveredGame === game.id ? "opacity-100" : "opacity-0"
               }`}
             ></div>

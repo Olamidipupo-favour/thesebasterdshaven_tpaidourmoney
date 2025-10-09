@@ -1,13 +1,19 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, Suspense } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone } from "lucide-react"
+import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone, Volume2, VolumeX } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { Footer } from "@/components/layout/footer"
+import dynamic from "next/dynamic"
+
+const Box3D = dynamic(() => import("@/components/animations/box-3d").then(mod => ({ default: mod.Box3D })), {
+  ssr: false,
+  loading: () => <div className="w-[240px] h-[240px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>
+})
 
 // Function to get rarity color based on application theme
 const getRarityColor = (rarity: string) => {
@@ -22,6 +28,22 @@ const getRarityColor = (rarity: string) => {
       return '#52CA19' // Green
     default:
       return '#6F6868' // Gray
+  }
+}
+
+// Function to get rarity-specific glow class
+const getRarityGlowClass = (rarity: string) => {
+  switch (rarity.toLowerCase()) {
+    case 'legendary':
+      return 'glow-legendary'
+    case 'epic':
+      return 'glow-epic'
+    case 'rare':
+      return 'glow-rare'
+    case 'common':
+      return 'glow-common'
+    default:
+      return ''
   }
 }
 
@@ -178,12 +200,22 @@ export default function IPhoneBoxPage() {
   const [wonPrize, setWonPrize] = useState<any>(null)
   const [spinningItems, setSpinningItems] = useState<any[]>([])
   const [currentSpinIndex, setCurrentSpinIndex] = useState(0)
-  const [boxOpening, setBoxOpening] = useState(false)
+  const [boxOpening, setBoxOpening] = useState(false) // Start closed
   const [boxDisappearing, setBoxDisappearing] = useState(false)
-  const [showSpinner, setShowSpinner] = useState(false)
-  const [idleOffset, setIdleOffset] = useState(0)
+  const [isGameInProgress, setIsGameInProgress] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState<"usd" | "coins">("coins")
   const [quantity, setQuantity] = useState(1)
+  const [isBoxHovered, setIsBoxHovered] = useState(false)
+  const [isSoundMuted, setIsSoundMuted] = useState(false)
+  const [showBoxOnWinner, setShowBoxOnWinner] = useState(false)
+  const [isFastSpin, setIsFastSpin] = useState(false)
+  const timeouts = useRef<number[]>([])
+
+  useEffect(() => {
+    return () => {
+      timeouts.current.forEach(clearTimeout)
+    }
+  }, [])
 
   // Lightweight click sound using Web Audio API
   const audioCtxRef = useRef<AudioContext | null>(null)
@@ -198,6 +230,7 @@ export default function IPhoneBoxPage() {
   }, [])
 
   const playClick = () => {
+    if (isSoundMuted) return
     const ctx = audioCtxRef.current
     if (!ctx) return
     const osc = ctx.createOscillator()
@@ -213,100 +246,153 @@ export default function IPhoneBoxPage() {
     osc.stop(ctx.currentTime + 0.07)
   }
 
-  // Demo spin function with enhanced animation sequence
-  const handleDemoSpin = () => {
-    setIsDemoSpinning(true)
-    try { audioCtxRef.current?.resume?.() } catch {}
-    setWonPrize(null)
-    setShowSpinner(false)
-    
-    // Create a large array of items for smooth scrolling
-    const extendedItems: typeof iphoneItems = []
-    for (let i = 0; i < 30; i++) {
-      extendedItems.push(...iphoneItems)
-    }
-    setSpinningItems(extendedItems)
-    setCurrentSpinIndex(Math.floor(extendedItems.length / 2))
-
-    // Step 1: Box opening animation
-    setTimeout(() => {
-      setBoxOpening(true)
-      
-      // Step 2: Box disappearing after opening
-      setTimeout(() => {
-        setBoxDisappearing(true)
-        
-        // Step 3: Show spinner and start animation after box disappears
-        setTimeout(() => {
-          setShowSpinner(true)
-          startEnhancedSpinning(extendedItems, true)
-        }, 800)
-      }, 1200)
-    }, 500)
+  const handleFastSpin = () => {
+    setIsFastSpin(!isFastSpin)
   }
 
-  // Idle background scroll for items behind the box
-  useEffect(() => {
-    if (!showSpinner && !wonPrize) {
-      const interval = setInterval(() => {
-        setIdleOffset((prev) => {
-          const delta = Math.random() > 0.5 ? 1 : -1
-          const next = prev + delta
-          // keep within [-40, 40]
-          if (next > 40) return 40
-          if (next < -40) return -40
-          return next
-        })
-      }, 120)
-      return () => clearInterval(interval)
-    }
-  }, [showSpinner, wonPrize])
+  // Demo spin function with enhanced animation sequence
+  const handleDemoSpin = async () => {
+    if (isGameInProgress) return
 
-  // Enhanced spinning: step-by-step scroll with left/right oscillation and click sound
+    // If there's already a prize showing, smoothly transition to new spin
+    if (wonPrize) {
+      // Smoothly hide the current winning box and info
+      setWonPrize(null)
+      // Small delay to let the winning box fade out before starting new spin
+      setTimeout(() => {
+        setBoxOpening(false)
+        setBoxDisappearing(false)
+        setTimeout(() => setBoxOpening(true), 0)
+      }, 200)
+    } else {
+      // Reset animations for retriggering from initial state
+      setWonPrize(null)
+      setBoxOpening(false)
+      setBoxDisappearing(false)
+    }
+
+    setIsGameInProgress(true)
+    setIsDemoSpinning(true)
+    // Force audio context to resume
+    if (audioCtxRef.current) {
+      try {
+        await audioCtxRef.current.resume()
+        console.log('Audio context resumed')
+      } catch (e) {
+        console.error('Failed to resume audio context:', e)
+      }
+    }
+    
+    // Determine initial delay based on current state
+    const initialDelay = wonPrize ? 200 : 0
+    
+    // Step 1: Box opening animation (items stay in place)
+    timeouts.current.push(window.setTimeout(() => {
+      setBoxOpening(true)
+      
+      // Step 2: Wait 1.8 seconds then prepare for spinning
+      timeouts.current.push(window.setTimeout(() => {
+        setBoxDisappearing(true)
+        
+        // Step 3: Now set up the spinning items and start animation
+        timeouts.current.push(window.setTimeout(() => {
+          // Create a large array of items for smooth scrolling
+          const extendedItems: typeof iphoneItems = []
+          for (let i = 0; i < 30; i++) {
+            extendedItems.push(...iphoneItems)
+          }
+          setSpinningItems(extendedItems)
+          setCurrentSpinIndex(Math.floor(extendedItems.length / 2))
+          setIsSpinning(true)
+          startEnhancedSpinning(extendedItems, true)
+        }, 800))
+      }, 1800)) // 1.8 second delay to see items behind open box
+    }, initialDelay)) // Dynamic delay based on current state
+  }
+
+  // Enhanced spinning: smooth animation that lands perfectly on one item
   const startEnhancedSpinning = (items: typeof iphoneItems, isDemo: boolean) => {
     let currentIndex = Math.floor(items.length / 2)
-    let direction = Math.random() > 0.5 ? 1 : -1 // 1: right, -1: left
     let steps = 0
-    let speed = 85 // fast but readable
-    const maxRandomSteps = 100 // oscillate before final approach
+    const speedMultiplier = isFastSpin ? 0.3 : 1 // Fast spin is 3x faster
+    let speed = 50 * speedMultiplier // Start fast
+    const totalSteps = isFastSpin ? 60 : 80 // Fewer steps for fast spin
     const finalItem = Math.floor(Math.random() * iphoneItems.length)
     const center = Math.floor(items.length / 2)
-    const targetIndex = center + (finalItem % iphoneItems.length) - Math.floor(iphoneItems.length / 2)
+    
+    // Place the winning item at the center position in the extended items array
+    const modifiedItems = [...items]
+    modifiedItems[center] = iphoneItems[finalItem]
+    setSpinningItems(modifiedItems)
+    
+    // Ensure the target lands exactly at the center position
+    const targetIndex = center
 
     const tick = () => {
       setCurrentSpinIndex(currentIndex)
       playClick()
       steps++
 
-      // Final approach after enough steps
-      if (steps >= maxRandomSteps) {
-        if (currentIndex !== targetIndex) {
-          direction = currentIndex < targetIndex ? 1 : -1
-          currentIndex += direction
-          speed = Math.min(140, speed + 6)
-          setTimeout(tick, speed)
-        } else {
-          const selectedItem = iphoneItems[finalItem]
-          setTimeout(() => {
-            setWonPrize(selectedItem)
-            if (isDemo) {
-              setIsDemoSpinning(false)
-            } else {
-              setIsSpinning(false)
-            }
-          }, 500)
-        }
-        return
-      }
+      // Calculate progress (0 to 1)
+      const progress = steps / totalSteps
 
-      // Random oscillation phase — step one-by-one
-      currentIndex += direction
-      if (steps % 12 === 0 && Math.random() > 0.4) {
-        direction *= -1
-      }
+        // Ease out: slow down gradually at the end
+        if (progress < 0.7) {
+          // Fast phase - move quickly through items
+          currentIndex += 1
+          speed = 40 * speedMultiplier
+        } else {
+          // Slow down phase - decelerate smoothly toward center
+          const remainingSteps = totalSteps - steps
+          const distanceToTarget = Math.abs(targetIndex - currentIndex)
+          
+          if (distanceToTarget > 0) {
+            currentIndex += currentIndex < targetIndex ? 1 : -1
+            // Exponential slow down
+            speed = (50 + (remainingSteps * 8)) * speedMultiplier
+          } else {
+            // Landed on target - stop and show result
+            const selectedItem = iphoneItems[finalItem]
+            timeouts.current.push(window.setTimeout(() => {
+              setWonPrize(selectedItem)
+              setIsSpinning(false)
+              
+              if (isDemo) {
+                setIsDemoSpinning(false)
+                // Reset after 3 seconds for demo
+                timeouts.current.push(window.setTimeout(() => {
+                  resetGame()
+                }, 3000))
+              }
+            }, 500))
+            return
+          }
+        }
+
+      // Keep in bounds
       if (currentIndex < 0) currentIndex = 0
       if (currentIndex >= items.length) currentIndex = items.length - 1
-      setTimeout(tick, speed)
+
+      // Continue ticking
+      if (steps < totalSteps) {
+        timeouts.current.push(window.setTimeout(tick, speed))
+      } else {
+        // Force land on target if we haven't reached it
+        currentIndex = targetIndex
+        setCurrentSpinIndex(currentIndex)
+        const selectedItem = iphoneItems[finalItem]
+        timeouts.current.push(window.setTimeout(() => {
+          setWonPrize(selectedItem)
+          setIsSpinning(false)
+          
+          if (isDemo) {
+            setIsDemoSpinning(false)
+            timeouts.current.push(window.setTimeout(() => {
+              resetGame()
+            }, 3000))
+          }
+        }, 500))
+      }
     }
 
     tick()
@@ -314,39 +400,45 @@ export default function IPhoneBoxPage() {
 
   // Real spin function
   const handleRealSpin = async () => {
+    if (isGameInProgress) return
+
+    // Reset animations for retriggering
+    setWonPrize(null)
+    setBoxOpening(false)
+    setBoxDisappearing(false)
+
+    setIsGameInProgress(true)
+
     if (!isAuthenticated) {
       alert("Please sign in to open boxes")
+      setIsGameInProgress(false)
       return
     }
 
     setIsSpinning(true)
     try { audioCtxRef.current?.resume?.() } catch {}
-    setWonPrize(null)
-    setShowSpinner(false)
     
-    // Create a large array of items for smooth scrolling
-    const extendedItems: typeof iphoneItems = []
-    for (let i = 0; i < 30; i++) {
-      extendedItems.push(...iphoneItems)
-    }
-    setSpinningItems(extendedItems)
-    setCurrentSpinIndex(Math.floor(extendedItems.length / 2))
-
-    // Step 1: Box opening animation
-    setTimeout(() => {
+    // Step 1: Box opening animation (items stay in place)
+    timeouts.current.push(window.setTimeout(() => {
       setBoxOpening(true)
       
-      // Step 2: Box disappearing after opening
-      setTimeout(() => {
+      // Step 2: Wait 1.8 seconds then prepare for spinning
+      timeouts.current.push(window.setTimeout(() => {
         setBoxDisappearing(true)
         
-        // Step 3: Show spinner and start animation after box disappears
-        setTimeout(() => {
-          setShowSpinner(true)
+        // Step 3: Now set up the spinning items and start animation
+        timeouts.current.push(window.setTimeout(() => {
+          // Create a large array of items for smooth scrolling
+          const extendedItems: typeof iphoneItems = []
+          for (let i = 0; i < 30; i++) {
+            extendedItems.push(...iphoneItems)
+          }
+          setSpinningItems(extendedItems)
+          setCurrentSpinIndex(Math.floor(extendedItems.length / 2))
           startEnhancedSpinning(extendedItems, false)
-        }, 800)
-      }, 1200)
-    }, 500)
+        }, 800))
+      }, 1800)) // 1.8 second delay to see items behind open box
+    }, 0)) // Using timeout to force re-trigger
   }
 
   const resetGame = () => {
@@ -355,47 +447,13 @@ export default function IPhoneBoxPage() {
     setCurrentSpinIndex(0)
     setBoxOpening(false)
     setBoxDisappearing(false)
-    setShowSpinner(false)
+    setShowBoxOnWinner(false)
+    setIsGameInProgress(false)
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f1729] via-[#1a1b3d] to-[#2d1b4e]">
       <style jsx>{`
-        @keyframes boxOpen {
-          0% { 
-            transform: rotateX(0deg) rotateY(0deg) scale(1); 
-            opacity: 1;
-          }
-          50% { 
-            transform: rotateX(-12deg) rotateY(8deg) scale(1.06); 
-            opacity: 1;
-          }
-          100% { 
-            transform: rotateX(0deg) rotateY(0deg) scale(1); 
-            opacity: 1;
-          }
-        }
-        @keyframes boxDisappear {
-          0% { 
-            transform: scale(1) rotateY(0deg); 
-            opacity: 1; 
-          }
-          50% { 
-            transform: scale(1.2) rotateY(180deg); 
-            opacity: 0.5; 
-          }
-          100% { 
-            transform: scale(0) rotateY(360deg); 
-            opacity: 0; 
-          }
-        }
-        @keyframes dance3D {
-          0% { transform: rotateX(0deg) rotateY(0deg) translateY(0); }
-          25% { transform: rotateX(6deg) rotateY(-6deg) translateY(-2px); }
-          50% { transform: rotateX(0deg) rotateY(0deg) translateY(0); }
-          75% { transform: rotateX(-6deg) rotateY(6deg) translateY(-2px); }
-          100% { transform: rotateX(0deg) rotateY(0deg) translateY(0); }
-        }
         @keyframes spinnerFadeIn {
           0% { 
             opacity: 0; 
@@ -406,10 +464,23 @@ export default function IPhoneBoxPage() {
             transform: translateY(0); 
           }
         }
-        @keyframes idleScroll {
-          0% { transform: translateX(0); }
-          50% { transform: translateX(-40px); }
-          100% { transform: translateX(0); }
+        @keyframes pulse {
+          0%, 100% { 
+            opacity: 0.3;
+          }
+          50% { 
+            opacity: 0.6;
+          }
+        }
+        @keyframes boxReappear {
+          0% { 
+            opacity: 0; 
+            transform: translate(-50%, -50%) scale(0.5);
+          }
+          100% { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1);
+          }
         }
         .spinner-item-middle {
           position: relative;
@@ -419,19 +490,8 @@ export default function IPhoneBoxPage() {
           animation: glow 0.5s ease-in-out infinite alternate;
         }
         @keyframes glow {
-          from { box-shadow: 0 0 20px currentColor; }
-          to { box-shadow: 0 0 30px currentColor, 0 0 40px currentColor; }
-        }
-        .cube {
-          width: 180px; height: 180px; position: relative; transform-style: preserve-3d;
-        }
-        .cube-face {
-          position: absolute; width: 180px; height: 180px; backface-visibility: hidden;
-          background-size: cover; background-position: center; border-radius: 12px;
-          box-shadow: 0 12px 32px rgba(0,0,0,0.35);
-        }
-        .lid {
-          position: absolute; width: 180px; height: 180px; transform-style: preserve-3d;
+          from { box-shadow: 0 0 30px currentColor, 0 0 50px currentColor; }
+          to { box-shadow: 0 0 50px currentColor, 0 0 80px currentColor, 0 0 100px currentColor; }
         }
       `}</style>
         {/* Global Navigation is provided via RootLayout */}
@@ -440,331 +500,238 @@ export default function IPhoneBoxPage() {
       <main className="min-h-screen">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {/* Header - Exact Rillabox Style */}
-            <div className="mb-8">
-          <Link href="/boxes" className="inline-flex items-center text-primary hover:text-primary/80 mb-4">
+            <div className="mb-4 flex items-center justify-between">
+          <Link href="/boxes" className="inline-flex items-center text-white/70 hover:text-white text-sm">
             <ArrowLeft className="w-4 h-4 mr-2" />
-                ← Return to Boxes
+            Return to Boxes
           </Link>
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center">
-                    <Smartphone className="w-4 h-4 text-primary" />
-                  </div>
-            <div>
-                    <h1 className="text-3xl font-bold text-foreground mb-2">1% iPhone</h1>
-                    <p className="text-muted-foreground">Open to reveal your prize!</p>
-                  </div>
-            </div>
-            {isAuthenticated && user && (
-              <div className="flex items-center space-x-2 bg-primary/10 px-4 py-2 rounded-lg">
-                <Coins className="w-5 h-5 text-primary" />
-                <span className="font-bold text-lg text-foreground">{user.balance?.toLocaleString() || 0}</span>
-                <span className="text-sm text-muted-foreground">Coins</span>
-              </div>
+          
+          {/* Sound toggle button */}
+          <Button
+            onClick={() => setIsSoundMuted(!isSoundMuted)}
+            size="icon"
+            className="bg-[#2d3548] hover:bg-[#353d52] text-white rounded-lg border-0 w-10 h-10"
+          >
+            {isSoundMuted ? (
+              <VolumeX className="w-5 h-5" />
+            ) : (
+              <Volume2 className="w-5 h-5" />
             )}
-          </div>
+          </Button>
         </div>
 
-             {/* 3D Box Animation - Enhanced with 3D cube and idle items behind */}
-             {!showSpinner && !wonPrize && (
-              <div className="relative mb-12 h-[360px] pointer-events-none">
-                {/* Center arrows like Rillabox */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 flex justify-center">
-                  <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-white/70"></div>
-                </div>
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex justify-center">
-                  <div className="w-0 h-0 border-l-4 border-r-4 border-t-8 border-l-transparent border-r-transparent border-t-white/70"></div>
-                </div>
-                <div className="flex h-full justify-center items-center">
-                  <div 
-                    className="relative w-[180px] h-[180px]"
-                    style={{
-                      perspective: '1000px',
-                      transformStyle: 'preserve-3d',
-                      opacity: boxDisappearing ? 0 : 1,
-                      transition: 'opacity 0.8s ease-out'
-                    }}
-                  >
-                    {/* Idle items row behind the box */}
-                    <div 
-                      className="absolute inset-0 -z-20 flex items-center justify-center"
-                      style={{ 
-                        filter: 'blur(4px)', 
-                        opacity: 0.42,
-                        WebkitMaskImage: 'linear-gradient(to right, transparent, black 16%, black 84%, transparent)',
-                        maskImage: 'linear-gradient(to right, transparent, black 16%, black 84%, transparent)'
-                      }}
-                    >
-                      <div
-                        className="flex items-center"
-                        style={{
-                          transform: `translateZ(-140px) translateX(calc(50% - ${idleOffset * 6}px))`,
-                        }}
-                      >
-                        {Array.from({ length: 18 }).map((_, i) => {
-                          const item = iphoneItems[i % iphoneItems.length]
-                          return (
-                            <div key={`idle-${i}`} className="w-20 h-20 mx-2 rounded-lg flex items-center justify-center"
-                              style={{ backgroundColor: getRarityColor(item.rarity) + '20' }}
-                            >
-                              <img src={item.image} alt={item.name} className="w-16 h-16 object-contain" onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
-                            </div>
-                          )
-                        })}
-                      </div>
-                    </div>
-                    {/* 3D Box Container */}
-                    <div 
-                      className="relative w-full h-full"
-                      style={{
-                        transformStyle: 'preserve-3d',
-                        animation: boxDisappearing
-                          ? 'boxDisappear 0.8s ease-in-out forwards'
-                          : boxOpening
-                          ? 'boxOpen 1.2s ease-in-out'
-                          : 'dance3D 2.8s ease-in-out infinite'
-                      }}
-                    >
-                      {/* Cube body */}
-                      <div className="cube">
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/FRONT-200x200_WGO7E2Z.png')",
-                          transform: 'translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/FRONT-200x200_WGO7E2Z.png')",
-                          transform: 'rotateY(180deg) translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/FRONT-200x200_WGO7E2Z.png')",
-                          transform: 'rotateY(90deg) translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/FRONT-200x200_WGO7E2Z.png')",
-                          transform: 'rotateY(-90deg) translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/FRONT-200x200_WGO7E2Z.png')",
-                          transform: 'rotateX(90deg) translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/FRONT-200x200_WGO7E2Z.png')",
-                          transform: 'rotateX(-90deg) translateZ(100px)'
-                        }} />
-                      </div>
-                      {/* Lid */}
-                      <div className="lid" style={{ transform: 'translateZ(5px)' }}>
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/LID-200x55_evkfckW.png')",
-                          transform: 'translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/LID-200x55_evkfckW.png')",
-                          transform: 'rotateY(90deg) translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/LID-200x55_evkfckW.png')",
-                          transform: 'rotateY(-90deg) translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/LID-200x55_evkfckW.png')",
-                          transform: 'rotateY(180deg) translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/LID-200x55_evkfckW.png')",
-                          transform: 'rotateX(90deg) translateZ(100px)'
-                        }} />
-                        <div className="cube-face" style={{
-                          backgroundImage: "url('https://cdn.rillabox.com/media/boxes/LID-200x55_evkfckW.png')",
-                          transform: 'rotateX(-90deg) translateZ(100px)'
-                        }} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Enhanced Spinner Section - Only show when spinning */}
-            {showSpinner && (
-              <div 
-                className="relative mb-8"
+             {/* Unified Game Animation Container */}
+             <div 
+                className="relative mb-8 h-[450px] rounded-2xl overflow-hidden"
                 style={{
-                  animation: 'spinnerFadeIn 0.8s ease-out'
+                  background: 'linear-gradient(135deg, rgba(15, 23, 41, 0.95) 0%, rgba(26, 27, 61, 0.95) 50%, rgba(45, 27, 78, 0.95) 100%)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
                 }}
               >
-                {/* Arrow pointing down to center */}
-                <div className="flex justify-center mb-4">
-                  <div className="w-0 h-0 border-l-4 border-r-4 border-t-8 border-l-transparent border-r-transparent border-t-primary animate-pulse"></div>
+                {/* Center arrows */}
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 flex justify-center z-10">
+                  <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-white animate-pulse"></div>
+                </div>
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex justify-center z-10">
+                  <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[20px] border-l-transparent border-r-transparent border-t-white animate-pulse"></div>
                 </div>
                 
-                {/* Horizontal Spinner Container */}
-                <div className="relative w-full h-80 overflow-hidden bg-gradient-to-br from-muted/20 to-muted/10 rounded-lg border-2 border-primary/20">
-                  {/* Center Line Indicator */}
-                  <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-full bg-primary z-10 shadow-lg"></div>
-                  
-                  {/* Spinner Items */}
-                  <div className="relative h-full">
-                    <div 
-                      className="flex items-center h-full transition-transform duration-100 ease-out"
-                      style={{
-                        transform: `translateX(calc(50% - ${currentSpinIndex * 120}px))`,
-                        width: `${spinningItems.length * 120}px`
-                      }}
-                    >
-                      {spinningItems.map((item, index) => {
-                        const distanceFromCenter = Math.abs(index - currentSpinIndex)
-                        const isCenter = index === currentSpinIndex
-                        const isNearCenter = distanceFromCenter <= 2
-                        
-                        return (
+                {/* Item Strip - Now handles both idle and spinning states */}
+                <div 
+                  className="absolute inset-0 flex items-center overflow-hidden"
+                  style={{ 
+                    filter: 'none', 
+                    opacity: 1.0,
+                    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)',
+                    maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)'
+                  }}
+                >
+                  <div 
+                    className={`flex items-center ${isSpinning ? 'transition-transform duration-100 ease-out' : ''}`}
+                    style={{
+                      transform: isSpinning 
+                        ? `translateX(calc(50% - ${currentSpinIndex * 120}px - 60px))` // Perfect center alignment: 120px width / 2 = 60px
+                        : 'translateX(calc(50% - 1200px))', // Adjusted for perfect centering
+                      width: isSpinning ? `${spinningItems.length * 120}px` : 'auto'
+                    }}
+                  >
+                    {(isSpinning ? spinningItems : Array.from({ length: 20 }).map((_, i) => iphoneItems[i % iphoneItems.length])).map((item, index) => {
+                      const rarityColor = getRarityColor(item.rarity)
+                      const isWinningItem = wonPrize && item.id === wonPrize.id && index === currentSpinIndex
+
+                      return (
+                        <div key={`item-${index}`} className="w-24 h-24 mx-3 rounded-xl flex items-center justify-center shrink-0 relative"
+                          style={{ 
+                            backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                            backdropFilter: 'blur(8px)',
+                            border: `1px solid ${rarityColor}80`,
+                            boxShadow: isWinningItem 
+                              ? `0 0 40px ${rarityColor}, 0 0 60px ${rarityColor}cc, 0 0 80px ${rarityColor}80`
+                              : `0 0 25px ${rarityColor}, 0 0 40px ${rarityColor}80, 0 0 60px ${rarityColor}40, 0 4px 12px rgba(0,0,0,0.5)`
+                          }}
+                        >
+                          <img src={item.image} alt={item.name} className="w-16 h-16 object-contain opacity-90" onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
                           <div 
-                            key={`${item.id}-${index}`}
-                            className={`flex-shrink-0 w-28 h-28 mx-2 rounded-xl flex items-center justify-center transition-all duration-200 ${
-                              isCenter ? 'spinner-item-middle glow highlight' : ''
-                            }`}
+                            className="absolute inset-0 rounded-xl pointer-events-none"
                             style={{
-                              backgroundColor: getRarityColor(item.rarity) + (isCenter ? '50' : '20'),
-                              boxShadow: isCenter ? `0 0 40px ${getRarityColor(item.rarity)}80, 0 0 20px ${getRarityColor(item.rarity)}60` : 
-                                        isNearCenter ? `0 0 15px ${getRarityColor(item.rarity)}40` : 'none',
-                              transform: isCenter ? 'scale(1.3)' : isNearCenter ? 'scale(1.1)' : 'scale(0.8)',
-                              opacity: isCenter ? 1 : isNearCenter ? 0.8 : 0.4,
-                              zIndex: isCenter ? 20 : isNearCenter ? 10 : 1
-                            } as React.CSSProperties}
-                          >
-                            <div className="img-wrapper relative">
-                              <img 
-                                src={item.image} 
-                                alt={item.name}
-                                className={`object-contain transition-all duration-200 ${
-                                  isCenter ? 'w-24 h-24' : isNearCenter ? 'w-20 h-20' : 'w-16 h-16'
-                                }`}
-                                onError={(e) => {
-                                  e.currentTarget.src = "/placeholder.svg"
-                                }}
-                              />
-                              {isCenter && (
-                                <div className="absolute inset-0 rounded-xl border-2 border-primary animate-pulse"></div>
-                              )}
-                            </div>
-                          </div>
-                        )
-                      })}
-                    </div>
+                              background: `radial-gradient(circle at center, ${rarityColor}40 0%, ${rarityColor}20 40%, transparent 70%)`
+                            }}
+                          />
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
-              </div>
-            )}
 
-            {/* Control Panel - Exact Rillabox Style */}
-            <div className="flex justify-center mb-8">
-              <div className="bg-card border border-border rounded-lg p-6 max-w-2xl w-full">
-                    {/* Security Badge */}
-                <div className="flex items-center justify-center space-x-2 text-sm text-muted-foreground mb-6">
-                      <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                      <span>100% Authentic & Secured by Provable Fairness</span>
+                {/* 3D Box - Manages its own appearance */}
+                {!wonPrize && !boxDisappearing && (
+                  <div 
+                    className="flex h-full justify-center items-center cursor-pointer relative z-20"
+                    onMouseEnter={() => setIsBoxHovered(true)}
+                    onMouseLeave={() => setIsBoxHovered(false)}
+                  >
+                    <Suspense fallback={<div className="w-[240px] h-[240px]"></div>}>
+                      <Box3D 
+                        isHovered={isBoxHovered}
+                        boxOpening={boxOpening}
+                        boxDisappearing={boxDisappearing}
+                      />
+                    </Suspense>
+                  </div>
+                )}
+                
+                {/* Box and winning item info container */}
+                {wonPrize && (
+                  <div 
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center"
+                    style={{
+                      animation: 'boxReappear 0.8s ease-out forwards'
+                    }}
+                  >
+                    {/* 3D Box */}
+                    <div className="mb-4">
+                      <Suspense fallback={<div className="w-[240px] h-[240px]"></div>}>
+                        <Box3D 
+                          isHovered={false}
+                          boxOpening={false}
+                          boxDisappearing={false}
+                        />
+                      </Suspense>
                     </div>
-
-                    {/* Payment Options */}
-                <div className="flex justify-center space-x-3 mb-6">
-                        <Button
-                          variant={paymentMethod === "usd" ? "default" : "outline"}
-                          size="lg"
-                          onClick={() => setPaymentMethod("usd")}
-                          className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
-                        >
-                          $2.79 USD
-                        </Button>
-                        <Button
-                          variant={paymentMethod === "coins" ? "default" : "outline"}
-                          size="lg"
-                          onClick={() => setPaymentMethod("coins")}
-                          className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
-                          disabled={!isAuthenticated}
-                        >
-                          <Coins className="w-4 h-4 mr-2" />
-                          70 Coins
-                        </Button>
-                      </div>
-
-                {/* Action Buttons */}
-                <div className="flex justify-center space-x-4 mb-6">
-                  <Button
-                    onClick={handleDemoSpin}
-                    size="lg"
-                    className="bg-muted hover:bg-muted/90 text-muted-foreground px-6 py-3 font-bold"
-                  >
-                    <Zap className="w-4 h-4 mr-2" />
-                    Demo Spin
-                  </Button>
-                  <Button
-                    onClick={handleRealSpin}
-                    size="lg"
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-3 font-bold"
-                    disabled={!isAuthenticated}
-                  >
-                    <Gift className="w-4 h-4 mr-2" />
-                    Open for $2.79
-                        </Button>
-                      </div>
-
-                      {/* Quantity Selection */}
-                      <div className="flex justify-center space-x-2">
-                        {[1, 2, 3, 4].map((num) => (
-                          <Button
-                            key={num}
-                            variant={quantity === num ? "default" : "outline"}
-                            size="sm"
-                            onClick={() => setQuantity(num)}
-                            className="w-12 h-12"
-                          >
-                            {num}
-                          </Button>
-                        ))}
+                    
+                    {/* Winning item info directly under the box */}
+                    <div className="text-center">
+                      <div className="bg-black/60 backdrop-blur-md px-6 py-3 rounded-xl border border-white/20">
+                        <p className="text-white font-bold text-lg mb-1">You Won!</p>
+                        <p className="text-green-400 font-semibold text-xl">${wonPrize.value}</p>
+                        <p className="text-white/80 text-sm">{wonPrize.name}</p>
                       </div>
                     </div>
                   </div>
+                )}
+              </div>
+
+            {/* Control Panel - Exact Layout Match */}
+            <div className="flex flex-col items-center mb-8 space-y-4">
+              {/* Security Badge */}
+              <div className="flex items-center space-x-2 text-sm text-white/70">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span>100% Authentic & Secured by Provable Fairness</span>
+              </div>
+
+              {/* Action Buttons Row */}
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleDemoSpin}
+                  className="bg-[#2d3548] hover:bg-[#353d52] text-white px-6 py-3 text-sm font-medium rounded-lg border-0"
+                  disabled={isGameInProgress}
+                >
+                  DEMO SPIN
+                </Button>
+                <Button
+                  onClick={handleRealSpin}
+                  className="bg-[#22c55e] hover:bg-[#16a34a] text-white px-6 py-3 text-sm font-medium rounded-lg border-0 shadow-lg shadow-green-500/30"
+                  disabled={!isAuthenticated || isGameInProgress}
+                >
+                  <Gift className="w-4 h-4 mr-2" />
+                  Open for $2.79
+                </Button>
+                <Button
+                  onClick={handleFastSpin}
+                  className={`px-3 py-3 rounded-lg border-0 transition-all ${
+                    isFastSpin 
+                      ? 'bg-yellow-600 hover:bg-yellow-700 text-white' 
+                      : 'bg-[#2d3548] hover:bg-[#353d52] text-white'
+                  }`}
+                >
+                  <Zap className={`w-4 h-4 ${isFastSpin ? 'animate-pulse' : ''}`} />
+                </Button>
+              </div>
+
+              {/* Quantity Selection */}
+              <div className="flex space-x-2">
+                {[1, 2, 3, 4].map((num) => (
+                  <Button
+                    key={num}
+                    onClick={() => setQuantity(num)}
+                    className={`w-10 h-10 rounded-lg font-semibold text-sm transition-all ${
+                      quantity === num 
+                        ? 'bg-blue-600 hover:bg-blue-700 text-white border-0' 
+                        : 'bg-[#2d3548] hover:bg-[#353d52] text-white/80 border-0'
+                    }`}
+                  >
+                    {num}
+                  </Button>
+                ))}
+              </div>
+            </div>
             {/* Items in Box - Exact Rillabox Style */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-foreground mb-4">Drops in 1% iPhone (10)</h2>
-              <p className="text-muted-foreground mb-6">Unbox to ship or exchange one of the products:</p>
+              <h2 className="text-3xl font-bold text-blue-400 mb-2">Drops in 1% iPhone (15)</h2>
+              <p className="text-white/60 mb-8 text-base">Unbox to ship or exchange one of the products:</p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {iphoneItems.map((item) => (
-                  <Card key={item.id} className="bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-200">
+                  <Card key={item.id} className="bg-[#2a3142] border-[#3d4558] overflow-hidden hover:border-blue-500 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/60">
                     <div 
-                      className="border-t-2 border-b-2 p-4"
+                      className="border-t-[6px] p-4"
                       style={{ 
-                        borderTopColor: getRarityColor(item.rarity), 
-                        borderBottomColor: getRarityColor(item.rarity) 
+                        borderTopColor: getRarityColor(item.rarity),
+                        boxShadow: `0 0 15px ${getRarityColor(item.rarity)}40`
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = `0 0 25px ${getRarityColor(item.rarity)}80, 0 0 40px ${getRarityColor(item.rarity)}40`
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = `0 0 15px ${getRarityColor(item.rarity)}40`
                       }}
                     >
                       <div className="text-center">
-                        <div className="w-28 h-28 mx-auto mb-3 rounded-xl flex items-center justify-center overflow-hidden hover:scale-110 transition-transform duration-300 group">
+                        <div className="w-full aspect-square mx-auto mb-3 rounded-lg flex items-center justify-center overflow-hidden hover:scale-105 transition-transform duration-300 bg-[#1e2333]">
                           <img 
                             src={item.image} 
                             alt={item.name}
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                            className="w-4/5 h-4/5 object-contain"
                             onError={(e) => {
                               e.currentTarget.src = "/placeholder.svg"
                             }}
                           />
                         </div>
-                        <h3 className="text-sm font-bold text-foreground mb-2">{item.name}</h3>
-                        <div className="text-lg font-bold text-primary mb-2">${item.value}</div>
+                        <h3 className="text-xs font-semibold text-white/90 mb-2 line-clamp-2 min-h-[2.5rem]">{item.name}</h3>
+                        <div className="text-base font-bold text-green-400 mb-2">${item.value}</div>
                         <Badge 
                           variant="secondary" 
-                          className={`text-xs mb-2 ${
-                            item.rarity === 'legendary' ? 'bg-yellow-100 text-yellow-800' :
-                            item.rarity === 'epic' ? 'bg-purple-100 text-purple-800' :
-                            item.rarity === 'rare' ? 'bg-blue-100 text-blue-800' :
-                            item.rarity === 'common' ? 'bg-green-100 text-green-800' :
-                            'bg-gray-100 text-gray-800'
+                          className={`text-xs mb-2 font-semibold ${
+                            item.rarity === 'legendary' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
+                            item.rarity === 'epic' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' :
+                            item.rarity === 'rare' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
+                            item.rarity === 'common' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
+                            'bg-gray-500/20 text-gray-400 border border-gray-500/30'
                           }`}
                         >
-                          {item.rarity}
+                          {item.rarity.toUpperCase()}
                         </Badge>
-                        <div className="text-xs text-muted-foreground">{item.probability}%</div>
+                        <div className="text-xs text-white/50">{item.probability}%</div>
                       </div>
                     </div>
                   </Card>

@@ -8,7 +8,6 @@ import { Progress } from "@/components/ui/progress"
 import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
-import { Navigation } from "@/components/navigation"
 import type { BoxItem } from "@/lib/api/types"
 
 // iPhone items data with real images
@@ -208,7 +207,7 @@ export default function BoxDetailPage({ params }: BoxDetailPageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navigation />
+      {/* Global Navigation is provided via RootLayout */}
       <div className="container mx-auto px-4 py-6">
         {/* Header with Back Button */}
         <div className="mb-6">

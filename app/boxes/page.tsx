@@ -411,100 +411,100 @@ export default function BoxesPage() {
             {/* Boxes Grid - Smaller Boxes */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {filteredBoxes.map((box) => (
-                <Card key={box.id} className="bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/10 hover:scale-105 cursor-pointer animate-borderbox">
-                  <div className="relative">
-                    {/* Box Name - Top Left */}
-                    <div className="absolute top-2 left-2 z-10">
-                      <span className="text-sm font-bold text-white bg-black/50 px-2 py-1 rounded">
-                        {box.name}
-                      </span>
-                    </div>
-                    
-                    {/* Eye Icon - Top Right */}
-                    <div className="absolute top-2 right-2 z-10">
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors cursor-pointer">
-                            <Eye className="w-4 h-4 text-white" />
-                          </div>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                          <DialogHeader>
-                            <DialogTitle className="text-2xl font-bold text-center">
-                              {box.name} - Items
-                            </DialogTitle>
-                          </DialogHeader>
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-                            {boxItems[box.id as keyof typeof boxItems]?.map((item) => (
-                              <Card key={item.id} className="p-4 hover:shadow-lg transition-shadow">
-                                <div className="flex items-center space-x-4">
-                                  <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
-                                    <img 
-                                      src={item.image} 
-                                      alt={item.name}
-                                      className="w-12 h-12 object-contain"
-                                      onError={(e) => {
-                                        e.currentTarget.src = '/placeholder.svg'
-                                      }}
-                                    />
+                <Link key={box.id} href={box.id === "1-percent-iphone" ? "/boxes/iphone-box" : `/boxes/${box.id}`}>
+                  <Card className="bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/10 hover:scale-105 cursor-pointer animate-borderbox flex flex-col h-full">
+                    <div className="relative flex-shrink-0">
+                      {/* Box Name - Top Left */}
+                      <div className="absolute top-2 left-2 z-10">
+                        <span className="text-sm font-bold text-white bg-black/50 px-2 py-1 rounded">
+                          {box.name}
+                        </span>
+                      </div>
+                      
+                      {/* Eye Icon - Top Right */}
+                      <div className="absolute top-2 right-2 z-10">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors cursor-pointer" onClick={(e) => e.stopPropagation()}>
+                              <Eye className="w-4 h-4 text-white" />
+                            </div>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                            <DialogHeader>
+                              <DialogTitle className="text-2xl font-bold text-center">
+                                {box.name} - Items
+                              </DialogTitle>
+                            </DialogHeader>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                              {boxItems[box.id as keyof typeof boxItems]?.map((item) => (
+                                <Card key={item.id} className="p-4 hover:shadow-lg transition-shadow">
+                                  <div className="flex items-center space-x-4">
+                                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
+                                      <img 
+                                        src={item.image} 
+                                        alt={item.name}
+                                        className="w-12 h-12 object-contain"
+                                        onError={(e) => {
+                                          e.currentTarget.src = '/placeholder.svg'
+                                        }}
+                                      />
+                                    </div>
+                                    <div className="flex-1">
+                                      <h3 className="font-semibold text-sm">{item.name}</h3>
+                                      <p className="text-lg font-bold text-primary">${item.value}</p>
+                                      <Badge 
+                                        variant="secondary" 
+                                        className={`text-xs ${
+                                          item.rarity === 'Legendary' ? 'bg-yellow-100 text-yellow-800' :
+                                          item.rarity === 'Epic' ? 'bg-purple-100 text-purple-800' :
+                                          item.rarity === 'Rare' ? 'bg-blue-100 text-blue-800' :
+                                          item.rarity === 'Uncommon' ? 'bg-green-100 text-green-800' :
+                                          'bg-gray-100 text-gray-800'
+                                        }`}
+                                      >
+                                        {item.rarity}
+                                      </Badge>
+                                    </div>
                                   </div>
-                                  <div className="flex-1">
-                                    <h3 className="font-semibold text-sm">{item.name}</h3>
-                                    <p className="text-lg font-bold text-primary">${item.value}</p>
-                                    <Badge 
-                                      variant="secondary" 
-                                      className={`text-xs ${
-                                        item.rarity === 'Legendary' ? 'bg-yellow-100 text-yellow-800' :
-                                        item.rarity === 'Epic' ? 'bg-purple-100 text-purple-800' :
-                                        item.rarity === 'Rare' ? 'bg-blue-100 text-blue-800' :
-                                        item.rarity === 'Uncommon' ? 'bg-green-100 text-green-800' :
-                                        'bg-gray-100 text-gray-800'
-                                      }`}
-                                    >
-                                      {item.rarity}
-                                    </Badge>
-                                  </div>
-                                </div>
-                              </Card>
-                            ))}
-                          </div>
-                        </DialogContent>
-                      </Dialog>
+                                </Card>
+                              ))}
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+
+                      {/* Box Image Container - Exact Rillabox Style */}
+                      <div className="aspect-square bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center relative overflow-hidden group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300">
+                        <img 
+                          src={box.image} 
+                          alt={box.name}
+                          className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300"
+                          onError={(e) => {
+                            e.currentTarget.src = "/placeholder.svg"
+                          }}
+                        />
+                        <div 
+                          className="absolute inset-0 border-t-2 border-b-2 group-hover:border-t-4 group-hover:border-b-4 transition-all duration-300"
+                          style={{ 
+                            borderTopColor: box.borderColor, 
+                            borderBottomColor: box.borderColor 
+                          }}
+                        ></div>
+                        {/* Glow effect - Exact Rillabox Style */}
+                        <div 
+                          className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-300 rounded-lg"
+                          style={{ 
+                            backgroundColor: box.borderColor,
+                            boxShadow: `0 0 20px ${box.borderColor}40`
+                          }}
+                        ></div>
+                      </div>
+                      
                     </div>
 
-                    {/* Box Image Container - Exact Rillabox Style */}
-                    <div className="aspect-square bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center relative overflow-hidden group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300">
-                      <img 
-                        src={box.image} 
-                        alt={box.name}
-                        className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300"
-                        onError={(e) => {
-                          e.currentTarget.src = "/placeholder.svg"
-                        }}
-                      />
-                      <div 
-                        className="absolute inset-0 border-t-2 border-b-2 group-hover:border-t-4 group-hover:border-b-4 transition-all duration-300"
-                        style={{ 
-                          borderTopColor: box.borderColor, 
-                          borderBottomColor: box.borderColor 
-                        }}
-                      ></div>
-                      {/* Glow effect - Exact Rillabox Style */}
-                      <div 
-                        className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-300 rounded-lg"
-                        style={{ 
-                          backgroundColor: box.borderColor,
-                          boxShadow: `0 0 20px ${box.borderColor}40`
-                        }}
-                      ></div>
-                    </div>
-                    
-                  </div>
-
-                  <div className="p-2">
-                    {/* Price Section - Clickable to Open Box */}
-                    <Link href={box.id === "1-percent-iphone" ? "/boxes/iphone-box" : `/boxes/${box.id}`}>
-                      <div className="mb-2 cursor-pointer hover:scale-105 transition-all duration-300">
+                    <div className="p-2 mt-auto">
+                      {/* Price Section - No longer clickable, just display */}
+                      <div className="mb-2">
                         <div className="price-container flex items-center justify-center space-x-1 w-full">
                           <div className="original-price text-xs font-bold line-through bg-white text-black px-2 py-1 rounded flex-1 text-center">
                             <span>$</span><span>{box.originalPrice}</span>
@@ -514,9 +514,9 @@ export default function BoxesPage() {
                           </div>
                         </div>
                       </div>
-                    </Link>
-                  </div>
-                </Card>
+                    </div>
+                  </Card>
+                </Link>
               ))}
             </div>
 

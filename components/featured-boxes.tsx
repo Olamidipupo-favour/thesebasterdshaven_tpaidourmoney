@@ -41,9 +41,9 @@ export function FeaturedBoxes() {
           featuredBoxes.map((box) => (
             <Card
               key={box.id}
-              className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 overflow-hidden"
+              className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 overflow-hidden flex flex-col h-full"
             >
-              <div className="relative">
+              <div className="relative flex-shrink-0">
                 <img
                   src={box.image || "/placeholder.svg"}
                   alt={box.name}
@@ -60,7 +60,7 @@ export function FeaturedBoxes() {
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-4 flex flex-col flex-1">
                 <h3 className="text-xl font-bold text-foreground mb-2">{box.name}</h3>
                 <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{box.description}</p>
 
@@ -73,13 +73,15 @@ export function FeaturedBoxes() {
                   </div>
                 </div>
 
-                <Link href="/boxes">
-                  <Button className="w-full glow-effect group-hover:bg-primary/90">Open Box</Button>
-                </Link>
+                <div className="mt-auto">
+                  <Link href="/boxes">
+                    <Button className="w-full glow-effect group-hover:bg-primary/90">Open Box</Button>
+                  </Link>
 
-                <div className="flex items-center justify-center mt-2 text-xs text-muted-foreground">
-                  <Clock className="w-3 h-3 mr-1" />
-                  Last opened 2m ago
+                  <div className="flex items-center justify-center mt-2 text-xs text-muted-foreground">
+                    <Clock className="w-3 h-3 mr-1" />
+                    Last opened 2m ago
+                  </div>
                 </div>
               </div>
             </Card>

@@ -139,10 +139,10 @@
 @keyframes glow {
   0%,
   100% {
-    box-shadow: 0 0 5px oklch(0.65 0.12 160);
+    box-shadow: 0 0 15px oklch(0.65 0.12 160), 0 0 30px oklch(0.65 0.12 160);
   }
   50% {
-    box-shadow: 0 0 20px oklch(0.65 0.12 160), 0 0 30px oklch(0.65 0.12 160);
+    box-shadow: 0 0 30px oklch(0.65 0.12 160), 0 0 50px oklch(0.65 0.12 160), 0 0 70px oklch(0.65 0.12 160);
   }
 }
 
@@ -152,6 +152,78 @@
 
 .glow-effect {
   animation: glow 2s ease-in-out infinite;
+}
+
+/* Legendary glow - Gold */
+@keyframes glowLegendary {
+  0%, 100% {
+    box-shadow: 0 0 20px #FFBE0B, 0 0 40px #FFBE0B, 0 0 60px #FFBE0B80;
+  }
+  50% {
+    box-shadow: 0 0 30px #FFBE0B, 0 0 60px #FFBE0B, 0 0 90px #FFBE0B80, 0 0 120px #FFBE0B40;
+  }
+}
+
+/* Epic glow - Purple */
+@keyframes glowEpic {
+  0%, 100% {
+    box-shadow: 0 0 20px #A800E0, 0 0 40px #A800E0, 0 0 60px #A800E080;
+  }
+  50% {
+    box-shadow: 0 0 30px #A800E0, 0 0 60px #A800E0, 0 0 90px #A800E080, 0 0 120px #A800E040;
+  }
+}
+
+/* Rare glow - Blue */
+@keyframes glowRare {
+  0%, 100% {
+    box-shadow: 0 0 20px #0078D7, 0 0 40px #0078D7, 0 0 60px #0078D780;
+  }
+  50% {
+    box-shadow: 0 0 30px #0078D7, 0 0 60px #0078D7, 0 0 90px #0078D780, 0 0 120px #0078D740;
+  }
+}
+
+/* Common glow - Green */
+@keyframes glowCommon {
+  0%, 100% {
+    box-shadow: 0 0 20px #52CA19, 0 0 40px #52CA19, 0 0 60px #52CA1980;
+  }
+  50% {
+    box-shadow: 0 0 30px #52CA19, 0 0 60px #52CA19, 0 0 90px #52CA1980, 0 0 120px #52CA1940;
+  }
+}
+
+.glow-legendary {
+  animation: glowLegendary 2s ease-in-out infinite;
+}
+
+.glow-epic {
+  animation: glowEpic 2s ease-in-out infinite;
+}
+
+.glow-rare {
+  animation: glowRare 2s ease-in-out infinite;
+}
+
+.glow-common {
+  animation: glowCommon 2s ease-in-out infinite;
+}
+
+/* Pulse glow animation for center items */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 1.5s ease-in-out infinite;
 }
 
 /* Neon lighting animation for boxes - 16 steps for ultra-smooth movement */
