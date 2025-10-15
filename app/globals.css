@@ -855,3 +855,108 @@
 .moving-box4.bottom-motionbox { bottom: -14px; right: 32px; }
 .moving-box4 img { width: 300px; }
 @media (max-width: 991.98px) { .moving-box4 img { width: 200px; } }
+
+/* Live Drops Sidebar - additional styles */
+.mystery-background {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.live-border { padding: 8px 0; }
+.live-border .title-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding-bottom: 8px;
+}
+.live-dropsign {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff3b3b;
+  box-shadow: 0 0 6px rgba(255,59,59,0.8);
+}
+.livedrops-boxes .live-drop { position: relative; }
+.livedrops-boxes .live-drop-main-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.img-live-drop {
+  position: relative;
+  width: 80px;
+  height: 40px;
+  overflow: hidden;
+}
+.img-live-drop img.live-drop-product {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.25s ease;
+}
+.img-live-drop img.hover-img { opacity: 0; }
+.img-live-drop:hover img.hover-img { opacity: 1; }
+.img-live-drop:hover img.default-img { opacity: 0; }
+.sub-text-detail-div .item-title {
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.1;
+}
+.current-price { color: #fff; font-weight: 600; }
+.current-price .thin-text { font-weight: 400; opacity: 0.85; }
+
+/* Generic utilities required by Live Drops markup */
+.d-flex { display: flex !important; }
+.align-items-center { align-items: center !important; }
+.justify-content-center { justify-content: center !important; }
+.justify-content-start { justify-content: flex-start !important; }
+.justify-content-end { justify-content: flex-end !important; }
+.justify-content-between { justify-content: space-between !important; }
+.gap-2 { gap: 0.5rem !important; }
+.px-2 { padding-left: 0.5rem !important; padding-right: 0.5rem !important; }
+.px-3 { padding-left: 1rem !important; padding-right: 1rem !important; }
+.py-3 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+.my-2 { margin-top: 0.5rem !important; margin-bottom: 0.5rem !important; }
+.m-0 { margin: 0 !important; }
+.w-50 { width: 50% !important; }
+.flex-grow-1 { flex-grow: 1 !important; }
+.flex-shrink-1 { flex-shrink: 1 !important; }
+.inline-block { display: inline-block !important; }
+.margin-t-10 { margin-top: 10px !important; }
+
+/* Mobile responsiveness for Live Drops Sidebar */
+@media (max-width: 576px) {
+  /* Stack header stats vertically and make each full-width */
+  .livedrop-open { flex-direction: column; align-items: stretch; gap: 8px; }
+  .livedrop-open .w-50 { width: 100% !important; }
+
+  /* Icon tiles and text sizing for small screens */
+  .mystery-background { width: 32px; height: 32px; border-radius: 6px; }
+  .livedrop-text h3 { font-size: 0.95rem; }
+  .livedrop-text p { font-size: 0.8rem; opacity: 0.9; }
+
+  /* Live drop rows: tighten spacing and ensure content fits */
+  .livedrops-boxes .live-drop { padding: 8px !important; }
+  .livedrops-boxes .live-drop-main-div { gap: 8px; }
+  .img-live-drop { width: 64px; height: 32px; }
+  .sub-text-detail-div { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+  .sub-text-detail-div .item-title { font-size: 0.82rem; }
+  .current-price { font-size: 0.9rem; }
+
+  /* Section title spacing */
+  .live-border .title-container h1 { font-size: 1rem; }
+
+  /* Ensure the first item wrapper spans full width on mobile */
+  .livedrops-boxes .anim-box { display: block !important; width: 100%; }
+}
+
+/* Tablet tweaks */
+@media (max-width: 768px) {
+  .livedrops-boxes .live-drop-main-div { gap: 10px; }
+  .img-live-drop { width: 72px; height: 36px; }
+}

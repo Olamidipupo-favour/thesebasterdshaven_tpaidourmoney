@@ -1,144 +1,225 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-// import { Badge } from "@/components/ui/badge"
-import { TrendingUp, Zap, User } from "lucide-react"
-import type { LiveDrop } from "@/lib/api/types"
-
-// Static dataset generator for live drops (20 items)
-const generateStaticDrops = () => {
-  const users = [
-    "LuckyLeo", "SpinMaster", "CryptoQueen", "BoxHunter", "PrizePirate",
-    "FortuneFox", "WinWizard", "LootLynx", "GambleGuru", "VaultViking",
-    "TreasureTom", "MysteryMia", "CashCarl", "BonusBella", "JackpotJae",
-    "TokenTara", "RiskRiley", "StakeSam", "RollRae", "ChanceChad"
-  ]
-  // Match previous design items and include images for rendering
-  const items = [
-    { id: "jordan6", name: "Jordan 6 Retro - Black Infrared", image: "https://cdn.rillabox.com/media/items/jordan6.png", value: 449, rarity: "rare", probability: 0.02 },
-    { id: "bape-tee", name: "BAPE College Tee (SS22) - Navy", image: "https://cdn.rillabox.com/media/items/bape_tee_navy.png", value: 134, rarity: "common", probability: 0.12 },
-    { id: "gopro-battery", name: "GoPro Dual Battery Charger & Battery", image: "https://cdn.rillabox.com/media/items/gopro_battery.png", value: 69.49, rarity: "common", probability: 0.18 },
-    { id: "book-dior", name: "Book: Dior By Dior", image: "https://cdn.rillabox.com/media/items/dior_book.png", value: 18.99, rarity: "common", probability: 0.25 },
-    { id: "supreme-arc-logo", name: "Supreme The North Face Arc Logo Tee", image: "https://cdn.rillabox.com/media/items/supreme_arc_logo.png", value: 58.89, rarity: "common", probability: 0.15 },
-    { id: "airpods-pro", name: "AirPods Pro", image: "https://rillabox.com/images/items/airpods_pro.png", value: 249, rarity: "epic", probability: 0.05 },
-    { id: "ps5", name: "PS5 Console", image: "https://rillabox.com/images/items/ps5.png", value: 499, rarity: "epic", probability: 0.03 },
-    { id: "apple-watch", name: "Apple Watch", image: "https://rillabox.com/images/items/apple_watch.png", value: 399, rarity: "rare", probability: 0.04 },
-    { id: "nintendo-switch", name: "Nintendo Switch", image: "https://rillabox.com/images/items/nintendo_switch.png", value: 299, rarity: "rare", probability: 0.06 },
-    { id: "steam-gift", name: "Steam Gift Card", image: "https://rillabox.com/images/items/steam_gift_card.png", value: 100, rarity: "common", probability: 0.3 },
-  ]
-  const boxes = [
-    { id: "apple-box", name: "Apple Box" }, { id: "fresh-kicks", name: "Fresh Kicks" }, { id: "electro-vault", name: "Electro Vault" },
-    { id: "starter-pack", name: "Starter Pack" }, { id: "pro-gear", name: "Pro Gear Box" }, { id: "premium-tech", name: "Premium Tech" },
-    { id: "surprise-vault", name: "Surprise Vault" }, { id: "lucky-loot", name: "Lucky Loot" }, { id: "high-roller", name: "High Roller" },
-    { id: "daily-deals", name: "Daily Deals" }
-  ]
-
-  const pick = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)]
-  const now = Date.now()
-
-  return Array.from({ length: 20 }, (_, i) => ({
-    id: `static-${i + 1}`,
-    user: { id: `user-${i + 1}`, username: pick(users) },
-    item: pick(items),
-    box: pick(boxes),
-    timestamp: new Date(now - Math.floor(Math.random() * 60) * 60000).toISOString()
-  })) as unknown as LiveDrop[]
-}
+import React from "react"
 
 export function LiveDropsSidebar() {
-  const [isConnected] = useState(true)
-  const [isLoading, setIsLoading] = useState(false)
-  const [rotationIndex, setRotationIndex] = useState(0)
-
-  // Pre-generate static drops once
-  const [staticDrops] = useState<LiveDrop[]>(() => generateStaticDrops())
-
-  // Rotate displayed window every 5 seconds
-  useEffect(() => {
-    const ITEMS_TO_SHOW = 6
-    const interval = setInterval(() => {
-      setRotationIndex(prev => (prev + ITEMS_TO_SHOW) % staticDrops.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [staticDrops.length])
-
-  const ITEMS_TO_SHOW = 6
-  const allDrops = staticDrops
-  const displayedDrops = allDrops.length >= ITEMS_TO_SHOW
-    ? [
-        ...allDrops.slice(rotationIndex, Math.min(rotationIndex + ITEMS_TO_SHOW, allDrops.length)),
-        ...(rotationIndex + ITEMS_TO_SHOW > allDrops.length
-          ? allDrops.slice(0, (rotationIndex + ITEMS_TO_SHOW) % allDrops.length)
-          : [])
-      ]
-    : allDrops
-
-  // Gradient palettes (7 colors so the first item color changes each rotation)
-  const gradientPalettes = [
-    "from-red-600/40 via-red-500/20",
-    "from-blue-600/40 via-blue-500/20",
-    "from-purple-600/40 via-purple-500/20",
-    "from-pink-600/40 via-pink-500/20",
-    "from-amber-500/40 via-amber-400/20",
-    "from-cyan-500/40 via-cyan-400/20",
-    "from-teal-500/40 via-teal-400/20",
-  ]
-
   return (
-    <div className="w-80 bg-sidebar border-r border-sidebar-border h-screen overflow-y-auto">
-      <div className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-sidebar-foreground">LIVE DROPS</h2>
-          <div className={`w-2 h-2 rounded-full ${isConnected ? "bg-red-500" : "bg-gray-500"}`} />
+    <div className="sidebar hide active nav">
+      <div className="position-relative px-3 w-100 text-center margin-t-10"></div>
+      <div className="live-drops-container new-live-drops">
+        <div className="py-3 px-2 d-flex align-items-center justify-content-between livedrop-open">
+          <div className="d-flex align-items-center justify-content-start gap-2 w-50 flex-shrink-1">
+            <div className="mystery-background d-flex align-items-center justify-content-center">
+              <img src="/icons/landing/user-aside.svg" alt="user-icon" />
+            </div>
+            <div className="livedrop-text">
+              <h3 className="text-white m-0">993,881</h3>
+              <p className="text-white m-0">Users</p>
+            </div>
+          </div>
+          <div className="d-flex align-items-center justify-content-end flex-grow-1 gap-2 w-50 ">
+            <div className="mystery-background d-flex align-items-center justify-content-center">
+              <img src="/icons/landing/mysterybox-aside.svg" alt="mysterybox-icon" />
+            </div>
+            <div className="livedrop-text">
+              <h3 className="text-white m-0">3,917,122</h3>
+              <p className="text-white m-0">Boxes Opened</p>
+            </div>
+          </div>
         </div>
 
-        {isLoading ? (
-          <div className="flex items-center justify-center py-8">
-            <Zap className="w-6 h-6 animate-spin text-primary" />
+        <div className="live-border my-2">
+          <div className="title-container ">
+            <span className="live-dropsign m-0"></span>
+            <h1 className=" text-white fw-semibold m-0">LIVE DROPS</h1>
           </div>
-        ) : displayedDrops.length > 0 ? (
-          <div className="space-y-3">
-            {displayedDrops.map((drop, index) => {
-              const palette = gradientPalettes[(rotationIndex + index) % gradientPalettes.length]
-              return (
-                <Card
-                  key={`${drop.id}-${index}`}
-                  className="relative overflow-hidden rounded-xl bg-[#0e1713] border-none group"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-r ${palette} to-transparent animate-pulse`} />
-                  <div className="relative p-3">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-md bg-black/30 border border-white/5 overflow-hidden flex items-center justify-center">
-                        {drop.item.image ? (
-                          <img src={drop.item.image} alt={drop.item.name} className="w-full h-full object-cover" />
-                        ) : (
-                          <User className="w-5 h-5 text-primary" />
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-semibold text-white truncate">
-                          {drop.item.name}
-                        </div>
-                        <div className="text-[11px] text-white/70 truncate">{drop.user.username}</div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-base font-bold text-white">${drop.item.value}</div>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              )
-            })}
-          </div>
-        ) : (
-          <div className="text-center py-8 text-sidebar-foreground/60 text-sm">No live drops</div>
-        )}
+        </div>
 
-        <div className="flex items-center justify-between mt-6 space-x-2">
-          <Button variant="outline" size="sm" className="flex-1">View All Live Drops</Button>
-          <Button variant="outline" size="sm" className="flex-1">View All Recent Drops</Button>
+        <div className="livedrops-boxes">
+          {/* Item 1 */}
+          <div
+            className="anim-box inline-block"
+            style={{
+              // @ts-ignore custom property
+              "--badge-color": "#6F6868",
+              padding: "1px",
+              borderRadius: "12px",
+              display: "inline-block",
+            } as React.CSSProperties}
+          >
+            <div
+              className="live-drop"
+              style={{
+                background: "rgb(17, 17, 17)",
+                borderRadius: "12px",
+                padding: "10px",
+                height: "60px",
+              }}
+            >
+              <div className="svg-container"><div className="svg-blur"></div></div>
+              <div className="live-drop-main-div">
+                <div className="img-live-drop">
+                  <img
+                    className="live-drop-product default-img"
+                    alt="live drop product"
+                    width="250"
+                    height="80"
+                    src="https://cdn.rillabox.com/media/products/Removal-249_1_1.png"
+                  />
+                  <img
+                    className="live-drop-product hover-img face-img"
+                    alt="face image"
+                    width="250"
+                    height="80"
+                    src="https://cdn.rillabox.com/media/boxes/01-STREAMERS_ELITE-Box-mock_box_1.png"
+                  />
+                </div>
+                <div className="sub-text-detail-div">
+                  <span className="text-white fw-medium item-title">iShowspeed x Ben - Merch</span>
+                  <div>
+                    <div className="current-price"><span className="thin-text">$</span><span className="thin-text">18.69</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="container-stars"><div id="stars"></div></div>
+            <div id="glow"><div className="circle"></div><div className="circle"></div></div>
+          </div>
+
+          {/* Item 2 */}
+          <div className="">
+            <div
+              className="live-drop"
+              style={{
+                background: "linear-gradient(to right, rgb(82, 202, 25), rgb(0, 0, 0) 100%)",
+                borderRadius: "12px",
+                padding: "10px",
+                height: "60px",
+              }}
+            >
+              <div className="svg-container"><div className="svg-blur"></div></div>
+              <div className="live-drop-main-div">
+                <div className="img-live-drop">
+                  <img className="live-drop-product default-img" alt="live drop product" width="250" height="80" src="https://cdn.rillabox.com/media/products/20_voucher_1.png" />
+                  <img className="live-drop-product hover-img face-img" alt="face image" width="250" height="80" src="https://cdn.rillabox.com/media/boxes/Call-of-Duty.png" />
+                </div>
+                <div className="sub-text-detail-div">
+                  <span className="text-white fw-medium item-title">$20 RillaBox Voucher</span>
+                  <div>
+                    <div className="current-price"><span className="thin-text">$</span><span className="thin-text">20.00</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Item 3 */}
+          <div className="">
+            <div
+              className="live-drop"
+              style={{
+                background: "linear-gradient(to right, rgb(111, 104, 104), rgb(0, 0, 0) 100%)",
+                borderRadius: "12px",
+                padding: "10px",
+                height: "60px",
+              }}
+            >
+              <div className="svg-container"><div className="svg-blur"></div></div>
+              <div className="live-drop-main-div">
+                <div className="img-live-drop">
+                  <img className="live-drop-product default-img" alt="live drop product" width="250" height="80" src="https://cdn.rillabox.com/media/products/template-sticker-600x600_2.png" />
+                  <img className="live-drop-product hover-img face-img" alt="face image" width="250" height="80" src="https://cdn.rillabox.com/media/boxes/YEEZY-budget-mock_box_Kk7WJkB.png" />
+                </div>
+                <div className="sub-text-detail-div">
+                  <span className="text-white fw-medium item-title">Yeezy Sticker - 350 Blue Tint</span>
+                  <div>
+                    <div className="current-price"><span className="thin-text">$</span><span className="thin-text">1.99</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Item 4 */}
+          <div className="">
+            <div
+              className="live-drop"
+              style={{
+                background: "linear-gradient(to right, rgb(111, 104, 104), rgb(0, 0, 0) 100%)",
+                borderRadius: "12px",
+                padding: "10px",
+                height: "60px",
+              }}
+            >
+              <div className="svg-container"><div className="svg-blur"></div></div>
+              <div className="live-drop-main-div">
+                <div className="img-live-drop">
+                  <img className="live-drop-product default-img" alt="live drop product" width="250" height="80" src="https://cdn.rillabox.com/media/products/2_Voucher_Fotkc1O.png" />
+                  <img className="live-drop-product hover-img face-img" alt="face image" width="250" height="80" src="https://cdn.rillabox.com/media/boxes/Logitech.png" />
+                </div>
+                <div className="sub-text-detail-div">
+                  <span className="text-white fw-medium item-title">$2 RillaBox Voucher</span>
+                  <div>
+                    <div className="current-price"><span className="thin-text">$</span><span className="thin-text">2.00</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Item 5 */}
+          <div className="">
+            <div
+              className="live-drop"
+              style={{
+                background: "linear-gradient(to right, rgb(82, 202, 25), rgb(0, 0, 0) 100%)",
+                borderRadius: "12px",
+                padding: "10px",
+                height: "60px",
+              }}
+            >
+              <div className="svg-container"><div className="svg-blur"></div></div>
+              <div className="live-drop-main-div">
+                <div className="img-live-drop">
+                  <img className="live-drop-product default-img" alt="live drop product" width="250" height="80" src="https://cdn.rillabox.com/media/products/removal.ai_60aee5f8-493c-4ef5-9038-ab7cd0a6112f-image_1.png" />
+                  <img className="live-drop-product hover-img face-img" alt="face image" width="250" height="80" src="https://cdn.rillabox.com/media/boxes/06-KANYE-Box-mock_box_1.png" />
+                </div>
+                <div className="sub-text-detail-div">
+                  <span className="text-white fw-medium item-title">Kanye West Free Hoover Hat - Red</span>
+                  <div>
+                    <div className="current-price"><span className="thin-text">$</span><span className="thin-text">72.29</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Item 6 */}
+          <div className="">
+            <div
+              className="live-drop"
+              style={{
+                background: "linear-gradient(to right, rgb(111, 104, 104), rgb(0, 0, 0) 100%)",
+                borderRadius: "12px",
+                padding: "10px",
+                height: "60px",
+              }}
+            >
+              <div className="svg-container"><div className="svg-blur"></div></div>
+              <div className="live-drop-main-div">
+                <div className="img-live-drop">
+                  <img className="live-drop-product default-img" alt="live drop product" width="250" height="80" src="https://cdn.rillabox.com/media/products/Remove-bg.ai_1728146176490_1_1.png" />
+                  <img className="live-drop-product hover-img face-img" alt="face image" width="250" height="80" src="https://cdn.rillabox.com/media/boxes/02_PATEK_PHILIPPE-Box-mock_box.png" />
+                </div>
+                <div className="sub-text-detail-div">
+                  <span className="text-white fw-medium item-title">Patek Philippe Nautilus Wine Key</span>
+                  <div>
+                    <div className="current-price"><span className="thin-text">$</span><span className="thin-text">404.49</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
