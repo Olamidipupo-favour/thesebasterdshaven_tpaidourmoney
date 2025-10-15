@@ -15,10 +15,10 @@ export function WeeklyRaceSection() {
             <div className="award-middlebox">
               <div className="row g-xl-0 g-md-3 g-2 align-items-center position-relative">
                 <div className="col-xl-8 col-lg-6 col-md-6 col-12">
-                    <div className="d-flex align-items-center trophy-boxblock ">
-                      <div className="d-lg-flex d-none">
-                        <img src="https://rillabox.com/images/trophy-changed.png" alt="" className="trophy-image" />
-                      </div>
+                  <div className="d-flex align-items-center trophy-boxblock ">
+                    <div className="d-lg-flex d-none">
+                      <img src="https://rillabox.com/images/trophy-changed.png" alt="" className="trophy-image" />
+                    </div>
                     <div>
                       <div className="d-flex flex-wrap gap-17 weeklyrace-header align-items-center">
                         <h5 className="winning-raceamount fw-bold mb-0" title="$10,000">
@@ -46,21 +46,21 @@ export function WeeklyRaceSection() {
                       <div className="d-flex align-items-center flex-column gap-2">
                         <div className="d-flex gap-1">
                           <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>1</span></div>
-                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>4</span></div>
+                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>5</span></div>
                         </div>
                         <p className="mb-0 leaderboard-text">Hours</p>
                       </div>
                       <div className="d-flex align-items-center flex-column gap-2">
                         <div className="d-flex gap-1">
-                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>2</span></div>
-                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>5</span></div>
+                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>3</span></div>
+                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>6</span></div>
                         </div>
                         <p className="mb-0 leaderboard-text">Minutes</p>
                       </div>
                       <div className="d-flex align-items-center flex-column gap-2">
                         <div className="d-flex gap-1">
-                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>2</span></div>
-                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>9</span></div>
+                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>1</span></div>
+                          <div className="race-timer-changed font-26 fw-semibold text-white text-center d-flex align-items-center justify-content-center"><span>8</span></div>
                         </div>
                         <p className="mb-0 leaderboard-text">Seconds</p>
                       </div>
