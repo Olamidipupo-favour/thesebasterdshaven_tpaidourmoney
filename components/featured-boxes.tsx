@@ -65,7 +65,10 @@ export function FeaturedBoxes() {
                 <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{box.description}</p>
 
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-2xl font-bold text-primary">{box.price} coins</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-2xl font-bold text-primary">{(box.price * 0.85).toFixed(2)} coins</span>
+                    <span className="text-sm text-muted-foreground line-through">{box.price} coins</span>
+                  </div>
                   <div className="flex items-center text-yellow-500">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className={`w-4 h-4 ${i < 4 ? "fill-current" : ""}`} />

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" aria-label="Halloween Tree Right">
+  <defs>
+    <linearGradient id="leafGrad2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#33E07A"/>
+      <stop offset="100%" stop-color="#22C55E"/>
+    </linearGradient>
+  </defs>
+  <rect x="106" y="84" width="12" height="36" rx="2" fill="#14532D"/>
+  <polygon points="112,28 84,84 140,84" fill="url(#leafGrad2)"/>
+  <polygon points="112,52 94,112 130,112" fill="#22C55E" opacity="0.95"/>
+  <circle cx="112" cy="26" r="6" fill="#5FE229" opacity="0.9"/>
+</svg>

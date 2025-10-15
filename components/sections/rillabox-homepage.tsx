@@ -25,32 +25,38 @@ import Link from "next/link"
 import { useBoxes } from "@/hooks/use-boxes"
 import { useLiveDrops, useLiveStats } from "@/hooks/use-socket"
 import { useUserBalance, useUserStats } from "@/hooks/use-user"
+import { GamesSection } from "@/components/sections/games-section"
+import { WeeklyRaceSection } from "@/components/sections/weekly-race-section"
 
-// Hero Banner Data - EXACT O Sortudo Banners
+// Banner data adapted to provided HTML (desktop/mobile images and links)
 const heroBanners = [
   {
     id: 1,
-    image: "https://rillabox.s3.amazonaws.com/media/banners/ACHIEVEMENTS_-_NEW_SEASON_BANNER_DESKTOP.png",
-    link: "/achievements",
-    alt: "Achievements Banner"
+    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-NEW-BOXES-H.png",
+    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-NEW-BOXES-H.png",
+    href: "https://rillabox.com/home",
+    alt: "New Boxes"
   },
   {
     id: 2,
-    image: "https://rillabox.s3.amazonaws.com/media/banners/AFSDFEW.png",
-    link: "/home",
-    alt: "Mystery Boxes Banner"
+    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-DAILY-FREE2.png",
+    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-DAILY-FREE2.png",
+    href: "https://rillabox.com/reward",
+    alt: "Daily Free"
   },
   {
     id: 3,
-    image: "https://rillabox.s3.amazonaws.com/media/banners/STARTER_DESKTOP_BANNER_JTZniV6.jpg",
-    link: "/signup",
-    alt: "Starter Banner"
+    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-TELEGRAM.png",
+    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-TELEGRAM.png",
+    href: "https://t.me/rillabox",
+    alt: "Telegram"
   },
   {
     id: 4,
-    image: "https://rillabox.s3.amazonaws.com/media/banners/tele_desktop_ban_nnBhx1L.png",
-    link: "/telegram",
-    alt: "Telegram Banner"
+    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-STARTER.png",
+    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-STARTER.png",
+    href: "https://rillabox.com/box/Starter",
+    alt: "Starter"
   }
 ]
 
@@ -214,71 +220,97 @@ export function OSortudoHomepage() {
 
   return (
     <div className="space-y-8">
-      {/* Hero Banner with Swiper - EXACT O Sortudo Style */}
-      <section className="relative w-full mb-6">
-        <div className="relative w-full h-[300px] md:h-[400px] overflow-hidden rounded-lg shadow-md">
-          {/* Banner Images */}
-          <div className="relative w-full h-full">
-            {heroBanners.map((banner, index) => (
-              <div
-                key={banner.id}
-                className={`absolute inset-0 transition-opacity duration-500 ${
-                  index === currentBanner ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <Link href={banner.link}>
-                  <img
-                    src={banner.image}
-                    alt={banner.alt}
-                    className="w-full h-full object-cover cursor-pointer"
-                  />
-                </Link>
+      {/* Banner Section - Tailwind functional slider */}
+      <section className="w-full mb-6">
+        <div className="grid grid-cols-12 items-stretch gap-x-0 md:gap-x-4">
+          {/* Left: Slider */}
+          <div className="col-span-12 md:col-span-8 h-auto pl-0">
+            <div className="relative w-full h-full overflow-hidden">
+              {/* Slides */}
+              <div className="relative w-full h-full">
+                {heroBanners.map((banner, index) => (
+                  <div
+                    key={banner.id}
+                    className={`absolute inset-0 transition-opacity duration-500 ${
+                      index === currentBanner ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
+                    <a href={banner.href} className="inline-block w-full h-full">
+                      {/* Desktop image */}
+                      <img
+                        src={banner.desktopImage}
+                        alt={banner.alt}
+                        className="hidden md:block w-full h-full object-cover"
+                      />
+                      {/* Mobile image */}
+                      <img
+                        src={banner.mobileImage}
+                        alt={banner.alt}
+                        className="md:hidden block w-full h-full object-cover"
+                      />
+                    </a>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          {/* Navigation Arrows - EXACT O Sortudo Style */}
-          <button
-            onClick={() => setCurrentBanner((prev) => (prev - 1 + heroBanners.length) % heroBanners.length)}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md hover:scale-105 z-10"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => setCurrentBanner((prev) => (prev + 1) % heroBanners.length)}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md hover:scale-105 z-10"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-
-          {/* Dots Indicator - EXACT O Sortudo Style */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-            {heroBanners.map((_, index) => (
+              {/* Navigation arrows */}
               <button
-                key={index}
-                onClick={() => setCurrentBanner(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                  index === currentBanner ? 'bg-white shadow-md' : 'bg-white/50 hover:bg-white/70'
-                }`}
-              />
-            ))}
+                type="button"
+                onClick={() => setCurrentBanner((prev) => (prev - 1 + heroBanners.length) % heroBanners.length)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md z-10"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setCurrentBanner((prev) => (prev + 1) % heroBanners.length)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md z-10"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+
+              {/* Dots */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+                {heroBanners.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setCurrentBanner(index)}
+                    className={`w-2 h-2 rounded-full ${index === currentBanner ? 'bg-white' : 'bg-white/50 hover:bg-white/70'} transition-colors`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* O Sortudo Mascot - Show only on Telegram (4th) banner */}
-          {heroBanners[currentBanner]?.id === 4 && (
-            <div className="absolute bottom-0 right-2 md:right-6 pointer-events-none z-10">
-              <img
-                src="/logo/mascot%20001.png"
-                alt="Sortudo Mascot"
-                className="w-[140px] h-[140px] md:w-[220px] md:h-[220px] object-contain drop-shadow-xl"
-              />
+          {/* Right: Achievements banner */}
+          <div className="col-span-12 md:col-span-4 h-auto pr-0">
+            <div className="h-full overflow-hidden">
+              <a href="https://rillabox.com/achievements" className="block w-full h-full">
+                {/* Desktop */}
+                <img
+                  src="https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-HALLOWEENACHIEVEMENTS.png"
+                  alt="Rillabox Mystery Boxes"
+                  className="hidden md:block w-full h-auto"
+                />
+                {/* Mobile */}
+                <img
+                  src="https://rillabox.s3.amazonaws.com/media/banners/MOBILEHALLOWEENACHIEVEMENTS.png"
+                  alt="Refreal-code-image"
+                  className="md:hidden block w-full h-auto"
+                />
+              </a>
             </div>
-          )}
+          </div>
         </div>
       </section>
 
-      {/* Game Modes Section - BIGGER Rillabox Style */}
-      <section className="w-full mb-8">
+      {/* Game Modes Section - Exact user-provided gamemodes markup */}
+      <GamesSection />
+      {false && (<section className="w-full mb-8">
         <div className="flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-6xl">
             {/* Mystery Boxes - BIGGER with enhanced box opening animation */}
@@ -418,10 +450,139 @@ export function OSortudoHomepage() {
             </Link>
           </div>
         </div>
-      </section>
+      </section>)}
 
-      {/* Featured Boxes Section - EXACT Rillabox Layout */}
-      <section className="mb-8">
+      {/* Featured Boxes Section - Replaced by provided markup */}
+      <div className="w-100">
+        <div className="d-flex align-items-center gap-3 mt-5">
+          <div className="info-img">
+            <img src="https://rillabox.com/icons/landing/featured-box.svg" alt="featured-box" className="img-fluid" />
+          </div>
+          <div className="info-text w-75">
+            <h3 className="font-18 fw-medium">Featured boxes</h3>
+            <p className="font-14 fw-normal">Explore our 200+ mystery boxes</p>
+          </div>
+        </div>
+        <div className="boxes-container landing-boxes mb-3 row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3">
+          <div>
+            <div className="sc-iHmpnF eXDFil box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">1% iPhone</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/08_1__IPHONE-Box-mock_box_1.png" alt="1% iPhone" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>3.94</span></div>
+                <div className="current-price"><span>$</span><span>2.79</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF goUMrq box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Alfa Romeo</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/06_ALFA_ROMEO-Box-mock_box_1.png" alt="Alfa Romeo" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>564.99</span></div>
+                <div className="current-price"><span>$</span><span>469.99</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF iBpake box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Amazon</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Amazon.png" alt="Amazon" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>8.49</span></div>
+                <div className="current-price"><span>$</span><span>6.79</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF bwTbAw box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Bentley</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/05_BENTLEY-Box-mock_box_1.png" alt="Bentley" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>1999.99</span></div>
+                <div className="current-price"><span>$</span><span>1889.99</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF hQTtrT box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Call Of Duty</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Call-of-Duty.png" alt="Call Of Duty" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>7.87</span></div>
+                <div className="current-price"><span>$</span><span>5.79</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF cbMspm box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Holidays</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/03_HOLIDAYS_-Box-mock_box_1.png" alt="Holidays" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>10.49</span></div>
+                <div className="current-price"><span>$</span><span>8.29</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF gKAfqw box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">India</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/15_INDIA-Box-mock_box_1.png" alt="India" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>2.99</span></div>
+                <div className="current-price"><span>$</span><span>2.24</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF jxfbuA box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Nissan</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/11_NISSAN-Box-mock_box_1.png" alt="Nissan" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>544.99</span></div>
+                <div className="current-price"><span>$</span><span>484.99</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF buczcf box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Risky Rolex</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Risky-Rolex.png" alt="Risky Rolex" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>10.49</span></div>
+                <div className="current-price"><span>$</span><span>8.39</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF lpdxJd box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Travis Scott</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/TRAVIS_SCOTT-mock_box.png" alt="Travis Scott" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>39.99</span></div>
+                <div className="current-price"><span>$</span><span>33.49</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="text-center">
+          <button type="button" className="shop-btn button-primary justify-content-center min-w-248 align-items-center mobile-fs-16 view-btn btn btn-primary">
+            <img src="https://rillabox.com/icons/landing/shopping-cart.svg" alt="Cart" className="" />
+            View All
+          </button>
+        </div>
+      </div>
+      {false && (<section className="mb-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Featured boxes</h2>
           <p className="text-lg text-muted-foreground">Discover & win the hottest items in our provably fair boxes</p>
@@ -465,8 +626,9 @@ export function OSortudoHomepage() {
                   <Badge className="bg-green-500 text-white text-sm px-3 py-1 animate-pulse">
                     🔥 Hot
                   </Badge>
-                </div>
-              </div>
+      </div>
+      </div>
+      {/* Users and Boxes card will appear below by replacing old stats section */}
 
               <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">Balance Booster</h3>
@@ -815,34 +977,53 @@ export function OSortudoHomepage() {
             Shop All
           </Button>
         </div>
-      </section>
+      </section>)}
 
-      {/* Stats Section - EXACT O Sortudo Layout */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
-          <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center group-hover:bg-primary/30 transition-colors duration-200">
-            <Users className="w-4 h-4 text-primary group-hover:animate-bounce" />
+      {/* Users and Boxes Opened Cards - Exact Design (replaces old stats) */}
+      <div className="d-flex align-items-center gap-0 gap-md-5 w-100 mx-auto theme-boxwrap">
+        <div className="d-none d-md-flex">
+          <img src="/images/helloween/vector-4.svg" alt="Halloween Vector" className="" />
+        </div>
+        <div className="box-block my-5 w-100 flex-shrink-0 user-count-padding position-relative overflow-hidden">
+          <div className="position-absolute object-block2 bottom-0">
+            <img src="/images/helloween/tree-object-1.svg" alt="Halloween Vector" className="" />
           </div>
-          <div>
-            <div className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-200">
-              {stats?.total_games_played ? `${stats.total_games_played.toLocaleString()}+` : '993,881+'}
+          <div className="position-absolute object-block1 bottom-0">
+            <img src="/images/helloween/tree-object-2.svg" alt="Halloween Vector" className="" />
+          </div>
+          <div className="position-absolute star-object ">
+            <img src="/images/helloween/star-object.svg" alt="Halloween Star" className="" />
+          </div>
+          <div className="row flex-grow-1">
+            <div className="col-6 text-center">
+              <span className="rounded-box rounded-bg d-flex align-items-center justify-content-center mx-auto mb-10">
+                <img src="../../icons/landing/user-icon.svg" alt="Users" />
+              </span>
+              <div>
+                <span className="text-title text-white ps-2">993,881</span>
+                <span className="d-block text-grey fw-medium mobile-fs-12 user-text">Users</span>
+              </div>
             </div>
-            <div className="text-xs text-muted-foreground">Games Played</div>
+            <div className="col-6 text-center">
+              <span className="rounded-box rounded-bg d-flex align-items-center justify-content-center mx-auto mb-10">
+                <img src="../../icons/landing/featured-box.svg" alt="Featured-box" />
+              </span>
+              <div>
+                <span className="text-title text-white ps-2">3,917,122</span>
+                <span className="d-block text-grey fw-medium mobile-fs-12 mystery-text">Mystery Boxes Opened</span>
+              </div>
+            </div>
+          </div>
+          <div className="bottom-pattern position-absolute start-0 end-0 bottom-0">
+            <img src="/images/helloween/pattern-block.svg" alt="Bottom Pattern" className="w-full" />
           </div>
         </div>
-        
-        <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
-          <div className="w-8 h-8 bg-secondary/20 rounded-full flex items-center justify-center group-hover:bg-secondary/30 transition-colors duration-200">
-            <Gift className="w-4 h-4 text-secondary group-hover:animate-bounce" />
-          </div>
-          <div>
-            <div className="text-lg font-bold text-foreground group-hover:text-secondary transition-colors duration-200">
-              {balance?.coins ? `${balance.coins.toLocaleString()}` : '3,917,122+'}
-            </div>
-            <div className="text-xs text-muted-foreground">Your Coins</div>
-          </div>
+        <div className="d-none d-md-flex">
+          <img src="/images/helloween/vector-3.svg" alt="Halloween Vector" className="" />
         </div>
-      </section>
+      </div>
+
+      {/* Weekly Race Banner inline block removed to avoid duplication; using <WeeklyRaceSection /> below */}
 
       {/* Live Drops Section - Real-time Activity */}
       {drops && drops.length > 0 && (
@@ -936,68 +1117,8 @@ export function OSortudoHomepage() {
         </section>
       )}
 
-      {/* Weekly Race Section - EXACT O Sortudo Layout */}
-      <section className="mb-6">
-        <Card className="rounded-2xl bg-[#0b1e17] border border-[#153226] overflow-hidden relative">
-          {/* Background Box Images */}
-          <div className="absolute inset-0 opacity-10">
-            <img src="https://rillabox.com/images/box1.png" alt="Box1" className="absolute top-0 left-0 w-16 h-16 object-contain" />
-            <img src="https://rillabox.com/images/box2.png" alt="Box2" className="absolute bottom-0 right-0 w-16 h-16 object-contain" />
-          </div>
-          
-          <div className="p-4 md:p-6 relative z-10">
-            <div className="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-6">
-              {/* Left Side - Race Info */}
-              <div className="flex-1 text-center lg:text-left">
-                <div className="flex items-center justify-center lg:justify-start space-x-2 mb-3">
-                  <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
-                    <img src="https://rillabox.s3.amazonaws.com/media/LeaderboardReward/trophy.png" alt="Trophy" className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-[#facc15]">$10,000</div>
-                    <div className="text-sm font-semibold text-primary uppercase tracking-wide">Weekly Race</div>
-                  </div>
-                </div>
-
-                <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
-                  Participate in our Weekly Race simply by playing on RillaBox!
-                </p>
-
-                {/* Countdown Timer - Boxed style with label */}
-                <div className="flex flex-col items-center lg:items-start gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.days.toString().padStart(2, '0')}</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">D</div>
-                    </div>
-                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.hours.toString().padStart(2, '0')}</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">H</div>
-                    </div>
-                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.minutes.toString().padStart(2, '0')}</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">M</div>
-                    </div>
-                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.seconds.toString().padStart(2, '0')}</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">S</div>
-                    </div>
-                  </div>
-                  <div className="text-[11px] md:text-xs text-muted-foreground uppercase tracking-wide">UNTIL NEXT RACE</div>
-                </div>
-              </div>
-
-              {/* Right Side - Box Images - EXACT O Sortudo Style */}
-              <div className="flex-shrink-0">
-                <div className="flex space-x-2">
-                  <img src="https://rillabox.com/images/box3.png" alt="Box3" className="w-16 h-16 object-contain" />
-                  <img src="https://rillabox.com/images/box4.png" alt="Box4" className="w-16 h-16 object-contain" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </section>
+      {/* Weekly Race Section - Implemented with exact provided HTML structure */}
+      <WeeklyRaceSection />
 
       {/* How It Works Section - EXACT O Sortudo Layout */}
       <section className="mb-6">

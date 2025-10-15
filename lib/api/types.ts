@@ -10,8 +10,8 @@ export interface RegisterRequest {
   username: string
   email: string
   password: string
-  date_of_birth: string
-  country: string
+  date_of_birth?: string
+  country?: string
 }
 
 export interface LoginRequest {

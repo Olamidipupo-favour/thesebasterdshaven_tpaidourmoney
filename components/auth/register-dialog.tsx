@@ -23,8 +23,6 @@ export function RegisterDialog({ open, onOpenChange, onSwitchToLogin }: Register
     email: "",
     password: "",
     confirmPassword: "",
-    date_of_birth: "",
-    country: "US",
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,8 +38,6 @@ export function RegisterDialog({ open, onOpenChange, onSwitchToLogin }: Register
         username: formData.username,
         email: formData.email,
         password: formData.password,
-        date_of_birth: formData.date_of_birth,
-        country: formData.country,
       })
       onOpenChange(false)
       setFormData({
@@ -49,8 +45,6 @@ export function RegisterDialog({ open, onOpenChange, onSwitchToLogin }: Register
         email: "",
         password: "",
         confirmPassword: "",
-        date_of_birth: "",
-        country: "US",
       })
     } catch (error) {
       // Error is handled by the store
@@ -61,12 +55,12 @@ export function RegisterDialog({ open, onOpenChange, onSwitchToLogin }: Register
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[640px] bg-card border-border p-0 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
         {/* Top brand header to match LoginDialog */}
-        <div className="rounded-t-2xl bg-gradient-to-b from-emerald-500 to-emerald-700 px-6 py-5 text-white">
+        <div className="rounded-t-2xl bg-gradient-to-b from-emerald-500 to-emerald-700 px-6 py-6 text-white">
           <div className="flex items-center justify-center">
             <img
               src="/logo/OSORTUDO%20LOGO%201.png"
               alt="Sortudo Logo"
-              className="h-6 object-contain"
+              className="h-16 md:h-20 object-contain"
             />
           </div>
           <p className="mt-2 text-sm/6 text-center">Create your account</p>
@@ -113,31 +107,7 @@ export function RegisterDialog({ open, onOpenChange, onSwitchToLogin }: Register
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="dob">Date of Birth</Label>
-              <Input
-                id="dob"
-                type="date"
-                value={formData.date_of_birth}
-                onChange={(e) => setFormData({ ...formData, date_of_birth: e.target.value })}
-                required
-                disabled={isLoading}
-                className="h-11 rounded-xl"
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="country">Country</Label>
-              <Input
-                id="country"
-                type="text"
-                value={formData.country}
-                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                placeholder="US"
-                disabled={isLoading}
-                className="h-11 rounded-xl"
-              />
-            </div>
+            
 
             <div className="space-y-2">
               <Label htmlFor="reg-password">Password</Label>

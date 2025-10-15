@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone, Volume2, VolumeX } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
-import { Footer } from "@/components/layout/footer"
+import { OSortudoLayout } from "@/components/layout/rillabox-layout"
 import dynamic from "next/dynamic"
 
 const Box3D = dynamic(() => import("@/components/animations/box-3d").then(mod => ({ default: mod.Box3D })), {
@@ -529,7 +529,7 @@ export default function IPhoneBoxPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f1729] via-[#1a1b3d] to-[#2d1b4e]">
+    <OSortudoLayout>
       <style jsx>{`
         @keyframes spinnerFadeIn {
           0% { 
@@ -571,10 +571,8 @@ export default function IPhoneBoxPage() {
           to { box-shadow: 0 0 50px currentColor, 0 0 80px currentColor, 0 0 100px currentColor; }
         }
       `}</style>
-        {/* Global Navigation is provided via RootLayout */}
-      
-      {/* Main Content - Exact Rillabox Layout */}
-      <main className="min-h-screen">
+        {/* Main Content - Exact Rillabox Layout */}
+      <div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {/* Header - Exact Rillabox Style */}
             <div className="mb-4 flex items-center justify-between">
@@ -906,7 +904,7 @@ export default function IPhoneBoxPage() {
             </div>
 
         </div>
-      </main>
-    </div>
+      </div>
+    </OSortudoLayout>
   )
 }
