@@ -451,8 +451,137 @@ export function OSortudoHomepage() {
         </div>
       </section>)}
 
-      {/* Featured Boxes Section - EXACT Rillabox Layout */}
-      <section className="mb-8">
+      {/* Featured Boxes Section - Replaced by provided markup */}
+      <div className="w-100">
+        <div className="d-flex align-items-center gap-3 mt-5">
+          <div className="info-img">
+            <img src="https://rillabox.com/icons/landing/featured-box.svg" alt="featured-box" className="img-fluid" />
+          </div>
+          <div className="info-text w-75">
+            <h3 className="font-18 fw-medium">Featured boxes</h3>
+            <p className="font-14 fw-normal">Explore our 200+ mystery boxes</p>
+          </div>
+        </div>
+        <div className="boxes-container landing-boxes mb-3 row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3">
+          <div>
+            <div className="sc-iHmpnF eXDFil box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">1% iPhone</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/08_1__IPHONE-Box-mock_box_1.png" alt="1% iPhone" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>3.94</span></div>
+                <div className="current-price"><span>$</span><span>2.79</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF goUMrq box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Alfa Romeo</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/06_ALFA_ROMEO-Box-mock_box_1.png" alt="Alfa Romeo" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>564.99</span></div>
+                <div className="current-price"><span>$</span><span>469.99</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF iBpake box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Amazon</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Amazon.png" alt="Amazon" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>8.49</span></div>
+                <div className="current-price"><span>$</span><span>6.79</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF bwTbAw box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Bentley</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/05_BENTLEY-Box-mock_box_1.png" alt="Bentley" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>1999.99</span></div>
+                <div className="current-price"><span>$</span><span>1889.99</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF hQTtrT box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Call Of Duty</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Call-of-Duty.png" alt="Call Of Duty" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>7.87</span></div>
+                <div className="current-price"><span>$</span><span>5.79</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF cbMspm box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Holidays</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/03_HOLIDAYS_-Box-mock_box_1.png" alt="Holidays" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>10.49</span></div>
+                <div className="current-price"><span>$</span><span>8.29</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF gKAfqw box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">India</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/15_INDIA-Box-mock_box_1.png" alt="India" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>2.99</span></div>
+                <div className="current-price"><span>$</span><span>2.24</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF jxfbuA box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Nissan</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/11_NISSAN-Box-mock_box_1.png" alt="Nissan" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>544.99</span></div>
+                <div className="current-price"><span>$</span><span>484.99</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF buczcf box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Risky Rolex</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Risky-Rolex.png" alt="Risky Rolex" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>10.49</span></div>
+                <div className="current-price"><span>$</span><span>8.39</span></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div className="sc-iHmpnF lpdxJd box-item">
+              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              <span className="box-name">Travis Scott</span>
+              <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/TRAVIS_SCOTT-mock_box.png" alt="Travis Scott" />
+              <div className="price-container">
+                <div className="original-price"><span>$</span><span>39.99</span></div>
+                <div className="current-price"><span>$</span><span>33.49</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="text-center">
+          <button type="button" className="shop-btn button-primary justify-content-center min-w-248 align-items-center mobile-fs-16 view-btn btn btn-primary">
+            <img src="https://rillabox.com/icons/landing/shopping-cart.svg" alt="Cart" className="" />
+            View All
+          </button>
+        </div>
+      </div>
+      {false && (<section className="mb-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Featured boxes</h2>
           <p className="text-lg text-muted-foreground">Discover & win the hottest items in our provably fair boxes</p>
@@ -846,7 +975,7 @@ export function OSortudoHomepage() {
             Shop All
           </Button>
         </div>
-      </section>
+      </section>)}
 
       {/* Stats Section - EXACT O Sortudo Layout */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
