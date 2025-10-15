@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140" aria-label="Halloween Pumpkin Left">
+  <defs>
+    <linearGradient id="pumpkinFillL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FF9A1A"/>
+      <stop offset="100%" stop-color="#FF7D00"/>
+    </linearGradient>
+  </defs>
+  <!-- stem -->
+  <rect x="66" y="18" width="8" height="16" rx="2" fill="#22C55E"/>
+  <!-- pumpkin body -->
+  <ellipse cx="70" cy="76" rx="48" ry="36" fill="url(#pumpkinFillL)" stroke="#CC5A00" stroke-width="3"/>
+  <!-- ribs -->
+  <path d="M42,76 C42,56 52,44 70,44 C88,44 98,56 98,76" fill="none" stroke="#E46A00" stroke-width="2" opacity="0.8"/>
+  <path d="M50,76 C50,60 58,52 70,52 C82,52 90,60 90,76" fill="none" stroke="#E46A00" stroke-width="2" opacity="0.8"/>
+  <!-- simple face -->
+  <circle cx="54" cy="72" r="4" fill="#1A1A1A"/>
+  <circle cx="86" cy="72" r="4" fill="#1A1A1A"/>
+  <path d="M54,90 C62,96 78,96 86,90" fill="none" stroke="#1A1A1A" stroke-width="3" stroke-linecap="round"/>
+</svg>

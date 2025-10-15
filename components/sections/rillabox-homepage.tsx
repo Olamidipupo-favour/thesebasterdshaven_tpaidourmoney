@@ -26,6 +26,7 @@ import { useBoxes } from "@/hooks/use-boxes"
 import { useLiveDrops, useLiveStats } from "@/hooks/use-socket"
 import { useUserBalance, useUserStats } from "@/hooks/use-user"
 import { GamesSection } from "@/components/sections/games-section"
+import { WeeklyRaceSection } from "@/components/sections/weekly-race-section"
 
 // Banner data adapted to provided HTML (desktop/mobile images and links)
 const heroBanners = [
@@ -625,8 +626,9 @@ export function OSortudoHomepage() {
                   <Badge className="bg-green-500 text-white text-sm px-3 py-1 animate-pulse">
                     🔥 Hot
                   </Badge>
-                </div>
-              </div>
+      </div>
+      </div>
+      {/* Users and Boxes card will appear below by replacing old stats section */}
 
               <div className="p-4 mt-auto">
                 <h3 className="text-lg font-bold text-foreground mb-3">Balance Booster</h3>
@@ -977,32 +979,51 @@ export function OSortudoHomepage() {
         </div>
       </section>)}
 
-      {/* Stats Section - EXACT O Sortudo Layout */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
-          <div className="w-8 h-8 bg-primary/20 rounded-full flex items-center justify-center group-hover:bg-primary/30 transition-colors duration-200">
-            <Users className="w-4 h-4 text-primary group-hover:animate-bounce" />
+      {/* Users and Boxes Opened Cards - Exact Design (replaces old stats) */}
+      <div className="d-flex align-items-center gap-0 gap-md-5 w-100 mx-auto theme-boxwrap">
+        <div className="d-none d-md-flex">
+          <img src="/images/helloween/vector-4.svg" alt="Halloween Vector" className="" />
+        </div>
+        <div className="box-block my-5 w-100 flex-shrink-0 user-count-padding position-relative overflow-hidden">
+          <div className="position-absolute object-block2 bottom-0">
+            <img src="/images/helloween/tree-object-1.svg" alt="Halloween Vector" className="" />
           </div>
-          <div>
-            <div className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-200">
-              {stats?.total_games_played ? `${stats.total_games_played.toLocaleString()}+` : '993,881+'}
+          <div className="position-absolute object-block1 bottom-0">
+            <img src="/images/helloween/tree-object-2.svg" alt="Halloween Vector" className="" />
+          </div>
+          <div className="position-absolute star-object ">
+            <img src="/images/helloween/star-object.svg" alt="Halloween Star" className="" />
+          </div>
+          <div className="row flex-grow-1">
+            <div className="col-6 text-center">
+              <span className="rounded-box rounded-bg d-flex align-items-center justify-content-center mx-auto mb-10">
+                <img src="../../icons/landing/user-icon.svg" alt="Users" />
+              </span>
+              <div>
+                <span className="text-title text-white ps-2">993,881</span>
+                <span className="d-block text-grey fw-medium mobile-fs-12 user-text">Users</span>
+              </div>
             </div>
-            <div className="text-xs text-muted-foreground">Games Played</div>
+            <div className="col-6 text-center">
+              <span className="rounded-box rounded-bg d-flex align-items-center justify-content-center mx-auto mb-10">
+                <img src="../../icons/landing/featured-box.svg" alt="Featured-box" />
+              </span>
+              <div>
+                <span className="text-title text-white ps-2">3,917,122</span>
+                <span className="d-block text-grey fw-medium mobile-fs-12 mystery-text">Mystery Boxes Opened</span>
+              </div>
+            </div>
+          </div>
+          <div className="bottom-pattern position-absolute start-0 end-0 bottom-0">
+            <img src="/images/helloween/pattern-block.svg" alt="Bottom Pattern" className="w-full" />
           </div>
         </div>
-        
-        <div className="flex items-center justify-center space-x-2 bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 group">
-          <div className="w-8 h-8 bg-secondary/20 rounded-full flex items-center justify-center group-hover:bg-secondary/30 transition-colors duration-200">
-            <Gift className="w-4 h-4 text-secondary group-hover:animate-bounce" />
-          </div>
-          <div>
-            <div className="text-lg font-bold text-foreground group-hover:text-secondary transition-colors duration-200">
-              {balance?.coins ? `${balance.coins.toLocaleString()}` : '3,917,122+'}
-            </div>
-            <div className="text-xs text-muted-foreground">Your Coins</div>
-          </div>
+        <div className="d-none d-md-flex">
+          <img src="/images/helloween/vector-3.svg" alt="Halloween Vector" className="" />
         </div>
-      </section>
+      </div>
+
+      {/* Weekly Race Banner inline block removed to avoid duplication; using <WeeklyRaceSection /> below */}
 
       {/* Live Drops Section - Real-time Activity */}
       {drops && drops.length > 0 && (
@@ -1096,68 +1117,8 @@ export function OSortudoHomepage() {
         </section>
       )}
 
-      {/* Weekly Race Section - EXACT O Sortudo Layout */}
-      <section className="mb-6">
-        <Card className="rounded-2xl bg-[#0b1e17] border border-[#153226] overflow-hidden relative">
-          {/* Background Box Images */}
-          <div className="absolute inset-0 opacity-10">
-            <img src="https://rillabox.com/images/box1.png" alt="Box1" className="absolute top-0 left-0 w-16 h-16 object-contain" />
-            <img src="https://rillabox.com/images/box2.png" alt="Box2" className="absolute bottom-0 right-0 w-16 h-16 object-contain" />
-          </div>
-          
-          <div className="p-4 md:p-6 relative z-10">
-            <div className="flex flex-col lg:flex-row items-center space-y-4 lg:space-y-0 lg:space-x-6">
-              {/* Left Side - Race Info */}
-              <div className="flex-1 text-center lg:text-left">
-                <div className="flex items-center justify-center lg:justify-start space-x-2 mb-3">
-                  <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
-                    <img src="https://rillabox.s3.amazonaws.com/media/LeaderboardReward/trophy.png" alt="Trophy" className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-[#facc15]">$10,000</div>
-                    <div className="text-sm font-semibold text-primary uppercase tracking-wide">Weekly Race</div>
-                  </div>
-                </div>
-
-                <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
-                  Participate in our Weekly Race simply by playing on RillaBox!
-                </p>
-
-                {/* Countdown Timer - Boxed style with label */}
-                <div className="flex flex-col items-center lg:items-start gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.days.toString().padStart(2, '0')}</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">D</div>
-                    </div>
-                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.hours.toString().padStart(2, '0')}</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">H</div>
-                    </div>
-                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.minutes.toString().padStart(2, '0')}</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">M</div>
-                    </div>
-                    <div className="w-16 md:w-20 h-16 md:h-20 rounded-xl bg-[#0f2a1f] border border-[#1f6b4a] shadow-inner flex flex-col items-center justify-center">
-                      <div className="text-2xl md:text-3xl font-bold text-foreground">{timeLeft.seconds.toString().padStart(2, '0')}</div>
-                      <div className="text-[10px] md:text-xs text-muted-foreground mt-1">S</div>
-                    </div>
-                  </div>
-                  <div className="text-[11px] md:text-xs text-muted-foreground uppercase tracking-wide">UNTIL NEXT RACE</div>
-                </div>
-              </div>
-
-              {/* Right Side - Box Images - EXACT O Sortudo Style */}
-              <div className="flex-shrink-0">
-                <div className="flex space-x-2">
-                  <img src="https://rillabox.com/images/box3.png" alt="Box3" className="w-16 h-16 object-contain" />
-                  <img src="https://rillabox.com/images/box4.png" alt="Box4" className="w-16 h-16 object-contain" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </Card>
-      </section>
+      {/* Weekly Race Section - Implemented with exact provided HTML structure */}
+      <WeeklyRaceSection />
 
       {/* How It Works Section - EXACT O Sortudo Layout */}
       <section className="mb-6">
