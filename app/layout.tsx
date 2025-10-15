@@ -6,7 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
 import { SocketProvider } from "@/components/socket-provider"
-import { Navigation } from "@/components/navigation"
+import { RillaboxHeader } from "@/components/rillabox-header"
 
 export const metadata: Metadata = {
   title: "O Sortudo - Irish Gaming Platform",
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <SocketProvider>
-          <Navigation />
+          <RillaboxHeader />
           <Suspense fallback={null}>{children}</Suspense>
         </SocketProvider>
         <Analytics />
