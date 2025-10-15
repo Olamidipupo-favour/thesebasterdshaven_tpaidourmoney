@@ -160,13 +160,13 @@ export function RillaboxHeader() {
                       <Link href="/boxes" className="cursor-pointer">Mystery Boxes</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/battles" className="cursor-pointer">Battles</Link>
+                      <Link href="/battles" className="cursor-pointer">Find the Prize</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/crash" className="cursor-pointer">Crash</Link>
+                      <Link href="/crash" className="cursor-pointer">Climb to the Top</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/plinko" className="cursor-pointer">Plinko</Link>
+                      <Link href="/plinko" className="cursor-pointer">Chicken Road</Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -252,9 +252,9 @@ export function RillaboxHeader() {
           {mobileMenuOpen && (
             <div className="lg:hidden w-full mt-3">
               <div className="grid grid-cols-3 gap-2">
-                <Link href="/mystery-box"><Button variant="outline" className="w-full">Mystery Boxes</Button></Link>
-                <Link href="/battles"><Button variant="outline" className="w-full">Battles</Button></Link>
-                <Link href="/crash"><Button variant="outline" className="w-full">Crash</Button></Link>
+                <Link href="/boxes"><Button variant="outline" className="w-full">Mystery Boxes</Button></Link>
+                <Link href="/battles"><Button variant="outline" className="w-full">Find the Prize</Button></Link>
+                <Link href="/crash"><Button variant="outline" className="w-full">Climb to the Top</Button></Link>
               </div>
             </div>
           )}

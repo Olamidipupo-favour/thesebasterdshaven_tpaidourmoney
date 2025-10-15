@@ -49,7 +49,7 @@ const games: Game[] = [
   },
   {
     id: 2,
-    name: "Box Battles",
+    name: "Find the Prize",
     description: "Challenge other players in mystery box duels",
     icon: <Swords className="w-8 h-8" />,
     category: "battle",
@@ -60,7 +60,7 @@ const games: Game[] = [
   },
   {
     id: 3,
-    name: "Lucky Crash",
+    name: "Climb to the Top",
     description: "Watch the multiplier rise and cash out before it crashes",
     icon: <TrendingUp className="w-8 h-8" />,
     category: "crash",
@@ -71,7 +71,7 @@ const games: Game[] = [
   },
   {
     id: 4,
-    name: "Irish Plinko",
+    name: "Chicken Road",
     description: "Drop the ball and watch it bounce to fortune",
     icon: <Target className="w-8 h-8" />,
     category: "plinko",
@@ -138,9 +138,9 @@ const categoryColors = {
 
 const categoryNames = {
   mystery: "Mystery",
-  battle: "Battle",
-  crash: "Crash",
-  plinko: "Plinko",
+  battle: "Find the Prize",
+  crash: "Climb to the Top",
+  plinko: "Chicken Road",
   numbers: "Numbers",
   earn: "Earn to Play",
 }
@@ -166,25 +166,25 @@ export function GamesSection() {
         <div className="col-xl-20 mt-lg-5 mt-xl-3 battle-box col-lg-3 col-md-6 col-6">
           <a className="gamemode-box box-block d-block text-decoration-none h-100" href="/battles">
             <div className="gamemode-image">
-              <img src="https://rillabox.com/animations/battlebox-img.svg" alt="Battle" className="" />
+              <img src="https://rillabox.com/animations/battlebox-img.svg" alt="Find the Prize" className="" />
             </div>
-            <span className="gamemode-text text-gradient fw-bold">Battles</span>
+            <span className="gamemode-text text-gradient fw-bold">Find the Prize</span>
           </a>
         </div>
         <div className="col-xl-20 mt-lg-5 mt-xl-3 battle-box col-lg-3 col-md-6 col-6">
           <a className="gamemode-box box-block d-block text-decoration-none h-100" href="/crash">
             <div className="gamemode-image">
-              <img src="https://rillabox.com/animations/crashbox-img.svg" alt="Crash" className="" />
+              <img src="https://rillabox.com/animations/crashbox-img.svg" alt="Climb to the Top" className="" />
             </div>
-            <span className="gamemode-text text-gradient fw-bold">Crash</span>
+            <span className="gamemode-text text-gradient fw-bold">Climb to the Top</span>
           </a>
         </div>
         <div className="col-xl-20 mt-lg-5 mt-xl-3 battle-box col-lg-3 col-md-6 col-6">
           <a className="gamemode-box box-block d-block text-decoration-none h-100" href="/plinko">
             <div className="gamemode-image">
-              <img src="https://rillabox.com/animations/plingobox-img.svg" alt="Plinko" className="" />
+              <img src="https://rillabox.com/animations/plingobox-img.svg" alt="Chicken Road" className="" />
             </div>
-            <span className="gamemode-text text-gradient fw-bold">Plinko</span>
+            <span className="gamemode-text text-gradient fw-bold">Chicken Road</span>
           </a>
         </div>
       </div>
