@@ -8,7 +8,7 @@ import { RegisterDialog } from "@/components/auth/register-dialog"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X } from "lucide-react"
+import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag } from "lucide-react"
 
 export function RillaboxHeader() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -69,17 +69,15 @@ export function RillaboxHeader() {
 
   return (
     <>
-      <header id="header" className="sticky top-0 z-50 bg-card/95 border-b border-border backdrop-blur-sm">
-        <div className="flex items-center px-4 sm:px-6 lg:px-8 h-16">
-          {/* Left: Logo */}
-          <div className="header-logo flex items-center justify-center h-full">
-            <Link href="/" className="inline-flex items-center">
-              <div className="logo-image">
-                <img src="/logo/OSORTUDO%20LOGO%201.png" alt="rillabox-logo" className="sidebar-logo h-8 object-contain" />
-              </div>
-            </Link>
-          </div>
+      <header id="header" className="sticky top-0 z-50 bg-card/95 border-b border-border backdrop-blur-sm relative">
+        {/* Absolute logo so nav starts at content edge */}
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-[180px]">
+          <Link href="/" className="inline-flex items-center">
+            <img src="/logo/OSORTUDO%20LOGO%201.png" alt="Sortudo" className="h-10 md:h-11 lg:h-12 w-auto object-contain" />
+          </Link>
+        </div>
 
+        <div className="max-w-6xl mx-auto flex items-center px-4 sm:px-6 lg:px-8 h-16 lg:pl-[205px]">
           {/* Mobile: Sign in and Sign up */}
           <div className="lg:hidden flex items-center ms-auto gap-2 ml-auto">
             {!isAuthenticated ? (
@@ -115,10 +113,9 @@ export function RillaboxHeader() {
           </div>
 
           {/* Right: Menu and actions */}
-          <div className="flex justify-between flex-grow items-center header-rightbox">
-            <div className="header-menu hidden" />
-
-            <div className="header-rightoption flex items-center gap-3 ml-auto">
+          <div className="flex flex-grow items-center header-rightbox">
+            {/* Left-aligned navigation cluster */}
+            <div className="flex items-center gap-3 mr-[100px]">
               {/* Desktop Home button */}
               <Link href="/" className="hidden lg:inline-flex items-center justify-center">
                 <Button variant="outline" size="icon" className="home-btns home-btn">
@@ -172,13 +169,33 @@ export function RillaboxHeader() {
                 </DropdownMenu>
               </div>
 
-              {/* Rewards link */}
+              {/* Earn to Play (was Rewards) */}
               <Link href="/reward" className="inline-flex">
                 <Button variant="outline" className="flex items-center gap-2">
-                  <Gift className="w-4 h-4" />
-                  <span className="text-white">Rewards</span>
+                  <DollarSign className="w-4 h-4" />
+                  <span className="text-white">Earn to Play</span>
                 </Button>
               </Link>
+
+              {/* Shop dropdown: Buy / Trade */}
+              <div className="hidden lg:block relative">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" className="flex items-center gap-2">
+                      <ShoppingBag className="w-4 h-4" />
+                      <span>Shop</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" sideOffset={8} className="z-[60] mt-2 min-w-[180px]">
+                    <DropdownMenuItem asChild>
+                      <Link href="/shop/buy" className="cursor-pointer">Buy</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/shop/trade" className="cursor-pointer">Trade</Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
               {/* Weekly race banner */}
               <Link href="/weekly-race" title="10k Race" className="hidden lg:flex items-center overflow-hidden flex-shrink-0 px-3 py-2 rounded-md bg-muted">
@@ -209,8 +226,10 @@ export function RillaboxHeader() {
                 </div>
               </Link>
 
-              {/* Desktop login side */}
-              <div className="hidden lg:flex items-center gap-2">
+            </div>
+
+            {/* Right-aligned auth cluster */}
+            <div className="hidden lg:flex items-center gap-2 ml-auto">
                 {!isAuthenticated ? (
                   <>
                     <Button variant="outline" size="sm" className="button-sign-in" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
@@ -242,10 +261,8 @@ export function RillaboxHeader() {
                   </DropdownMenu>
                 )}
               </div>
-
-              {/* Overlay when dropdown is open */}
-              {gamesOpen && <div className="dropdown-overlay fixed inset-0 z-40" onClick={() => setGamesOpen(false)} />}
-            </div>
+            {/* Overlay when dropdown is open */}
+            {gamesOpen && <div className="dropdown-overlay fixed inset-0 z-40" onClick={() => setGamesOpen(false)} />}
           </div>
 
           {/* Mobile expanded menu (optional quick links) */}
