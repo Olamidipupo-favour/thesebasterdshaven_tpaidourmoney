@@ -298,3 +298,95 @@
           position: relative;
           border: 1px solid transparent;
         }
+
+/* Gamemodes section styles */
+.gamemodes-wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+.gamemodes-wrapper .row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 1rem;
+}
+.battle-box { padding: 0; }
+.d-block { display: block; }
+.text-decoration-none { text-decoration: none; }
+.fw-bold { font-weight: 700; }
+.box-block { /* spacing hook for original design */ }
+.col-6 { width: 50%; }
+@media (min-width: 768px) {
+  .col-md-6 { width: 50%; }
+}
+@media (min-width: 992px) {
+  .col-lg-3 { width: 25%; }
+  .mt-lg-5 { margin-top: 3rem; }
+}
+@media (min-width: 1200px) {
+  .col-xl-20 { width: 20%; }
+  .mt-xl-3 { margin-top: 1rem; }
+}
+.gamemode-box {
+  height: 100%;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+  padding: 16px;
+  transition: transform 250ms ease, box-shadow 250ms ease, filter 250ms ease;
+}
+.gamemode-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+}
+.gamemode-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+.gamemode-image img {
+  width: 100%;
+  height: auto;
+  max-width: 180px;
+  animation: floatGamemode 6s ease-in-out infinite;
+  transition: transform 250ms ease, filter 250ms ease;
+}
+.gamemode-box:hover .gamemode-image img {
+  transform: translateY(-4px) scale(1.03);
+  filter: drop-shadow(0 0 12px rgba(82,202,25,0.6));
+}
+.gamemode-text {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 1rem;
+}
+.text-gradient {
+  background: linear-gradient(90deg, #52CA19, #FFBE0B);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+/* Utilities for gamemodes markup (bootstrap-like) */
+.w-100 { width: 100%; }
+.h-100 { height: 100%; }
+.justify-content-evenly { justify-content: space-evenly; }
+.gy-5 { row-gap: 3rem; }
+.row { display: flex; flex-wrap: wrap; }
+.col-6 { flex: 0 0 auto; width: 50%; }
+@media (min-width: 768px) {
+  .col-md-6 { flex: 0 0 auto; width: 50%; }
+}
+@media (min-width: 992px) {
+  .col-lg-3 { flex: 0 0 auto; width: 25%; }
+  .mt-lg-5 { margin-top: 3rem; }
+}
+@media (min-width: 1200px) {
+  .col-xl-20 { flex: 0 0 auto; width: 20%; }
+  .mt-xl-3 { margin-top: 1rem; }
+}
+@keyframes floatGamemode {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}

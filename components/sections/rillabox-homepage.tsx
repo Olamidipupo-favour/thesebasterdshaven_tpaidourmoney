@@ -25,6 +25,7 @@ import Link from "next/link"
 import { useBoxes } from "@/hooks/use-boxes"
 import { useLiveDrops, useLiveStats } from "@/hooks/use-socket"
 import { useUserBalance, useUserStats } from "@/hooks/use-user"
+import { GamesSection } from "@/components/sections/games-section"
 
 // Banner data adapted to provided HTML (desktop/mobile images and links)
 const heroBanners = [
@@ -306,8 +307,9 @@ export function OSortudoHomepage() {
         </div>
       </section>
 
-      {/* Game Modes Section - BIGGER Rillabox Style */}
-      <section className="w-full mb-8">
+      {/* Game Modes Section - Exact user-provided gamemodes markup */}
+      <GamesSection />
+      {false && (<section className="w-full mb-8">
         <div className="flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-6xl">
             {/* Mystery Boxes - BIGGER with enhanced box opening animation */}
@@ -447,7 +449,7 @@ export function OSortudoHomepage() {
             </Link>
           </div>
         </div>
-      </section>
+      </section>)}
 
       {/* Featured Boxes Section - EXACT Rillabox Layout */}
       <section className="mb-8">
