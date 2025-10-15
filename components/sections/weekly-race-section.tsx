@@ -15,12 +15,12 @@ export function WeeklyRaceSection() {
             <div className="award-middlebox">
               <div className="row g-xl-0 g-md-3 g-2 align-items-center position-relative">
                 <div className="col-xl-8 col-lg-6 col-md-6 col-12">
-                  <div className="d-flex align-items-center trophy-boxblock ">
+                  <div className="d-flex align-items-center justify-content-center trophy-boxblock ">
                     <div className="d-lg-flex d-none">
                       <img src="https://rillabox.com/images/trophy-changed.png" alt="" className="trophy-image" />
                     </div>
-                    <div>
-                      <div className="d-flex flex-wrap gap-17 weeklyrace-header align-items-center">
+                    <div className="text-center">
+                      <div className="d-flex flex-wrap gap-17 weeklyrace-header align-items-center justify-content-center">
                         <h5 className="winning-raceamount fw-bold mb-0" title="$10,000">
                           <span className="actual-amount">$10,000</span>
                         </h5>
@@ -31,7 +31,7 @@ export function WeeklyRaceSection() {
                   </div>
                 </div>
                 <div className="col-xl-4 col-lg-6 col-md-6 col-12">
-                  <div className="race-block ms-xl-auto ms-auto me-xl-0 me-auto">
+                  <div className="race-block ms-auto me-0">
                     <h3 className="race-title d-flex align-items-center justify-content-center">
                       <img className="flex-shrink-0" src="https://rillabox.com/images/timer.svg" alt="Timer" />
                     </h3>

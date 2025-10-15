@@ -60,12 +60,15 @@ export function HeroSection() {
                 <div className="p-4 flex flex-col flex-1">
                   <h3 className="text-lg font-bold text-foreground mb-2">{box.name}</h3>
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-1">
-                      <span className="text-2xl font-bold text-primary">{box.price}</span>
-                      <span className="text-sm text-muted-foreground">coins</span>
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold text-primary">{(box.price * 0.85).toFixed(2)}</span>
+                        <span className="text-sm text-muted-foreground line-through">{box.price}testtttt</span>
+                      </div>
+                      <span className="text-xs text-muted-foreground">coins</span>
                     </div>
                     <div className="text-sm text-muted-foreground">
-                      ${(box.price / 25).toFixed(2)} USD
+                      ${((box.price * 0.85) / 25).toFixed(2)} USD
                     </div>
                   </div>
 

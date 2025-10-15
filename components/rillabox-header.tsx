@@ -142,8 +142,12 @@ export function RillaboxHeader() {
                 </Link>
               </div>
 
-              {/* Desktop Games dropdown */}
-              <div className="hidden lg:block relative">
+              {/* Desktop Games dropdown (opens on hover & click) */}
+              <div
+                className="hidden lg:block relative"
+                onMouseEnter={() => setGamesOpen(true)}
+                onMouseLeave={() => setGamesOpen(false)}
+              >
                 <DropdownMenu open={gamesOpen} onOpenChange={setGamesOpen}>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="flex items-center gap-2">
@@ -153,7 +157,7 @@ export function RillaboxHeader() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="start" sideOffset={8} className="z-[60] mt-2 min-w-[220px]">
                     <DropdownMenuItem asChild>
-                      <Link href="/mystery-box" className="cursor-pointer">Mystery Boxes</Link>
+                      <Link href="/boxes" className="cursor-pointer">Mystery Boxes</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
                       <Link href="/battles" className="cursor-pointer">Battles</Link>

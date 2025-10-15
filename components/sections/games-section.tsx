@@ -156,7 +156,7 @@ export function GamesSection() {
     <section className="gamemodes-wrapper w-100">
       <div className="justify-content-evenly  gy-5 row">
         <div className="col-xl-20 mt-lg-5 mt-xl-3 battle-box col-lg-3 col-md-6 col-6">
-          <a className="gamemode-box box-block d-block text-decoration-none h-100" href="/home">
+          <a className="gamemode-box box-block d-block text-decoration-none h-100" href="/boxes">
             <div className="gamemode-image">
               <img src="https://rillabox.com/animations/mysterbox-img.svg" alt="Mystery Boxes Image" className="" />
             </div>

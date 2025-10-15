@@ -42,12 +42,12 @@ export function LoginDialog({ open, onOpenChange, onSwitchToRegister }: LoginDia
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[560px] bg-card border-border p-0 rounded-2xl shadow-2xl">
         {/* Top brand header to match RillaBox layout */}
-        <div className="rounded-t-2xl bg-gradient-to-b from-emerald-500 to-emerald-700 px-6 py-5 text-white">
+        <div className="rounded-t-2xl bg-gradient-to-b from-emerald-500 to-emerald-700 px-6 py-6 text-white">
           <div className="flex items-center justify-center">
             <img
               src="/logo/OSORTUDO%20LOGO%201.png"
               alt="Sortudo Logo"
-              className="h-6 object-contain"
+              className="h-14 md:h-16 object-contain"
             />
           </div>
           <p className="mt-2 text-sm/6 text-center">Welcome back! 👋</p>
