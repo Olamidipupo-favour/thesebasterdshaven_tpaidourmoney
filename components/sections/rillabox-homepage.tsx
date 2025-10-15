@@ -26,31 +26,35 @@ import { useBoxes } from "@/hooks/use-boxes"
 import { useLiveDrops, useLiveStats } from "@/hooks/use-socket"
 import { useUserBalance, useUserStats } from "@/hooks/use-user"
 
-// Hero Banner Data - EXACT O Sortudo Banners
+// Banner data adapted to provided HTML (desktop/mobile images and links)
 const heroBanners = [
   {
     id: 1,
-    image: "https://rillabox.s3.amazonaws.com/media/banners/ACHIEVEMENTS_-_NEW_SEASON_BANNER_DESKTOP.png",
-    link: "/achievements",
-    alt: "Achievements Banner"
+    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-NEW-BOXES-H.png",
+    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-NEW-BOXES-H.png",
+    href: "https://rillabox.com/home",
+    alt: "New Boxes"
   },
   {
     id: 2,
-    image: "https://rillabox.s3.amazonaws.com/media/banners/AFSDFEW.png",
-    link: "/home",
-    alt: "Mystery Boxes Banner"
+    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-DAILY-FREE2.png",
+    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-DAILY-FREE2.png",
+    href: "https://rillabox.com/reward",
+    alt: "Daily Free"
   },
   {
     id: 3,
-    image: "https://rillabox.s3.amazonaws.com/media/banners/STARTER_DESKTOP_BANNER_JTZniV6.jpg",
-    link: "/signup",
-    alt: "Starter Banner"
+    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-TELEGRAM.png",
+    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-TELEGRAM.png",
+    href: "https://t.me/rillabox",
+    alt: "Telegram"
   },
   {
     id: 4,
-    image: "https://rillabox.s3.amazonaws.com/media/banners/tele_desktop_ban_nnBhx1L.png",
-    link: "/telegram",
-    alt: "Telegram Banner"
+    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-STARTER.png",
+    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-STARTER.png",
+    href: "https://rillabox.com/box/Starter",
+    alt: "Starter"
   }
 ]
 
@@ -214,66 +218,91 @@ export function OSortudoHomepage() {
 
   return (
     <div className="space-y-8">
-      {/* Hero Banner with Swiper - EXACT O Sortudo Style */}
-      <section className="relative w-full mb-6">
-        <div className="relative w-full h-[300px] md:h-[400px] overflow-hidden rounded-lg shadow-md">
-          {/* Banner Images */}
-          <div className="relative w-full h-full">
-            {heroBanners.map((banner, index) => (
-              <div
-                key={banner.id}
-                className={`absolute inset-0 transition-opacity duration-500 ${
-                  index === currentBanner ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <Link href={banner.link}>
-                  <img
-                    src={banner.image}
-                    alt={banner.alt}
-                    className="w-full h-full object-cover cursor-pointer"
-                  />
-                </Link>
+      {/* Banner Section - Tailwind functional slider */}
+      <section className="w-full mb-6">
+        <div className="grid grid-cols-12 items-stretch gap-x-0 md:gap-x-4">
+          {/* Left: Slider */}
+          <div className="col-span-12 md:col-span-8 h-auto pl-0">
+            <div className="relative w-full h-full overflow-hidden">
+              {/* Slides */}
+              <div className="relative w-full h-full">
+                {heroBanners.map((banner, index) => (
+                  <div
+                    key={banner.id}
+                    className={`absolute inset-0 transition-opacity duration-500 ${
+                      index === currentBanner ? 'opacity-100' : 'opacity-0'
+                    }`}
+                  >
+                    <a href={banner.href} className="inline-block w-full h-full">
+                      {/* Desktop image */}
+                      <img
+                        src={banner.desktopImage}
+                        alt={banner.alt}
+                        className="hidden md:block w-full h-full object-cover"
+                      />
+                      {/* Mobile image */}
+                      <img
+                        src={banner.mobileImage}
+                        alt={banner.alt}
+                        className="md:hidden block w-full h-full object-cover"
+                      />
+                    </a>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
 
-          {/* Navigation Arrows - EXACT O Sortudo Style */}
-          <button
-            onClick={() => setCurrentBanner((prev) => (prev - 1 + heroBanners.length) % heroBanners.length)}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md hover:scale-105 z-10"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          <button
-            onClick={() => setCurrentBanner((prev) => (prev + 1) % heroBanners.length)}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md hover:scale-105 z-10"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-
-          {/* Dots Indicator - EXACT O Sortudo Style */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-            {heroBanners.map((_, index) => (
+              {/* Navigation arrows */}
               <button
-                key={index}
-                onClick={() => setCurrentBanner(index)}
-                className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                  index === currentBanner ? 'bg-white shadow-md' : 'bg-white/50 hover:bg-white/70'
-                }`}
-              />
-            ))}
+                type="button"
+                onClick={() => setCurrentBanner((prev) => (prev - 1 + heroBanners.length) % heroBanners.length)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md z-10"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setCurrentBanner((prev) => (prev + 1) % heroBanners.length)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 shadow-md z-10"
+                aria-label="Next"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+
+              {/* Dots */}
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+                {heroBanners.map((_, index) => (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => setCurrentBanner(index)}
+                    className={`w-2 h-2 rounded-full ${index === currentBanner ? 'bg-white' : 'bg-white/50 hover:bg-white/70'} transition-colors`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* O Sortudo Mascot - Show only on Telegram (4th) banner */}
-          {heroBanners[currentBanner]?.id === 4 && (
-            <div className="absolute bottom-0 right-2 md:right-6 pointer-events-none z-10">
-              <img
-                src="/logo/mascot%20001.png"
-                alt="Sortudo Mascot"
-                className="w-[140px] h-[140px] md:w-[220px] md:h-[220px] object-contain drop-shadow-xl"
-              />
+          {/* Right: Achievements banner */}
+          <div className="col-span-12 md:col-span-4 h-auto pr-0">
+            <div className="h-full overflow-hidden">
+              <a href="https://rillabox.com/achievements" className="block w-full h-full">
+                {/* Desktop */}
+                <img
+                  src="https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-HALLOWEENACHIEVEMENTS.png"
+                  alt="Rillabox Mystery Boxes"
+                  className="hidden md:block w-full h-auto"
+                />
+                {/* Mobile */}
+                <img
+                  src="https://rillabox.s3.amazonaws.com/media/banners/MOBILEHALLOWEENACHIEVEMENTS.png"
+                  alt="Refreal-code-image"
+                  className="md:hidden block w-full h-auto"
+                />
+              </a>
             </div>
-          )}
+          </div>
         </div>
       </section>
 

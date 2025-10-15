@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { LoginDialog } from "@/components/auth/login-dialog"
@@ -16,6 +16,42 @@ export function RillaboxHeader() {
   const [showRegisterDialog, setShowRegisterDialog] = useState(false)
   const [gamesOpen, setGamesOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Weekly race countdown to end of Sunday (local time)
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+
+  useEffect(() => {
+    const getNextWeeklySundayEnd = (now: Date) => {
+      const end = new Date(now)
+      const day = now.getDay() // 0 = Sunday
+      const daysToSunday = (7 - day) % 7
+      end.setDate(now.getDate() + daysToSunday)
+      end.setHours(23, 59, 59, 999)
+      if (end.getTime() <= now.getTime()) {
+        end.setDate(end.getDate() + 7)
+      }
+      return end
+    }
+
+    let target = getNextWeeklySundayEnd(new Date())
+
+    const update = () => {
+      const now = new Date()
+      if (target.getTime() - now.getTime() <= 0) {
+        target = getNextWeeklySundayEnd(now)
+      }
+      const diff = target.getTime() - now.getTime()
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+      setTimeLeft({ days, hours, minutes, seconds })
+    }
+
+    update()
+    const id = setInterval(update, 1000)
+    return () => clearInterval(id)
+  }, [])
 
   const handleSwitchToRegister = () => {
     setShowLoginDialog(false)
@@ -147,22 +183,22 @@ export function RillaboxHeader() {
                   <span className="text-black dark:text-white font-semibold italic">$10k Race</span>
                   <div className="flex items-center gap-1 text-black dark:text-white">
                     <div className="flex flex-col leading-none items-center">
-                      <span className="font-bold">04</span>
+                      <span className="font-bold">{timeLeft.days.toString().padStart(2, "0")}</span>
                       <span className="text-[10px]">D</span>
                     </div>
                     <span>:</span>
                     <div className="flex flex-col leading-none items-center">
-                      <span className="font-bold">22</span>
+                      <span className="font-bold">{timeLeft.hours.toString().padStart(2, "0")}</span>
                       <span className="text-[10px]">H</span>
                     </div>
                     <span>:</span>
                     <div className="flex flex-col leading-none items-center">
-                      <span className="font-bold">22</span>
+                      <span className="font-bold">{timeLeft.minutes.toString().padStart(2, "0")}</span>
                       <span className="text-[10px]">M</span>
                     </div>
                     <span>:</span>
                     <div className="flex flex-col leading-none items-center">
-                      <span className="font-bold">13</span>
+                      <span className="font-bold">{timeLeft.seconds.toString().padStart(2, "0")}</span>
                       <span className="text-[10px]">S</span>
                     </div>
                   </div>
