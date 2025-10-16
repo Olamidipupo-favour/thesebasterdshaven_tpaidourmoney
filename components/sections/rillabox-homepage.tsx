@@ -463,7 +463,7 @@ export function OSortudoHomepage() {
             <p className="font-14 fw-normal">Explore our 200+ mystery boxes</p>
           </div>
         </div>
-        <div className="boxes-container landing-boxes mb-3 row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3">
+        <div className="boxes-container landing-boxes mb-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3" style={{ display: 'grid' }}>
           <div>
             <div className="sc-iHmpnF eXDFil box-item">
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
@@ -1131,9 +1131,9 @@ export function OSortudoHomepage() {
           {howItWorksSteps.map((step) => (
             <Card
               key={step.id}
-              className={`relative rounded-2xl bg-[#0b1e17] border border-[#163526] overflow-hidden ${step.id === 2 ? 'ring-2 ring-[#22c55e]/60 shadow-[0_0_25px_rgba(34,197,94,0.25)]' : ''}`}
+              className="group relative rounded-2xl bg-[#0b1e17] border border-[#163526] overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-[#22c55e]/60 hover:shadow-[0_0_25px_rgba(34,197,94,0.25)]"
             >
-              <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#22c55e]/60" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#163526] transition-all duration-200 group-hover:h-[8px] group-hover:bg-[#22c55e]" />
               <div className="p-5">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-[11px] md:text-xs font-semibold text-[#22c55e] uppercase">STEP {step.id}</span>
