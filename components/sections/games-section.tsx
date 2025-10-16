@@ -158,48 +158,48 @@ export function GamesSection() {
       <div className="grid grid-cols-12 gap-x-0 md:gap-x-4">
         {/* Mystery Boxes - use provided video */}
         <div className="col-span-6 md:col-span-3">
-          <a className="gamemode-box box-block d-block text-decoration-none h-full" href="/boxes">
-            <div className="gamemode-image">
+          <a className="block" href="/boxes">
+            <div className="rounded-xl border border-border overflow-hidden">
               <video
                 src="https://rillabox.com/animations/mistrorybox.mp4"
                 autoPlay
                 loop
                 muted
                 playsInline
-                className="w-full h-36 md:h-40 object-cover rounded-lg"
+                className="w-full h-44 md:h-48 object-cover"
               />
             </div>
-            <span className="gamemode-text text-gradient fw-bold">Mystery Boxes</span>
+            <span className="mt-2 block text-center font-semibold">Mystery Boxes</span>
           </a>
         </div>
 
         {/* Find the Prize */}
         <div className="col-span-6 md:col-span-3">
-          <a className="gamemode-box box-block d-block text-decoration-none h-full" href="/battles">
-            <div className="gamemode-image">
-              <img src="https://rillabox.com/animations/battlebox-img.svg" alt="Find the Prize" className="w-full h-36 md:h-40 object-cover rounded-lg" />
+          <a className="block" href="/battles">
+            <div className="rounded-xl border border-border overflow-hidden">
+              <img src="https://rillabox.com/animations/battlebox-img.svg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover" />
             </div>
-            <span className="gamemode-text text-gradient fw-bold">Find the Prize</span>
+            <span className="mt-2 block text-center font-semibold">Find the Prize</span>
           </a>
         </div>
 
         {/* Climb to the Top */}
         <div className="col-span-6 md:col-span-3">
-          <a className="gamemode-box box-block d-block text-decoration-none h-full" href="/crash">
-            <div className="gamemode-image">
-              <img src="https://rillabox.com/animations/crashbox-img.svg" alt="Climb to the Top" className="w-full h-36 md:h-40 object-cover rounded-lg" />
+          <a className="block" href="/crash">
+            <div className="rounded-xl border border-border overflow-hidden">
+              <img src="https://rillabox.com/animations/crashbox-img.svg" alt="Climb to the Top" className="w-full h-44 md:h-48 object-cover" />
             </div>
-            <span className="gamemode-text text-gradient fw-bold">Climb to the Top</span>
+            <span className="mt-2 block text-center font-semibold">Climb to the Top</span>
           </a>
         </div>
 
         {/* Chicken Road */}
         <div className="col-span-6 md:col-span-3">
-          <a className="gamemode-box box-block d-block text-decoration-none h-full" href="/plinko">
-            <div className="gamemode-image">
-              <img src="https://rillabox.com/animations/plingobox-img.svg" alt="Chicken Road" className="w-full h-36 md:h-40 object-cover rounded-lg" />
+          <a className="block" href="/plinko">
+            <div className="rounded-xl border border-border overflow-hidden">
+              <img src="https://rillabox.com/animations/plingobox-img.svg" alt="Chicken Road" className="w-full h-44 md:h-48 object-cover" />
             </div>
-            <span className="gamemode-text text-gradient fw-bold">Chicken Road</span>
+            <span className="mt-2 block text-center font-semibold">Chicken Road</span>
           </a>
         </div>
       </div>
