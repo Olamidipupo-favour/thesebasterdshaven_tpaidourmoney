@@ -198,11 +198,11 @@ export function RillaboxHeader() {
               </div>
 
               {/* Weekly race banner */}
-              <Link href="/weekly-race" title="10k Race" className="hidden lg:flex items-center overflow-hidden flex-shrink-0 px-3 py-2 rounded-md bg-muted">
-                <Trophy className="w-5 h-5 text-primary mr-2" />
+              <Link href="/weekly-race" title="10k Race" className="hidden lg:flex items-center overflow-hidden flex-shrink-0 px-3 py-2 rounded-md bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600">
+                <Trophy className="w-5 h-5 text-amber-700 mr-2" />
                 <div className="flex items-center gap-2">
-                  <span className="text-black dark:text-white font-semibold italic">$10k Race</span>
-                  <div className="flex items-center gap-1 text-black dark:text-white">
+                  <span className="text-black font-semibold italic">$10k Race</span>
+                  <div className="flex items-center gap-1 text-black">
                     <div className="flex flex-col leading-none items-center">
                       <span className="font-bold">{timeLeft.days.toString().padStart(2, "0")}</span>
                       <span className="text-[10px]">D</span>

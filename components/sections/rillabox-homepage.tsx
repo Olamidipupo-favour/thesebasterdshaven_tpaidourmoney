@@ -1131,9 +1131,9 @@ export function OSortudoHomepage() {
           {howItWorksSteps.map((step) => (
             <Card
               key={step.id}
-              className={`relative rounded-2xl bg-[#0b1e17] border border-[#163526] overflow-hidden ${step.id === 2 ? 'ring-2 ring-[#22c55e]/60 shadow-[0_0_25px_rgba(34,197,94,0.25)]' : ''}`}
+              className="group relative rounded-2xl bg-[#0b1e17] border border-[#163526] overflow-hidden transition-all duration-300 hover:ring-2 hover:ring-[#22c55e]/60 hover:shadow-[0_0_25px_rgba(34,197,94,0.25)]"
             >
-              <div className="absolute top-0 left-0 right-0 h-[3px] bg-[#22c55e]/60" />
+              <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#163526] transition-all duration-200 group-hover:h-[8px] group-hover:bg-[#22c55e]" />
               <div className="p-5">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-[11px] md:text-xs font-semibold text-[#22c55e] uppercase">STEP {step.id}</span>

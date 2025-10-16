@@ -7,7 +7,7 @@ export function LiveDropsSidebar() {
     <div className="sidebar hide active nav">
       <div className="position-relative px-3 w-100 text-center margin-t-10"></div>
       <div className="live-drops-container new-live-drops">
-        <div className="py-3 px-2 d-flex align-items-center justify-content-between livedrop-open">
+        {/* <div className="py-3 px-2 d-flex align-items-center justify-content-between livedrop-open">
           <div className="d-flex align-items-center justify-content-start gap-2 w-50 flex-shrink-1">
             <div className="mystery-background d-flex align-items-center justify-content-center">
               <img src="/icons/landing/user-aside.svg" alt="user-icon" />
@@ -26,7 +26,7 @@ export function LiveDropsSidebar() {
               <p className="text-white m-0">Boxes Opened</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="live-border my-2">
           <div className="title-container ">
