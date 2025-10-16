@@ -463,7 +463,7 @@ export function OSortudoHomepage() {
             <p className="font-14 fw-normal">Explore our 200+ mystery boxes</p>
           </div>
         </div>
-        <div className="boxes-container landing-boxes mb-3 row row-cols-2 row-cols-md-4 row-cols-lg-5 g-3">
+        <div className="boxes-container landing-boxes mb-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3" style={{ display: 'grid' }}>
           <div>
             <div className="sc-iHmpnF eXDFil box-item">
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
