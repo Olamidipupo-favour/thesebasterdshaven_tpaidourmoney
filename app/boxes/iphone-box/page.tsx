@@ -15,6 +15,8 @@ const Box3D = dynamic(() => import("@/components/animations/box-3d").then(mod =>
   loading: () => <div className="w-[240px] h-[240px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>
 })
 
+import iphoneItemsJson from "@/data/boxes/iphone-1pct.json"
+
 // Function to get rarity color based on application theme
 const getRarityColor = (rarity: string) => {
   switch (rarity.toLowerCase()) {
@@ -57,99 +59,30 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled
 }
 
-// First 10 items from Rillabox HTML - exact data with images
-const iphoneItems = [
-  {
-    id: "iphone-16-ultramarine",
-    name: "iPhone 16 - Ultramarine, 128GB",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077274535_1.png",
-    value: 799.99,
-    rarity: "legendary",
-    probability: 0.1454,
-    glowColor: "#FFBE0B"
-  },
-  {
-    id: "iphone-16e-white",
-    name: "iPhone 16e - White, 128GB",
-    image: "https://cdn.rillabox.com/media/products/SnapBG.ai_1741048077175_1_1_ciOSbOm.png",
-    value: 599.99,
-    rarity: "epic",
-    probability: 0.2865,
-    glowColor: "#A800E0"
-  },
-  {
-    id: "iphone-12-black",
-    name: "iPhone 12 - Black, 64GB",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077212074_1.png",
-    value: 249.99,
-    rarity: "epic",
-    probability: 0.3912,
-    glowColor: "#A800E0"
-  },
-  {
-    id: "iphone-se-2nd-gen",
-    name: "iPhone SE 2nd Generation - Black, 64GB",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077150469_1.png",
-    value: 144.99,
-    rarity: "epic",
-    probability: 0.4587,
-    glowColor: "#A800E0"
-  },
-  {
-    id: "dji-osmo-mobile-se",
-    name: "DJI Osmo Mobile SE",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1751319110142_1_1.png",
-    value: 74.99,
-    rarity: "rare",
-    probability: 0.6698,
-    glowColor: "#0078D7"
-  },
-  {
-    id: "belkin-power-bank",
-    name: "Belkin BoostCharge Pro Magnetic Power Bank 5K - Deep Purple",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077096001_1.png",
-    value: 64.49,
-    rarity: "rare",
-    probability: 0.7432,
-    glowColor: "#0078D7"
-  },
-  {
-    id: "wireless-carplay",
-    name: "Wireless Carplay Adapter",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077038240_1.png",
-    value: 50.49,
-    rarity: "rare",
-    probability: 0.8554,
-    glowColor: "#0078D7"
-  },
-  {
-    id: "mophie-car-charger",
-    name: "mophie Dual USB-C 40W PD Car Charger",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754076993821_1.png",
-    value: 38.99,
-    rarity: "rare",
-    probability: 0.9989,
-    glowColor: "#0078D7"
-  },
-  {
-    id: "apple-earpods",
-    name: "Apple EarPods with Lightning Connector",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754076951179_1.png",
-    value: 27.99,
-    rarity: "rare",
-    probability: 1.3409,
-    glowColor: "#0078D7"
-  },
-  {
-    id: "anker-lightning-cable",
-    name: "Anker iPhone Lightning Charger Cable",
-    image: "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754076886943_1.png",
-    value: 18.99,
-    rarity: "common",
-    probability: 2.0013,
-    glowColor: "#52CA19"
-  }
-]
+// First 10 items from Rillabox HTML - now sourced from JSON
+type RawItem = {
+  id: string
+  name: string
+  image: string
+  value: number
+  probability: number
+  category?: string
+}
+
+type BoxItem = RawItem & { rarity: string }
+
+const categorizeByPrice = (value: number): string => {
+  if (value >= 700) return 'legendary'
+  if (value >= 200) return 'epic'
+  if (value >= 50) return 'rare'
+  if (value >= 20) return 'common'
+  return 'basic' // grey
+}
+
+const iphoneItems: BoxItem[] = (iphoneItemsJson as RawItem[]).map((item) => ({
+  ...item,
+  rarity: item.category ? item.category : categorizeByPrice(item.value),
+}))
 
 // Similar boxes from Rillabox
 const similarBoxes = [
@@ -854,51 +787,55 @@ export default function IPhoneBoxPage() {
               <h2 className="text-3xl font-bold text-blue-400 mb-2">Drops in 1% iPhone (15)</h2>
               <p className="text-white/60 mb-8 text-base">Unbox to ship or exchange one of the products:</p>
               
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              <div className="boxes-container landing-boxes grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {iphoneItems.map((item) => (
-                  <Card key={item.id} className="bg-[#2a3142] border-[#3d4558] overflow-hidden hover:border-blue-500 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/60">
-                    <div 
-                      className="border-t-[6px] p-4"
-                      style={{ 
-                        borderTopColor: getRarityColor(item.rarity),
-                        boxShadow: `0 0 15px ${getRarityColor(item.rarity)}40`
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = `0 0 25px ${getRarityColor(item.rarity)}80, 0 0 40px ${getRarityColor(item.rarity)}40`
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = `0 0 15px ${getRarityColor(item.rarity)}40`
-                      }}
-                    >
-                      <div className="text-center">
-                        <div className="w-full aspect-square mx-auto mb-3 rounded-lg flex items-center justify-center overflow-hidden hover:scale-105 transition-transform duration-300 bg-[#1e2333]">
-                          <img 
-                            src={item.image} 
-                            alt={item.name}
-                            className="w-4/5 h-4/5 object-contain"
-                            onError={(e) => {
-                              e.currentTarget.src = "/placeholder.svg"
-                            }}
-                          />
-                        </div>
-                        <h3 className="text-xs font-semibold text-white/90 mb-2 line-clamp-2 min-h-[2.5rem]">{item.name}</h3>
-                        <div className="text-base font-bold text-green-400 mb-2">${item.value}</div>
-                        <Badge 
-                          variant="secondary" 
-                          className={`text-xs mb-2 font-semibold ${
-                            item.rarity === 'legendary' ? 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30' :
-                            item.rarity === 'epic' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' :
-                            item.rarity === 'rare' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30' :
-                            item.rarity === 'common' ? 'bg-green-500/20 text-green-400 border border-green-500/30' :
-                            'bg-gray-500/20 text-gray-400 border border-gray-500/30'
-                          }`}
-                        >
-                          {item.rarity.toUpperCase()}
-                        </Badge>
-                        <div className="text-xs text-white/50">{item.probability}%</div>
+                  <div key={item.id} className="box-item relative">
+                    {/* Decorative vector like homepage */}
+                    <img
+                      src="/images/helloween/vector-3.svg"
+                      alt=""
+                      className="vector-halloween"
+                    />
+
+                    {/* Name like homepage featured box */}
+                    <span className="box-name line-clamp-2">{item.name}</span>
+
+                    {/* Product image using homepage prod-img class */}
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="prod-img"
+                      onError={(e) => { e.currentTarget.src = "/placeholder.svg" }}
+                    />
+
+                    {/* Price container exactly like homepage */}
+                    <div className="price-container">
+                      <div className="original-price">
+                        <span>$</span>
+                        <span>{(item.value * 1.15).toFixed(2)}</span>
+                      </div>
+                      <div className="current-price">
+                        <span>$</span>
+                        <span>{item.value.toFixed(2)}</span>
                       </div>
                     </div>
-                  </Card>
+
+                    {/* Top/bottom color light pop based on rarity */}
+                    <span
+                      className="pointer-events-none absolute top-0 left-0 right-0 h-[6px]"
+                      style={{
+                        background: `linear-gradient(to bottom, ${getRarityColor(item.rarity)}80, transparent)`,
+                        filter: 'blur(2px)'
+                      }}
+                    />
+                    <span
+                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[6px]"
+                      style={{
+                        background: `linear-gradient(to top, ${getRarityColor(item.rarity)}80, transparent)`,
+                        filter: 'blur(2px)'
+                      }}
+                    />
+                  </div>
                 ))}
               </div>
             </div>
