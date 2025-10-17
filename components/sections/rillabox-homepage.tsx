@@ -27,6 +27,7 @@ import { useLiveDrops, useLiveStats } from "@/hooks/use-socket"
 import { useUserBalance, useUserStats } from "@/hooks/use-user"
 import { GamesSection } from "@/components/sections/games-section"
 import { WeeklyRaceSection } from "@/components/sections/weekly-race-section"
+import { StatsSection } from "@/components/sections/stats-section"
 
 // Banner data adapted to provided HTML (desktop/mobile images and links)
 const heroBanners = [
@@ -979,49 +980,10 @@ export function OSortudoHomepage() {
         </div>
       </section>)}
 
-      {/* Users and Boxes Opened Cards - Exact Design (replaces old stats) */}
-      <div className="d-flex align-items-center gap-0 gap-md-5 w-100 mx-auto theme-boxwrap">
-        <div className="d-none d-md-flex">
-          <img src="/images/helloween/vector-4.svg" alt="Halloween Vector" className="" />
-        </div>
-        <div className="box-block my-5 w-100 flex-shrink-0 user-count-padding position-relative overflow-hidden">
-          <div className="position-absolute object-block2 bottom-0">
-            <img src="/images/helloween/tree-object-1.svg" alt="Halloween Vector" className="" />
-          </div>
-          <div className="position-absolute object-block1 bottom-0">
-            <img src="/images/helloween/tree-object-2.svg" alt="Halloween Vector" className="" />
-          </div>
-          <div className="position-absolute star-object ">
-            <img src="/images/helloween/star-object.svg" alt="Halloween Star" className="" />
-          </div>
-          <div className="row flex-grow-1">
-            <div className="col-6 text-center">
-              <span className="rounded-box rounded-bg d-flex align-items-center justify-content-center mx-auto mb-10">
-                <img src="../../icons/landing/user-icon.svg" alt="Users" />
-              </span>
-              <div>
-                <span className="text-title text-white ps-2">993,881</span>
-                <span className="d-block text-grey fw-medium mobile-fs-12 user-text">Users</span>
-              </div>
-            </div>
-            <div className="col-6 text-center">
-              <span className="rounded-box rounded-bg d-flex align-items-center justify-content-center mx-auto mb-10">
-                <img src="../../icons/landing/featured-box.svg" alt="Featured-box" />
-              </span>
-              <div>
-                <span className="text-title text-white ps-2">3,917,122</span>
-                <span className="d-block text-grey fw-medium mobile-fs-12 mystery-text">Mystery Boxes Opened</span>
-              </div>
-            </div>
-          </div>
-          <div className="bottom-pattern position-absolute start-0 end-0 bottom-0">
-            <img src="/images/helloween/pattern-block.svg" alt="Bottom Pattern" className="w-full" />
-          </div>
-        </div>
-        <div className="d-none d-md-flex">
-          <img src="/images/helloween/vector-3.svg" alt="Halloween Vector" className="" />
-        </div>
-      </div>
+      {/* Stats Section (v0-build-landing-page) */}
+      <section className="mb-6">
+        <StatsSection />
+      </section>
 
       {/* Weekly Race Banner inline block removed to avoid duplication; using <WeeklyRaceSection /> below */}
 

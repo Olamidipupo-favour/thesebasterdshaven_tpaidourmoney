@@ -1,0 +1,82 @@
+[
+  {
+    "id": "iphone-16-ultramarine",
+    "name": "iPhone 16 - Ultramarine, 128GB",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077274535_1.png",
+    "value": 799.99,
+    "probability": 0.1454,
+    "category": "legendary"
+  },
+  {
+    "id": "iphone-16e-white",
+    "name": "iPhone 16e - White, 128GB",
+    "image": "https://cdn.rillabox.com/media/products/SnapBG.ai_1741048077175_1_1_ciOSbOm.png",
+    "value": 599.99,
+    "probability": 0.2865,
+    "category": "epic"
+  },
+  {
+    "id": "iphone-12-black",
+    "name": "iPhone 12 - Black, 64GB",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077212074_1.png",
+    "value": 249.99,
+    "probability": 0.3912,
+    "category": "epic"
+  },
+  {
+    "id": "iphone-se-2nd-gen",
+    "name": "iPhone SE 2nd Generation - Black, 64GB",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077150469_1.png",
+    "value": 144.99,
+    "probability": 0.4587,
+    "category": "rare"
+  },
+  {
+    "id": "dji-osmo-mobile-se",
+    "name": "DJI Osmo Mobile SE",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1751319110142_1_1.png",
+    "value": 74.99,
+    "probability": 0.6698,
+    "category": "rare"
+  },
+  {
+    "id": "belkin-power-bank",
+    "name": "Belkin BoostCharge Pro Magnetic Power Bank 5K - Deep Purple",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077096001_1.png",
+    "value": 64.49,
+    "probability": 0.7432,
+    "category": "rare"
+  },
+  {
+    "id": "wireless-carplay",
+    "name": "Wireless Carplay Adapter",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754077038240_1.png",
+    "value": 50.49,
+    "probability": 0.8554,
+    "category": "rare"
+  },
+  {
+    "id": "mophie-car-charger",
+    "name": "mophie Dual USB-C 40W PD Car Charger",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754076993821_1.png",
+    "value": 38.99,
+    "probability": 0.9989,
+    "category": "common"
+  },
+  {
+    "id": "apple-earpods",
+    "name": "Apple EarPods with Lightning Connector",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754076951179_1.png",
+    "value": 27.99,
+    "probability": 1.3409,
+    "category": "common"
+  },
+  {
+    "id": "anker-lightning-cable",
+    "name": "Anker iPhone Lightning Charger Cable",
+    "image": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1754076886943_1.png",
+    "value": 18.99,
+    "probability": 2.0013,
+    "category": "basic"
+  }
+]
