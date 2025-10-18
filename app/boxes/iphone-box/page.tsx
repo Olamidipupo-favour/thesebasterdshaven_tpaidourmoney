@@ -840,6 +840,71 @@ export default function IPhoneBoxPage() {
               </div>
             </div>
 
+            {/* Similar Boxes - Homepage Card Design */}
+            <div className="mb-10">
+              <h2 className="text-3xl font-bold text-foreground mb-2">Similar Boxes</h2>
+              <p className="text-white/60 mb-6 text-sm">Explore other boxes in a similar price range or niche</p>
+
+              <div className="boxes-container landing-boxes grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                {similarBoxes.map((box) => (
+                  <Link key={box.id} href={`/boxes/${box.id}`} className="box-item relative">
+                    <img src="/images/helloween/vector-3.svg" alt="" className="vector-halloween" />
+                    <span className="box-name line-clamp-2">{box.name}</span>
+                    <img src={box.image} alt={box.name} className="prod-img" onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
+
+                    <div className="price-container">
+                      <div className="current-price">
+                        <span>$</span>
+                        <span>{box.currentPrice.toFixed(2)}</span>
+                      </div>
+                    </div>
+
+                    <span
+                      className="pointer-events-none absolute top-0 left-0 right-0 h-[6px]"
+                      style={{
+                        background: `linear-gradient(to bottom, ${box.borderColor}80, transparent)`,
+                        filter: 'blur(2px)'
+                      }}
+                    />
+                    <span
+                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[6px]"
+                      style={{
+                        background: `linear-gradient(to top, ${box.borderColor}80, transparent)`,
+                        filter: 'blur(2px)'
+                      }}
+                    />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Payment Methods Bar - Exact Homepage Design */}
+            <section className="mb-10">
+              <div className="rounded-xl border border-[#1f6b4a] bg-gradient-to-r from-[#0e1f17] via-[#0b1a14] to-[#0e1f17] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#1f6b4a] text-white text-xs font-semibold tracking-wide">PAYMENT METHODS</span>
+                  </div>
+                  <div className="flex items-center gap-2 flex-wrap justify-end">
+                    {[
+                      { name: "Visa", icon: "https://rillabox.com/icons/visa-image.png" },
+                      { name: "Master Card", icon: "https://rillabox.com/icons/mastercard-icon.png" },
+                      { name: "Skirlls", icon: "https://rillabox.com/icons/skirlls.png" },
+                      { name: "Google Pay", icon: "https://rillabox.com/icons/google-pay.png" },
+                      { name: "Tether", icon: "https://rillabox.com/icons/tether.png" },
+                      { name: "Bitcoin", icon: "https://rillabox.com/icons/bitcoin.png" },
+                      { name: "Ethereum", icon: "https://rillabox.com/icons/ethereum.png" },
+                      { name: "Solana", icon: "https://rillabox.com/icons/solana.png" }
+                    ].map((method) => (
+                      <div key={method.name} className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner">
+                        <img src={method.icon} alt={method.name} className="w-5 h-5 object-contain" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
         </div>
       </div>
     </OSortudoLayout>

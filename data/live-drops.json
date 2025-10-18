@@ -1,0 +1,137 @@
+[
+  {
+    "id": "ld1",
+    "title": "Bearbrick Handheld Mini Fan",
+    "price": 10.99,
+    "productImg": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1733411712391_1_1.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/09_BEARBRICK-Box-mock_box_1.png",
+    "bg": "rgb(17, 17, 17)",
+    "badgeColor": "#6F6868"
+  },
+  {
+    "id": "ld2",
+    "title": "Balenciaga Men's BB Monogram Swimming Shorts - Black",
+    "price": 759.99,
+    "productImg": "https://cdn.rillabox.com/media/products/removal.ai_d4266830-5844-438d-affa-c4c49f789ef3-fsfds_1.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/09_SUBARU-Box-mock_box_1.png",
+    "bg": "linear-gradient(to right, rgb(82, 202, 25), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#52CA19"
+  },
+  {
+    "id": "ld3",
+    "title": "First Aid Kit Sticker",
+    "price": 0.09,
+    "productImg": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1753369461908_1.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/01_SURVIVAL-Box-mock_box_1.png",
+    "bg": "linear-gradient(to right, rgb(111, 104, 104), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#6F6868"
+  },
+  {
+    "id": "ld4",
+    "title": "Razer Firefly V2",
+    "price": 66.99,
+    "productImg": "https://cdn.rillabox.com/media/products/Removal-433_1_pdFwbIZ.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/08-RAZER-Box-mock_box.png",
+    "bg": "linear-gradient(to right, rgb(111, 104, 104), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#6F6868"
+  },
+  {
+    "id": "ld5",
+    "title": "Off-White Black Jitney Quote Card Case - Black",
+    "price": 299.99,
+    "productImg": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1757252557587_1_1.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/Off-White-deluxe-mock_box.png",
+    "bg": "linear-gradient(to right, rgb(82, 202, 25), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#52CA19"
+  },
+  {
+    "id": "ld6",
+    "title": "$1 RillaBox Voucher",
+    "price": 1.0,
+    "productImg": "https://cdn.rillabox.com/media/products/1_Voucher.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/GUCCI-budget-mock_box.png",
+    "bg": "linear-gradient(to right, rgb(111, 104, 104), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#6F6868"
+  },
+  {
+    "id": "ld7",
+    "title": "Nike Dri-FIT Head Tie - White",
+    "price": 13.2,
+    "productImg": "https://cdn.rillabox.com/media/products/removal.ai_d0fed6d1-f21e-4015-87f2-0515bf0ac3a1-image.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/nike-premium-mock_box_nNxZx0L_q6OCS1O.png",
+    "bg": "rgb(17, 17, 17)",
+    "badgeColor": "#6F6868"
+  },
+  {
+    "id": "ld8",
+    "title": "Air Force Nike College Beanie",
+    "price": 44.59,
+    "productImg": "https://cdn.rillabox.com/media/products/removal.ai_5ce80770-96e8-44ee-bc34-f7760a56875b-image_1-min.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/12-NIKE-Box-mock_box_PXswgOF.png",
+    "bg": "linear-gradient(to right, rgb(82, 202, 25), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#52CA19"
+  },
+  {
+    "id": "ld9",
+    "title": "$250 RillaBox Voucher",
+    "price": 250.0,
+    "productImg": "https://cdn.rillabox.com/media/products/250_Voucher.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/The-Wolf-of-Wall-Street.png",
+    "bg": "linear-gradient(to right, rgb(0, 120, 215), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#0078D7"
+  },
+  {
+    "id": "ld10",
+    "title": "LEGO® Super Mario™ Picnic at Mario's House Expansion Set",
+    "price": 47.79,
+    "productImg": "https://cdn.rillabox.com/media/products/removal.ai_15770b31-43e9-4072-a8d4-0bea1e72b45f-image_1_1.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/01-NINTENDO-Box-mock_box_1.png",
+    "bg": "linear-gradient(to right, rgb(82, 202, 25), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#52CA19"
+  },
+  {
+    "id": "ld11",
+    "title": "The Tiffany Archives Book",
+    "price": 84.49,
+    "productImg": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1733782842657_1_1.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/10_TIFANNYCO-Box-mock_box.png",
+    "bg": "linear-gradient(to right, rgb(111, 104, 104), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#6F6868"
+  },
+  {
+    "id": "ld12",
+    "title": "VR Silicon Face Cover For Quest 2",
+    "price": 13.99,
+    "productImg": "https://cdn.rillabox.com/media/products/removal.ai_b1dcb4fd-7492-4266-984a-2e745cfcf905-image.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/APPLE-Budget-mock_box_1.png",
+    "bg": "linear-gradient(to right, rgb(82, 202, 25), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#52CA19"
+  },
+  {
+    "id": "ld13",
+    "title": "N3on Fortnite Sticker",
+    "price": 0.09,
+    "productImg": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1753369461908_1.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/01_SURVIVAL-Box-mock_box_1.png",
+    "bg": "linear-gradient(to right, rgb(111, 104, 104), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#6F6868"
+  },
+  {
+    "id": "ld14",
+    "title": "Land Rover Defender Brand Accessory",
+    "price": 0.89,
+    "productImg": "https://cdn.rillabox.com/media/products/Remove-bg.ai_1733411712391_1_1.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/09_SUBARU-Box-mock_box_1.png",
+    "bg": "rgb(17, 17, 17)",
+    "badgeColor": "#6F6868"
+  },
+  {
+    "id": "ld15",
+    "title": "Corsair VENGEANCE LPX",
+    "price": 79.4,
+    "productImg": "https://cdn.rillabox.com/media/products/250_Voucher.png",
+    "boxImg": "https://cdn.rillabox.com/media/boxes/The-Wolf-of-Wall-Street.png",
+    "bg": "linear-gradient(to right, rgb(0, 120, 215), rgb(0, 0, 0) 100%)",
+    "badgeColor": "#0078D7"
+  }
+]
