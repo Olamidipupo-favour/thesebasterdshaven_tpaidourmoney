@@ -18,17 +18,17 @@ export function MainLayout({ children, showSidebar = true }: MainLayoutProps) {
       {/* Navigation is rendered globally via RootLayout */}
       
       {/* Main Content Area - RillaBox Exact Layout */}
-      <div className="flex">
+      <div className="flex h-screen overflow-hidden">
         {/* Left Sidebar - RillaBox Style */}
         {showSidebar && (
-          <div className="hidden xl:block w-80 flex-shrink-0 bg-sidebar border-r border-sidebar-border">
+          <div className="hidden xl:block w-80 h-screen overflow-hidden flex-shrink-0 bg-sidebar border-r border-sidebar-border">
             <LiveDropsSidebar />
           </div>
         )}
         
         {/* Right Column: Main Content + Footer (footer aligned to the right of sidebar) */}
-        <div className="flex-1 min-h-screen flex flex-col">
-          <main className="flex-1">
+        <div className="flex-1 h-screen flex flex-col">
+          <main className="flex-1 overflow-y-auto">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               {children}
             </div>
