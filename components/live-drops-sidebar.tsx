@@ -91,11 +91,20 @@ export function LiveDropsSidebar() {
   const [visibleItems, setVisibleItems] = useState<LiveDropItem[]>([])
 
   useEffect(() => {
+    // Add items with animation delay
     liveDropsData.forEach((item, index) => {
       setTimeout(() => {
         setVisibleItems((prev) => [item, ...prev].slice(0, 9))
       }, index * 300)
     })
+
+    // Continuous animation - add new items periodically
+    const interval = setInterval(() => {
+      const randomItem = liveDropsData[Math.floor(Math.random() * liveDropsData.length)]
+      setVisibleItems((prev) => [randomItem, ...prev].slice(0, 9))
+    }, 2000)
+
+    return () => clearInterval(interval)
   }, [])
 
   return (
