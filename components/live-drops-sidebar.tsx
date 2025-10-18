@@ -1,112 +1,257 @@
 "use client"
 
-import React, { useEffect, useMemo, useState } from "react"
-import liveDropsData from "@/data/live-drops.json"
+import { useState, useEffect } from "react"
+import { Users, Box } from "lucide-react"
+
+type LiveDropItem = {
+  id: number
+  name: string
+  price: number
+  image: string
+  hoverImage: string
+  badgeColor: string
+}
+
+const liveDropsData: LiveDropItem[] = [
+  {
+    id: 1,
+    name: "Nike Dri-FIT Head Tie - White",
+    price: 13.2,
+    image: "/nike-dri-fit-head-tie.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#6F6868",
+  },
+  {
+    id: 2,
+    name: "Air Force Nike College Beanie",
+    price: 44.59,
+    image: "/nike-college-beanie-camo.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#4A7C59",
+  },
+  {
+    id: 3,
+    name: "$250 RillaBox Voucher",
+    price: 250.0,
+    image: "/250-dollar-voucher-card.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#2B5278",
+  },
+  {
+    id: 4,
+    name: "LEGO® Super Mario™ Picnic",
+    price: 47.79,
+    image: "/lego-super-mario-picnic-set.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#5A7C4A",
+  },
+  {
+    id: 5,
+    name: "The Tiffany Archives Book",
+    price: 84.49,
+    image: "/tiffany-archives-blue-book.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#4A4A4A",
+  },
+  {
+    id: 6,
+    name: "VR Silicon Face Cover For Quest 2",
+    price: 13.99,
+    image: "/vr-silicon-face-cover-green.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#4A7C59",
+  },
+  {
+    id: 7,
+    name: "N3on Fortnite Sticker",
+    price: 0.99,
+    image: "/fortnite-character-sticker.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#6F6868",
+  },
+  {
+    id: 8,
+    name: "Land Rover Defender Brand New",
+    price: 104.49,
+    image: "/land-rover-defender-toy-model.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#4A4A4A",
+  },
+  {
+    id: 9,
+    name: "Corsair VENGEANCE LPX",
+    price: 79.4,
+    image: "/corsair-vengeance-ram-memory.jpg",
+    hoverImage: "/mystery-box.png",
+    badgeColor: "#4A7C59",
+  },
+]
 
 export function LiveDropsSidebar() {
-  type LiveDrop = {
-    id: string
-    title: string
-    price: number
-    productImg: string
-    boxImg: string
-    bg: string
-    badgeColor?: string
-  }
-
-  const allDrops: LiveDrop[] = (liveDropsData as unknown as LiveDrop[])
-
-  const [displayDrops, setDisplayDrops] = useState<LiveDrop[]>([])
-
-  const sampleSeven = (items: LiveDrop[]) => {
-    const arr = [...items]
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[arr[i], arr[j]] = [arr[j], arr[i]]
-    }
-    return arr.slice(0, 7)
-  }
+  const [visibleItems, setVisibleItems] = useState<LiveDropItem[]>([])
 
   useEffect(() => {
-    setDisplayDrops(sampleSeven(allDrops))
-    const id = setInterval(() => setDisplayDrops(sampleSeven(allDrops)), 12000)
-    return () => clearInterval(id)
+    liveDropsData.forEach((item, index) => {
+      setTimeout(() => {
+        setVisibleItems((prev) => [item, ...prev].slice(0, 9))
+      }, index * 300)
+    })
   }, [])
 
   return (
-    <div className="sidebar hide active nav fixed left-0 top-0" style={{ position: "fixed", top: 0, left: 0, zIndex: 40, height: "100vh" } as React.CSSProperties}>
-      <div className="position-relative px-3 w-100 text-center margin-t-10"></div>
-      <div className="live-drops-container new-live-drops h-[100vh] overflow-y-auto pr-2">
-        <div className="py-3 px-2 d-flex align-items-center justify-content-between livedrop-open">
-          <div className="d-flex align-items-center justify-content-start gap-2 w-50 flex-shrink-1">
-            <div className="mystery-background d-flex align-items-center justify-content-center">
-              <img src="/icons/landing/user-aside.svg" alt="user-icon" />
-            </div>
-            <div className="livedrop-text">
-              <h3 className="text-white m-0">993,881</h3>
-              <p className="text-white m-0">Users</p>
-            </div>
+    <div className="w-full max-w-md bg-[#0a1f1a] rounded-2xl p-3 shadow-2xl">
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="flex items-center gap-2 flex-1">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center shadow-lg">
+            <Users className="w-5 h-5 text-white" />
           </div>
-          <div className="d-flex align-items-center justify-content-end flex-grow-1 gap-2 w-50 ">
-            <div className="mystery-background d-flex align-items-center justify-content-center">
-              <img src="/icons/landing/mysterybox-aside.svg" alt="mysterybox-icon" />
-            </div>
-            <div className="livedrop-text">
-              <h3 className="text-white m-0">3,917,122</h3>
-              <p className="text-white m-0">Boxes Opened</p>
-            </div>
+          <div>
+            <h3 className="text-white text-lg font-semibold leading-none">993,881</h3>
+            <p className="text-gray-400 text-xs">Users</p>
           </div>
         </div>
 
-        <div className="live-border my-2">
-          <div className="title-container ">
-            <span className="live-dropsign m-0"></span>
-            <h1 className=" text-white fw-semibold m-0">LIVE DROPS</h1>
+        <div className="flex items-center gap-2 flex-1 justify-end">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center shadow-lg">
+            <Box className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h3 className="text-white text-lg font-semibold leading-none">3,917,122</h3>
+            <p className="text-gray-400 text-xs">Boxes Opened</p>
           </div>
         </div>
+      </div>
 
-        <div className="livedrops-boxes">
-          {displayDrops.map((drop, idx) => {
-            const item = (
-              <div className="live-drop" style={{ background: drop.bg, borderRadius: "12px", padding: "10px", height: "60px" }}>
-                <div className="svg-container"><div className="svg-blur"></div></div>
-                <div className="live-drop-main-div">
-                  <div className="img-live-drop">
-                    <img className="live-drop-product default-img" alt="live drop product" width={250} height={80} src={drop.productImg} />
-                    <img className="live-drop-product hover-img face-img" alt="face image" width={250} height={80} src={drop.boxImg} />
-                  </div>
-                  <div className="sub-text-detail-div">
-                    <span className="text-white fw-medium item-title">{drop.title}</span>
-                    <div>
-                      <div className="current-price"><span className="thin-text">$</span><span className="thin-text">{drop.price.toFixed(2)}</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )
+      <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent mb-3" />
 
-            if (idx === 0) {
-              return (
-                <div
-                  key={drop.id}
-                  className="anim-box inline-block"
-                  style={{
-                    // @ts-ignore custom property
-                    "--badge-color": drop.badgeColor || "#6F6868",
-                    padding: "1px",
-                    borderRadius: "12px",
-                    display: "inline-block",
-                  } as React.CSSProperties}
-                >
-                  {item}
-                  <div id="container-stars"><div id="stars"></div></div>
-                  <div id="glow"><div className="circle"></div><div className="circle"></div></div>
-                </div>
-              )
-            }
+      <div className="flex items-center gap-2 mb-3">
+        <div className="relative">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+          <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping" />
+        </div>
+        <h2 className="text-white text-base font-bold tracking-wide">LIVE DROPS</h2>
+      </div>
 
-            return <div key={drop.id}>{item}</div>
-          })}
+      <div className="space-y-3">
+        {visibleItems.map((item, index) => (
+          <LiveDropCard key={`${item.id}-${index}`} item={item} index={index} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function LiveDropCard({ item, index }: { item: LiveDropItem; index: number }) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  return (
+    <div
+      className="relative animate-in slide-in-from-top-4 fade-in duration-500"
+      style={{
+        animationDelay: `${index * 50}ms`,
+        animationFillMode: "backwards",
+      }}
+    >
+      <div
+        className="absolute -inset-[2px] rounded-xl animate-neon-pulse opacity-75"
+        style={{
+          background: `linear-gradient(90deg, 
+            transparent 0%, 
+            ${item.badgeColor} 20%, 
+            ${item.badgeColor}dd 40%, 
+            ${item.badgeColor} 60%, 
+            transparent 80%)`,
+          backgroundSize: "200% 100%",
+          filter: `drop-shadow(0 0 8px ${item.badgeColor}) drop-shadow(0 0 12px ${item.badgeColor}80)`,
+          animationDelay: `${index * 0.2}s`,
+        }}
+      />
+
+      <div
+        className="absolute -inset-[4px] rounded-xl animate-neon-pulse-outer opacity-40 blur-sm"
+        style={{
+          background: `linear-gradient(90deg, 
+            transparent 0%, 
+            ${item.badgeColor}aa 25%, 
+            ${item.badgeColor} 50%, 
+            ${item.badgeColor}aa 75%, 
+            transparent 100%)`,
+          backgroundSize: "300% 100%",
+          animationDelay: `${index * 0.2}s`,
+        }}
+      />
+
+      <div
+        className="relative rounded-xl p-3 cursor-pointer transition-all duration-300 hover:scale-[1.02] group overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        style={{
+          background: `linear-gradient(135deg, 
+            #0d1f1a 0%, 
+            ${item.badgeColor}15 50%, 
+            #0d1f1a 100%)`,
+          border: `1px solid ${item.badgeColor}60`,
+          boxShadow: `inset 0 0 20px ${item.badgeColor}10`,
+        }}
+      >
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+          style={{
+            background: `radial-gradient(circle at center, ${item.badgeColor}80, transparent 60%)`,
+          }}
+        />
+
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden rounded-xl">
+          <div
+            className="absolute -top-10 -left-10 w-32 h-32 rounded-full blur-3xl opacity-40 animate-pulse"
+            style={{
+              background: `radial-gradient(circle, ${item.badgeColor}, transparent)`,
+              animationDuration: "3s",
+            }}
+          />
+        </div>
+
+        <div className="flex items-center gap-3">
+          {/* Product Image */}
+          <div className="relative w-16 h-16 flex-shrink-0">
+            <img
+              src={item.image || "/placeholder.svg"}
+              alt={item.name}
+              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${
+                isHovered ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <img
+              src={item.hoverImage || "/placeholder.svg"}
+              alt={`${item.name} box`}
+              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${
+                isHovered ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          </div>
+
+          {/* Product Details */}
+          <div className="flex-1 min-w-0">
+            <h3 className="text-white font-medium text-sm truncate mb-1">{item.name}</h3>
+            <div className="flex items-baseline gap-1">
+              <span className="text-gray-400 text-xs">$</span>
+              <span className="text-white font-bold text-lg">{item.price.toFixed(2)}</span>
+            </div>
+          </div>
+
+          {/* Arrow indicator */}
+          <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-white"
+            >
+              <path d="M8 5l8 7-8 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>

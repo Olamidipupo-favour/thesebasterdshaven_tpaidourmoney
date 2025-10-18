@@ -999,4 +999,22 @@
   .animate-float-medium { animation: float-medium 4s ease-in-out infinite; }
   .animate-float-fast { animation: float-fast 3s ease-in-out infinite; }
   .animate-float { animation: float 6s ease-in-out infinite; }
+
+  /* v0 Live Drops: scrollbar and neon pulse animations */
+  .scrollbar-thin { scrollbar-width: thin; }
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #10b981; border-radius: 3px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #34d399; }
+
+  @keyframes neon-pulse {
+    0%, 100% { background-position: 200% 0; opacity: 0.6; }
+    50% { background-position: -100% 0; opacity: 1; }
+  }
+  @keyframes neon-pulse-outer {
+    0%, 100% { background-position: 300% 0; opacity: 0.3; }
+    50% { background-position: -200% 0; opacity: 0.6; }
+  }
+  .animate-neon-pulse { animation: neon-pulse 2.5s ease-in-out infinite; }
+  .animate-neon-pulse-outer { animation: neon-pulse-outer 3.5s ease-in-out infinite; }
 }
