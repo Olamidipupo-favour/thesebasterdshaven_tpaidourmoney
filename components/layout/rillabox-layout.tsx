@@ -14,15 +14,15 @@ export function OSortudoLayout({ children }: OSortudoLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen overflow-hidden bg-background">
       {/* Navigation is rendered globally via RootLayout; header removed to avoid duplicates */}
 
       {/* Two-column layout with left Live Drops and right content */}
-      <div className="flex">
+      <div className="flex h-screen overflow-hidden">
         {/* Left Sidebar - shared LiveDropsSidebar */}
         <div className={`fixed inset-y-0 left-0 z-50 w-80 bg-sidebar border-r border-sidebar-border transform transition-transform duration-300 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0 lg:static lg:inset-0`}>
+        } lg:translate-x-0 lg:static lg:inset-0 lg:h-screen lg:overflow-hidden`}>
           <LiveDropsSidebar />
           <div className="p-3 border-t border-sidebar-border lg:hidden">
             <Button
@@ -46,7 +46,7 @@ export function OSortudoLayout({ children }: OSortudoLayoutProps) {
         )}
 
         {/* Right column: main content and footer aligned to the right of sidebar */}
-        <div className="flex-1 lg:ml-0 flex flex-col min-h-screen">
+        <div className="flex-1 flex flex-col h-screen overflow-y-auto">
           <main className="flex-1">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               {children}
