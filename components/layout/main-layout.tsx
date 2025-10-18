@@ -14,7 +14,7 @@ export function MainLayout({ children, showSidebar = true }: MainLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="h-screen overflow-hidden bg-background">
       {/* Navigation is rendered globally via RootLayout */}
       
       {/* Main Content Area - RillaBox Exact Layout */}
@@ -27,8 +27,8 @@ export function MainLayout({ children, showSidebar = true }: MainLayoutProps) {
         )}
         
         {/* Right Column: Main Content + Footer (footer aligned to the right of sidebar) */}
-        <div className="flex-1 h-screen flex flex-col">
-          <main className="flex-1 overflow-y-auto">
+        <div className="flex-1 h-screen flex flex-col overflow-y-auto">
+          <main className="flex-1">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               {children}
             </div>
