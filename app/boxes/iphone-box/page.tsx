@@ -557,15 +557,15 @@ export default function IPhoneBoxPage() {
                     }}
                   >
                     <div 
-                      className={`flex items-center ${isSpinning ? 'transition-transform duration-100 ease-out' : ''}`}
+                      className={`flex items-center ${(isSpinning || wonPrizes.length > 0) ? 'transition-transform duration-100 ease-out' : ''}`}
                       style={{
-                        transform: isSpinning && columnSpinIndices[0] !== undefined
+                        transform: (isSpinning || wonPrizes.length > 0) && columnSpinIndices[0] !== undefined
                           ? `translateX(calc(50% - ${columnSpinIndices[0] * 120}px - 60px))`
                           : 'translateX(calc(50% - 1200px))',
-                        width: isSpinning && columnItems[0] ? `${columnItems[0].length * 120}px` : 'auto'
+                        width: ((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? `${columnItems[0].length * 120}px` : 'auto'
                       }}
                     >
-                      {(isSpinning && columnItems[0] ? columnItems[0] : Array.from({ length: 20 }).map((_, i) => iphoneItems[i % iphoneItems.length])).map((item, index) => {
+                      {(((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? columnItems[0] : Array.from({ length: 20 }).map((_, i) => iphoneItems[i % iphoneItems.length])).map((item, index) => {
                         const rarityColor = getRarityColor(item.rarity)
                         const isWinningItem = wonPrizes.some(prize => prize.id === item.id) && columnSpinIndices[0] === index
 
@@ -612,7 +612,7 @@ export default function IPhoneBoxPage() {
                         // Use shuffled column order if available, otherwise sequential
                         const columnIndex = columnOrder.length > 0 ? columnOrder[displayIndex] : displayIndex
                         
-                        const columnItemsArray = isSpinning && columnItems[columnIndex] 
+                        const columnItemsArray = (isSpinning || wonPrizes.length > 0) && columnItems[columnIndex] 
                           ? columnItems[columnIndex] 
                           : Array.from({ length: 10 }).map((_, i) => iphoneItems[i % iphoneItems.length])
                         
@@ -629,9 +629,9 @@ export default function IPhoneBoxPage() {
                             }}
                           >
                             <div 
-                              className={`flex flex-col items-center ${isSpinning ? 'transition-transform duration-100 ease-out' : ''}`}
+                              className={`flex flex-col items-center ${(isSpinning || wonPrizes.length > 0) ? 'transition-transform duration-100 ease-out' : ''}`}
                               style={{
-                                transform: isSpinning 
+                                transform: (isSpinning || wonPrizes.length > 0) 
                                   ? `translateY(calc(50% - ${spinIndex * ITEM_STEP_PX}px - ${HALF_ITEM_STEP_PX}px))`
                                   : `translateY(calc(50% - ${halfList}px))`
                               }}
@@ -689,7 +689,7 @@ export default function IPhoneBoxPage() {
                 )}
                 
                 {/* Box and winning items info container */}
-                {wonPrizes.length > 0 && (
+                {showBoxOnWinner && wonPrizes.length > 0 && (
                   <div 
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 pointer-events-none flex flex-col items-center"
                     style={{

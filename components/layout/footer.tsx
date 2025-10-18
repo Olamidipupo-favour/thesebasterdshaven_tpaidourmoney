@@ -63,7 +63,7 @@ export function Footer() {
                   <a href="https://twitter.com/osortudo" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center text-[#22c55e] shadow-inner hover:border-[#28da6a]">
                     <Twitter className="w-4 h-4" />
                   </a>
-                  <a href="https://t.me/osortudo" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center text-[#22c55e] shadow-inner hover:border-[#28da6a]">
+                  <a href="https://wa.me/+351964329237" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center text-[#22c55e] shadow-inner hover:border-[#28da6a]">
                     <MessageCircle className="w-4 h-4" />
                   </a>
                   <a href="https://www.facebook.com/osortudo/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center text-[#22c55e] shadow-inner hover:border-[#28da6a]">
@@ -76,7 +76,7 @@ export function Footer() {
                 <h2 className="text-lg font-bold text-foreground mb-4">CONTACT US</h2>
                 <div className="space-y-1 text-sm">
                   <a href="mailto:support@osortudo.com" className="block text-[#22c55e] hover:underline">support@osortudo.com</a>
-                  <a href="tel:+1234567890" className="block text-muted-foreground hover:text-foreground">+1 (234) 567-890</a>
+                  <a href="tel:+1234567890" className="block text-muted-foreground hover:text-foreground">+351 964 329 237</a>
                 </div>
               </div>
             </div>
