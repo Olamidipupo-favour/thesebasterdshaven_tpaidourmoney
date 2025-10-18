@@ -579,11 +579,11 @@ export function OSortudoHomepage() {
         <div className="text-center">
           <button
             type="button"
-            className="shop-btn button-primary justify-content-center align-items-center mobile-fs-16 view-btn btn btn-primary px-6 py-2"
-            style={{ minWidth: 0 }}
+            className="shop-btn button-primary mobile-fs-16 view-btn btn btn-primary px-6 py-2"
+            style={{ minWidth: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', width: '180px' }}
           >
-            <img src="https://rillabox.com/icons/landing/shopping-cart.svg" alt="Cart" className="mr-2" />
-            View All
+            <img src="https://rillabox.com/icons/landing/shopping-cart.svg" alt="Cart" style={{ width: '20px', height: '20px' }} />
+            <span style={{ marginLeft: 'auto' }}>View All</span>
           </button>
         </div>
       </section>
