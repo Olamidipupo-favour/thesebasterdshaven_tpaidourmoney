@@ -11,7 +11,25 @@ import { useAuth } from "@/hooks/use-auth"
 import { OSortudoLayout } from "@/components/layout/rillabox-layout"
 
 // First 15 boxes from Rillabox HTML - exact data
-const boxes = [
+type Risk = { level: string; percent: number }
+type Box = {
+  id: string
+  name: string
+  description: string
+  originalPrice: number
+  currentPrice: number
+  coinPrice: number
+  category: string
+  items: number
+  totalValue: number
+  trending: boolean
+  recentWins: number
+  lastWin: string
+  image: string
+  borderColor: string
+  risk?: Risk
+}
+const boxes: Box[] = [
   {
     id: "1-percent-iphone",
     name: "1% iPhone",
@@ -363,6 +381,27 @@ const boxItems = {
   ]
 }
 
+// Risk helpers and augmented data
+const inferRisk = (price: number) => {
+  if (price >= 500) return { level: "High", percent: 72.4 }
+  if (price >= 50) return { level: "Medium", percent: 44.8 }
+  return { level: "Low", percent: 18.6 }
+}
+const getRiskColor = (level: string) => {
+  switch (level.toLowerCase()) {
+    case "high":
+      return "#ef4444" // red
+    case "medium":
+      return "#f59e0b" // amber
+    default:
+      return "#52CA19" // green
+  }
+}
+const boxesWithRisk = boxes.map((b) => ({
+  ...b,
+  risk: b.risk ?? inferRisk(b.currentPrice)
+}))
+
 export default function BoxesPage() {
   const { user, isAuthenticated } = useAuth()
   const [selectedCategory, setSelectedCategory] = useState("all")
@@ -370,8 +409,8 @@ export default function BoxesPage() {
 
   const categories = ["all", "Electronics", "Gaming", "Fashion", "Technology"]
   const filteredBoxes = selectedCategory === "all" 
-    ? boxes 
-    : boxes.filter(box => box.category === selectedCategory)
+    ? boxesWithRisk 
+    : boxesWithRisk.filter(box => box.category === selectedCategory)
 
   return (
     <OSortudoLayout>
@@ -408,114 +447,51 @@ export default function BoxesPage() {
               </div>
             </div>
 
-            {/* Boxes Grid - Smaller Boxes */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {/* Boxes Grid - Homepage card markup */}
+            <div className="boxes-container landing-boxes grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {filteredBoxes.map((box) => (
-                <Link key={box.id} href={box.id === "1-percent-iphone" ? "/boxes/iphone-box" : `/boxes/${box.id}`}>
-                  <Card className="bg-card border-border overflow-hidden hover:border-primary/50 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/10 hover:scale-105 cursor-pointer animate-borderbox flex flex-col h-full">
-                    <div className="relative flex-shrink-0">
-                      {/* Box Name - Top Left */}
-                      <div className="absolute top-2 left-2 z-10">
-                        <span className="text-sm font-bold text-white bg-black/50 px-2 py-1 rounded">
-                          {box.name}
-                        </span>
-                      </div>
-                      
-                      {/* Eye Icon - Top Right */}
-                      <div className="absolute top-2 right-2 z-10">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <div className="w-8 h-8 bg-black/50 rounded-full flex items-center justify-center hover:bg-black/70 transition-colors cursor-pointer" onClick={(e) => e.stopPropagation()}>
-                              <Eye className="w-4 h-4 text-white" />
-                            </div>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                            <DialogHeader>
-                              <DialogTitle className="text-2xl font-bold text-center">
-                                {box.name} - Items
-                              </DialogTitle>
-                            </DialogHeader>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
-                              {boxItems[box.id as keyof typeof boxItems]?.map((item) => (
-                                <Card key={item.id} className="p-4 hover:shadow-lg transition-shadow">
-                                  <div className="flex items-center space-x-4">
-                                    <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
-                                      <img 
-                                        src={item.image} 
-                                        alt={item.name}
-                                        className="w-12 h-12 object-contain"
-                                        onError={(e) => {
-                                          e.currentTarget.src = '/placeholder.svg'
-                                        }}
-                                      />
-                                    </div>
-                                    <div className="flex-1">
-                                      <h3 className="font-semibold text-sm">{item.name}</h3>
-                                      <p className="text-lg font-bold text-primary">${item.value}</p>
-                                      <Badge 
-                                        variant="secondary" 
-                                        className={`text-xs ${
-                                          item.rarity === 'Legendary' ? 'bg-yellow-100 text-yellow-800' :
-                                          item.rarity === 'Epic' ? 'bg-purple-100 text-purple-800' :
-                                          item.rarity === 'Rare' ? 'bg-blue-100 text-blue-800' :
-                                          item.rarity === 'Uncommon' ? 'bg-green-100 text-green-800' :
-                                          'bg-gray-100 text-gray-800'
-                                        }`}
-                                      >
-                                        {item.rarity}
-                                      </Badge>
-                                    </div>
-                                  </div>
-                                </Card>
-                              ))}
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                      </div>
+                <Link
+                  key={box.id}
+                  href={box.id === "1-percent-iphone" ? "/boxes/iphone-box" : `/boxes/${box.id}`}
+                  className="box-item relative"
+                  style={{ "--accent-color": box.borderColor } as React.CSSProperties}
+                >
+                  {/* Decorative vector like homepage */}
+                  {/* <img src="/images/helloween/vector-3.svg" alt="" className="vector-halloween" /> */}
 
-                      {/* Box Image Container - Exact Rillabox Style */}
-                      <div className="aspect-square bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center relative overflow-hidden group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-300">
-                        <img 
-                          src={box.image} 
-                          alt={box.name}
-                          className="w-full h-full object-contain p-4 group-hover:scale-110 transition-transform duration-300"
-                          onError={(e) => {
-                            e.currentTarget.src = "/placeholder.svg"
-                          }}
-                        />
-                        <div 
-                          className="absolute inset-0 border-t-2 border-b-2 group-hover:border-t-4 group-hover:border-b-4 transition-all duration-300"
-                          style={{ 
-                            borderTopColor: box.borderColor, 
-                            borderBottomColor: box.borderColor 
-                          }}
-                        ></div>
-                        {/* Glow effect - Exact Rillabox Style */}
-                        <div 
-                          className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-300 rounded-lg"
-                          style={{ 
-                            backgroundColor: box.borderColor,
-                            boxShadow: `0 0 20px ${box.borderColor}40`
-                          }}
-                        ></div>
-                      </div>
-                      
-                    </div>
+                  {/* Name like homepage featured box */}
+                  <span className="box-name line-clamp-2">{box.name}</span>
 
-                    <div className="p-2 mt-auto">
-                      {/* Price Section - No longer clickable, just display */}
-                      <div className="mb-2">
-                        <div className="price-container flex items-center justify-center space-x-1 w-full">
-                          <div className="original-price text-xs font-bold line-through bg-white text-black px-2 py-1 rounded flex-1 text-center">
-                            <span>$</span><span>{box.originalPrice}</span>
-                          </div>
-                          <div className="current-price text-sm font-bold text-white bg-primary px-2 py-1 rounded flex-1 text-center">
-                            <span>$</span><span>{box.currentPrice}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
+                  {/* Product image using homepage prod-img class */}
+                  <img
+                    src={box.image}
+                    alt={box.name}
+                    className="prod-img"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg" }}
+                  />
+
+                  {/* Price container exactly like homepage */}
+                  <div className="price-container">
+                    <div className="original-price"><span>$</span><span>{Number(box.originalPrice).toFixed(2)}</span></div>
+                    <div className="current-price"><span>$</span><span>{Number(box.currentPrice).toFixed(2)}</span></div>
+                  </div>
+
+                  {/* Frosted risk badge */}
+                  <div
+                    className="risk-badge"
+                    style={{
+                      borderColor: `${box.borderColor}80`,
+                      boxShadow: `0 4px 12px ${box.borderColor}40`
+                    }}
+                  >
+                    <span
+                      className="risk-dot"
+                      style={{ backgroundColor: getRiskColor(box.risk.level) }}
+                    />
+                    <span className="risk-text">Risk {box.risk.level}: {box.risk.percent.toFixed(2)}%</span>
+                  </div>
+
+                  {/* Removed top/bottom brand color bars; hover glow handled by CSS */}
                 </Link>
               ))}
             </div>
