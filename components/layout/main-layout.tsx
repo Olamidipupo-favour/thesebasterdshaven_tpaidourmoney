@@ -1,9 +1,10 @@
 "use client"
 
-import { Navigation } from "@/components/navigation"
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { LiveDropsSidebar } from "@/components/live-drops-sidebar"
 import { Footer } from "@/components/layout/footer"
-import { useState } from "react"
 
 interface MainLayoutProps {
   children: React.ReactNode
@@ -11,42 +12,67 @@ interface MainLayoutProps {
 }
 
 export function MainLayout({ children, showSidebar = true }: MainLayoutProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  // Sidebar starts open on desktop for quick access
+  const [sidebarOpen, setSidebarOpen] = useState(true)
 
   return (
     <div className="h-screen overflow-hidden bg-background">
-      {/* Navigation is rendered globally via RootLayout */}
-      
-      {/* Main Content Area - RillaBox Exact Layout */}
       <div className="flex h-screen overflow-hidden">
-        {/* Left Sidebar - RillaBox Style */}
-        {showSidebar && (
+        {/* Left Sidebar - desktop */}
+        {showSidebar && sidebarOpen && (
           <div className="hidden xl:block w-80 h-screen overflow-hidden flex-shrink-0 bg-sidebar border-r border-sidebar-border">
             <LiveDropsSidebar />
           </div>
         )}
-        
-        {/* Right Column: Main Content + Footer (footer aligned to the right of sidebar) */}
-        <div className="flex-1 h-screen flex flex-col overflow-y-auto">
+
+        {/* Mobile Sidebar overlay */}
+        {showSidebar && sidebarOpen && (
+          <div className="xl:hidden fixed inset-y-0 left-0 z-50 w-80 bg-sidebar border-r border-sidebar-border">
+            <LiveDropsSidebar />
+            <div className="p-3 border-t border-sidebar-border">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSidebarOpen(false)}
+                className="w-full justify-center"
+              >
+                <ChevronLeft className="w-4 h-4 mr-2" />
+                Hide
+              </Button>
+            </div>
+          </div>
+        )}
+
+        {/* Mobile overlay background */}
+        {showSidebar && sidebarOpen && (
+          <div
+            className="xl:hidden fixed inset-0 bg-black/50 z-40"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
+        {/* Toggle arrow handle (desktop) */}
+        {showSidebar && (
+          <button
+            type="button"
+            aria-label={sidebarOpen ? "Collapse Live Drops" : "Expand Live Drops"}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className={`hidden xl:flex items-center justify-center fixed top-1/2 -translate-y-1/2 z-50 rounded-full border border-sidebar-border bg-card/90 hover:bg-card p-2 shadow transition ${sidebarOpen ? "left-80" : "left-2"}`}
+          >
+            {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+          </button>
+        )}
+
+        {/* Right column: main content and footer */}
+        <div className="flex-1 flex flex-col h-screen overflow-y-auto">
           <main className="flex-1">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
               {children}
             </div>
           </main>
-          {/* Footer appears only under the main content column */}
           <Footer />
         </div>
       </div>
-
-      {/* Mobile Sidebar Overlay */}
-      {showSidebar && sidebarOpen && (
-        <div className="xl:hidden fixed inset-0 z-50">
-          <div className="fixed inset-0 bg-black/50" onClick={() => setSidebarOpen(false)} />
-          <div className="fixed left-0 top-0 h-full w-80 bg-sidebar border-r border-sidebar-border">
-            <LiveDropsSidebar />
-          </div>
-        </div>
-      )}
     </div>
   )
 }
