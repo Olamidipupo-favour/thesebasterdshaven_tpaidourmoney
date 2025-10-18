@@ -453,9 +453,9 @@ export function OSortudoHomepage() {
         </div>
       </section>)}
 
-      {/* Featured Boxes Section - Replaced by provided markup */}
-      <div className="w-100">
-        <div className="d-flex align-items-center gap-3 mt-5">
+      {/* Featured Boxes Section - Animated with hover effects */}
+      <section className="mb-8">
+        <div className="d-flex align-items-center gap-3 mt-5 mb-4">
           <div className="info-img">
             <img src="https://rillabox.com/icons/landing/featured-box.svg" alt="featured-box" className="img-fluid" />
           </div>
@@ -466,7 +466,7 @@ export function OSortudoHomepage() {
         </div>
         <div className="boxes-container landing-boxes mb-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3" style={{ display: 'grid' }}>
           <div>
-            <div className="sc-iHmpnF eXDFil box-item">
+            <div className="sc-iHmpnF eXDFil box-item group" style={{ "--accent-color": "#FFBE0B" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">1% iPhone</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/08_1__IPHONE-Box-mock_box_1.png" alt="1% iPhone" />
@@ -477,7 +477,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF goUMrq box-item">
+            <div className="sc-iHmpnF goUMrq box-item group" style={{ "--accent-color": "#C8102E" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Alfa Romeo</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/06_ALFA_ROMEO-Box-mock_box_1.png" alt="Alfa Romeo" />
@@ -488,7 +488,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF iBpake box-item">
+            <div className="sc-iHmpnF iBpake box-item group" style={{ "--accent-color": "#FF9900" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Amazon</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Amazon.png" alt="Amazon" />
@@ -499,7 +499,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF bwTbAw box-item">
+            <div className="sc-iHmpnF bwTbAw box-item group" style={{ "--accent-color": "#8A8A95" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Bentley</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/05_BENTLEY-Box-mock_box_1.png" alt="Bentley" />
@@ -510,7 +510,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF hQTtrT box-item">
+            <div className="sc-iHmpnF hQTtrT box-item group" style={{ "--accent-color": "#43A047" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Call Of Duty</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Call-of-Duty.png" alt="Call Of Duty" />
@@ -521,7 +521,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF cbMspm box-item">
+            <div className="sc-iHmpnF cbMspm box-item group" style={{ "--accent-color": "#FF69B4" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Holidays</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/03_HOLIDAYS_-Box-mock_box_1.png" alt="Holidays" />
@@ -532,7 +532,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF gKAfqw box-item">
+            <div className="sc-iHmpnF gKAfqw box-item group" style={{ "--accent-color": "#1E9D34" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">India</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/15_INDIA-Box-mock_box_1.png" alt="India" />
@@ -543,7 +543,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF jxfbuA box-item">
+            <div className="sc-iHmpnF jxfbuA box-item group" style={{ "--accent-color": "#C3002F" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Nissan</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/11_NISSAN-Box-mock_box_1.png" alt="Nissan" />
@@ -554,7 +554,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF buczcf box-item">
+            <div className="sc-iHmpnF buczcf box-item group" style={{ "--accent-color": "#FFD700" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Risky Rolex</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Risky-Rolex.png" alt="Risky Rolex" />
@@ -565,7 +565,7 @@ export function OSortudoHomepage() {
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF lpdxJd box-item">
+            <div className="sc-iHmpnF lpdxJd box-item group" style={{ "--accent-color": "#C67E3E" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Travis Scott</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/TRAVIS_SCOTT-mock_box.png" alt="Travis Scott" />
@@ -577,12 +577,16 @@ export function OSortudoHomepage() {
           </div>
         </div>
         <div className="text-center">
-          <button type="button" className="shop-btn button-primary justify-content-center min-w-248 align-items-center mobile-fs-16 view-btn btn btn-primary">
-            <img src="https://rillabox.com/icons/landing/shopping-cart.svg" alt="Cart" className="" />
+          <button
+            type="button"
+            className="shop-btn button-primary justify-content-center align-items-center mobile-fs-16 view-btn btn btn-primary px-6 py-2"
+            style={{ minWidth: 0 }}
+          >
+            <img src="https://rillabox.com/icons/landing/shopping-cart.svg" alt="Cart" className="mr-2" />
             View All
           </button>
         </div>
-      </div>
+      </section>
       {false && (<section className="mb-8">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Featured boxes</h2>
