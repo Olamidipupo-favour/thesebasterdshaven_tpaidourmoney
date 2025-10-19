@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -60,7 +60,7 @@ const games: Game[] = [
   },
   {
     id: 3,
-    name: "Climb to the Top",
+    name: "Soccer Game",
     description: "Watch the multiplier rise and cash out before it crashes",
     icon: <TrendingUp className="w-8 h-8" />,
     category: "crash",
@@ -139,7 +139,7 @@ const categoryColors = {
 const categoryNames = {
   mystery: "Mystery",
   battle: "Find the Prize",
-  crash: "Climb to the Top",
+  crash: "Soccer Game",
   plinko: "Chicken Road",
   numbers: "Numbers",
   earn: "Earn to Play",
@@ -148,6 +148,7 @@ const categoryNames = {
 export function GamesSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [hoveredGame, setHoveredGame] = useState<number | null>(null)
+  const mysteryVideoRef = useRef<HTMLVideoElement | null>(null)
 
   const categories = ["all", ...Object.keys(categoryNames)]
   const filteredGames = selectedCategory === "all" ? games : games.filter((game) => game.category === selectedCategory)
@@ -156,17 +157,44 @@ export function GamesSection() {
     <section className="w-full mb-6">
       {/* Align to the same 12-column grid as the hero banners */}
       <div className="grid grid-cols-12 gap-x-0 md:gap-x-4">
-        {/* Mystery Boxes - use provided video */}
+        {/* Mystery Boxes - show video paused by default, play on hover */}
         <div className="col-span-6 md:col-span-3">
-          <a className="block" href="/boxes">
-            <div className="rounded-xl border border-border overflow-hidden">
+          <a
+            className="block group"
+            href="/boxes"
+            onMouseEnter={() => {
+              const v = mysteryVideoRef.current
+              if (v) {
+                v.play().catch(() => {})
+              }
+            }}
+            onMouseLeave={() => {
+              const v = mysteryVideoRef.current
+              if (v) {
+                v.pause()
+                try { v.currentTime = 0 } catch {}
+              }
+            }}
+          >
+            <div className="rounded-xl border border-border overflow-hidden relative">
+              {/* Background fallback image */}
+              <img src="https://rillabox.com/animations/mysterbox-img.svg" alt="Mystery Boxes" className="w-full h-44 md:h-48 object-cover" />
+              {/* Video: visible and paused by default, plays on hover */}
               <video
+                ref={mysteryVideoRef}
                 src="https://rillabox.com/animations/mistrorybox.mp4"
-                autoPlay
-                loop
+                preload="auto"
                 muted
+                loop
                 playsInline
-                className="w-full h-44 md:h-48 object-cover"
+                onLoadedData={() => {
+                  const v = mysteryVideoRef.current
+                  if (v) {
+                    v.pause()
+                    try { v.currentTime = 0 } catch {}
+                  }
+                }}
+                className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-200"
               />
             </div>
             <span className="mt-2 block text-center font-semibold">Mystery Boxes</span>
@@ -177,7 +205,7 @@ export function GamesSection() {
         <div className="col-span-6 md:col-span-3">
           <a className="block" href="/battles">
             <div className="rounded-xl border border-border overflow-hidden">
-              <img src="https://rillabox.com/animations/battlebox-img.svg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover" />
+              <img src="/new/find_prize_1.jpg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover" />
             </div>
             <span className="mt-2 block text-center font-semibold">Find the Prize</span>
           </a>
@@ -187,9 +215,9 @@ export function GamesSection() {
         <div className="col-span-6 md:col-span-3">
           <a className="block" href="/crash">
             <div className="rounded-xl border border-border overflow-hidden">
-              <img src="https://rillabox.com/animations/crashbox-img.svg" alt="Climb to the Top" className="w-full h-44 md:h-48 object-cover" />
+              <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-44 md:h-48 object-cover" />
             </div>
-            <span className="mt-2 block text-center font-semibold">Climb to the Top</span>
+            <span className="mt-2 block text-center font-semibold">Soccer Game</span>
           </a>
         </div>
 
@@ -197,7 +225,7 @@ export function GamesSection() {
         <div className="col-span-6 md:col-span-3">
           <a className="block" href="/plinko">
             <div className="rounded-xl border border-border overflow-hidden">
-              <img src="https://rillabox.com/animations/plingobox-img.svg" alt="Chicken Road" className="w-full h-44 md:h-48 object-cover" />
+              <img src="/new/checken_road_1.jpg" alt="Chicken Road" className="w-full h-44 md:h-48 object-cover" />
             </div>
             <span className="mt-2 block text-center font-semibold">Chicken Road</span>
           </a>

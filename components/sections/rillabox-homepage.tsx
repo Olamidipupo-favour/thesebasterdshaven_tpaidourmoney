@@ -33,30 +33,30 @@ import { StatsSection } from "@/components/sections/stats-section"
 const heroBanners = [
   {
     id: 1,
-    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-NEW-BOXES-H.png",
-    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-NEW-BOXES-H.png",
-    href: "https://rillabox.com/home",
+    desktopImage: "/new/banner2.png",
+    mobileImage: "/new/banner2.png",
+    href: "/",
     alt: "New Boxes"
   },
   {
     id: 2,
     desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-DAILY-FREE2.png",
     mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-DAILY-FREE2.png",
-    href: "https://rillabox.com/reward",
+    href: "/",
     alt: "Daily Free"
   },
   {
     id: 3,
     desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-TELEGRAM.png",
     mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-TELEGRAM.png",
-    href: "https://t.me/rillabox",
+    href: "https://telegram.com",
     alt: "Telegram"
   },
   {
     id: 4,
-    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-STARTER.png",
-    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-STARTER.png",
-    href: "https://rillabox.com/box/Starter",
+    desktopImage: "/new/banner1.png",
+    mobileImage: "/new/banner1.png",
+    href: "/",
     alt: "Starter"
   }
 ]
@@ -120,25 +120,25 @@ const howItWorksSteps = [
     id: 1,
     title: "Sign Up",
     description: "Get started in seconds! Connect through Google, Facebook, or Twitter, or simply sign up with your email to unbox incredible mystery boxes here at O Sortudo.",
-    icon: "https://rillabox.com/icons/menu-board.svg"
+    icon: "/icons/landing/menu-board green.svg"
   },
   {
     id: 2,
     title: "Top Up Your Account With Credits",
     description: "Start your unboxing journey now! Simply top up your credits by clicking 'Deposit' button on desktop and + button on mobile. Choose your preferred payment method; we accept most major credit/debit cards as well as crypto.",
-    icon: "https://rillabox.com/icons/user-square.svg"
+    icon: "/icons/landing/user-square green.svg"
   },
   {
-    id: 3,
+    id: 3, 
     title: "Unbox Hyped Products",
     description: "Indulge in our exclusive collection of 50+ hand-crafted mystery boxes. Unveil authentic products and seize the chance to own rare pieces at a fraction of their price. Reward yourself with top brand treasures from brands such as Gucci, Louis Vuitton, Nike & many more!",
-    icon: "https://rillabox.com/icons/ic-gift.svg"
+    icon: "/icons/landing/ic-gift grreen.svg"
   },
   {
     id: 4,
     title: "Ship Your Products",
     description: "Relax as we deliver your unboxed products right to your doorstep. With global shipping and minimized costs, you can expect delivery within 7 days to 21 days, as we strive to improve!",
-    icon: "https://rillabox.com/icons/truck-ic.svg"
+    icon: "/icons/landing/truck-ic green.svg"
   }
 ]
 
@@ -290,7 +290,7 @@ export function OSortudoHomepage() {
           {/* Right: Achievements banner */}
           <div className="col-span-12 md:col-span-4 h-auto pr-0">
             <div className="h-full overflow-hidden">
-              <a href="https://rillabox.com/achievements" className="block w-full h-full">
+              <a href="/" className="block w-full h-full">
                 {/* Desktop */}
                 <img
                   src="https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-HALLOWEENACHIEVEMENTS.png"
@@ -408,7 +408,7 @@ export function OSortudoHomepage() {
                     <div className="absolute top-4 right-4 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
                   </div>
                 </div>
-                <span className="text-sm font-bold text-foreground group-hover:text-chart-1 transition-colors duration-300">Climb to the Top</span>
+                <span className="text-sm font-bold text-foreground group-hover:text-chart-1 transition-colors duration-300">Soccer Game</span>
               </div>
             </Link>
             
@@ -466,7 +466,7 @@ export function OSortudoHomepage() {
         </div>
         <div className="boxes-container landing-boxes mb-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3" style={{ display: 'grid' }}>
           <div>
-            <div className="sc-iHmpnF eXDFil box-item group" style={{ "--accent-color": "#FFBE0B" } as React.CSSProperties}>
+            <div className="sc-iHmpnF eXDFil box-item group relative" style={{ "--accent-color": "#FFBE0B" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">1% iPhone</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/08_1__IPHONE-Box-mock_box_1.png" alt="1% iPhone" />
@@ -474,10 +474,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>3.94</span></div>
                 <div className="current-price"><span>$</span><span>2.79</span></div>
               </div>
+              <Link href="/boxes/iphone-box" className="absolute inset-0 z-10" aria-label="Open 1% iPhone"><span className="sr-only">Open 1% iPhone</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF goUMrq box-item group" style={{ "--accent-color": "#C8102E" } as React.CSSProperties}>
+            <div className="sc-iHmpnF goUMrq box-item group relative" style={{ "--accent-color": "#C8102E" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Alfa Romeo</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/06_ALFA_ROMEO-Box-mock_box_1.png" alt="Alfa Romeo" />
@@ -485,10 +486,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>564.99</span></div>
                 <div className="current-price"><span>$</span><span>469.99</span></div>
               </div>
+              <Link href="/boxes/alfa-romeo" className="absolute inset-0 z-10" aria-label="Open Alfa Romeo"><span className="sr-only">Open Alfa Romeo</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF iBpake box-item group" style={{ "--accent-color": "#FF9900" } as React.CSSProperties}>
+            <div className="sc-iHmpnF iBpake box-item group relative" style={{ "--accent-color": "#FF9900" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Amazon</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Amazon.png" alt="Amazon" />
@@ -496,10 +498,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>8.49</span></div>
                 <div className="current-price"><span>$</span><span>6.79</span></div>
               </div>
+              <Link href="/boxes/amazon" className="absolute inset-0 z-10" aria-label="Open Amazon"><span className="sr-only">Open Amazon</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF bwTbAw box-item group" style={{ "--accent-color": "#8A8A95" } as React.CSSProperties}>
+            <div className="sc-iHmpnF bwTbAw box-item group relative" style={{ "--accent-color": "#8A8A95" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Bentley</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/05_BENTLEY-Box-mock_box_1.png" alt="Bentley" />
@@ -507,10 +510,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>1999.99</span></div>
                 <div className="current-price"><span>$</span><span>1889.99</span></div>
               </div>
+              <Link href="/boxes/bentley" className="absolute inset-0 z-10" aria-label="Open Bentley"><span className="sr-only">Open Bentley</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF hQTtrT box-item group" style={{ "--accent-color": "#43A047" } as React.CSSProperties}>
+            <div className="sc-iHmpnF hQTtrT box-item group relative" style={{ "--accent-color": "#43A047" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Call Of Duty</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Call-of-Duty.png" alt="Call Of Duty" />
@@ -518,10 +522,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>7.87</span></div>
                 <div className="current-price"><span>$</span><span>5.79</span></div>
               </div>
+              <Link href="/boxes/call-of-duty" className="absolute inset-0 z-10" aria-label="Open Call Of Duty"><span className="sr-only">Open Call Of Duty</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF cbMspm box-item group" style={{ "--accent-color": "#FF69B4" } as React.CSSProperties}>
+            <div className="sc-iHmpnF cbMspm box-item group relative" style={{ "--accent-color": "#FF69B4" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Holidays</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/03_HOLIDAYS_-Box-mock_box_1.png" alt="Holidays" />
@@ -529,10 +534,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>10.49</span></div>
                 <div className="current-price"><span>$</span><span>8.29</span></div>
               </div>
+              <Link href="/boxes/holidays" className="absolute inset-0 z-10" aria-label="Open Holidays"><span className="sr-only">Open Holidays</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF gKAfqw box-item group" style={{ "--accent-color": "#1E9D34" } as React.CSSProperties}>
+            <div className="sc-iHmpnF gKAfqw box-item group relative" style={{ "--accent-color": "#1E9D34" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">India</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/15_INDIA-Box-mock_box_1.png" alt="India" />
@@ -540,10 +546,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>2.99</span></div>
                 <div className="current-price"><span>$</span><span>2.24</span></div>
               </div>
+              <Link href="/boxes/india" className="absolute inset-0 z-10" aria-label="Open India"><span className="sr-only">Open India</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF jxfbuA box-item group" style={{ "--accent-color": "#C3002F" } as React.CSSProperties}>
+            <div className="sc-iHmpnF jxfbuA box-item group relative" style={{ "--accent-color": "#C3002F" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Nissan</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/11_NISSAN-Box-mock_box_1.png" alt="Nissan" />
@@ -551,10 +558,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>544.99</span></div>
                 <div className="current-price"><span>$</span><span>484.99</span></div>
               </div>
+              <Link href="/boxes/nissan" className="absolute inset-0 z-10" aria-label="Open Nissan"><span className="sr-only">Open Nissan</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF buczcf box-item group" style={{ "--accent-color": "#FFD700" } as React.CSSProperties}>
+            <div className="sc-iHmpnF buczcf box-item group relative" style={{ "--accent-color": "#FFD700" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Risky Rolex</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Risky-Rolex.png" alt="Risky Rolex" />
@@ -562,10 +570,11 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>10.49</span></div>
                 <div className="current-price"><span>$</span><span>8.39</span></div>
               </div>
+              <Link href="/boxes/risky-rolex" className="absolute inset-0 z-10" aria-label="Open Risky Rolex"><span className="sr-only">Open Risky Rolex</span></Link>
             </div>
           </div>
           <div>
-            <div className="sc-iHmpnF lpdxJd box-item group" style={{ "--accent-color": "#C67E3E" } as React.CSSProperties}>
+            <div className="sc-iHmpnF lpdxJd box-item group relative" style={{ "--accent-color": "#C67E3E" } as React.CSSProperties}>
               <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
               <span className="box-name">Travis Scott</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/TRAVIS_SCOTT-mock_box.png" alt="Travis Scott" />
@@ -573,19 +582,23 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>39.99</span></div>
                 <div className="current-price"><span>$</span><span>33.49</span></div>
               </div>
+              <Link href="/boxes/travis-scott" className="absolute inset-0 z-10" aria-label="Open Travis Scott"><span className="sr-only">Open Travis Scott</span></Link>
             </div>
           </div>
         </div>
         <div className="text-center">
-          <button
-            type="button"
-            className="shop-btn button-primary mobile-fs-16 view-btn btn btn-primary px-6 py-2"
-            style={{ minWidth: 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', width: '180px' }}
-          >
-            <img src="https://rillabox.com/icons/landing/shopping-cart.svg" alt="Cart" style={{ width: '20px', height: '20px' }} />
-            <span style={{ marginLeft: 'auto' }}>View All</span>
-          </button>
+          <div className="col-span-2 md:col-span-4 lg:col-span-5 flex justify-center">
+            <Link
+              href="/boxes"
+              className="shop-btn button-primary mobile-fs-16 view-btn btn btn-primary px-5 py-2 inline-flex items-center justify-center gap-1.5 rounded-lg"
+              style={{ minWidth: 0, display: 'inline-flex', alignItems: 'center' }}
+            >
+              <img src="https://rillabox.com/icons/landing/shopping-cart.svg" alt="Cart" style={{ width: '18px', height: '18px' }} />
+              <span>View All</span>
+            </Link>
+          </div>
         </div>
+
       </section>
       {false && (<section className="mb-8">
         <div className="text-center mb-8">
