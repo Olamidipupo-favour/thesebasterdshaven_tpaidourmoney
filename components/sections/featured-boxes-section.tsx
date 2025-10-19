@@ -3,7 +3,7 @@
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Star, TrendingUp, Clock, Loader2, Gift } from "lucide-react"
+import { Star, TrendingUp, Clock, Loader2, Gift, Boxes } from "lucide-react"
 import { useBoxes } from "@/hooks/use-boxes"
 import Link from "next/link"
 
@@ -48,8 +48,12 @@ export function FeaturedBoxesSection() {
           featuredBoxes.map((box) => (
             <Card
               key={box.id}
-              className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 overflow-hidden relative flex flex-col h-full"
+              className="group bg-card border-border hover:border-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20 overflow-hidden relative flex flex-col h-full cursor-pointer"
             >
+              {/* Make entire card clickable to the box detail */}
+              <Link href={`/boxes/${box.id}`} className="absolute inset-0 z-10">
+                <span className="sr-only">Open {box.name}</span>
+              </Link>
               <div className="relative flex-shrink-0">
                 <img
                   src={box.image || "/placeholder.svg"}
@@ -92,9 +96,9 @@ export function FeaturedBoxesSection() {
                 </div>
 
                 <div className="space-y-3 mt-auto">
-                  <Link href="/boxes">
+                  <Link href={`/boxes/${box.id}`}>
                     <Button className="w-full glow-effect group-hover:bg-primary/90 text-lg py-3">
-                      <Gift className="w-5 h-5 mr-2" />
+                      <Gift className="w-5 h-5 mr-1" />
                       Open Mystery Box
                     </Button>
                   </Link>
@@ -119,9 +123,12 @@ export function FeaturedBoxesSection() {
 
       {/* View All Button */}
       <div className="text-center mt-12">
-        <Button variant="outline" size="lg" className="px-8">
-          View All Mystery Boxes
-        </Button>
+        <Link href="/boxes">
+          <Button size="lg" className="mx-auto rounded-xl px-6 py-3 flex items-center gap-1 glow-effect">
+            <Boxes className="w-5 h-5 mr-1" />
+            View All Mystery Boxes
+          </Button>
+        </Link>
       </div>
     </section>
   )

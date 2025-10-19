@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -148,6 +148,7 @@ const categoryNames = {
 export function GamesSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [hoveredGame, setHoveredGame] = useState<number | null>(null)
+  const mysteryVideoRef = useRef<HTMLVideoElement | null>(null)
 
   const categories = ["all", ...Object.keys(categoryNames)]
   const filteredGames = selectedCategory === "all" ? games : games.filter((game) => game.category === selectedCategory)
@@ -156,17 +157,44 @@ export function GamesSection() {
     <section className="w-full mb-6">
       {/* Align to the same 12-column grid as the hero banners */}
       <div className="grid grid-cols-12 gap-x-0 md:gap-x-4">
-        {/* Mystery Boxes - use provided video */}
+        {/* Mystery Boxes - show video paused by default, play on hover */}
         <div className="col-span-6 md:col-span-3">
-          <a className="block" href="/boxes">
-            <div className="rounded-xl border border-border overflow-hidden">
+          <a
+            className="block group"
+            href="/boxes"
+            onMouseEnter={() => {
+              const v = mysteryVideoRef.current
+              if (v) {
+                v.play().catch(() => {})
+              }
+            }}
+            onMouseLeave={() => {
+              const v = mysteryVideoRef.current
+              if (v) {
+                v.pause()
+                try { v.currentTime = 0 } catch {}
+              }
+            }}
+          >
+            <div className="rounded-xl border border-border overflow-hidden relative">
+              {/* Background fallback image */}
+              <img src="https://rillabox.com/animations/mysterbox-img.svg" alt="Mystery Boxes" className="w-full h-44 md:h-48 object-cover" />
+              {/* Video: visible and paused by default, plays on hover */}
               <video
+                ref={mysteryVideoRef}
                 src="https://rillabox.com/animations/mistrorybox.mp4"
-                autoPlay
-                loop
+                preload="auto"
                 muted
+                loop
                 playsInline
-                className="w-full h-44 md:h-48 object-cover"
+                onLoadedData={() => {
+                  const v = mysteryVideoRef.current
+                  if (v) {
+                    v.pause()
+                    try { v.currentTime = 0 } catch {}
+                  }
+                }}
+                className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-200"
               />
             </div>
             <span className="mt-2 block text-center font-semibold">Mystery Boxes</span>
