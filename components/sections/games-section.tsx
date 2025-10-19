@@ -154,7 +154,7 @@ export function GamesSection() {
   const filteredGames = selectedCategory === "all" ? games : games.filter((game) => game.category === selectedCategory)
 
   return (
-    <section className="w-full mb-6">
+    <section className="w-full mb-4 md:mb-6">
       {/* Align to the same 12-column grid as the hero banners */}
       <div className="grid grid-cols-12 gap-x-0 md:gap-x-4">
         {/* Mystery Boxes - show video paused by default, play on hover */}
@@ -197,7 +197,7 @@ export function GamesSection() {
                 className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-200"
               />
             </div>
-            <span className="mt-2 block text-center font-semibold">Mystery Boxes</span>
+            <span className="mt-1 md:mt-2 block text-center font-semibold">Mystery Boxes</span>
           </a>
         </div>
 
@@ -207,7 +207,7 @@ export function GamesSection() {
             <div className="rounded-xl border border-border overflow-hidden">
               <img src="/new/find_prize_1.jpg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover" />
             </div>
-            <span className="mt-2 block text-center font-semibold">Find the Prize</span>
+            <span className="mt-1 md:mt-2 block text-center font-semibold">Find the Prize</span>
           </a>
         </div>
 
@@ -217,7 +217,7 @@ export function GamesSection() {
             <div className="rounded-xl border border-border overflow-hidden">
               <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-44 md:h-48 object-cover" />
             </div>
-            <span className="mt-2 block text-center font-semibold">Soccer Game</span>
+            <span className="mt-1 md:mt-2 block text-center font-semibold">Soccer Game</span>
           </a>
         </div>
 
@@ -227,7 +227,7 @@ export function GamesSection() {
             <div className="rounded-xl border border-border overflow-hidden">
               <img src="/new/checken_road_1.jpg" alt="Chicken Road" className="w-full h-44 md:h-48 object-cover" />
             </div>
-            <span className="mt-2 block text-center font-semibold">Chicken Road</span>
+            <span className="mt-1 md:mt-2 block text-center font-semibold">Chicken Road</span>
           </a>
         </div>
       </div>

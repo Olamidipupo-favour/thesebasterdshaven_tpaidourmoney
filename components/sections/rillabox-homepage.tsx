@@ -39,13 +39,13 @@ const heroBanners = [
     href: "/",
     alt: "New Boxes"
   },
-  {
-    id: 2,
-    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-DAILY-FREE2.png",
-    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-DAILY-FREE2.png",
-    href: "/",
-    alt: "Daily Free"
-  },
+  // {
+  //   id: 2,
+  //   desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-DAILY-FREE2.png",
+  //   mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-DAILY-FREE2.png",
+  //   href: "/",
+  //   alt: "Daily Free"
+  // },
   {
     id: 3,
     desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-TELEGRAM.png",
@@ -221,9 +221,9 @@ export function OSortudoHomepage() {
   }, [])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 md:space-y-8">
       {/* Banner Section - Tailwind functional slider */}
-      <section className="w-full mb-6">
+      <section className="w-full mb-4 md:mb-6">
         <div className="grid grid-cols-12 items-stretch gap-x-0 md:gap-x-4">
           {/* Left: Slider */}
           <div className="col-span-12 md:col-span-8 h-auto pl-0">
@@ -468,7 +468,7 @@ export function OSortudoHomepage() {
         <div className="boxes-container landing-boxes mb-3 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3" style={{ display: 'grid' }}>
           <div>
             <div className="sc-iHmpnF eXDFil box-item group relative" style={{ "--accent-color": "#FFBE0B" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">1% iPhone</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/08_1__IPHONE-Box-mock_box_1.png" alt="1% iPhone" />
               <div className="price-container">
@@ -480,7 +480,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF goUMrq box-item group relative" style={{ "--accent-color": "#C8102E" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">Alfa Romeo</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/06_ALFA_ROMEO-Box-mock_box_1.png" alt="Alfa Romeo" />
               <div className="price-container">
@@ -492,7 +492,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF iBpake box-item group relative" style={{ "--accent-color": "#FF9900" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">Amazon</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Amazon.png" alt="Amazon" />
               <div className="price-container">
@@ -504,7 +504,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF bwTbAw box-item group relative" style={{ "--accent-color": "#8A8A95" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">Bentley</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/05_BENTLEY-Box-mock_box_1.png" alt="Bentley" />
               <div className="price-container">
@@ -516,7 +516,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF hQTtrT box-item group relative" style={{ "--accent-color": "#43A047" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">Call Of Duty</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Call-of-Duty.png" alt="Call Of Duty" />
               <div className="price-container">
@@ -528,7 +528,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF cbMspm box-item group relative" style={{ "--accent-color": "#FF69B4" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">Holidays</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/03_HOLIDAYS_-Box-mock_box_1.png" alt="Holidays" />
               <div className="price-container">
@@ -540,7 +540,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF gKAfqw box-item group relative" style={{ "--accent-color": "#1E9D34" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">India</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/15_INDIA-Box-mock_box_1.png" alt="India" />
               <div className="price-container">
@@ -552,7 +552,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF jxfbuA box-item group relative" style={{ "--accent-color": "#C3002F" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">Nissan</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/11_NISSAN-Box-mock_box_1.png" alt="Nissan" />
               <div className="price-container">
@@ -564,7 +564,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF buczcf box-item group relative" style={{ "--accent-color": "#FFD700" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">Risky Rolex</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/Risky-Rolex.png" alt="Risky Rolex" />
               <div className="price-container">
@@ -576,7 +576,7 @@ export function OSortudoHomepage() {
           </div>
           <div>
             <div className="sc-iHmpnF lpdxJd box-item group relative" style={{ "--accent-color": "#C67E3E" } as React.CSSProperties}>
-              <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" />
+              {/* <img src="https://rillabox.com/images/helloween/shape-1.svg" alt="Haloween" className="end-0 h-auto position-absolute start-auto top-0 vector-halloween" /> */}
               <span className="box-name">Travis Scott</span>
               <img className="prod-img" src="https://cdn.rillabox.com/media/boxes/TRAVIS_SCOTT-mock_box.png" alt="Travis Scott" />
               <div className="price-container">

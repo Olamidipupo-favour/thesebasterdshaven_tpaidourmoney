@@ -60,13 +60,13 @@ export function WeeklyRaceSection() {
           />
         </div>
 
-        <div className="absolute top-16 right-12 w-12 h-12 md:w-16 md:h-16 animate-float-medium">
+        {/* <div className="absolute top-16 right-12 w-12 h-12 md:w-16 md:h-16 animate-float-medium">
           <img
             src="https://rillabox.com/images/box2.png"
             alt="Box 2"
             className="w-full h-full object-contain drop-shadow-2xl"
           />
-        </div>
+        </div> */}
 
         <div className="absolute bottom-12 left-16 w-10 h-10 md:w-12 md:h-12 animate-float-fast opacity-70">
           <img
