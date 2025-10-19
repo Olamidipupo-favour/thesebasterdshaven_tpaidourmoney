@@ -84,9 +84,9 @@ const topWinners: Winner[] = [
     placeLabel: "1st Place",
     prize: "$2000.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0028_SKIN-9_HEX_adbfff_5b7ce0.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0006.png",
+      base: "/achieve/happy.png",
+      skin: "/achieve/happy.png",
+      face: "/achieve/happy.png",
     },
   },
   {
@@ -95,9 +95,9 @@ const topWinners: Winner[] = [
     placeLabel: "2nd Place",
     prize: "$1000.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0031_SKIN-6_HEX_f1b7b8_c26662.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0020.png",
+      base: "/achieve/beaming.png",
+      skin: "/achieve/beaming.png",
+      face: "/achieve/beaming.png",
     },
   },
   {
@@ -106,9 +106,9 @@ const topWinners: Winner[] = [
     placeLabel: "3rd Place",
     prize: "$500.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0035_SKIN-1_HEX_f4e09b_cc8684.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0011.png",
+      base: "/achieve/cool.png",
+      skin: "/achieve/cool.png",
+      face: "/achieve/cool.png",
     },
   },
 ]
@@ -120,9 +120,9 @@ const leaderboard: Winner[] = [
     placeLabel: "4th",
     prize: "$350.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0029_SKIN-8_HEX_adffc3_32ccbc.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0005.png",
+      base: "/achieve/proud.png",
+      skin: "/achieve/proud.png",
+      face: "/achieve/proud.png",
     },
   },
   {
@@ -131,9 +131,9 @@ const leaderboard: Winner[] = [
     placeLabel: "5th",
     prize: "$300.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar_0025_FEMALE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar_0029_SKIN-06_nwadKQU.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar_0001_24.png",
+      base: "/achieve/ok sign.png",
+      skin: "/achieve/ok sign.png",
+      face: "/achieve/ok sign.png",
       female: true,
     },
   },
@@ -143,9 +143,9 @@ const leaderboard: Winner[] = [
     placeLabel: "6th",
     prize: "$250.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0029_SKIN-8_HEX_adffc3_32ccbc.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0019.png",
+      base: "/achieve/wink.png",
+      skin: "/achieve/wink.png",
+      face: "/achieve/wink.png",
     },
   },
   {
@@ -154,9 +154,9 @@ const leaderboard: Winner[] = [
     placeLabel: "7th",
     prize: "$200.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0029_SKIN-8_HEX_adffc3_32ccbc.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0015.png",
+      base: "/achieve/surprised.png",
+      skin: "/achieve/surprised.png",
+      face: "/achieve/surprised.png",
     },
   },
   {
@@ -165,9 +165,9 @@ const leaderboard: Winner[] = [
     placeLabel: "8th",
     prize: "$200.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0029_SKIN-8_HEX_adffc3_32ccbc.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0019.png",
+      base: "/achieve/jealous.png",
+      skin: "/achieve/jealous.png",
+      face: "/achieve/jealous.png",
     },
   },
   {
@@ -176,9 +176,9 @@ const leaderboard: Winner[] = [
     placeLabel: "9th",
     prize: "$100.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0026_SKIN-Base_HEX_e7c59a_b58765.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0012.png",
+      base: "/achieve/sad.png",
+      skin: "/achieve/sad.png",
+      face: "/achieve/sad.png",
     },
   },
   {
@@ -187,9 +187,9 @@ const leaderboard: Winner[] = [
     placeLabel: "10th",
     prize: "$50.00",
     avatar: {
-      base: "https://cdn.rillabox.com/media/avatars/avatar__0025_HEAD_BASE.png",
-      skin: "https://cdn.rillabox.com/media/skin_tones/avatar__0034_SKIN-2_HEX_f9c97d_d1776e.png",
-      face: "https://cdn.rillabox.com/media/face_expressions/avatar__0010.png",
+      base: "/achieve/sad.png",
+      skin: "/achieve/sad.png",
+      face: "/achieve/sad.png",
     },
   },
 ]

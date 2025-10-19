@@ -87,6 +87,14 @@ export function RillaboxHeader() {
     await logout()
   }
 
+  // Mobile drawer actions
+  const openLiveDropsFromHeader = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("open-live-drops"))
+      setMobileMenuOpen(false)
+    }
+  }
+
   return (
     <>
       <header id="header" className="sticky top-0 z-50 bg-card/95 border-b border-border backdrop-blur-sm relative">
@@ -265,15 +273,55 @@ export function RillaboxHeader() {
             {gamesOpen && <div className="dropdown-overlay fixed inset-0 z-40" onClick={() => setGamesOpen(false)} />}
           </div>
 
-          {/* Mobile expanded menu (optional quick links) */}
+          {/* Mobile right-side drawer */}
           {mobileMenuOpen && (
-            <div className="lg:hidden w-full mt-3">
-              <div className="grid grid-cols-3 gap-2">
-                <Link href="/boxes"><Button variant="outline" className="w-full">Mystery Boxes</Button></Link>
-                <Link href="/battles"><Button variant="outline" className="w-full">Find the Prize</Button></Link>
-                <Link href="/crash"><Button variant="outline" className="w-full">Soccer Game</Button></Link>
-              </div>
-            </div>
+            <>
+              <div className="fixed inset-0 bg-black/50 z-[60] lg:hidden" onClick={() => setMobileMenuOpen(false)} />
+              <aside className="fixed right-0 top-0 h-full w-72 max-w-[80vw] bg-card border-l border-border z-[65] lg:hidden shadow-xl">
+                <div className="flex items-center justify-between p-4 border-b border-border">
+                  <span className="text-sm font-semibold">Menu</span>
+                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
+                    <X className="w-5 h-5" />
+                  </Button>
+                </div>
+                <div className="p-4 space-y-3">
+                  {!isAuthenticated ? (
+                    <div className="space-y-2">
+                      <Button variant="outline" className="w-full" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
+                      <Button className="w-full" onClick={() => setShowRegisterDialog(true)}>
+                        <Gift className="w-4 h-4 mr-2" />
+                        Sign Up & get Free Box
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-3 p-3 rounded-md border border-border">
+                      <Avatar className="w-9 h-9">
+                        <AvatarImage src={user?.avatar || "/placeholder.svg"} alt={user?.username || "User"} />
+                        <AvatarFallback>{user?.username?.charAt(0).toUpperCase()}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1">
+                        <div className="text-sm font-medium">{user?.username}</div>
+                        <Link href="/dashboard" className="text-xs text-muted-foreground">Dashboard</Link>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="space-y-2">
+                    <Link href="/boxes"><Button variant="outline" className="w-full justify-start"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
+                    <Link href="/battles"><Button variant="outline" className="w-full justify-start"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
+                    <Link href="/crash"><Button variant="outline" className="w-full justify-start"><TrendingUp className="w-4 h-4 mr-2" />Soccer Game</Button></Link>
+                    <Link href="/plinko"><Button variant="outline" className="w-full justify-start"><Zap className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
+                  </div>
+
+                  <div className="pt-2 border-t border-border">
+                    <Button variant="secondary" className="w-full justify-start" onClick={openLiveDropsFromHeader}>
+                      <Zap className="w-4 h-4 mr-2" />
+                      Live Drops
+                    </Button>
+                  </div>
+                </div>
+              </aside>
+            </>
           )}
         </div>
       </header>
