@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../v0-build-rilla-box-banner"
+		},
+		{
+			"path": "../../../v0-build-landing-page"
+		},
+		{
+			"path": "../../../v0-create-account-form"
+		},
+		{
+			"path": "../../../v0-recreate-live-drops"
+		}
+	],
+	"settings": {}
+}
