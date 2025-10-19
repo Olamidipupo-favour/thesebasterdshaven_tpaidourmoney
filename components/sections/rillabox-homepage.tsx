@@ -15,7 +15,6 @@ import {
   Truck,
   Shield,
   ShoppingBag,
-  CreditCard,
   CheckCircle,
   ChevronLeft,
   ChevronRight,
@@ -1126,17 +1125,50 @@ export function OSortudoHomepage() {
         </div>
       </section>
 
+      {/* Industry-leading Banner - Rillabox-inspired (Sortudo theme) */}
+      <section className="relative mb-10 rounded-2xl overflow-hidden border border-[#1f6b4a] bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14]">
+        {/* Star field overlay to mimic Rillabox background */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen"
+          style={{
+            backgroundImage: 'radial-gradient(white 1px, transparent 1px)',
+            backgroundSize: '6px 6px'
+          }}
+        />
+        {/* Local mascot images on both sides */}
+        <img src="/new/mascot2.png" alt="Mascot left" className="hidden md:block absolute left-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg" />
+        <img src="/new/mascot2.png" alt="Mascot right" className="hidden md:block absolute right-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg scale-x-[-1]" />
+        {/* Soft shadows under mascots for depth */}
+        <div className="hidden md:block absolute left-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
+        <div className="hidden md:block absolute right-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
+        <div className="relative text-center px-6 py-10 md:py-12">
+          <h2 className="text-white font-semibold max-w-[824px] mx-auto mb-5 text-[20px] md:text-[24px]">
+            Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
+          </h2>
+          <span className="block text-muted-foreground mb-3 text-[14px] md:text-[16px]">
+            We uphold complete transparency and have no means of manipulating the outcome in any manner.
+          </span>
+          <Button type="button" className="min-w-[248px] justify-center text-sm md:text-base h-10 md:h-12 bg-[#1f6b4a] hover:bg-[#238257] text-white gap-2">
+            Learn more
+            <img src="/icons/landing/button-right-arrow.svg" alt="button-right-arrow" className="w-4 h-4" />
+          </Button>
+        </div>
+      </section>
+
       {/* Payment Methods Bar - Match Design */}
       <section className="mb-10">
         <div className="rounded-xl border border-[#1f6b4a] bg-gradient-to-r from-[#0e1f17] via-[#0b1a14] to-[#0e1f17] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#1f6b4a] text-white text-xs font-semibold tracking-wide">PAYMENT METHODS</span>
+              <img src="/new/icons8-magnetic-card-100.png" alt="Payment Icon" className="w-6 h-6" />
+              <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#1f6b4a] text-white text-xs font-semibold tracking-wide">
+                PAYMENT METHODS
+              </span>
             </div>
-            <div className="flex items-center gap-2 flex-wrap justify-end">
+            <div className="flex items-center gap-4 flex-wrap justify-end">
               {paymentMethods.map((method) => (
-                <div key={method.name} className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner">
-                  <img src={method.icon} alt={method.name} className="w-5 h-5 object-contain" />
+                <div key={method.name} className="w-14 h-14 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner">
+                  <img src={method.icon} alt={method.name} className="w-10 h-10 object-contain brightness-110 contrast-110" />
                 </div>
               ))}
             </div>

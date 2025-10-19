@@ -883,9 +883,12 @@ export default function IPhoneBoxPage() {
               <div className="rounded-xl border border-[#1f6b4a] bg-gradient-to-r from-[#0e1f17] via-[#0b1a14] to-[#0e1f17] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
-                    <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#1f6b4a] text-white text-xs font-semibold tracking-wide">PAYMENT METHODS</span>
+                    <img src="/new/icons8-magnetic-card-100.png" alt="Payment Icon" className="w-6 h-6" />
+                    <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#1f6b4a] text-white text-xs font-semibold tracking-wide">
+                      PAYMENT METHODS
+                    </span>
                   </div>
-                  <div className="flex items-center gap-2 flex-wrap justify-end">
+                  <div className="flex items-center gap-4 flex-wrap justify-end">
                     {[
                       { name: "Visa", icon: "https://rillabox.com/icons/visa-image.png" },
                       { name: "Master Card", icon: "https://rillabox.com/icons/mastercard-icon.png" },
@@ -896,8 +899,8 @@ export default function IPhoneBoxPage() {
                       { name: "Ethereum", icon: "https://rillabox.com/icons/ethereum.png" },
                       { name: "Solana", icon: "https://rillabox.com/icons/solana.png" }
                     ].map((method) => (
-                      <div key={method.name} className="w-9 h-9 rounded-md bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner">
-                        <img src={method.icon} alt={method.name} className="w-5 h-5 object-contain" />
+                      <div key={method.name} className="w-14 h-14 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner">
+                        <img src={method.icon} alt={method.name} className="w-10 h-10 object-contain brightness-110 contrast-110" />
                       </div>
                     ))}
                   </div>
