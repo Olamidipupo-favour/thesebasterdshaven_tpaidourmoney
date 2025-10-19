@@ -822,17 +822,17 @@ export default function IPhoneBoxPage() {
 
                     {/* Top/bottom color light pop based on rarity */}
                     <span
-                      className="pointer-events-none absolute top-0 left-0 right-0 h-[6px]"
+                      className="pointer-events-none absolute top-0 left-0 right-0 h-[3px]"
                       style={{
-                        background: `linear-gradient(to bottom, ${getRarityColor(item.rarity)}80, transparent)`,
-                        filter: 'blur(2px)'
+                        background: getRarityColor(item.rarity),
+                        filter: 'none'
                       }}
                     />
                     <span
-                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[6px]"
+                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[3px]"
                       style={{
-                        background: `linear-gradient(to top, ${getRarityColor(item.rarity)}80, transparent)`,
-                        filter: 'blur(2px)'
+                        background: getRarityColor(item.rarity),
+                        filter: 'none'
                       }}
                     />
                   </div>
@@ -860,23 +860,58 @@ export default function IPhoneBoxPage() {
                     </div>
 
                     <span
-                      className="pointer-events-none absolute top-0 left-0 right-0 h-[6px]"
+                      className="pointer-events-none absolute top-0 left-0 right-0 h-[3px]"
                       style={{
-                        background: `linear-gradient(to bottom, ${box.borderColor}80, transparent)`,
-                        filter: 'blur(2px)'
+                        background: box.borderColor,
+                        filter: 'none'
                       }}
                     />
                     <span
-                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[6px]"
+                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[3px]"
                       style={{
-                        background: `linear-gradient(to top, ${box.borderColor}80, transparent)`,
-                        filter: 'blur(2px)'
+                        background: box.borderColor,
+                        filter: 'none'
                       }}
                     />
                   </Link>
                 ))}
               </div>
             </div>
+
+            {/* Features Grid - Three Cards (Green accent) */}
+            <section className="mb-10">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-green-500/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/30 group-hover:scale-110 transition-all duration-300">
+                    <Star className="w-8 h-8 text-green-500 group-hover:animate-pulse" />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-green-500 transition-colors duration-300">100% Authentic Items</h3>
+                  <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                    At RillaBox, every item you receive is verified authentic from StockX or official retailers, guaranteeing you the real deal every time.
+                  </p>
+                </Card>
+
+                <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+                  <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/30 group-hover:scale-110 transition-all duration-300">
+                    <Gift className="w-8 h-8 text-primary group-hover:animate-bounce" />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">Exchange Unwanted Items</h3>
+                  <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                    Convert all items in your inventory into instant cash on RillaBox. Unbox something that perfectly matches your style with no fees or hidden costs.
+                  </p>
+                </Card>
+
+                <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-green-500/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/30 group-hover:scale-110 transition-all duration-300">
+                    <Zap className="w-8 h-8 text-green-500 group-hover:animate-pulse" />
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-green-500 transition-colors duration-300">Worldwide Shipping</h3>
+                  <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+                    Claim your prize & have it delivered to your doorstep, or withdraw the value.
+                  </p>
+                </Card>
+              </div>
+            </section>
 
             {/* Payment Methods Bar - Exact Homepage Design */}
             <section className="mb-10">
