@@ -822,17 +822,17 @@ export default function IPhoneBoxPage() {
 
                     {/* Top/bottom color light pop based on rarity */}
                     <span
-                      className="pointer-events-none absolute top-0 left-0 right-0 h-[6px]"
+                      className="pointer-events-none absolute top-0 left-0 right-0 h-[3px]"
                       style={{
-                        background: `linear-gradient(to bottom, ${getRarityColor(item.rarity)}80, transparent)`,
-                        filter: 'blur(2px)'
+                        background: getRarityColor(item.rarity),
+                        filter: 'none'
                       }}
                     />
                     <span
-                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[6px]"
+                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[3px]"
                       style={{
-                        background: `linear-gradient(to top, ${getRarityColor(item.rarity)}80, transparent)`,
-                        filter: 'blur(2px)'
+                        background: getRarityColor(item.rarity),
+                        filter: 'none'
                       }}
                     />
                   </div>
@@ -860,17 +860,17 @@ export default function IPhoneBoxPage() {
                     </div>
 
                     <span
-                      className="pointer-events-none absolute top-0 left-0 right-0 h-[6px]"
+                      className="pointer-events-none absolute top-0 left-0 right-0 h-[3px]"
                       style={{
-                        background: `linear-gradient(to bottom, ${box.borderColor}80, transparent)`,
-                        filter: 'blur(2px)'
+                        background: box.borderColor,
+                        filter: 'none'
                       }}
                     />
                     <span
-                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[6px]"
+                      className="pointer-events-none absolute bottom-0 left-0 right-0 h-[3px]"
                       style={{
-                        background: `linear-gradient(to top, ${box.borderColor}80, transparent)`,
-                        filter: 'blur(2px)'
+                        background: box.borderColor,
+                        filter: 'none'
                       }}
                     />
                   </Link>

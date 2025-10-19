@@ -298,7 +298,7 @@ export function OSortudoHomepage() {
                 />
                 {/* Mobile */}
                 <img
-                  src="https://rillabox.s3.amazonaws.com/media/banners/MOBILEHALLOWEENACHIEVEMENTS.png"
+                  src="/new/acheivement banner.jpg"
                   alt="Refreal-code-image"
                   className="md:hidden block w-full h-auto"
                 />
