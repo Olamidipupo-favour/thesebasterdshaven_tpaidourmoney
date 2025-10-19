@@ -149,7 +149,8 @@ export function RillaboxHeader() {
                   <Gamepad2 className="w-4 h-4" />
                   <span>Games</span>
                 </Button>
-                <div className="absolute left-0 mt-2 min-w-[220px] z-[60] hidden group-hover:block rounded-md border border-border bg-card shadow-md p-1">
+                <div aria-hidden className="absolute left-0 top-full w-full h-2"></div>
+                <div className="absolute left-0 top-full mt-1 min-w-[220px] z-[60] block opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto rounded-md border border-border bg-card shadow-md p-1 transition-opacity duration-150">
                   <Link href="/boxes" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <Boxes className="w-4 h-4" />
                     <span>Mystery Boxes</span>
@@ -183,7 +184,8 @@ export function RillaboxHeader() {
                   <ShoppingBag className="w-4 h-4" />
                   <span>Shop</span>
                 </Button>
-                <div className="absolute left-0 mt-2 min-w-[200px] z-[60] hidden group-hover:block rounded-md border border-border bg-card shadow-md p-1">
+                <div aria-hidden className="absolute left-0 top-full w-full h-2"></div>
+                <div className="absolute left-0 top-full mt-1 min-w-[200px] z-[60] block opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto rounded-md border border-border bg-card shadow-md p-1 transition-opacity duration-150">
                   <Link href="/shop/buy" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <ShoppingBag className="w-4 h-4" />
                     <span>Buy</span>
