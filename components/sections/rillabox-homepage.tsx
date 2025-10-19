@@ -8,6 +8,8 @@ import {
   ShoppingCart, 
   Users, 
   Gift, 
+  Star,
+  Zap,
   Trophy, 
   Timer,
   ClipboardList,
@@ -1152,6 +1154,41 @@ export function OSortudoHomepage() {
             Learn more
             <img src="/icons/landing/button-right-arrow.svg" alt="button-right-arrow" className="w-4 h-4" />
           </Button>
+        </div>
+      </section>
+
+      {/* Features Grid - Three Cards (Green accent) */}
+      <section className="mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-green-500/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+            <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/30 group-hover:scale-110 transition-all duration-300">
+              <Star className="w-8 h-8 text-green-500 group-hover:animate-pulse" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-green-500 transition-colors duration-300">100% Authentic Items</h3>
+            <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+              At RillaBox, every item you receive is verified authentic from StockX or official retailers, guaranteeing you the real deal every time.
+            </p>
+          </Card>
+
+          <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-primary/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+            <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/30 group-hover:scale-110 transition-all duration-300">
+              <Gift className="w-8 h-8 text-primary group-hover:animate-bounce" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">Exchange Unwanted Items</h3>
+            <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+              Convert all items in your inventory into instant cash on RillaBox. Unbox something that perfectly matches your style with no fees or hidden costs.
+            </p>
+          </Card>
+
+          <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-green-500/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+            <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/30 group-hover:scale-110 transition-all duration-300">
+              <Zap className="w-8 h-8 text-green-500 group-hover:animate-pulse" />
+            </div>
+            <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-green-500 transition-colors duration-300">Worldwide Shipping</h3>
+            <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
+              Claim your prize & have it delivered to your doorstep, or withdraw the value.
+            </p>
+          </Card>
         </div>
       </section>
 

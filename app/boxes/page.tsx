@@ -519,11 +519,11 @@ export default function BoxesPage() {
                   </p>
                 </Card>
 
-                <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-chart-2/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
-                  <div className="w-16 h-16 bg-chart-2/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-chart-2/30 group-hover:scale-110 transition-all duration-300">
-                    <Zap className="w-8 h-8 text-chart-2 group-hover:animate-pulse" />
+                <Card className="bg-card border-border text-center p-6 hover:shadow-lg hover:shadow-green-500/10 hover:scale-105 transition-all duration-300 cursor-pointer group">
+                  <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-500/30 group-hover:scale-110 transition-all duration-300">
+                    <Zap className="w-8 h-8 text-green-500 group-hover:animate-pulse" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-chart-2 transition-colors duration-300">Worldwide Shipping</h3>
+                  <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-green-500 transition-colors duration-300">Worldwide Shipping</h3>
                   <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-300">
                     Claim your prize & have it delivered to your doorstep, or withdraw the value.
                   </p>
