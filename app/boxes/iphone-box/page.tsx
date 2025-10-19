@@ -766,7 +766,7 @@ export default function IPhoneBoxPage() {
               </div>
 
               {/* Quantity Selection */}
-              <div className="flex space-x-2">
+              {/* <div className="flex space-x-2">
                 {[1, 2, 3, 4].map((num) => (
                   <Button
                     key={num}
@@ -780,7 +780,7 @@ export default function IPhoneBoxPage() {
                     {num}
                   </Button>
                 ))}
-              </div>
+              </div> */}
             </div>
             {/* Items in Box - Exact Rillabox Style */}
             <div className="mb-8">
