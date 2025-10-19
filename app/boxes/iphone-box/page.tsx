@@ -508,17 +508,16 @@ export default function IPhoneBoxPage() {
       <div>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {/* Header - Exact Rillabox Style */}
-            <div className="mb-4 flex items-center justify-between">
-          <Link href="/boxes" className="inline-flex items-center text-white/70 hover:text-white text-sm">
+            <div className="mb-4 grid grid-cols-3 items-center">
+          <Link href="/boxes" className="inline-flex items-center text-white/70 hover:text-white text-sm justify-self-start">
             <ArrowLeft className="w-4 h-4 mr-2" />
             Return to Boxes
           </Link>
-          
-          {/* Sound toggle button */}
+          <h1 className="justify-self-center text-white font-bold text-lg">1% iPhone</h1>
           <Button
             onClick={() => setIsSoundMuted(!isSoundMuted)}
             size="icon"
-            className="bg-[#2d3548] hover:bg-[#353d52] text-white rounded-lg border-0 w-10 h-10"
+            className="bg-[#2d3548] hover:bg-[#353d52] text-white rounded-lg border-0 w-10 h-10 justify-self-end"
           >
             {isSoundMuted ? (
               <VolumeX className="w-5 h-5" />
@@ -538,7 +537,7 @@ export default function IPhoneBoxPage() {
               >
                 {/* Center arrows */}
                 <div className="absolute top-3 left-1/2 -translate-x-1/2 flex justify-center z-10">
-                  <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-b-[20px] border-l-transparent border-r-transparent border-b-white animate-pulse"></div>
+                  <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[20px] border-l-transparent border-r-transparent border-t-white animate-pulse"></div>
                 </div>
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex justify-center z-10">
                   <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[20px] border-l-transparent border-r-transparent border-t-white animate-pulse"></div>
@@ -572,21 +571,27 @@ export default function IPhoneBoxPage() {
                         return (
                           <div key={`item-${index}`} className="w-24 h-24 mx-3 rounded-xl flex items-center justify-center shrink-0 relative"
                             style={{ 
-                              backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                              backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.1)',
                               backdropFilter: 'blur(8px)',
-                              border: `1px solid ${rarityColor}80`,
+                              border: isWinningItem ? `2px solid ${rarityColor}` : `1px solid ${rarityColor}80`,
                               boxShadow: isWinningItem 
-                                ? `0 0 40px ${rarityColor}, 0 0 60px ${rarityColor}cc, 0 0 80px ${rarityColor}80`
+                                ? `0 0 50px ${rarityColor}, 0 0 80px ${rarityColor}cc, 0 0 120px ${rarityColor}80`
                                 : `0 0 25px ${rarityColor}, 0 0 40px ${rarityColor}80, 0 0 60px ${rarityColor}40, 0 4px 12px rgba(0,0,0,0.5)`
                             }}
                           >
-                            <img src={item.image} alt={item.name} className="w-16 h-16 object-contain opacity-90" onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
+                            <img src={item.image} alt={item.name} className={`w-16 h-16 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-90'}`} onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
                             <div 
                               className="absolute inset-0 rounded-xl pointer-events-none"
                               style={{
                                 background: `radial-gradient(circle at center, ${rarityColor}40 0%, ${rarityColor}20 40%, transparent 70%)`
                               }}
                             />
+                            {isWinningItem && (
+                              <div 
+                                className="absolute -inset-1 rounded-2xl pointer-events-none animate-pulse"
+                                style={{ boxShadow: `0 0 30px ${rarityColor}, 0 0 70px ${rarityColor}aa` }}
+                              />
+                            )}
                           </div>
                         )
                       })}
@@ -645,21 +650,27 @@ export default function IPhoneBoxPage() {
                                     key={`item-${columnIndex}-${index}`} 
                                     className="w-28 h-28 sm:w-36 sm:h-36 my-6 sm:my-8 rounded-xl flex items-center justify-center shrink-0 relative"
                                     style={{ 
-                                      backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                                      backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.18)' : 'rgba(255, 255, 255, 0.1)',
                                       backdropFilter: 'blur(8px)',
-                                      border: `1px solid ${rarityColor}80`,
+                                      border: isWinningItem ? `2px solid ${rarityColor}` : `1px solid ${rarityColor}80`,
                                       boxShadow: isWinningItem 
-                                        ? `0 0 40px ${rarityColor}, 0 0 60px ${rarityColor}cc, 0 0 80px ${rarityColor}80`
+                                        ? `0 0 50px ${rarityColor}, 0 0 80px ${rarityColor}cc, 0 0 120px ${rarityColor}80`
                                         : `0 0 25px ${rarityColor}, 0 0 40px ${rarityColor}80, 0 0 60px ${rarityColor}40, 0 4px 12px rgba(0,0,0,0.5)`
                                     }}
                                   >
-                                    <img src={item.image} alt={item.name} className="w-20 h-20 sm:w-24 sm:h-24 object-contain opacity-90" onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
+                                    <img src={item.image} alt={item.name} className={`w-20 h-20 sm:w-24 sm:h-24 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-90'}`} onError={(e)=>{e.currentTarget.src='/placeholder.svg'}} />
                                     <div 
                                       className="absolute inset-0 rounded-xl pointer-events-none"
                                       style={{
                                         background: `radial-gradient(circle at center, ${rarityColor}40 0%, ${rarityColor}20 40%, transparent 70%)`
                                       }}
                                     />
+                                    {isWinningItem && (
+                                      <div 
+                                        className="absolute -inset-1 rounded-2xl pointer-events-none animate-pulse"
+                                        style={{ boxShadow: `0 0 40px ${rarityColor}, 0 0 90px ${rarityColor}aa` }}
+                                      />
+                                    )}
                                   </div>
                                 )
                               })}

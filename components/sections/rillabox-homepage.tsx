@@ -294,7 +294,7 @@ export function OSortudoHomepage() {
               <a href="/" className="block w-full h-full">
                 {/* Desktop */}
                 <img
-                  src="https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-HALLOWEENACHIEVEMENTS.png"
+                  src="/new/acheivement banner.jpg"
                   alt="Rillabox Mystery Boxes"
                   className="hidden md:block w-full h-auto"
                 />
