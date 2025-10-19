@@ -39,13 +39,13 @@ const heroBanners = [
     href: "/",
     alt: "New Boxes"
   },
-  {
-    id: 2,
-    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-DAILY-FREE2.png",
-    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-DAILY-FREE2.png",
-    href: "/",
-    alt: "Daily Free"
-  },
+  // {
+  //   id: 2,
+  //   desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-DAILY-FREE2.png",
+  //   mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-DAILY-FREE2.png",
+  //   href: "/",
+  //   alt: "Daily Free"
+  // },
   {
     id: 3,
     desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-TELEGRAM.png",
