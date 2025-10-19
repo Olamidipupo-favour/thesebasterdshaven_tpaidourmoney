@@ -294,13 +294,13 @@ export function OSortudoHomepage() {
               <a href="/" className="block w-full h-full">
                 {/* Desktop */}
                 <img
-                  src="/new/acheivement banner.jpg"
+                  src="/new/acheiment radius.png"
                   alt="Rillabox Mystery Boxes"
                   className="hidden md:block w-full h-auto"
                 />
                 {/* Mobile */}
                 <img
-                  src="/new/acheivement banner.jpg"
+                  src="/new/acheiment radius.png"
                   alt="Refreal-code-image"
                   className="md:hidden block w-full h-auto"
                 />
