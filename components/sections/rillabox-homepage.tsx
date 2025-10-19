@@ -34,8 +34,8 @@ import { StatsSection } from "@/components/sections/stats-section"
 const heroBanners = [
   {
     id: 1,
-    desktopImage: "/new/banner2.png",
-    mobileImage: "/new/banner2.png",
+    desktopImage: "/new/banner 11.png",
+    mobileImage: "/new/banner 11.png",
     href: "/",
     alt: "New Boxes"
   },
@@ -55,8 +55,8 @@ const heroBanners = [
   },
   {
     id: 4,
-    desktopImage: "/new/banner1.png",
-    mobileImage: "/new/banner1.png",
+    desktopImage: "/new/banner 21.png",
+    mobileImage: "/new/banner 21.png",
     href: "/",
     alt: "Starter"
   }
