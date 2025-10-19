@@ -4,11 +4,12 @@ import { useState, useEffect, useRef, Suspense } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone, Volume2, VolumeX } from "lucide-react"
+import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone, Volume2, VolumeX, X } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { OSortudoLayout } from "@/components/layout/rillabox-layout"
 import dynamic from "next/dynamic"
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 const Box3D = dynamic(() => import("@/components/animations/box-3d").then(mod => ({ default: mod.Box3D })), {
   ssr: false,
@@ -160,6 +161,7 @@ export default function IPhoneBoxPage() {
   const [isSoundMuted, setIsSoundMuted] = useState(false)
   const [showBoxOnWinner, setShowBoxOnWinner] = useState(false)
   const [isFastSpin, setIsFastSpin] = useState(false)
+  const [isWinModalOpen, setIsWinModalOpen] = useState(false)
   const timeouts = useRef<number[]>([])
 
   useEffect(() => {
@@ -179,6 +181,13 @@ export default function IPhoneBoxPage() {
       try { audioCtxRef.current?.close() } catch {}
     }
   }, [])
+
+  // Open win modal when prizes are set
+  useEffect(() => {
+    if (wonPrizes.length > 0) {
+      setIsWinModalOpen(true)
+    }
+  }, [wonPrizes])
 
   const playClick = () => {
     if (isSoundMuted) return
@@ -316,55 +325,25 @@ export default function IPhoneBoxPage() {
     // Target indices for each column
     const targetIndices = modifiedColumnsData.map(col => Math.floor(col.length / 2))
 
+    const easeOutDelay = (progress: number) => {
+      const base = 35
+      const add = 260
+      return (base + add * Math.pow(progress, 2)) * speedMultiplier
+    }
+
     const tick = () => {
       setColumnSpinIndices([...currentIndices])
       playClick()
       steps++
 
-      const progress = steps / totalSteps
+      const progress = Math.min(steps / totalSteps, 1)
 
-      // Update all columns simultaneously
-        if (progress < 0.7) {
-        // Fast phase
-        for (let col = 0; col < numColumns; col++) {
-          currentIndices[col] += 1
-        }
-          speed = 40 * speedMultiplier
-        } else {
-        // Slow down phase
-          const remainingSteps = totalSteps - steps
-        let allLanded = true
-        
-        for (let col = 0; col < numColumns; col++) {
-          const distanceToTarget = Math.abs(targetIndices[col] - currentIndices[col])
-          
-          if (distanceToTarget > 0) {
-            allLanded = false
-            currentIndices[col] += currentIndices[col] < targetIndices[col] ? 1 : -1
-          }
-        }
-        
-            speed = (50 + (remainingSteps * 8)) * speedMultiplier
-        
-        if (allLanded) {
-          // All columns landed - collect prizes
-          const winningItems = finalItems.map(idx => iphoneItems[idx])
-            timeouts.current.push(window.setTimeout(() => {
-            setWonPrizes(winningItems)
-              setIsSpinning(false)
-              
-              if (isDemo) {
-                setIsDemoSpinning(false)
-                timeouts.current.push(window.setTimeout(() => {
-                  resetGame()
-                }, 3000))
-              }
-            }, 500))
-            return
-          }
-        }
+      // advance all columns by one step per tick
+      for (let col = 0; col < numColumns; col++) {
+        currentIndices[col] += 1
+      }
 
-      // Keep in bounds for all columns
+      // keep indices within bounds
       for (let col = 0; col < numColumns; col++) {
         if (currentIndices[col] < 0) currentIndices[col] = 0
         if (currentIndices[col] >= columnsData[col].length) {
@@ -372,25 +351,24 @@ export default function IPhoneBoxPage() {
         }
       }
 
-      // Continue ticking
+      const delay = easeOutDelay(progress)
+
       if (steps < totalSteps) {
-        timeouts.current.push(window.setTimeout(tick, speed))
+        timeouts.current.push(window.setTimeout(tick, delay))
       } else {
-        // Force land on targets
+        // snap to targets and finalize
         for (let col = 0; col < numColumns; col++) {
           currentIndices[col] = targetIndices[col]
         }
         setColumnSpinIndices([...currentIndices])
-        const winningItems = finalItems.map(idx => iphoneItems[idx])
+
+        const winningItems = targetIndices.map((tIdx, ci) => modifiedColumnsData[ci][tIdx])
         timeouts.current.push(window.setTimeout(() => {
           setWonPrizes(winningItems)
           setIsSpinning(false)
-          
+
           if (isDemo) {
             setIsDemoSpinning(false)
-            timeouts.current.push(window.setTimeout(() => {
-              resetGame()
-            }, 3000))
           }
         }, 500))
       }
@@ -453,6 +431,32 @@ export default function IPhoneBoxPage() {
         }, 800))
       }, 1800)) // 1.8 second delay to see items behind open box
     }, 0)) // Using timeout to force re-trigger
+  }
+
+  const handleOpenAnotherFromModal = () => {
+    setIsWinModalOpen(false)
+    if (isAuthenticated) {
+      handleRealSpin()
+    } else {
+      handleDemoSpin()
+    }
+  }
+
+  const handleSellPrize = () => {
+    const prize = wonPrizes[0]
+    if (prize) {
+      try {
+        alert(`Sold for $${Number(prize.value).toFixed(2)}`)
+      } catch {}
+    }
+    setIsWinModalOpen(false)
+  }
+
+  const handleWinModalOpenChange = (open: boolean) => {
+    setIsWinModalOpen(open)
+    if (!open) {
+      resetGame()
+    }
   }
 
   const resetGame = () => {
@@ -971,6 +975,55 @@ export default function IPhoneBoxPage() {
 
         </div>
       </div>
+
+      {/* Win Modal */}
+      <Dialog open={isWinModalOpen} onOpenChange={handleWinModalOpenChange}>
+        <DialogContent showCloseButton={false} className="bg-[#121625] text-white max-w-md rounded-2xl border border-white/10">
+          <DialogHeader className="relative">
+            <DialogTitle>
+              <div className="bg-[#22c55e] text-black font-extrabold text-center py-3 rounded-xl">YOU WON</div>
+            </DialogTitle>
+            <button
+              aria-label="Close"
+              onClick={() => setIsWinModalOpen(false)}
+              className="absolute top-2 right-2 inline-flex items-center justify-center w-8 h-8 rounded-md bg-white/10 hover:bg-white/20 text-white focus:outline-none"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </DialogHeader>
+
+          {/* Prize preview */}
+          <div className="flex flex-col items-center mt-4">
+            {wonPrizes[0] && (
+              <>
+                <div className="relative w-40 h-40 mb-3">
+                  <img src={wonPrizes[0].image} alt={wonPrizes[0].name} className="w-full h-full object-contain" />
+                  <Badge className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#22c55e] text-black font-bold px-3 py-1 rounded-full shadow-lg">
+                    ${Number(wonPrizes[0].value).toFixed(2)}
+                  </Badge>
+                </div>
+                <p className="text-sm text-white/80 mb-6 text-center">
+                  {wonPrizes[0].name}
+                </p>
+              </>
+            )}
+          </div>
+
+          <DialogFooter className="mt-2 w-full flex flex-col gap-3 sm:flex-col sm:justify-center">
+            <Button onClick={handleOpenAnotherFromModal} className="bg-[#22c55e] hover:bg-[#16a34a] text-black font-semibold w-full">
+              Open Another
+            </Button>
+            <Button onClick={handleSellPrize} className="bg-[#2d3548] hover:bg-[#353d52] text-white w-full">
+              Sell for ${wonPrizes[0] ? Number(wonPrizes[0].value).toFixed(2) : "0.00"}
+            </Button>
+            <Link href="/boxes" className="w-full">
+              <Button variant="ghost" className="w-full text-white/80 hover:text-white hover:bg-white/10">
+                Return to Boxes
+              </Button>
+            </Link>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </OSortudoLayout>
   )
 }
