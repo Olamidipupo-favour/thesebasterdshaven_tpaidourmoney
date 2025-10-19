@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { LoginDialog } from "@/components/auth/login-dialog"
@@ -8,7 +8,7 @@ import { RegisterDialog } from "@/components/auth/register-dialog"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag } from "lucide-react"
+import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ArrowLeftRight, Target, TrendingUp } from "lucide-react"
 
 export function RillaboxHeader() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -16,7 +16,27 @@ export function RillaboxHeader() {
   const [showRegisterDialog, setShowRegisterDialog] = useState(false)
   const [gamesOpen, setGamesOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [shopOpen, setShopOpen] = useState(false)
+  const gamesCloseRef = useRef<number | null>(null)
+  const shopCloseRef = useRef<number | null>(null)
 
+  const openGames = () => {
+    if (gamesCloseRef.current) clearTimeout(gamesCloseRef.current)
+    setGamesOpen(true)
+  }
+  const closeGamesDelayed = () => {
+    if (gamesCloseRef.current) clearTimeout(gamesCloseRef.current)
+    gamesCloseRef.current = window.setTimeout(() => setGamesOpen(false), 120)
+  }
+
+  const openShop = () => {
+    if (shopCloseRef.current) clearTimeout(shopCloseRef.current)
+    setShopOpen(true)
+  }
+  const closeShopDelayed = () => {
+    if (shopCloseRef.current) clearTimeout(shopCloseRef.current)
+    shopCloseRef.current = window.setTimeout(() => setShopOpen(false), 120)
+  }
   // Weekly race countdown to end of Sunday (local time)
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
@@ -118,83 +138,63 @@ export function RillaboxHeader() {
             <div className="flex items-center gap-3 mr-[100px]">
               {/* Desktop Home button */}
               <Link href="/" className="hidden lg:inline-flex items-center justify-center">
-                <Button variant="outline" size="icon" className="home-btns home-btn">
+                <Button variant="outline" size="icon" className="home-btns home-btn transition hover:-translate-y-[1px] hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">
                   <Home className="w-4 h-4" />
                 </Button>
               </Link>
 
-              {/* Mobile bottom bar items */}
-              <div className="lg:hidden flex items-center gap-6">
-                <button className="flex flex-col items-center text-xs">
-                  <Zap className="w-5 h-5" />
-                  <span>Live Drops</span>
-                </button>
-                <button className="flex flex-col items-center text-xs">
-                  <Gamepad2 className="w-5 h-5" />
+              {/* Desktop Games dropdown (hover to open, no flicker) */}
+              <div className="hidden lg:block relative group">
+                <Button variant="outline" className="flex items-center gap-2 transition hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">
+                  <Gamepad2 className="w-4 h-4" />
                   <span>Games</span>
-                </button>
-                <Link href="/boxes" className="flex flex-col items-center text-xs">
-                  <Boxes className="w-5 h-5" />
-                  <span>Boxes</span>
-                </Link>
-              </div>
-
-              {/* Desktop Games dropdown (opens on hover & click) */}
-              <div
-                className="hidden lg:block relative"
-                onMouseEnter={() => setGamesOpen(true)}
-                onMouseLeave={() => setGamesOpen(false)}
-              >
-                <DropdownMenu open={gamesOpen} onOpenChange={setGamesOpen}>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="flex items-center gap-2">
-                      <Gamepad2 className="w-4 h-4" />
-                      <span>Games</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" sideOffset={8} className="z-[60] mt-2 min-w-[220px]">
-                    <DropdownMenuItem asChild>
-                      <Link href="/boxes" className="cursor-pointer">Mystery Boxes</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/battles" className="cursor-pointer">Find the Prize</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/crash" className="cursor-pointer">Climb to the Top</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/plinko" className="cursor-pointer">Chicken Road</Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                </Button>
+                <div aria-hidden className="absolute left-0 top-full w-full h-2"></div>
+                <div className="absolute left-0 top-full mt-1 min-w-[220px] z-[60] block opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto rounded-md border border-border bg-card shadow-md p-1 transition-opacity duration-150">
+                  <Link href="/boxes" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                    <Boxes className="w-4 h-4" />
+                    <span>Mystery Boxes</span>
+                  </Link>
+                  <Link href="/battles" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                    <Target className="w-4 h-4" />
+                    <span>Find the Prize</span>
+                  </Link>
+                  <Link href="/crash" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                    <TrendingUp className="w-4 h-4" />
+                    <span>Soccer Game</span>
+                  </Link>
+                  <Link href="/plinko" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                    <Zap className="w-4 h-4" />
+                    <span>Chicken Road</span>
+                  </Link>
+                </div>
               </div>
 
               {/* Earn to Play (was Rewards) */}
               <Link href="/reward" className="inline-flex">
-                <Button variant="outline" className="flex items-center gap-2">
+                <Button variant="outline" className="flex items-center gap-2 transition hover:-translate-y-[1px] hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">
                   <DollarSign className="w-4 h-4" />
                   <span className="text-white">Earn to Play</span>
                 </Button>
               </Link>
 
-              {/* Shop dropdown: Buy / Trade */}
-              <div className="hidden lg:block relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" className="flex items-center gap-2">
-                      <ShoppingBag className="w-4 h-4" />
-                      <span>Shop</span>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" sideOffset={8} className="z-[60] mt-2 min-w-[180px]">
-                    <DropdownMenuItem asChild>
-                      <Link href="/shop/buy" className="cursor-pointer">Buy</Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/shop/trade" className="cursor-pointer">Trade</Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              {/* Shop dropdown: Buy / Trade (hover to open) */}
+              <div className="hidden lg:block relative group">
+                <Button variant="outline" className="flex items-center gap-2 transition hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">
+                  <ShoppingBag className="w-4 h-4" />
+                  <span>Shop</span>
+                </Button>
+                <div aria-hidden className="absolute left-0 top-full w-full h-2"></div>
+                <div className="absolute left-0 top-full mt-1 min-w-[200px] z-[60] block opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto rounded-md border border-border bg-card shadow-md p-1 transition-opacity duration-150">
+                  <Link href="/shop/buy" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Buy</span>
+                  </Link>
+                  <Link href="/shop/trade" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                    <ArrowLeftRight className="w-4 h-4" />
+                    <span>Trade</span>
+                  </Link>
+                </div>
               </div>
 
               {/* Weekly race banner */}
@@ -232,8 +232,8 @@ export function RillaboxHeader() {
             <div className="hidden lg:flex items-center gap-2 ml-auto">
                 {!isAuthenticated ? (
                   <>
-                    <Button variant="outline" size="sm" className="button-sign-in" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
-                    <Button size="sm" className="sign-up" onClick={() => setShowRegisterDialog(true)}>
+                    <Button variant="outline" size="sm" className="button-sign-in transition hover:-translate-y-[2px] hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
+                    <Button size="sm" className="sign-up transition text-white hover:text-white hover:-translate-y-[1px] hover:border-[#52CA19]/35 hover:shadow-[0_8px_14px_rgba(82,202,25,0.28)]" onClick={() => setShowRegisterDialog(true)}>
                       <Gift className="w-4 h-4 mr-2" />
                       Sign Up and get Free Box
                     </Button>
@@ -271,7 +271,7 @@ export function RillaboxHeader() {
               <div className="grid grid-cols-3 gap-2">
                 <Link href="/boxes"><Button variant="outline" className="w-full">Mystery Boxes</Button></Link>
                 <Link href="/battles"><Button variant="outline" className="w-full">Find the Prize</Button></Link>
-                <Link href="/crash"><Button variant="outline" className="w-full">Climb to the Top</Button></Link>
+                <Link href="/crash"><Button variant="outline" className="w-full">Soccer Game</Button></Link>
               </div>
             </div>
           )}
