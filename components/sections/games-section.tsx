@@ -60,7 +60,7 @@ const games: Game[] = [
   },
   {
     id: 3,
-    name: "Climb to the Top",
+    name: "Soccer Game",
     description: "Watch the multiplier rise and cash out before it crashes",
     icon: <TrendingUp className="w-8 h-8" />,
     category: "crash",
@@ -139,7 +139,7 @@ const categoryColors = {
 const categoryNames = {
   mystery: "Mystery",
   battle: "Find the Prize",
-  crash: "Climb to the Top",
+  crash: "Soccer Game",
   plinko: "Chicken Road",
   numbers: "Numbers",
   earn: "Earn to Play",
@@ -205,7 +205,7 @@ export function GamesSection() {
         <div className="col-span-6 md:col-span-3">
           <a className="block" href="/battles">
             <div className="rounded-xl border border-border overflow-hidden">
-              <img src="https://rillabox.com/animations/battlebox-img.svg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover" />
+              <img src="/new/find_prize_1.jpg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover" />
             </div>
             <span className="mt-2 block text-center font-semibold">Find the Prize</span>
           </a>
@@ -215,9 +215,9 @@ export function GamesSection() {
         <div className="col-span-6 md:col-span-3">
           <a className="block" href="/crash">
             <div className="rounded-xl border border-border overflow-hidden">
-              <img src="https://rillabox.com/animations/crashbox-img.svg" alt="Climb to the Top" className="w-full h-44 md:h-48 object-cover" />
+              <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-44 md:h-48 object-cover" />
             </div>
-            <span className="mt-2 block text-center font-semibold">Climb to the Top</span>
+            <span className="mt-2 block text-center font-semibold">Soccer Game</span>
           </a>
         </div>
 
@@ -225,7 +225,7 @@ export function GamesSection() {
         <div className="col-span-6 md:col-span-3">
           <a className="block" href="/plinko">
             <div className="rounded-xl border border-border overflow-hidden">
-              <img src="https://rillabox.com/animations/plingobox-img.svg" alt="Chicken Road" className="w-full h-44 md:h-48 object-cover" />
+              <img src="/new/checken_road_1.jpg" alt="Chicken Road" className="w-full h-44 md:h-48 object-cover" />
             </div>
             <span className="mt-2 block text-center font-semibold">Chicken Road</span>
           </a>

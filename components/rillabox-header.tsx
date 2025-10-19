@@ -171,7 +171,7 @@ export function RillaboxHeader() {
               </div>
 
               {/* Earn to Play (was Rewards) */}
-              <Link href="/reward" className="inline-flex">
+              <Link href="/" className="inline-flex">
                 <Button variant="outline" className="flex items-center gap-2 transition hover:-translate-y-[1px] hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">
                   <DollarSign className="w-4 h-4" />
                   <span className="text-white">Earn to Play</span>

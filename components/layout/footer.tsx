@@ -34,9 +34,9 @@ export function Footer() {
             <h2 className="text-lg font-bold text-foreground mb-4">GAMES</h2>
             <div className="space-y-2">
               <Link href="/boxes" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Mystery Boxes</Link>
-              <Link href="/battles" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Find the Prize</Link>
-              <Link href="/crash" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Climb to the Top</Link>
-              <Link href="/plinko" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Chicken Road</Link>
+              <Link href="/" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Find the Prize</Link>
+              <Link href="/" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Soccer Game</Link>
+              <Link href="/" className="block text-sm text-muted-foreground hover:text-foreground transition-colors">Chicken Road</Link>
             </div>
           </div>
 

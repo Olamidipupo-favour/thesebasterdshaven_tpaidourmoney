@@ -54,7 +54,7 @@ export function WeeklyRaceSection() {
         {/* Floating boxes */}
         <div className="absolute top-8 left-8 w-16 h-16 md:w-20 md:h-20 animate-float-slow">
           <img
-            src="https://rillabox.com/images/box1.png"
+            src="/new/boxcoin.png"
             alt="Box 1"
             className="w-full h-full object-contain drop-shadow-2xl"
           />
@@ -70,22 +70,22 @@ export function WeeklyRaceSection() {
 
         <div className="absolute bottom-12 left-16 w-10 h-10 md:w-12 md:h-12 animate-float-fast opacity-70">
           <img
-            src="https://rillabox.com/images/trophy-changed.png"
+            src="/new/coin stacked.png"
             alt="Small trophy"
             className="w-full h-full object-contain drop-shadow-xl"
           />
         </div>
-
+ 
         <div className="absolute bottom-16 right-20 w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 animate-float-slow rotate-12">
           <img
-            src="https://rillabox.com/images/box4.png"
+            src="/new/box_coin.png"
             alt="Adidas box"
             className="w-full h-full object-contain drop-shadow-2xl"
           />
         </div>
 
         <div className="absolute top-1/2 left-4 w-8 h-8 md:w-10 md:h-10 animate-float-medium opacity-60">
-          <img src="https://rillabox.com/images/box3.png" alt="Gift box" className="w-full h-full object-contain drop-shadow-xl" />
+          <img src="/new/coin floor.png" alt="Gift box" className="w-full h-full object-contain drop-shadow-xl" />
         </div>
 
         {/* Content grid */}

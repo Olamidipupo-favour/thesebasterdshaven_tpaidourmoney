@@ -33,30 +33,30 @@ import { StatsSection } from "@/components/sections/stats-section"
 const heroBanners = [
   {
     id: 1,
-    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-NEW-BOXES-H.png",
-    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-NEW-BOXES-H.png",
-    href: "https://rillabox.com/home",
+    desktopImage: "/new/banner2.png",
+    mobileImage: "/new/banner2.png",
+    href: "/",
     alt: "New Boxes"
   },
   {
     id: 2,
     desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-DAILY-FREE2.png",
     mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-DAILY-FREE2.png",
-    href: "https://rillabox.com/reward",
+    href: "/",
     alt: "Daily Free"
   },
   {
     id: 3,
     desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-TELEGRAM.png",
     mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-TELEGRAM.png",
-    href: "https://t.me/rillabox",
+    href: "https://telegram.com",
     alt: "Telegram"
   },
   {
     id: 4,
-    desktopImage: "https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-STARTER.png",
-    mobileImage: "https://rillabox.s3.amazonaws.com/media/banners/MOBILE-STARTER.png",
-    href: "https://rillabox.com/box/Starter",
+    desktopImage: "/new/banner1.png",
+    mobileImage: "/new/banner1.png",
+    href: "/",
     alt: "Starter"
   }
 ]
@@ -120,25 +120,25 @@ const howItWorksSteps = [
     id: 1,
     title: "Sign Up",
     description: "Get started in seconds! Connect through Google, Facebook, or Twitter, or simply sign up with your email to unbox incredible mystery boxes here at O Sortudo.",
-    icon: "https://rillabox.com/icons/menu-board.svg"
+    icon: "/icons/landing/menu-board green.svg"
   },
   {
     id: 2,
     title: "Top Up Your Account With Credits",
     description: "Start your unboxing journey now! Simply top up your credits by clicking 'Deposit' button on desktop and + button on mobile. Choose your preferred payment method; we accept most major credit/debit cards as well as crypto.",
-    icon: "https://rillabox.com/icons/user-square.svg"
+    icon: "/icons/landing/user-square green.svg"
   },
   {
-    id: 3,
+    id: 3, 
     title: "Unbox Hyped Products",
     description: "Indulge in our exclusive collection of 50+ hand-crafted mystery boxes. Unveil authentic products and seize the chance to own rare pieces at a fraction of their price. Reward yourself with top brand treasures from brands such as Gucci, Louis Vuitton, Nike & many more!",
-    icon: "https://rillabox.com/icons/ic-gift.svg"
+    icon: "/icons/landing/ic-gift grreen.svg"
   },
   {
     id: 4,
     title: "Ship Your Products",
     description: "Relax as we deliver your unboxed products right to your doorstep. With global shipping and minimized costs, you can expect delivery within 7 days to 21 days, as we strive to improve!",
-    icon: "https://rillabox.com/icons/truck-ic.svg"
+    icon: "/icons/landing/truck-ic green.svg"
   }
 ]
 
@@ -290,7 +290,7 @@ export function OSortudoHomepage() {
           {/* Right: Achievements banner */}
           <div className="col-span-12 md:col-span-4 h-auto pr-0">
             <div className="h-full overflow-hidden">
-              <a href="https://rillabox.com/achievements" className="block w-full h-full">
+              <a href="/" className="block w-full h-full">
                 {/* Desktop */}
                 <img
                   src="https://rillabox.s3.amazonaws.com/media/banners/DESKTOP-HALLOWEENACHIEVEMENTS.png"
@@ -408,7 +408,7 @@ export function OSortudoHomepage() {
                     <div className="absolute top-4 right-4 w-1 h-1 bg-white rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
                   </div>
                 </div>
-                <span className="text-sm font-bold text-foreground group-hover:text-chart-1 transition-colors duration-300">Climb to the Top</span>
+                <span className="text-sm font-bold text-foreground group-hover:text-chart-1 transition-colors duration-300">Soccer Game</span>
               </div>
             </Link>
             
