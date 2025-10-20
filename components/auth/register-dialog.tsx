@@ -55,15 +55,17 @@ export function RegisterDialog({ open, onOpenChange, onSwitchToLogin }: Register
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[640px] bg-card border-border p-0 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
         {/* Top brand header to match LoginDialog */}
-        <div className="rounded-t-2xl bg-gradient-to-b from-emerald-500 to-emerald-700 px-6 py-6 text-white">
-          <div className="flex items-center justify-center">
+        <div className="relative rounded-t-2xl bg-gradient-to-b from-emerald-500 to-emerald-700 px-6 py-6 text-white overflow-hidden">
+          <div className="pointer-events-none absolute inset-0 bg-[url('/new/rainbow.png')] bg-cover bg-right opacity-20"></div>
+          <div className="flex items-center justify-center relative">
             <img
               src="/logo/OSORTUDO%20LOGO%201.png"
               alt="Sortudo Logo"
               className="h-16 md:h-20 object-contain"
             />
           </div>
-          <p className="mt-2 text-sm/6 text-center">Create your account</p>
+          <img src="/new/mascot2.png" alt="Mascot" className="pointer-events-none absolute -bottom-3 -right-3 w-24 md:w-32 opacity-40" />
+          <p className="mt-2 text-sm/6 text-center relative">Create your account</p>
         </div>
 
         <DialogHeader className="px-6 pt-5">
@@ -183,7 +185,7 @@ export function RegisterDialog({ open, onOpenChange, onSwitchToLogin }: Register
                 </span>
                 <span>Google</span>
               </Button>
-              <Button type="button" variant="outline" className="h-10 rounded-xl flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-black/20 transition-all">
+              <Button type="button" variant="outline" className="h-10 rounded-xl flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-[#1D9BF0]/25 transition-all">
                 <span className="w-7 h-7 rounded-full bg-black text-white grid place-items-center group-hover:brightness-110 group-hover:scale-105 transition-transform">
                   <img src="https://rillabox.com/icons/twitter-icon.svg" alt="Twitter" className="h-3.5 w-3.5" loading="lazy" decoding="async" />
                 </span>
