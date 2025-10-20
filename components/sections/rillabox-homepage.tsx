@@ -1129,21 +1129,32 @@ export function OSortudoHomepage() {
 
       {/* Industry-leading Banner - Rillabox-inspired (Sortudo theme) */}
       <section className="relative mb-10 rounded-2xl overflow-hidden border border-[#1f6b4a] bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14]">
+        {/* Background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover z-0"
+          src="/new/bg_home.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        />
         {/* Star field overlay to mimic Rillabox background */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen"
+          className="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen z-10"
           style={{
             backgroundImage: 'radial-gradient(white 1px, transparent 1px)',
             backgroundSize: '6px 6px'
           }}
         />
         {/* Local mascot images on both sides */}
-        <img src="/new/corrected white image.png" alt="Mascot left" className="hidden md:block absolute left-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg" />
-        <img src="/new/corrected white image.png" alt="Mascot right" className="hidden md:block absolute right-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg scale-x-[-1]" />
+        <img src="/new/corrected white image.png" alt="Mascot left" className="hidden md:block absolute z-20 left-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg" />
+        <img src="/new/corrected white image.png" alt="Mascot right" className="hidden md:block absolute z-20 right-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg scale-x-[-1]" />
         {/* Soft shadows under mascots for depth */}
-        <div className="hidden md:block absolute left-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
-        <div className="hidden md:block absolute right-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
-        <div className="relative text-center px-6 py-10 md:py-12">
+        <div className="hidden md:block absolute z-10 left-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
+        <div className="hidden md:block absolute z-10 right-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
+        <div className="relative z-20 text-center px-6 py-10 md:py-12">
           <h2 className="text-white font-semibold max-w-[824px] mx-auto mb-5 text-[20px] md:text-[24px]">
             Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
           </h2>
