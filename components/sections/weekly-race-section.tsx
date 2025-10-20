@@ -52,7 +52,7 @@ export function WeeklyRaceSection() {
 
       <div className="relative bg-gradient-to-br from-[#0d2818] via-[#1a3d2e] to-[#0d2818] rounded-[2rem] p-6 md:p-8 lg:p-10 overflow-hidden">
         {/* Floating boxes */}
-        <div className="absolute top-8 left-8 w-16 h-16 md:w-20 md:h-20 animate-float-slow">
+        <div className="absolute top-6 left-6 w-16 h-16 md:w-24 md:h-24 animate-float-slow pointer-events-none">
           <img
             src="/new/boxcoin.png"
             alt="Box 1"
@@ -68,15 +68,14 @@ export function WeeklyRaceSection() {
           />
         </div> */}
 
-        <div className="absolute bottom-12 left-16 w-10 h-10 md:w-12 md:h-12 animate-float-fast opacity-70">
+        <div className="absolute bottom-5 left-3 w-12 h-12 md:w-14 md:h-14 animate-float-medium opacity-70">
           <img
             src="/new/coin stacked.png"
             alt="Small trophy"
             className="w-full h-full object-contain drop-shadow-xl"
           />
         </div>
- 
-        <div className="absolute bottom-16 right-20 w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 animate-float-slow rotate-12">
+        <div className="absolute top-2 right-2 w-28 h-28 md:w-52 md:h-52 lg:w-64 lg:h-64 animate-float-slow rotate-6 z-0 opacity-100 pointer-events-none">
           <img
             src="/new/box_coin.png"
             alt="Adidas box"
@@ -84,7 +83,7 @@ export function WeeklyRaceSection() {
           />
         </div>
 
-        <div className="absolute top-1/2 left-4 w-8 h-8 md:w-10 md:h-10 animate-float-medium opacity-60">
+        <div className="absolute bottom-6 right-8 w-10 h-10 md:w-12 md:h-12 animate-float-fast opacity-60">
           <img src="/new/coin floor.png" alt="Gift box" className="w-full h-full object-contain drop-shadow-xl" />
         </div>
 
@@ -117,7 +116,7 @@ export function WeeklyRaceSection() {
 
           {/* Right section - Timer and button */}
           <div className="flex flex-col gap-4 lg:ml-auto">
-            <div className="bg-gradient-to-br from-emerald-900/40 to-green-800/40 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-emerald-500/30">
+            <div className="relative z-10 bg-gradient-to-br from-emerald-900/40 to-green-800/40 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-emerald-500/30">
               <h3 className="text-gray-300 text-xs md:text-sm font-medium text-center mb-3 uppercase tracking-wider">
                 Ends In
               </h3>
