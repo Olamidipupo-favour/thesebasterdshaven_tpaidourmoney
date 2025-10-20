@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, Suspense } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone, Volume2, VolumeX, X } from "lucide-react"
+import { Coins, Gift, Star, Zap, Users, Clock, ArrowLeft, Smartphone, Volume2, VolumeX } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { OSortudoLayout } from "@/components/layout/rillabox-layout"
@@ -325,25 +325,53 @@ export default function IPhoneBoxPage() {
     // Target indices for each column
     const targetIndices = modifiedColumnsData.map(col => Math.floor(col.length / 2))
 
-    const easeOutDelay = (progress: number) => {
-      const base = 35
-      const add = 260
-      return (base + add * Math.pow(progress, 2)) * speedMultiplier
-    }
-
     const tick = () => {
       setColumnSpinIndices([...currentIndices])
       playClick()
       steps++
 
-      const progress = Math.min(steps / totalSteps, 1)
+      const progress = steps / totalSteps
 
-      // advance all columns by one step per tick
-      for (let col = 0; col < numColumns; col++) {
-        currentIndices[col] += 1
-      }
+      // Update all columns simultaneously
+        if (progress < 0.7) {
+        // Fast phase
+        for (let col = 0; col < numColumns; col++) {
+          currentIndices[col] += 1
+        }
+          speed = 40 * speedMultiplier
+        } else {
+        // Slow down phase
+          const remainingSteps = totalSteps - steps
+        let allLanded = true
+        
+        for (let col = 0; col < numColumns; col++) {
+          const distanceToTarget = Math.abs(targetIndices[col] - currentIndices[col])
+          
+          if (distanceToTarget > 0) {
+            allLanded = false
+            currentIndices[col] += currentIndices[col] < targetIndices[col] ? 1 : -1
+          }
+        }
+        
+            speed = (50 + (remainingSteps * 8)) * speedMultiplier
+        
+        if (allLanded) {
+          // All columns landed - collect prizes from landed positions
+          const winningItems = targetIndices.map((tIdx, ci) => modifiedColumnsData[ci][tIdx])
+          timeouts.current.push(window.setTimeout(() => {
+            setWonPrizes(winningItems)
+            setIsSpinning(false)
 
-      // keep indices within bounds
+            if (isDemo) {
+              setIsDemoSpinning(false)
+              // Do not auto-reset here; wait for user action via modal
+            }
+          }, 500))
+          return
+        }
+        }
+
+      // Keep in bounds for all columns
       for (let col = 0; col < numColumns; col++) {
         if (currentIndices[col] < 0) currentIndices[col] = 0
         if (currentIndices[col] >= columnsData[col].length) {
@@ -351,24 +379,23 @@ export default function IPhoneBoxPage() {
         }
       }
 
-      const delay = easeOutDelay(progress)
-
+      // Continue ticking
       if (steps < totalSteps) {
-        timeouts.current.push(window.setTimeout(tick, delay))
+        timeouts.current.push(window.setTimeout(tick, speed))
       } else {
-        // snap to targets and finalize
+        // Force land on targets
         for (let col = 0; col < numColumns; col++) {
           currentIndices[col] = targetIndices[col]
         }
         setColumnSpinIndices([...currentIndices])
-
         const winningItems = targetIndices.map((tIdx, ci) => modifiedColumnsData[ci][tIdx])
         timeouts.current.push(window.setTimeout(() => {
           setWonPrizes(winningItems)
           setIsSpinning(false)
-
+          
           if (isDemo) {
             setIsDemoSpinning(false)
+            // Do not auto-reset here; wait for user action via modal
           }
         }, 500))
       }
@@ -978,18 +1005,11 @@ export default function IPhoneBoxPage() {
 
       {/* Win Modal */}
       <Dialog open={isWinModalOpen} onOpenChange={handleWinModalOpenChange}>
-        <DialogContent showCloseButton={false} className="bg-[#121625] text-white max-w-md rounded-2xl border border-white/10">
-          <DialogHeader className="relative">
+        <DialogContent className="bg-[#121625] text-white max-w-md rounded-2xl border border-white/10">
+          <DialogHeader>
             <DialogTitle>
               <div className="bg-[#22c55e] text-black font-extrabold text-center py-3 rounded-xl">YOU WON</div>
             </DialogTitle>
-            <button
-              aria-label="Close"
-              onClick={() => setIsWinModalOpen(false)}
-              className="absolute top-2 right-2 inline-flex items-center justify-center w-8 h-8 rounded-md bg-white/10 hover:bg-white/20 text-white focus:outline-none"
-            >
-              <X className="w-4 h-4" />
-            </button>
           </DialogHeader>
 
           {/* Prize preview */}
@@ -1009,7 +1029,7 @@ export default function IPhoneBoxPage() {
             )}
           </div>
 
-          <DialogFooter className="mt-2 w-full flex flex-col gap-3 sm:flex-col sm:justify-center">
+          <DialogFooter className="mt-2 flex flex-col gap-3">
             <Button onClick={handleOpenAnotherFromModal} className="bg-[#22c55e] hover:bg-[#16a34a] text-black font-semibold w-full">
               Open Another
             </Button>

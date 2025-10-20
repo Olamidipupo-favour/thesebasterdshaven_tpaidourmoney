@@ -55,8 +55,8 @@ const heroBanners = [
   },
   {
     id: 4,
-    desktopImage: "/new/banner 21.png",
-    mobileImage: "/new/banner 21.png",
+    desktopImage: "/new/corrected banner image.png",
+    mobileImage: "/new/corrected banner image.png",
     href: "/",
     alt: "Starter"
   }
@@ -1138,8 +1138,8 @@ export function OSortudoHomepage() {
           }}
         />
         {/* Local mascot images on both sides */}
-        <img src="/new/mascot2.png" alt="Mascot left" className="hidden md:block absolute left-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg" />
-        <img src="/new/mascot2.png" alt="Mascot right" className="hidden md:block absolute right-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg scale-x-[-1]" />
+        <img src="/new/corrected white image.png" alt="Mascot left" className="hidden md:block absolute left-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg" />
+        <img src="/new/corrected white image.png" alt="Mascot right" className="hidden md:block absolute right-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg scale-x-[-1]" />
         {/* Soft shadows under mascots for depth */}
         <div className="hidden md:block absolute left-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
         <div className="hidden md:block absolute right-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
