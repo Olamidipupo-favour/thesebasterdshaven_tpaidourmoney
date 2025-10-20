@@ -136,19 +136,19 @@ export function LoginDialog({ open, onOpenChange, onSwitchToRegister }: LoginDia
           <div className="mt-4">
             <div className="text-center text-xs text-muted-foreground mb-2">Or Continue With</div>
             <div className="grid grid-cols-3 gap-3">
-              <Button type="button" variant="outline" className="h-10 rounded-xl flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-[#1877F2]/20 transition-all">
+              <Button type="button" variant="outline" className="h-10 rounded-xl flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-[#52CA19]/25 transition-all">
                 <span className="w-7 h-7 rounded-full bg-[#1877F2] text-white grid place-items-center group-hover:brightness-110 group-hover:scale-105 transition-transform">
                   <img src="https://rillabox.com/icons/facebook.svg" alt="Facebook" className="h-3.5 w-3.5" loading="lazy" decoding="async" />
                 </span>
                 <span>Facebook</span>
               </Button>
-              <Button type="button" variant="outline" className="h-10 rounded-xl flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-[#4285F4]/20 transition-all">
+              <Button type="button" variant="outline" className="h-10 rounded-xl flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-[#52CA19]/25 transition-all">
                 <span className="w-7 h-7 rounded-full bg-white text-[#4285F4] grid place-items-center group-hover:brightness-110 group-hover:scale-105 transition-transform">
                   <img src="https://rillabox.com/icons/google-icon.svg" alt="Google" className="h-3.5 w-3.5" loading="lazy" decoding="async" />
                 </span>
                 <span>Google</span>
               </Button>
-              <Button type="button" variant="outline" className="h-10 rounded-xl flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-[#1D9BF0]/25 transition-all">
+              <Button type="button" variant="outline" className="h-10 rounded-xl flex items-center justify-center gap-2 group hover:shadow-lg hover:shadow-[#52CA19]/25 transition-all">
                 <span className="w-7 h-7 rounded-full bg-black text-white grid place-items-center group-hover:brightness-110 group-hover:scale-105 transition-transform">
                   <img src="https://rillabox.com/icons/twitter-icon.svg" alt="Twitter" className="h-3.5 w-3.5" loading="lazy" decoding="async" />
                 </span>
