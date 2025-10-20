@@ -55,8 +55,8 @@ const heroBanners = [
   },
   {
     id: 4,
-    desktopImage: "/new/banner 21.png",
-    mobileImage: "/new/banner 21.png",
+    desktopImage: "/new/corrected banner image.png",
+    mobileImage: "/new/corrected banner image.png",
     href: "/",
     alt: "Starter"
   }
@@ -1138,8 +1138,8 @@ export function OSortudoHomepage() {
           }}
         />
         {/* Local mascot images on both sides */}
-        <img src="/new/mascot2.png" alt="Mascot left" className="hidden md:block absolute left-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg" />
-        <img src="/new/mascot2.png" alt="Mascot right" className="hidden md:block absolute right-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg scale-x-[-1]" />
+        <img src="/new/corrected white image.png" alt="Mascot left" className="hidden md:block absolute left-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg" />
+        <img src="/new/corrected white image.png" alt="Mascot right" className="hidden md:block absolute right-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg scale-x-[-1]" />
         {/* Soft shadows under mascots for depth */}
         <div className="hidden md:block absolute left-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
         <div className="hidden md:block absolute right-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
@@ -1192,19 +1192,19 @@ export function OSortudoHomepage() {
         </div>
       </section>
 
-      {/* Payment Methods Bar - Match Design */}
+      {/* Payment Methods Bar - Green theme */}
       <section className="mb-10">
-        <div className="rounded-xl border border-[#1f6b4a] bg-gradient-to-r from-[#0e1f17] via-[#0b1a14] to-[#0e1f17] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+        <div className="rounded-xl border border-[#1f6b4a] bg-gradient-to-r from-[#0a1b14] via-[#0d241b] to-[#0a1b14] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <img src="/new/icons8-magnetic-card-100.png" alt="Payment Icon" className="w-6 h-6" />
-              <span className="inline-flex items-center px-3 py-1 rounded-md bg-[#1f6b4a] text-white text-xs font-semibold tracking-wide">
-                PAYMENT METHODS
-              </span>
+              <div className="w-8 h-8 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#22c55e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="9" x2="22" y2="9"></line></svg>
+              </div>
+              <span className="text-sm md:text-base font-semibold text-foreground">Payment Methods</span>
             </div>
             <div className="flex items-center gap-4 flex-wrap justify-end">
               {paymentMethods.map((method) => (
-                <div key={method.name} className="w-14 h-14 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner">
+                <div key={method.name} className="w-14 h-14 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner hover:border-[#28da6a] hover:bg-[#123323] transition-colors">
                   <img src={method.icon} alt={method.name} className="w-10 h-10 object-contain brightness-110 contrast-110" />
                 </div>
               ))}

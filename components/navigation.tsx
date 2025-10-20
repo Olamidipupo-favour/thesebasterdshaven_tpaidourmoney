@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Home, Gift, Trophy, Coins, Menu, X, User, LogOut, ShoppingBag, ArrowLeftRight } from "lucide-react"
+import { Home, Gift, Trophy, Coins, Menu, X, User, LogOut, ShoppingCart, ArrowLeftRight } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { LoginDialog } from "@/components/auth/login-dialog"
@@ -67,8 +67,8 @@ export function Navigation() {
                   >
                     <DropdownMenuItem asChild className="px-4 py-3 text-base">
                       <Link href="/shop/buy" className="cursor-pointer flex items-center gap-3 w-full">
-                        <ShoppingBag className="w-5 h-5" />
-                        <span>Buy</span>
+                        <ShoppingCart className="w-5 h-5" />
+                         <span>Buy</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />

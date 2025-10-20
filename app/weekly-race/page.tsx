@@ -187,9 +187,9 @@ const leaderboard: Winner[] = [
     placeLabel: "10th",
     prize: "$50.00",
     avatar: {
-      base: "/achieve/sad.png",
-      skin: "/achieve/sad.png",
-      face: "/achieve/sad.png",
+      base: "/achieve/angry face.png",
+      skin: "/achieve/angry face.png",
+      face: "/achieve/angry face.png",
     },
   },
 ]

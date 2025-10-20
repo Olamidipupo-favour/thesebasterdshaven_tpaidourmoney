@@ -8,7 +8,28 @@ import { RegisterDialog } from "@/components/auth/register-dialog"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ArrowLeftRight, Target, Volleyball, Egg } from "lucide-react"
+import type { SVGProps } from "react"
+
+function FootballIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 8l2.5 1.8-.9 2.8h-3.2l-.9-2.8L12 8z" />
+      <path d="M7.3 10.2 5.5 11.4l1.1 2.1 2.1.8" />
+      <path d="M16.7 10.2 18.5 11.4l-1.1 2.1-2.1.8" />
+    </svg>
+  )
+}
+import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ShoppingCart, ArrowLeftRight, Target, Egg } from "lucide-react"
 
 export function RillaboxHeader() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -168,7 +189,7 @@ export function RillaboxHeader() {
                     <span>Find the Prize</span>
                   </Link>
                   <Link href="/crash" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
-                    <Volleyball className="w-4 h-4" />
+                    <FootballIcon className="w-4 h-4" />
                     <span>Soccer Game</span>
                   </Link>
                   <Link href="/plinko" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
@@ -195,7 +216,7 @@ export function RillaboxHeader() {
                 <div aria-hidden className="absolute left-0 top-full w-full h-2"></div>
                 <div className="absolute left-0 top-full mt-1 min-w-[200px] z-[60] block opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto rounded-md border border-border bg-card shadow-md p-1 transition-opacity duration-150">
                   <Link href="/shop/buy" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
-                    <ShoppingBag className="w-4 h-4" />
+                    <ShoppingCart className="w-4 h-4" />
                     <span>Buy</span>
                   </Link>
                   <Link href="/shop/trade" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
@@ -309,7 +330,7 @@ export function RillaboxHeader() {
                   <div className="space-y-2">
                     <Link href="/boxes"><Button variant="outline" className="w-full justify-start"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
                     <Link href="/battles"><Button variant="outline" className="w-full justify-start"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
-                    <Link href="/crash"><Button variant="outline" className="w-full justify-start"><Volleyball className="w-4 h-4 mr-2" />Soccer Game</Button></Link>
+                    <Link href="/crash"><Button variant="outline" className="w-full justify-start"><FootballIcon className="w-4 h-4 mr-2" />Soccer Game</Button></Link>
                     <Link href="/plinko"><Button variant="outline" className="w-full justify-start"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
                   </div>
 
