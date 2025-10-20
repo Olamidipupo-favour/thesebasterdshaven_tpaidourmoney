@@ -1,92 +1,28 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { LiveDropsSidebar } from "@/components/live-drops-sidebar"
 import { Footer } from "@/components/layout/footer"
+import { LiveDropsTopbar } from "@/components/live-drops-topbar"
 
 interface OSortudoLayoutProps {
   children: React.ReactNode
 }
 
 export function OSortudoLayout({ children }: OSortudoLayoutProps) {
-  // Start closed on mobile, open on desktop
-  const [sidebarOpen, setSidebarOpen] = useState(false)
-
-  // Initialize default state based on viewport and listen for open/close events
-  useEffect(() => {
-    const handleInit = () => {
-      if (typeof window !== "undefined") {
-        const isDesktop = window.innerWidth >= 1024 // lg breakpoint
-        setSidebarOpen(isDesktop)
-      }
-    }
-
-    handleInit()
-    window.addEventListener("resize", handleInit)
-
-    const openHandler = () => setSidebarOpen(true)
-    const closeHandler = () => setSidebarOpen(false)
-
-    window.addEventListener("open-live-drops", openHandler as EventListener)
-    window.addEventListener("close-live-drops", closeHandler as EventListener)
-
-    return () => {
-      window.removeEventListener("resize", handleInit)
-      window.removeEventListener("open-live-drops", openHandler as EventListener)
-      window.removeEventListener("close-live-drops", closeHandler as EventListener)
-    }
-  }, [])
 
   return (
     <div className="h-screen overflow-hidden bg-background">
       {/* Navigation is rendered globally via RootLayout; header removed to avoid duplicates */}
 
-      {/* Two-column layout with left Live Drops and right content */}
+      {/* Single-column layout with top Live Drops bar and main content */}
       <div className="flex h-screen overflow-hidden">
-        {/* Left Sidebar - shared LiveDropsSidebar */}
-        {sidebarOpen && (
-          <div className={`bg-sidebar border-r border-sidebar-border transform transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 z-50 w-80 lg:static lg:h-screen lg:z-auto lg:transform-none`}>
-            <LiveDropsSidebar />
-            {/* Mobile close control inside sidebar */}
-            <div className="p-3 border-t border-sidebar-border lg:hidden">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setSidebarOpen(false)}
-                className="w-full justify-center"
-              >
-                <ChevronLeft className="w-4 h-4 mr-2" />
-                Hide
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Overlay for mobile when sidebar is open */}
-        {sidebarOpen && (
-          <div 
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
-
-        {/* Toggle arrow handle (desktop) */}
-        <button
-          type="button"
-          aria-label={sidebarOpen ? "Collapse Live Drops" : "Expand Live Drops"}
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className={`hidden lg:flex items-center justify-center fixed top-1/2 -translate-y-1/2 z-50 rounded-full border border-sidebar-border bg-card/90 hover:bg-card p-2 shadow transition ${sidebarOpen ? "left-80" : "left-2"}`}
-        >
-          {sidebarOpen ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-        </button>
-
-        {/* Right column: main content and footer aligned to the right of sidebar */}
         <div className="flex-1 flex flex-col h-screen overflow-y-auto">
           <main className="flex-1">
             <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-              {children}
+              <LiveDropsTopbar />
+              <div className="mt-4">
+                {children}
+              </div>
             </div>
           </main>
           <Footer />
