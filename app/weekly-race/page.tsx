@@ -202,10 +202,20 @@ function WinnerCard({ winner, rankClass, size = "normal" }: { winner: Winner; ra
   return (
     <div className={`relative ${rankClass === "rank-1" ? "md:-translate-y-4 lg:-translate-y-5" : ""}`}>
       <Card className={`winner-card ${rankClass} rounded-2xl overflow-hidden shadow-md ${cardMinH}`}>
-        <div className="absolute end-0 top-0">
-          {/* <img src="/images/helloween/shape-1.svg" alt="Halloween" className="w-28 h-auto opacity-80" /> */}
+        {/* Decorative layer: coins + mascot */}
+        <div className="pointer-events-none absolute inset-0 z-10">
+          {/* top-left small stack */}
+          <img src="/new/coin%20stacked.png" alt="coins" className="coin-img coin-bob-slow absolute top-3 left-3 w-10 h-auto opacity-80" />
+          {/* bottom-right floor coins */}
+          <img src="/new/coin%20floor.png" alt="coins" className="coin-img coin-bob-medium absolute -bottom-1 right-2 w-16 h-auto opacity-70" />
+          {/* subtle chest near top-right */}
+          <img src="/new/box_coin.png" alt="treasure" className="coin-img coin-bob-fast absolute -top-2 right-3 w-12 h-auto opacity-80" />
+          {/* mascot peek: center-left for all top-3 cards */}
+          <div className="absolute top-1/2 left-3 -translate-y-1/2">
+            <img src="/new/mascot.png" alt="mascot" className="mascot-peek w-12 h-auto opacity-85" />
+          </div>
         </div>
-        <div className={`${pad} flex flex-col items-center gap-3 text-center`}>
+        <div className={`${pad} relative z-20 flex flex-col items-center gap-3 text-center`}>
           <div className="mt-2">
             <AvatarComposer base={winner.avatar.base} skin={winner.avatar.skin} face={winner.avatar.face} female={winner.avatar.female} size={size === "big" ? "lg" : size === "compact" ? "sm" : "md"} />
           </div>
@@ -231,10 +241,12 @@ export default function WeeklyRacePage() {
     <OSortudoLayout>
       <main className="px-4 md:px-6 lg:px-10 py-6 space-y-12">
         {/* Hero Banner */}
-        <section className="relative rounded-3xl overflow-hidden">
-          <div className="absolute inset-0 cups-bg"></div>
-          <div className="relative bg-gradient-to-br from-[#0b1220] via-[#151a2b] to-[#0b1220] rounded-3xl p-6 md:p-8 lg:p-10 animate-borderbox hero-lightpop">
-            <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 items-center">
+        <section className="relative rounded-3xl overflow-hidden hero-border-pop">
+           <div className="absolute inset-0 cups-bg"></div>
+           <div className="relative rounded-3xl p-6 md:p-8 lg:p-10 hero-lightpop overflow-hidden">
+             <video src="/new/10k.mp4" autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0" />
+             <div className="absolute inset-0 bg-black/45 z-10 pointer-events-none" />
+             <div className="relative z-20 grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 items-center">
               {/* Left: Trophy + Text */}
               <div className="flex items-center gap-4">
                 <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
@@ -311,23 +323,35 @@ export default function WeeklyRacePage() {
             </div>
 
             {leaderboard.map((w, idx) => (
-              <div key={w.name} className="flex items-center px-4 py-3 rounded-xl border border-border bg-card">
+              <div key={w.name} className="relative flex items-center px-4 py-3 rounded-xl border border-border bg-card overflow-hidden">
+                {/* Four coin markers (rows 4th–10th) */}
+                 {idx <= 6 && (
+                   <div className="pointer-events-none absolute inset-0 z-0">
+                     <img src="/new/coin%20stacked.png" alt="coins left-1" className="coin-img coin-bob-slow absolute top-1/2 left-[32%] -translate-x-1/2 -translate-y-1/2 w-5 h-auto opacity-85" />
+                     <img src="/new/box_coin.png" alt="treasure left-2" className="coin-img coin-bob-fast absolute top-1/2 left-[44%] -translate-x-1/2 -translate-y-1/2 w-6 h-auto opacity-80" />
+                     <img src="/new/coin%20floor.png" alt="coins right-1" className="coin-img coin-bob-medium absolute top-1/2 left-[62%] -translate-x-1/2 -translate-y-1/2 w-5 h-auto opacity-80" />
+                      <img src="/new/coin%20stacked.png" alt="coins right-2" className="coin-img coin-bob-slow absolute top-1/2 left-[78%] -translate-x-1/2 -translate-y-1/2 w-5 h-auto opacity-85" />
+                   </div>
+                 )}
+                 {/* Place label */}
                 <div className="w-16 text-center text-sm font-semibold text-white/80">{w.placeLabel}</div>
-                <div className="flex-1 flex items-center justify-between flex-wrap gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12">
-                      <AvatarComposer base={w.avatar.base} skin={w.avatar.skin} face={w.avatar.face} female={w.avatar.female} />
+                <div className="relative z-10 flex-1 flex items-center justify-between flex-wrap gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12">
+                        <AvatarComposer base={w.avatar.base} skin={w.avatar.skin} face={w.avatar.face} female={w.avatar.female} />
+                      </div>
+                      <h6 className="text-white text-sm font-medium truncate">{w.name}</h6>
                     </div>
-                    <h6 className="text-white text-sm font-medium truncate">{w.name}</h6>
-                  </div>
-                  <div className="text-white text-sm font-medium">
-                    <span>{w.totalPlayed}</span>
-                  </div>
-                  <div>
+
+                    <div className="text-white text-sm font-medium">
+                      <span>{w.totalPlayed}</span>
+                    </div>
+                   <div className="flex items-center gap-2">
+
                     <Button variant="secondary" className="text-sm">{w.prize}</Button>
                   </div>
-                </div>
-              </div>
+                 </div>
+               </div>
             ))}
           </div>
         </section>

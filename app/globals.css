@@ -560,10 +560,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at center, rgba(82, 202, 25, 0.3) 0%, transparent 70%);
-  animation: lightPop 0.6s ease-out;
+  background: radial-gradient(circle at center, rgba(82, 202, 25, 0.35) 0%, transparent 70%);
+  animation: lightPop 3.2s ease-out infinite;
+  mix-blend-mode: screen;
+  opacity: 0.35;
   pointer-events: none;
-  z-index: 1;
 }
 
 @keyframes lightPop {
@@ -657,8 +658,10 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  background: radial-gradient(circle at center, rgba(82, 202, 25, 0.25) 0%, transparent 70%);
-  animation: lightPop 2.8s ease-out infinite;
+  background: radial-gradient(circle at center, rgba(82, 202, 25, 0.35) 0%, transparent 70%);
+  animation: lightPop 3.2s ease-out infinite;
+  mix-blend-mode: screen;
+  opacity: 0.35;
   pointer-events: none;
 }
 
@@ -926,3 +929,162 @@
 .animate-neon-pulse-outer {
   animation: neon-pulse-outer 3s linear infinite;
 }
+
+/* Live Drops Topbar marquee motion */
+@keyframes liveDropsMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.live-drops-marquee {
+  animation: liveDropsMarquee 28s linear infinite;
+  will-change: transform;
+}
+
+/* Coin overlays and animations for Weekly Race */
+.coin-img {
+  filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.35)) saturate(1.05);
+  will-change: transform, filter, opacity;
+}
+@keyframes coinBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.coin-bob-slow { animation: coinBob 6s ease-in-out infinite; }
+.coin-bob-medium { animation: coinBob 4.5s ease-in-out infinite; }
+.coin-bob-fast { animation: coinBob 3.5s ease-in-out infinite; }
+
+/* Mascot subtle float */
+@keyframes mascotPeek {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+.mascot-peek { animation: mascotPeek 5.5s ease-in-out infinite; filter: drop-shadow(0 0 12px rgba(82, 202, 25, 0.4)); }
+
+@keyframes heroBorderPop {
+  0%, 70%, 100% {
+    box-shadow: inset 0 0 0 2px rgba(82, 202, 25, 0.45), inset 0 0 0 rgba(82, 202, 25, 0);
+  }
+  35% {
+    box-shadow: inset 0 0 0 2px rgba(82, 202, 25, 0.55), inset 0 0 16px rgba(82, 202, 25, 0.45);
+  }
+}
+.hero-border-pop {
+  position: relative;
+  border: 0;
+  box-shadow: inset 0 0 0 2px rgba(164, 113, 255, 0.35), inset 0 0 0 rgba(164, 113, 255, 0); /* purple accent like RillaBox */
+  animation: heroBorderPop 4.8s ease-in-out infinite;
+}
+.hero-border-pop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, transparent 46%, rgba(255,255,255,0.20) 50%, transparent 54%);
+  animation: shineSweep 4.8s ease-in-out infinite;
+  mix-blend-mode: screen;
+  opacity: 0.24;
+  pointer-events: none;
+}
+
+.landing-boxes .box-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(12px 12px at 10px 10px, color-mix(in srgb, var(--accent-color) 55%, transparent), transparent 60%),
+    radial-gradient(12px 12px at calc(100% - 10px) 10px, color-mix(in srgb, var(--accent-color) 55%, transparent), transparent 60%),
+    radial-gradient(12px 12px at 10px calc(100% - 10px), color-mix(in srgb, var(--accent-color) 55%, transparent), transparent 60%),
+    radial-gradient(12px 12px at calc(100% - 10px) calc(100% - 10px), color-mix(in srgb, var(--accent-color) 55%, transparent), transparent 60%),
+    linear-gradient(120deg, transparent 42%, rgba(255,255,255,0.15) 50%, transparent 58%);
+  animation: shineSweep 4s ease-in-out infinite, cornerPulse 2.6s ease-in-out infinite;
+  mix-blend-mode: screen;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+}
+.landing-boxes .box-item:hover::after { opacity: 0.32; }
+
+/* Edge sweep animation across four borders for consistent motion */
+@keyframes edgeSweep {
+  0% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      0% 0%,
+      100% 100%;
+  }
+  50% {
+    background-position:
+      100% 0%,
+      0% 100%,
+      0% 100%,
+      100% 0%;
+  }
+  100% {
+    background-position:
+      0% 0%,
+      100% 100%,
+      0% 0%,
+      100% 100%;
+  }
+}
+
+/* Live drops animations */
+@keyframes neon-pulse {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes neon-pulse-outer {
+  0% {
+    background-position: -300% 0;
+  }
+  100% {
+    background-position: 300% 0;
+  }
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2s linear infinite;
+}
+
+.animate-neon-pulse-outer {
+  animation: neon-pulse-outer 3s linear infinite;
+}
+
+/* Live Drops Topbar marquee motion */
+@keyframes liveDropsMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.live-drops-marquee {
+  animation: liveDropsMarquee 28s linear infinite;
+  will-change: transform;
+}
+
+/* Coin overlays and animations for Weekly Race */
+.coin-img {
+  filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.35)) saturate(1.05);
+  will-change: transform, filter, opacity;
+}
+@keyframes coinBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.coin-bob-slow { animation: coinBob 6s ease-in-out infinite; }
+.coin-bob-medium { animation: coinBob 4.5s ease-in-out infinite; }
+.coin-bob-fast { animation: coinBob 3.5s ease-in-out infinite; }
+
+/* Mascot subtle float */
+@keyframes mascotPeek {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+.mascot-peek { animation: mascotPeek 5.5s ease-in-out infinite; filter: drop-shadow(0 0 12px rgba(82, 202, 25, 0.4)); }

@@ -29,7 +29,7 @@ function FootballIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ShoppingCart, ArrowLeftRight, Target, Egg } from "lucide-react"
+import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ShoppingCart, ArrowLeftRight, Target, Egg, Goal } from "lucide-react"
 
 export function RillaboxHeader() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -189,7 +189,7 @@ export function RillaboxHeader() {
                     <span>Find the Prize</span>
                   </Link>
                   <Link href="/crash" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
-                    <FootballIcon className="w-4 h-4" />
+                    <Goal className="w-4 h-4" />
                     <span>Soccer Game</span>
                   </Link>
                   <Link href="/plinko" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
@@ -330,7 +330,7 @@ export function RillaboxHeader() {
                   <div className="space-y-2">
                     <Link href="/boxes"><Button variant="outline" className="w-full justify-start"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
                     <Link href="/battles"><Button variant="outline" className="w-full justify-start"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
-                    <Link href="/crash"><Button variant="outline" className="w-full justify-start"><FootballIcon className="w-4 h-4 mr-2" />Soccer Game</Button></Link>
+                    <Link href="/crash"><Button variant="outline" className="w-full justify-start"><Goal className="w-4 h-4 mr-2" />Soccer Game</Button></Link>
                     <Link href="/plinko"><Button variant="outline" className="w-full justify-start"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
                   </div>
 

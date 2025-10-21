@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react"
 import { Footer } from "@/components/layout/footer"
-import { LiveDropsTopbar } from "@/components/live-drops-topbar"
 
 interface OSortudoLayoutProps {
   children: React.ReactNode
@@ -19,7 +18,6 @@ export function OSortudoLayout({ children }: OSortudoLayoutProps) {
         <div className="flex-1 flex flex-col h-screen overflow-y-auto">
           <main className="flex-1">
             <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
-              <LiveDropsTopbar />
               <div className="mt-4">
                 {children}
               </div>
