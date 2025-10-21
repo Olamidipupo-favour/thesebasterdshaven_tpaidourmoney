@@ -28,12 +28,10 @@ export function LiveDropsTopbar() {
   const [visibleItems, setVisibleItems] = useState<LiveDropItem[]>([])
 
   useEffect(() => {
-    liveDropsData.forEach((item, index) => {
-      setTimeout(() => {
-        setVisibleItems((prev) => [item, ...prev].slice(0, 12))
-      }, index * 250)
-    })
+    // Show all items immediately on load (no staggered animation)
+    setVisibleItems(liveDropsData.slice(0, 12))
 
+    // Keep periodic updates, but without entry animations
     const interval = setInterval(() => {
       const randomItem = liveDropsData[Math.floor(Math.random() * liveDropsData.length)]
       setVisibleItems((prev) => [randomItem, ...prev].slice(0, 12))
@@ -47,8 +45,8 @@ export function LiveDropsTopbar() {
       <div className="flex items-center justify-between gap-3 mb-3">
         <div className="flex items-center gap-2">
           <div className="relative">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping" />
+            <div className="w-2 h-2 bg-green-500 rounded-full" />
+            <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full" />
           </div>
           <h2 className="text-white text-sm md:text-base font-bold tracking-wide">LIVE DROPS</h2>
         </div>
@@ -89,10 +87,7 @@ function LiveDropCardHorizontal({ item, index }: { item: LiveDropItem; index: nu
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <div
-      className="relative min-w-[220px] max-w-[260px] animate-in slide-in-from-left-4 fade-in duration-500"
-      style={{ animationDelay: `${index * 50}ms`, animationFillMode: "backwards" }}
-    >
+    <div className="relative min-w-[220px] max-w-[260px]">
       <div
         className="absolute -inset-[2px] rounded-xl animate-neon-pulse opacity-70"
         style={{
