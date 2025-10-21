@@ -926,3 +926,14 @@
 .animate-neon-pulse-outer {
   animation: neon-pulse-outer 3s linear infinite;
 }
+
+/* Live Drops Topbar marquee motion */
+@keyframes liveDropsMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.live-drops-marquee {
+  animation: liveDropsMarquee 28s linear infinite;
+  will-change: transform;
+}

@@ -29,6 +29,7 @@ import { useUserBalance, useUserStats } from "@/hooks/use-user"
 import { GamesSection } from "@/components/sections/games-section"
 import { WeeklyRaceSection } from "@/components/sections/weekly-race-section"
 import { StatsSection } from "@/components/sections/stats-section"
+import { LiveDropsTopbar } from "@/components/live-drops-topbar"
 
 // Banner data adapted to provided HTML (desktop/mobile images and links)
 const heroBanners = [
@@ -308,6 +309,11 @@ export function OSortudoHomepage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Live Drops Topbar below banner */}
+      <section className="w-full mb-4 md:mb-6">
+        <LiveDropsTopbar />
       </section>
 
       {/* Game Modes Section - Exact user-provided gamemodes markup */}

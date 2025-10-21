@@ -10,6 +10,7 @@ type LiveDropItem = {
   image: string
   hoverImage: string
   badgeColor: string
+  username?: string
 }
 
 const liveDropsData: LiveDropItem[] = [
@@ -24,17 +25,35 @@ const liveDropsData: LiveDropItem[] = [
   { id: 9, name: "Corsair VENGEANCE LPX", price: 79.4, image: "/corsair-vengeance-ram-memory.jpg", hoverImage: "/mystery-box.png", badgeColor: "#4A7C59" },
 ]
 
+const namePool = [
+  "Amanda L****",
+  "Daniel P****",
+  "Carol O****",
+  "Ricardo J****",
+  "Caio J****",
+  "Bruna S****",
+  "Lucas M****",
+  "Fernanda A****",
+  "Tiago R****",
+  "Mariana C****",
+  "Pedro H****",
+  "Juliana V****",
+]
+
 export function LiveDropsTopbar() {
   const [visibleItems, setVisibleItems] = useState<LiveDropItem[]>([])
 
   useEffect(() => {
-    // Show all items immediately on load (no staggered animation)
-    setVisibleItems(liveDropsData.slice(0, 12))
+    const initial = liveDropsData.slice(0, 12).map((item, i) => ({
+      ...item,
+      username: namePool[i % namePool.length],
+    }))
+    setVisibleItems(initial)
 
-    // Keep periodic updates, but without entry animations
     const interval = setInterval(() => {
       const randomItem = liveDropsData[Math.floor(Math.random() * liveDropsData.length)]
-      setVisibleItems((prev) => [randomItem, ...prev].slice(0, 12))
+      const username = namePool[Math.floor(Math.random() * namePool.length)]
+      setVisibleItems((prev) => [{ ...randomItem, username }, ...prev].slice(0, 12))
     }, 2000)
 
     return () => clearInterval(interval)
@@ -74,10 +93,12 @@ export function LiveDropsTopbar() {
 
       <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent mb-3" />
 
-      <div className="flex items-stretch gap-3 overflow-x-auto no-scrollbar py-1">
-        {visibleItems.map((item, index) => (
-          <LiveDropCardHorizontal key={`${item.id}-${index}`} item={item} index={index} />
-        ))}
+      <div className="overflow-hidden py-1">
+        <div className="live-drops-marquee flex items-stretch gap-3">
+          {[...visibleItems, ...visibleItems].map((item, index) => (
+            <LiveDropCardHorizontal key={`${item.id}-${index}`} item={item} index={index} />
+          ))}
+        </div>
       </div>
     </section>
   )
@@ -129,6 +150,7 @@ function LiveDropCardHorizontal({ item, index }: { item: LiveDropItem; index: nu
           </div>
 
           <div className="flex-1 min-w-0">
+            <p className="text-gray-300 text-[10px] md:text-xs truncate">{item.username}</p>
             <h3 className="text-white font-medium text-xs md:text-sm truncate mb-1">{item.name}</h3>
             <div className="flex items-baseline gap-1">
               <span className="text-gray-400 text-xs">$</span>
