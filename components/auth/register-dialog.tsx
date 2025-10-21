@@ -64,7 +64,8 @@ export function RegisterDialog({ open, onOpenChange, onSwitchToLogin }: Register
               className="h-16 md:h-20 object-contain"
             />
           </div>
-          <img src="/new/mascot2.png" alt="Mascot" className="pointer-events-none absolute -bottom-3 -right-3 w-24 md:w-32 opacity-40" />
+          <img src="/new/boxcoin.png" alt="Pot of gold" className="pointer-events-none absolute -bottom-3 -left-3 w-20 md:w-28 opacity-70 drop-shadow-xl" />
+          <img src="/new/boxcoin.png" alt="Pot of gold" className="pointer-events-none absolute -bottom-3 -right-3 w-20 md:w-28 opacity-70 drop-shadow-xl" />
           <p className="mt-2 text-sm/6 text-center relative">Create your account</p>
         </div>
 
