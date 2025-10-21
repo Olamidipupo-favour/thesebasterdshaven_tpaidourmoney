@@ -1138,7 +1138,7 @@ export function OSortudoHomepage() {
           loop
           playsInline
           preload="metadata"
-          aria-hidden="true"
+          aria-hidden="true" 
         />
         {/* Star field overlay to mimic Rillabox background */}
         <div
