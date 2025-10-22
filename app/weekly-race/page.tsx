@@ -242,9 +242,9 @@ export default function WeeklyRacePage() {
       <main className="px-4 md:px-6 lg:px-10 py-6 space-y-12">
         {/* Hero Banner */}
         <section className="relative rounded-3xl overflow-hidden hero-border-pop">
-           <div className="absolute inset-0 cups-bg"></div>
+           {/* <div className="absolute inset-0 cups-bg"></div> */}
            <div className="relative rounded-3xl p-6 md:p-8 lg:p-10 hero-lightpop overflow-hidden">
-             <video src="/new/10k.mp4" autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0" />
+             {/* <video src="/new/10k.mp4" autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0" /> */}
              <div className="absolute inset-0 bg-black/45 z-10 pointer-events-none" />
              <div className="relative z-20 grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 items-center">
               {/* Left: Trophy + Text */}

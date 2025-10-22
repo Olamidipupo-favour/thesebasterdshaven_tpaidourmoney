@@ -29,7 +29,7 @@ export function FloatingActionButton() {
               <Gift className="w-5 h-5" />
             </Button>
           </Link>
-          <Link href="/battles">
+          <Link href="/">
             <Button
               variant="outline"
               size="sm"
@@ -38,7 +38,7 @@ export function FloatingActionButton() {
               <Trophy className="w-5 h-5" />
             </Button>
           </Link>
-          <Link href="/crash">
+          <Link href="/">
             <Button
               variant="outline"
               size="sm"
@@ -47,7 +47,7 @@ export function FloatingActionButton() {
               <TrendingUp className="w-5 h-5" />
             </Button>
           </Link>
-          <Link href="/plinko">
+          <Link href="/">
             <Button
               variant="outline"
               size="sm"

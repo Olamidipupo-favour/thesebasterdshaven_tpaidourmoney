@@ -4,6 +4,7 @@ import { useState, useRef } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import {
   Gift,
   Swords,
@@ -18,6 +19,8 @@ import {
   Users,
   Clock,
   Zap,
+  Boxes,
+  Egg,
 } from "lucide-react"
 
 interface Game {
@@ -149,9 +152,24 @@ export function GamesSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [hoveredGame, setHoveredGame] = useState<number | null>(null)
   const mysteryVideoRef = useRef<HTMLVideoElement | null>(null)
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null)
 
   const categories = ["all", ...Object.keys(categoryNames)]
   const filteredGames = selectedCategory === "all" ? games : games.filter((game) => game.category === selectedCategory)
+
+  const openGameModal = (game: Game) => {
+    setSelectedGame(game)
+  }
+  const closeGameModal = () => setSelectedGame(null)
+
+  const gameRoute: Record<Game["category"], string> = {
+    mystery: "/boxes",
+    battle: "/",
+    crash: "/",
+    plinko: "/",
+    numbers: "/",
+    earn: "/",
+  }
 
   return (
     <section className="w-full mb-4 md:mb-6">
@@ -159,9 +177,9 @@ export function GamesSection() {
       <div className="grid grid-cols-12 gap-x-0 md:gap-x-4">
         {/* Mystery Boxes - show video paused by default, play on hover */}
         <div className="col-span-6 md:col-span-3">
-          <a
-            className="block group"
-            href="/boxes"
+          <div
+            className="block group cursor-pointer"
+            onClick={() => openGameModal(games[0])}
             onMouseEnter={() => {
               const v = mysteryVideoRef.current
               if (v) {
@@ -179,58 +197,87 @@ export function GamesSection() {
             <div className="rounded-xl border border-border overflow-hidden relative">
               {/* Background fallback image */}
               <img src="/new/mystery box.jpg" alt="Mystery Boxes" className="w-full h-44 md:h-48 object-cover" />
-              {/* Video: visible and paused by default, plays on hover */}
-              {/* <video
-                ref={mysteryVideoRef}
-                src="https://rillabox.com/animations/mistrorybox.mp4"
-                preload="auto"
-                muted
-                loop
-                playsInline
-                onLoadedData={() => {
-                  const v = mysteryVideoRef.current
-                  if (v) {
-                    v.pause()
-                    try { v.currentTime = 0 } catch {}
-                  }
-                }}
-                className="absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-200"
-              /> */}
+              {/* Video intentionally disabled for now */}
             </div>
             <span className="mt-1 md:mt-2 block text-center font-semibold">Mystery Boxes</span>
-          </a>
+          </div>
         </div>
 
         {/* Find the Prize */}
         <div className="col-span-6 md:col-span-3">
-          <a className="block" href="/battles">
+          <div className="block cursor-pointer" onClick={() => openGameModal(games[1])}>
             <div className="rounded-xl border border-border overflow-hidden">
               <img src="/new/find_prize_1.jpg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover" />
             </div>
             <span className="mt-1 md:mt-2 block text-center font-semibold">Find the Prize</span>
-          </a>
+          </div>
         </div>
 
-        {/* Climb to the Top */}
+        {/* Soccer Game */}
         <div className="col-span-6 md:col-span-3">
-          <a className="block" href="/crash">
+          <div className="block cursor-pointer" onClick={() => openGameModal(games[2])}>
             <div className="rounded-xl border border-border overflow-hidden">
               <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-44 md:h-48 object-cover" />
             </div>
             <span className="mt-1 md:mt-2 block text-center font-semibold">Soccer Game</span>
-          </a>
+          </div>
         </div>
 
-        {/* Chicken Road */}
+        {/* Chicken Road with Coming Soon overlay */}
         <div className="col-span-6 md:col-span-3">
-          <a className="block" href="/plinko">
-            <div className="rounded-xl border border-border overflow-hidden">
+          <div className="block cursor-pointer relative" onClick={() => openGameModal(games[3])}>
+            <div className="rounded-xl border border-border overflow-hidden relative">
               <img src="/new/checken_road_1.jpg" alt="Chicken Road" className="w-full h-44 md:h-48 object-cover" />
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                <span className="px-3 py-1 rounded-full bg-yellow-400 text-black font-semibold shadow">Coming Soon</span>
+              </div>
             </div>
             <span className="mt-1 md:mt-2 block text-center font-semibold">Chicken Road</span>
-          </a>
+          </div>
         </div>
       </div>
+
+      {/* Game Pop-up Modal */}
+      <Dialog open={!!selectedGame} onOpenChange={(o) => (o ? null : closeGameModal())}>
+        <DialogContent className="sm:max-w-[520px] bg-card border-border rounded-2xl">
+          <DialogHeader>
+            <DialogTitle>{selectedGame?.name}</DialogTitle>
+            <DialogDescription>{selectedGame?.description}</DialogDescription>
+          </DialogHeader>
+
+          {selectedGame?.name === "Chicken Road" ? (
+            <div className="mt-3">
+              <div className="rounded-lg border border-yellow-400/40 bg-yellow-400/10 p-4 text-yellow-300">
+                This game is coming soon. Check back shortly!
+              </div>
+            </div>
+          ) : (
+            <div className="mt-3">
+              <div className="flex items-center justify-between">
+                <div className="text-sm text-muted-foreground">
+                  Min Bet: {selectedGame?.minBet} • Max Win: {selectedGame?.maxWin}
+                </div>
+                {selectedGame ? (
+                  selectedGame.category === "crash" ? (
+                    <img src="/new/soccer2.png" alt="Soccer" className="w-6 h-6 object-contain" />
+                  ) : selectedGame.category === "mystery" ? (
+                    <Boxes className="w-6 h-6" />
+                  ) : selectedGame.category === "battle" ? (
+                    <Target className="w-6 h-6" />
+                  ) : selectedGame.category === "plinko" ? (
+                    <Egg className="w-6 h-6" />
+                  ) : null
+                ) : null}
+              </div>
+              <div className="mt-4">
+                <a href={selectedGame ? gameRoute[selectedGame.category] : "/"}>
+                  <Button className="w-full">Go to Game</Button>
+                </a>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }

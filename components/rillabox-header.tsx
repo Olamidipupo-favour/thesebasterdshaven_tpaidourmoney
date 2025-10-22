@@ -184,15 +184,16 @@ export function RillaboxHeader() {
                     <Boxes className="w-4 h-4" />
                     <span>Mystery Boxes</span>
                   </Link>
-                  <Link href="/battles" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                  <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <Target className="w-4 h-4" />
                     <span>Find the Prize</span>
                   </Link>
-                  <Link href="/crash" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
-                    <Goal className="w-4 h-4" />
+                  <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                    {/* Replace icon with soccer.png */}
+                    <img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 object-contain" />
                     <span>Soccer Game</span>
                   </Link>
-                  <Link href="/plinko" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                  <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <Egg className="w-4 h-4" />
                     <span>Chicken Road</span>
                   </Link>
@@ -329,9 +330,9 @@ export function RillaboxHeader() {
 
                   <div className="space-y-2">
                     <Link href="/boxes"><Button variant="outline" className="w-full justify-start"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
-                    <Link href="/battles"><Button variant="outline" className="w-full justify-start"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
-                    <Link href="/crash"><Button variant="outline" className="w-full justify-start"><Goal className="w-4 h-4 mr-2" />Soccer Game</Button></Link>
-                    <Link href="/plinko"><Button variant="outline" className="w-full justify-start"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
+                    <Link href="/"><Button variant="outline" className="w-full justify-start"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
+                    <Link href="/"><Button variant="outline" className="w-full justify-start"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</Button></Link>
+                    <Link href="/"><Button variant="outline" className="w-full justify-start"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
                   </div>
 
                   <div className="pt-2 border-t border-border">
