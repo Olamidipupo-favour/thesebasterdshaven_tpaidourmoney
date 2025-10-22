@@ -1071,14 +1071,14 @@ export default function IPhoneBoxPage() {
           </div>
 
           <DialogFooter className="mt-2 flex flex-col gap-3">
-            <Button onClick={handleOpenAnotherFromModal} className="bg-[#22c55e] hover:bg-[#16a34a] text-black font-semibold w-full">
+            <Button onClick={handleOpenAnotherFromModal} className="bg-[#22c55e] hover:bg-[#16a34a] text-black font-semibold w-full h-11 rounded-xl text-[15px]">
               Open Another
             </Button>
-            <Button onClick={handleSellPrize} className="bg-[#2d3548] hover:bg-[#353d52] text-white w-full">
+            <Button onClick={handleSellPrize} className="bg-[#2d3548] hover:bg-[#353d52] text-white w-full h-11 rounded-xl text-[15px]">
               Sell for ${wonPrizes[0] ? Number(wonPrizes[0].value).toFixed(2) : "0.00"}
             </Button>
             <Link href="/boxes" className="w-full">
-              <Button variant="ghost" className="w-full text-white/80 hover:text-white hover:bg-white/10">
+              <Button variant="ghost" className="w-full h-11 rounded-xl text-[15px] text-white/80 hover:text-white hover:bg-white/10">
                 Return to Boxes
               </Button>
             </Link>
