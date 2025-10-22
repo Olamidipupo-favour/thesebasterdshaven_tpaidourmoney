@@ -51,8 +51,9 @@ export function LoginDialog({ open, onOpenChange, onSwitchToRegister }: LoginDia
               className="h-14 md:h-16 object-contain"
             />
           </div>
-          <img src="/new/boxcoin.png" alt="Pot of gold" className="pointer-events-none absolute -bottom-3 -left-3 w-20 md:w-28 opacity-70 drop-shadow-xl" />
-          <img src="/new/boxcoin.png" alt="Pot of gold" className="pointer-events-none absolute -bottom-3 -right-3 w-20 md:w-28 opacity-70 drop-shadow-xl" />
+          {/* Replace gold pot accents with lucky leaf images */}
+          <img src="/leaves/leaves%203.png" alt="Lucky leaf" className="pointer-events-none absolute -bottom-3 -left-3 w-20 md:w-28 opacity-80 drop-shadow-xl" />
+          <img src="/leaves/leaves%203.png" alt="Lucky leaf" className="pointer-events-none absolute -bottom-3 -right-3 w-20 md:w-28 opacity-80 drop-shadow-xl" />
           <p className="mt-2 text-sm/6 text-center relative">Welcome back! 👋</p>
         </div>
 
