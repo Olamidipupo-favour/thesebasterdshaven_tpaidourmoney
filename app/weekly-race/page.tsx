@@ -209,7 +209,7 @@ function WinnerCard({ winner, rankClass, size = "normal" }: { winner: Winner; ra
           {/* bottom-right floor coins */}
           <img src="/new/coin%20floor.png" alt="coins" className="coin-img coin-bob-medium absolute -bottom-1 right-2 w-16 h-auto opacity-70" />
           {/* subtle chest near top-right */}
-          <img src="/new/box_coin.png" alt="treasure" className="coin-img coin-bob-fast absolute -top-2 right-3 w-12 h-auto opacity-80" />
+          <img src="/new/box.png" alt="treasure" className="coin-img coin-bob-fast absolute -top-2 right-3 w-12 h-auto opacity-80" />
           {/* mascot peek: center-left for all top-3 cards */}
           <div className="absolute top-1/2 left-3 -translate-y-1/2">
             <img src="/new/mascot.png" alt="mascot" className="mascot-peek w-12 h-auto opacity-85" />

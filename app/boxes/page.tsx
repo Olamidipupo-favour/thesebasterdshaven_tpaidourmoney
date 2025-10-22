@@ -415,13 +415,23 @@ export default function BoxesPage() {
   return (
     <OSortudoLayout>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            {/* Header - Exact Rillabox Style */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h1 className="text-3xl font-bold text-foreground mb-2">Mystery Boxes</h1>
-                  <p className="text-muted-foreground">Open boxes and win amazing prizes</p>
-                </div>
+        {/* Top Banner */}
+        <div className="mb-8">
+          <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-64 xl:h-72 rounded-2xl overflow-hidden">
+            <img
+              src="/new/Mystery%20Boxes%20page%20banner.png"
+              alt="Mystery Boxes banner"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
+        </div>
+         {/* Header - Exact Rillabox Style */}
+         <div className="mb-8">
+           <div className="flex items-center justify-between mb-6">
+             <div>
+               <h1 className="text-3xl font-bold text-foreground mb-2">Mystery Boxes</h1>
+               <p className="text-muted-foreground">Open boxes and win amazing prizes</p>
+             </div>
                 {isAuthenticated && user && (
                   <div className="flex items-center space-x-2 bg-primary/10 px-4 py-2 rounded-lg">
                     <Coins className="w-5 h-5 text-primary" />
