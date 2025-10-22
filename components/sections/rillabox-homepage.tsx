@@ -1135,7 +1135,8 @@ export function OSortudoHomepage() {
 
       {/* Industry-leading Banner - Rillabox-inspired (Sortudo theme) */}
       <section className="relative mb-10 rounded-2xl overflow-hidden border border-[#1f6b4a] bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14]">
-        {/* Background video */}
+        {/* Old background disabled per request */}
+        {/**
         <video
           className="absolute inset-0 w-full h-full object-cover z-0"
           src="/new/bg_home.mp4"
@@ -1146,7 +1147,6 @@ export function OSortudoHomepage() {
           preload="metadata"
           aria-hidden="true" 
         />
-        {/* Star field overlay to mimic Rillabox background */}
         <div
           className="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen z-10"
           style={{
@@ -1154,12 +1154,33 @@ export function OSortudoHomepage() {
             backgroundSize: '6px 6px'
           }}
         />
-        {/* Local mascot images on both sides */}
         <img src="/new/corrected white image.png" alt="Mascot left" className="hidden md:block absolute z-20 left-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg" />
         <img src="/new/corrected white image.png" alt="Mascot right" className="hidden md:block absolute z-20 right-4 bottom-0 w-28 h-28 md:w-40 md:h-40 drop-shadow-lg scale-x-[-1]" />
-        {/* Soft shadows under mascots for depth */}
         <div className="hidden md:block absolute z-10 left-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
         <div className="hidden md:block absolute z-10 right-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
+        */}
+
+        {/* Animated leaves background */}
+        <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '6%', width: '42px', opacity: 0.8, animation: 'leaf-rise 14s linear -1s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '14%', width: '36px', opacity: 0.75, animation: 'leaf-rise 16s linear -5s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '22%', width: '48px', opacity: 0.85, animation: 'leaf-rise 18s linear -9s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '30%', width: '34px', opacity: 0.7, animation: 'leaf-rise 12s linear -3s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '38%', width: '44px', opacity: 0.8, animation: 'leaf-rise 17s linear -7s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '46%', width: '40px', opacity: 0.78, animation: 'leaf-rise 15s linear -11s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '54%', width: '34px', opacity: 0.72, animation: 'leaf-rise 13s linear -4s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '62%', width: '46px', opacity: 0.82, animation: 'leaf-rise 18s linear -8s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '70%', width: '38px', opacity: 0.77, animation: 'leaf-rise 16s linear -2s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '78%', width: '42px', opacity: 0.84, animation: 'leaf-rise 20s linear -10s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '86%', width: '36px', opacity: 0.75, animation: 'leaf-rise 14s linear -6s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '94%', width: '44px', opacity: 0.8, animation: 'leaf-rise 19s linear -12s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '2%', width: '34px', opacity: 0.7, animation: 'leaf-rise 12s linear -8s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '18%', width: '40px', opacity: 0.76, animation: 'leaf-rise 15s linear -13s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '35%', width: '46px', opacity: 0.83, animation: 'leaf-rise 21s linear -5s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '57%', width: '38px', opacity: 0.75, animation: 'leaf-rise 16s linear -9s infinite' }} />
+          <img src="/leaves/leave%204.png" alt="" className="absolute leaf-sprite drop-shadow-[0_0_8px_rgba(34,197,94,0.25)]" style={{ left: '73%', width: '34px', opacity: 0.72, animation: 'leaf-rise 13s linear -3s infinite' }} />
+        </div>
+
         <div className="relative z-20 text-center px-6 py-10 md:py-12">
           <h2 className="text-white font-semibold max-w-[824px] mx-auto mb-5 text-[20px] md:text-[24px]">
             Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
@@ -1172,6 +1193,19 @@ export function OSortudoHomepage() {
             <img src="/icons/landing/button-right-arrow.svg" alt="button-right-arrow" className="w-4 h-4" />
           </Button>
         </div>
+
+        <img src="/new/box_coin.png" alt="Box of coins left" className="hidden md:block absolute z-20 left-3 md:left-4 bottom-0 w-24 h-24 md:w-36 md:h-36 drop-shadow-lg" />
+        <img src="/new/box_coin.png" alt="Box of coins right" className="hidden md:block absolute z-20 right-3 md:right-4 bottom-0 w-24 h-24 md:w-36 md:h-36 drop-shadow-lg scale-x-[-1]" />
+        <div className="hidden md:block absolute z-10 left-6 bottom-2 w-24 md:w-28 h-5 md:h-6 rounded-full bg-black/40 blur-md opacity-40" />
+        <div className="hidden md:block absolute z-10 right-6 bottom-2 w-24 md:w-28 h-5 md:h-6 rounded-full bg-black/40 blur-md opacity-40" />
+
+        <style jsx>{`
+          .leaf-sprite { transform: translateY(100%); will-change: transform; }
+          @keyframes leaf-rise {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(-120%); }
+          }
+        `}</style>
       </section>
 
       {/* Features Grid - Three Cards (Green accent) */}

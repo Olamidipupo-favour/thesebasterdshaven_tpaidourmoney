@@ -1037,12 +1037,19 @@ export default function IPhoneBoxPage() {
 
       {/* Win Modal */}
       <Dialog open={isWinModalOpen} onOpenChange={handleWinModalOpenChange}>
-        <DialogContent className="relative overflow-hidden bg-gradient-to-b from-[#0a121f] to-[#101a2a] text-white max-w-md rounded-2xl border border-white/10 shadow-2xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <DialogContent className="relative overflow-hidden bg-gradient-to-b from-[#0a121f] to-[#0f1a28] text-white max-w-md rounded-2xl border border-white/10 shadow-2xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 backdrop-blur-xl ring-1 ring-white/10">
           <div className="absolute inset-0 pointer-events-none opacity-80" style={{ background: 'radial-gradient(40% 40% at 50% 40%, rgba(34,197,94,.25), transparent 60%), radial-gradient(30% 30% at 30% 70%, rgba(59,130,246,.18), transparent 60%), radial-gradient(30% 30% at 70% 70%, rgba(250,204,21,.15), transparent 60%)', filter: 'blur(20px)' }} />
 
-          <DialogHeader>
+          <div className=\"absolute inset-0 pointer-events-none z-0\">
+            <img src=\"/leaves/leave%204.png\" alt=\"\" className=\"absolute w-8 opacity-80 top-3 left-3 -rotate-[15deg]\" />
+            <img src=\"/leaves/leave%204.png\" alt=\"\" className=\"absolute w-7 opacity-70 top-2 right-6 rotate-[12deg]\" />
+            <img src=\"/leaves/leave%204.png\" alt=\"\" className=\"absolute w-10 opacity-80 bottom-6 left-4 rotate-[8deg]\" />
+            <img src=\"/leaves/leave%204.png\" alt=\"\" className=\"absolute w-9 opacity-75 bottom-4 right-5 -rotate-12\" />
+          </div>
+
+          <DialogHeader className=\"relative z-10\">
             <DialogTitle>
-              <div className="bg-[#22c55e] text-black font-extrabold text-center py-3 rounded-xl">YOU WON</div>
+              <div className=\"bg-[#22c55e] text-black font-extrabold text-center py-3 rounded-xl shadow-[0_2px_10px_rgba(34,197,94,0.35)]\">YOU WON</div>
             </DialogTitle>
           </DialogHeader>
 
