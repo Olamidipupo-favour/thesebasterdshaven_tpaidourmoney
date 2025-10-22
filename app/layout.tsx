@@ -7,6 +7,7 @@ import { Suspense } from "react"
 import "./globals.css"
 import { SocketProvider } from "@/components/socket-provider"
 import { RillaboxHeader } from "@/components/rillabox-header"
+import { TawkWidget } from "@/components/tawk-widget"
 
 export const metadata: Metadata = {
   title: "O Sortudo - Irish Gaming Platform",
@@ -27,6 +28,8 @@ export default function RootLayout({
           <Suspense fallback={null}>{children}</Suspense>
         </SocketProvider>
         <Analytics />
+        {/* Global Tawk.to chat widget */}
+        <TawkWidget />
       </body>
     </html>
   )
