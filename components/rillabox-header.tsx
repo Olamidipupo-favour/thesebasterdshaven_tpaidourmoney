@@ -228,8 +228,8 @@ export function RillaboxHeader() {
               </div>
 
               {/* Weekly race banner */}
-              <Link href="/weekly-race" title="10k Race" className="hidden lg:flex items-center overflow-hidden flex-shrink-0 px-3 py-2 rounded-md bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600">
-                <Trophy className="w-5 h-5 text-amber-700 mr-2" />
+              <Link href="/weekly-race" title="10k Race" className="hidden lg:flex group items-center overflow-hidden flex-shrink-0 px-3 py-2 rounded-md bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-amber-500/30 hover:brightness-110">
+                <Trophy className="w-5 h-5 text-amber-700 mr-2 group-hover:animate-bounce" />
                 <div className="flex items-center gap-2">
                   <span className="text-black font-semibold italic">$10k Race</span>
                   <div className="flex items-center gap-1 text-black">
