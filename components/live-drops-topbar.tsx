@@ -65,7 +65,7 @@ export function LiveDropsTopbar() {
         {/* Left label: LIVE DROPS (like AO VIVO) */}
         <div className="relative flex-shrink-0 min-w-[130px] pl-3 pr-4 py-1.5 flex items-center">
           <div
-            className="absolute inset-y-0 -left-2 right-0 rounded-xl pointer-events-none opacity-80 blur-md"
+            className="absolute inset-y-0 -left-2 -right-8 rounded-xl pointer-events-none opacity-80 blur-md"
             style={{
               background:
                 "linear-gradient(90deg, rgba(16,185,129,0.35) 0%, rgba(16,185,129,0.2) 40%, transparent 100%)",
@@ -76,18 +76,36 @@ export function LiveDropsTopbar() {
             <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping" />
           </div>
           <div className="relative z-10 flex flex-col leading-tight">
-            <span className="text-white text-sm md:text-base xl:text-lg font-extrabold tracking-wider">LIVE</span>
-            <span className="text-white text-sm md:text-base xl:text-lg font-extrabold tracking-wider">DROPS</span>
+            <span className="text-white text-xs md:text-sm xl:text-base font-extrabold tracking-wider">LIVE</span>
+            <span className="text-white text-xs md:text-sm xl:text-base font-extrabold tracking-wider">DROPS</span>
           </div>
         </div>
 
         {/* Items to the right */}
-        <div className="flex-1 overflow-hidden py-0.5">
+        <div
+          className="flex-1 relative overflow-hidden py-0.5"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0, black 84px, black 100%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0, black 84px, black 100%)",
+          }}
+        >
           <div className="live-drops-marquee flex items-stretch gap-2">
             {[...visibleItems, ...visibleItems].map((item, index) => (
               <LiveDropCardHorizontal key={`${item.id}-${index}`} item={item} index={index} />
             ))}
           </div>
+
+          {/* Soft fades on both edges to avoid hard borders */}
+          <div
+            className="pointer-events-none absolute inset-y-0 left-0 w-28 z-10"
+            style={{
+              background:
+                "radial-gradient(100% 80% at 0% 50%, rgba(10,31,26,0.95) 0%, rgba(10,31,26,0.8) 40%, transparent 80%)",
+            }}
+          />
+
         </div>
       </div>
     </section>
@@ -140,11 +158,11 @@ function LiveDropCardHorizontal({ item, index }: { item: LiveDropItem; index: nu
           </div>
 
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-gray-300 text-[10px] md:text-xs truncate">{item.username}</p>
-            <h3 className="text-white font-medium text-[10px] md:text-sm truncate mb-0.5">{item.name}</h3>
+            <p className="text-gray-300 text-[9px] md:text-[11px] truncate">{item.username}</p>
+            <h3 className="text-white font-medium text-[9px] md:text-xs truncate mb-0.5">{item.name}</h3>
             <div className="flex items-baseline gap-1">
-              <span className="text-yellow-400 text-[11px]">$</span>
-              <span className="text-yellow-400 font-bold text-[13px] md:text-base">{item.price.toFixed(2)}</span>
+              <span className="text-yellow-400 text-[10px]">$</span>
+              <span className="text-yellow-400 font-bold text-[12px] md:text-sm">{item.price.toFixed(2)}</span>
             </div>
           </div>
         </div>
