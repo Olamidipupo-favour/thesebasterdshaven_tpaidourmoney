@@ -14,6 +14,9 @@
 		},
 		{
 			"path": "../../../v0-recreate-live-drops"
+		},
+		{
+			"path": "../../../v0-irish-theme-animation"
 		}
 	],
 	"settings": {}

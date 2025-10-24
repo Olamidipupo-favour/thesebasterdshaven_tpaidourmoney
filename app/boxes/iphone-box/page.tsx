@@ -9,6 +9,7 @@ import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { OSortudoLayout } from "@/components/layout/rillabox-layout"
 import dynamic from "next/dynamic"
+import WinningModal from "@/components/winning-modal"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 const Box3D = dynamic(() => import("@/components/animations/box-3d").then(mod => ({ default: mod.Box3D })), {
@@ -566,6 +567,29 @@ export default function IPhoneBoxPage() {
           from { box-shadow: 0 0 30px currentColor, 0 0 50px currentColor; }
           to { box-shadow: 0 0 50px currentColor, 0 0 80px currentColor, 0 0 100px currentColor; }
         }
+        @keyframes boxContinuousShake {
+          0%, 100% { transform: rotate(0deg); }
+          15% { transform: rotate(-0.6deg) translateY(-0.5px); }
+          30% { transform: rotate(0.5deg) translateX(0.6px); }
+          45% { transform: rotate(-0.4deg) translateY(0.5px); }
+          60% { transform: rotate(0.4deg) translateX(-0.5px); }
+          75% { transform: rotate(-0.3deg); }
+          90% { transform: rotate(0.2deg); }
+        }
+        .box-shake {
+          animation: boxContinuousShake 2.6s ease-in-out infinite;
+          transform-origin: center center;
+          will-change: transform;
+        }
+        .box-aura {
+          position: absolute;
+          inset: -24px;
+          border-radius: 30px;
+          background: radial-gradient(circle at center, rgba(34,197,94,0.30) 0%, rgba(34,197,94,0.15) 38%, transparent 70%);
+          filter: blur(14px);
+          pointer-events: none;
+          z-index: -1;
+        }
       `}</style>
       {/* Main Content - Exact Rillabox Layout */}
       <div>
@@ -760,13 +784,16 @@ export default function IPhoneBoxPage() {
                 onMouseEnter={() => setIsBoxHovered(true)}
                 onMouseLeave={() => setIsBoxHovered(false)}
               >
-                <Suspense fallback={<div className="w-[240px] h-[240px]"></div>}>
-                  <Box3D
-                    isHovered={isBoxHovered}
-                    boxOpening={boxOpening}
-                    boxDisappearing={boxDisappearing}
-                  />
-                </Suspense>
+                <div className="relative box-shake">
+                  <div className="box-aura" />
+                  <Suspense fallback={<div className="w-[240px] h-[240px]"></div>}>
+                    <Box3D
+                      isHovered={isBoxHovered}
+                      boxOpening={boxOpening}
+                      boxDisappearing={boxDisappearing}
+                    />
+                  </Suspense>
+                </div>
               </div>
             )}
 
@@ -1027,64 +1054,17 @@ export default function IPhoneBoxPage() {
         </div>
       </div>
 
-      {/* Win Effects */}
-      {isWinModalOpen && (
-        <>
-          <LeavesCoinsRain active={true} />
-          <ConfettiBurst active={true} />
-        </>
-      )}
+      {/* Win Effects removed per request: no falling particles */}
 
       {/* Win Modal */}
-      <Dialog open={isWinModalOpen} onOpenChange={handleWinModalOpenChange}>
-        <DialogContent className="relative overflow-hidden bg-gradient-to-b from-[#0a121f] to-[#0f1a28] text-white max-w-md rounded-2xl border border-white/10 shadow-2xl fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 backdrop-blur-xl ring-1 ring-white/10">
-          <div className="absolute inset-0 pointer-events-none opacity-80" style={{ background: 'radial-gradient(40% 40% at 50% 40%, rgba(34,197,94,.25), transparent 60%), radial-gradient(30% 30% at 30% 70%, rgba(59,130,246,.18), transparent 60%), radial-gradient(30% 30% at 70% 70%, rgba(250,204,21,.15), transparent 60%)', filter: 'blur(20px)' }} />
-
-          <div className="absolute inset-0 pointer-events-none z-0">
-            <img src="/leaves/leave%204.png" alt="" className="absolute w-8 opacity-80 top-3 left-3 -rotate-[15deg]" />
-            <img src="/leaves/leave%204.png" alt="" className="absolute w-7 opacity-70 top-2 right-6 rotate-[12deg]" />
-            <img src="/leaves/leave%204.png" alt="" className="absolute w-10 opacity-80 bottom-6 left-4 rotate-[8deg]" />
-            <img src="/leaves/leave%204.png" alt="" className="absolute w-9 opacity-75 bottom-4 right-5 -rotate-12" />
-          </div>
-
-          <DialogHeader className="relative z-10">
-            <DialogTitle>
-              <div className="bg-[#22c55e] text-black font-extrabold text-center py-3 rounded-xl shadow-[0_2px_10px_rgba(34,197,94,0.35)]">YOU WON</div>
-            </DialogTitle>
-          </DialogHeader>
-
-          {/* Prize preview */}
-          <div className="flex flex-col items-center justify-center mt-4">
-            {wonPrizes[0] && (
-              <>
-                <div className="relative w-40 h-40 mb-3 flex items-center justify-center">
-                  <img src={wonPrizes[0].image} alt={wonPrizes[0].name} className="w-full h-full object-contain" />
-                  <Badge className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-[#22c55e] text-black font-bold px-3 py-1 rounded-full shadow-lg">
-                    ${Number(wonPrizes[0].value).toFixed(2)}
-                  </Badge>
-                </div>
-                <p className="text-sm text-white/80 mb-6 text-center">
-                  {wonPrizes[0].name}
-                </p>
-              </>
-            )}
-          </div>
-
-          <DialogFooter className="mt-2 flex flex-col gap-3">
-            <Button onClick={handleOpenAnotherFromModal} className="bg-[#22c55e] hover:bg-[#16a34a] text-black font-semibold w-full h-11 rounded-xl text-[15px]">
-              Open Another
-            </Button>
-            <Button onClick={handleSellPrize} className="bg-[#2d3548] hover:bg-[#353d52] text-white w-full h-11 rounded-xl text-[15px]">
-              Sell for ${wonPrizes[0] ? Number(wonPrizes[0].value).toFixed(2) : "0.00"}
-            </Button>
-            <Link href="/boxes" className="w-full">
-              <Button variant="ghost" className="w-full h-11 rounded-xl text-[15px] text-white/80 hover:text-white hover:bg-white/10">
-                Return to Boxes
-              </Button>
-            </Link>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {isWinModalOpen && wonPrizes[0] && (
+        <WinningModal
+          onClose={() => handleWinModalOpenChange(false)}
+          productName={wonPrizes[0].name}
+          productPrice={`$${Number(wonPrizes[0].value).toFixed(2)}`}
+          productImage={wonPrizes[0].image}
+        />
+      )}
     </OSortudoLayout>
   )
 }

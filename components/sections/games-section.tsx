@@ -23,6 +23,8 @@ import {
   Egg,
 } from "lucide-react"
 
+import Link from "next/link"
+
 interface Game {
   id: number
   name: string
@@ -177,22 +179,9 @@ export function GamesSection() {
       <div className="grid grid-cols-12 gap-x-0 md:gap-x-4">
         {/* Mystery Boxes - show video paused by default, play on hover */}
         <div className="col-span-6 md:col-span-3">
-          <div
+          <Link
+            href="/boxes"
             className="block group cursor-pointer"
-            onClick={() => openGameModal(games[0])}
-            onMouseEnter={() => {
-              const v = mysteryVideoRef.current
-              if (v) {
-                v.play().catch(() => {})
-              }
-            }}
-            onMouseLeave={() => {
-              const v = mysteryVideoRef.current
-              if (v) {
-                v.pause()
-                try { v.currentTime = 0 } catch {}
-              }
-            }}
           >
             <div className="rounded-xl border border-border overflow-hidden relative transition-all duration-300 group-hover:ring-2 group-hover:ring-[#22c55e]/50 group-hover:shadow-[0_8px_28px_rgba(34,197,94,0.25)]">
               {/* Background fallback image */}
@@ -202,29 +191,29 @@ export function GamesSection() {
               {/* Video intentionally disabled for now */}
             </div>
             <span className="mt-1 md:mt-2 block text-center font-semibold">Mystery Boxes</span>
-          </div>
+          </Link>
         </div>
 
         {/* Find the Prize */}
         <div className="col-span-6 md:col-span-3">
-          <div className="block group cursor-pointer" onClick={() => openGameModal(games[1])}>
+          <Link href="/" className="block group cursor-pointer">
             <div className="rounded-xl border border-border overflow-hidden relative transition-all duration-300 group-hover:ring-2 group-hover:ring-[#22c55e]/50 group-hover:shadow-[0_8px_28px_rgba(34,197,94,0.25)]">
               <img src="/new/find_prize_1.jpg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <span className="mt-1 md:mt-2 block text-center font-semibold">Find the Prize</span>
-          </div>
+          </Link>
         </div>
 
         {/* Soccer Game */}
         <div className="col-span-6 md:col-span-3">
-          <div className="block group cursor-pointer" onClick={() => openGameModal(games[2])}>
+          <Link href="/" className="block group cursor-pointer">
             <div className="rounded-xl border border-border overflow-hidden relative transition-all duration-300 group-hover:ring-2 group-hover:ring-[#22c55e]/50 group-hover:shadow-[0_8px_28px_rgba(34,197,94,0.25)]">
               <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-44 md:h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <span className="mt-1 md:mt-2 block text-center font-semibold">Soccer Game</span>
-          </div>
+          </Link>
         </div>
 
         {/* Chicken Road with Coming Soon overlay */}
