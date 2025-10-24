@@ -406,6 +406,8 @@ export default function BoxesPage() {
   const { user, isAuthenticated } = useAuth()
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [selectedBox, setSelectedBox] = useState<string | null>(null)
+  const [showBoxModal, setShowBoxModal] = useState(false)
+  const [activeBox, setActiveBox] = useState<Box | null>(null)
 
   const categories = ["all", "Electronics", "Gaming", "Fashion", "Technology"]
   const filteredBoxes = selectedCategory === "all" 
@@ -419,7 +421,7 @@ export default function BoxesPage() {
         <div className="mb-8">
           <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-64 xl:h-72 rounded-2xl overflow-hidden">
             <img
-              src="/new/Mystery%20Boxes%20page%20banner.png"
+              src="/new/mystery box banner.png"
               alt="Mystery Boxes banner"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -460,11 +462,14 @@ export default function BoxesPage() {
             {/* Boxes Grid - Homepage card markup */}
             <div className="boxes-container landing-boxes grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {filteredBoxes.map((box) => (
-                <Link
+                <div
                   key={box.id}
-                  href={box.id === "1-percent-iphone" ? "/boxes/iphone-box" : `/boxes/${box.id}`}
+                  onClick={() => { setActiveBox(box); setShowBoxModal(true); }}
                   className="box-item relative"
                   style={{ "--accent-color": box.borderColor } as React.CSSProperties}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => { if (e.key === 'Enter') { setActiveBox(box); setShowBoxModal(true); } }}
                 >
                   {/* Decorative vector like homepage */}
                   {/* <img src="/images/helloween/vector-3.svg" alt="" className="vector-halloween" /> */}
@@ -502,9 +507,53 @@ export default function BoxesPage() {
                   </div>
 
                   {/* Removed top/bottom brand color bars; hover glow handled by CSS */}
-                </Link>
+                </div>
               ))}
             </div>
+
+            {/* Box Details Modal */}
+            <Dialog open={showBoxModal} onOpenChange={(open) => setShowBoxModal(open)}>
+              <DialogContent className="max-w-md rounded-2xl">
+                <DialogHeader>
+                  <DialogTitle>{activeBox?.name || "Mystery Box"}</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div className="w-full h-48 bg-muted/20 rounded-xl overflow-hidden flex items-center justify-center">
+                    {activeBox && (
+                      <img
+                        src={activeBox.image}
+                        alt={activeBox.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg" }}
+                      />
+                    )}
+                  </div>
+                  {activeBox && (
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-muted-foreground">Price</p>
+                        <p className="text-xl font-bold text-primary">${Number(activeBox.currentPrice).toFixed(2)}</p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-muted-foreground">Coins</p>
+                        <p className="text-xl font-bold text-primary">{activeBox.coinPrice}</p>
+                      </div>
+                    </div>
+                  )}
+                  <div className="flex gap-2">
+                    {activeBox && (
+                      <Link
+                        href={activeBox.id === "1-percent-iphone" ? "/boxes/iphone-box" : `/boxes/${activeBox.id}`}
+                        className="w-full"
+                      >
+                        <Button className="w-full glow-effect">View Box</Button>
+                      </Link>
+                    )}
+                    <Button variant="outline" onClick={() => setShowBoxModal(false)} className="w-28">Close</Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
 
             {/* Information Section - Exact Rillabox Style with Animations */}
             <div className="mt-12">

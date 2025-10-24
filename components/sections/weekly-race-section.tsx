@@ -54,7 +54,7 @@ export function WeeklyRaceSection() {
         {/* Floating boxes */}
         <div className="absolute top-6 left-6 w-16 h-16 md:w-24 md:h-24 animate-float-slow pointer-events-none">
           <img
-            src="/new/boxcoin.png"
+            src="/new/pot coin.png"
             alt="Box 1"
             className="w-full h-full object-contain drop-shadow-2xl"
           />
