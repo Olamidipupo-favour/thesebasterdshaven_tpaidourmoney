@@ -313,22 +313,30 @@ export default function WeeklyRacePage() {
         <section>
           <div className="grid gap-3">
             {/* Header row */}
-            <div className="flex items-center px-4 py-3 rounded-xl border border-border bg-card">
-              <div className="w-16 text-center text-sm font-semibold text-white/70"> </div>
+            <div className="flex items-center px-4 py-3 rounded-xl border-2 border-yellow-500 bg-gradient-to-r from-yellow-400 to-yellow-600">
+              <div className="w-16 text-center text-sm font-semibold text-black/80"> </div>
               <div className="flex-1 flex items-center justify-between">
-                <div className="text-sm text-muted-foreground">User</div>
-                <div className="text-sm text-muted-foreground">Total Played</div>
-                <div className="text-sm text-muted-foreground">Prize</div>
+                <div className="text-sm font-semibold text-black">User</div>
+                <div className="text-sm font-semibold text-black">Total Played</div>
+                <div className="text-sm font-semibold text-black">Prize</div>
               </div>
             </div>
 
             {leaderboard.map((w, idx) => (
-                <div key={w.name} className={`race-row-base ${idx <= 2 ? 'race-row-elite' : 'race-row-pro'} relative flex items-center px-4 py-3 rounded-xl border border-border bg-card overflow-hidden`}>
-                  <div className="race-row-bg pointer-events-none absolute inset-0 z-0" />
-                  <div className="race-row-shine pointer-events-none absolute inset-0 z-0" />
-                 {/* Place label */}
-                <div className="w-16 text-center text-sm font-semibold text-white/80">{w.placeLabel}</div>
-                <div className="relative z-10 flex-1 flex items-center justify-between flex-wrap gap-3">
+                <div
+                  key={w.name}
+                  className="relative flex items-center px-4 py-3 rounded-xl overflow-hidden"
+                  style={{
+                    backgroundImage: 'url("/add/mascot rainbow background.jpg")',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    backgroundRepeat: 'no-repeat',
+                  }}
+                >
+                  {/* Place label */}
+                  <div className="w-16 text-center text-sm font-semibold text-yellow-300">{w.placeLabel}</div>
+
+                  <div className="relative z-10 flex-1 flex items-center justify-between flex-wrap gap-3">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12">
                         <AvatarComposer base={w.avatar.base} skin={w.avatar.skin} face={w.avatar.face} female={w.avatar.female} />
@@ -339,12 +347,14 @@ export default function WeeklyRacePage() {
                     <div className="text-white text-sm font-medium">
                       <span>{w.totalPlayed}</span>
                     </div>
-                   <div className="flex items-center gap-2">
 
-                    <Button variant="secondary" className="text-sm">{w.prize}</Button>
+                    <div className="flex items-center gap-2">
+                      <div className="px-3 py-1 rounded-lg border-2 border-yellow-500 bg-yellow-300/80 text-white font-semibold text-sm shadow-[0_6px_18px_rgba(234,179,8,0.25)]">
+                        {w.prize}
+                      </div>
+                    </div>
                   </div>
-                 </div>
-               </div>
+                </div>
             ))}
           </div>
         </section>
