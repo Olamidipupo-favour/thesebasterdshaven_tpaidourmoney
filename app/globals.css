@@ -1169,6 +1169,14 @@
   50% { transform: translate3d(0,-1px,0); }
 }
 
+/* Mobile-only overflow fix to prevent right-side scroll space */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+  }
+}
+
 /* Ensure row content stays above effects */
 .race-row-base { position: relative; }
 .race-row-base > .flex { position: relative; z-index: 4; }

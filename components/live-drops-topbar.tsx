@@ -80,7 +80,7 @@ export function LiveDropsTopbar() {
         {/* Left label: LIVE DROPS (like AO VIVO) */}
         <div className="relative flex-shrink-0 min-w-[130px] pl-3 pr-4 py-1.5 flex items-center">
           <div
-            className="absolute inset-y-0 -left-2 -right-8 rounded-xl pointer-events-none opacity-80 blur-md"
+            className="absolute inset-y-0 -left-2 right-0 md:-right-8 rounded-xl pointer-events-none opacity-80 blur-md"
             style={{
               background:
                 "linear-gradient(90deg, rgba(16,185,129,0.35) 0%, rgba(16,185,129,0.2) 40%, transparent 100%)",
@@ -101,9 +101,9 @@ export function LiveDropsTopbar() {
           className="flex-1 relative overflow-hidden py-0.5"
           style={{
             WebkitMaskImage:
-              "linear-gradient(to right, transparent 0, black 84px, black 100%)",
+              "linear-gradient(to right, transparent 0, black 56px, black 100%)",
             maskImage:
-              "linear-gradient(to right, transparent 0, black 84px, black 100%)",
+              "linear-gradient(to right, transparent 0, black 56px, black 100%)",
           }}
         >
           <div className="live-drops-marquee flex items-stretch gap-2" onAnimationIteration={handleMarqueeIteration}>
@@ -114,7 +114,7 @@ export function LiveDropsTopbar() {
 
           {/* Soft fades on both edges to avoid hard borders */}
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 w-28 z-10"
+            className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-28 z-10"
             style={{
               background:
                 "radial-gradient(100% 80% at 0% 50%, rgba(10,31,26,0.95) 0%, rgba(10,31,26,0.8) 40%, transparent 80%)",

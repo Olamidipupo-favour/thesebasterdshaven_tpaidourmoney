@@ -1164,33 +1164,24 @@ export function OSortudoHomepage() {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('/add/mascot rainbow background.jpg')",
+            backgroundImage: "url('/add/our.png')",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-          }}
-        />
-        <div
-          className="absolute inset-0 z-[5]"
-          style={{
-            backgroundImage: "url('/add/mascot rainbow gold.png')",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "100% auto",
-            backgroundPosition: "center 0%",
           }}
         />
 
         {/* Dark overlay to tone down background */}
         <div className="absolute inset-0 z-10 bg-black/20 pointer-events-none" />
 
-        <div className="relative z-20 text-center px-6 py-10 md:py-12">
-          <h2 className="text-white font-semibold max-w-[824px] mx-auto mb-5 text-[20px] md:text-[24px]">
+        <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-10 md:py-12 min-h-[220px] md:min-h-[320px]">
+          <h2 className="text-white font-semibold max-w-[570px] mx-auto mb-4 md:mb-5 text-[20px] md:text-[24px]">
             Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
           </h2>
-          <span className="block text-muted-foreground mb-3 text-[14px] md:text-[16px]">
+          <span className="block text-muted-foreground mb-4 md:mb-5 text-[14px] md:text-[16px] max-w-[500px] mx-auto">
             We uphold complete transparency and have no means of manipulating the outcome in any manner.
           </span>
-          <Button type="button" className="min-w-[248px] justify-center text-sm md:text-base h-10 md:h-12 bg-[#1f6b4a] hover:bg-[#238257] text-white gap-2">
+          <Button type="button" className="min-w-[248px] justify-center text-sm md:text-base h-10 md:h-12 bg-[#1f6b4a] hover:bg-[#238257] text-white gap-2 mt-1">
             Learn more
             <img src="/icons/landing/button-right-arrow.svg" alt="button-right-arrow" className="w-4 h-4" />
           </Button>
