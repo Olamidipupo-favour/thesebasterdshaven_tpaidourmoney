@@ -665,6 +665,17 @@
   pointer-events: none;
 }
 
+/* Weekly Race section leaf background */
+.race-leaf-bg {
+  background-image: url('/new/background leaf patterned.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  mix-blend-mode: normal;
+  opacity: 0.35;
+  border-radius: 2rem;
+}
+
 /* Live drops animations */
 @keyframes neon-pulse {
   0% {
@@ -1090,3 +1101,134 @@
   50% { transform: translateY(-8px) rotate(2deg); }
 }
 .mascot-peek { animation: mascotPeek 5.5s ease-in-out infinite; filter: drop-shadow(0 0 12px rgba(82, 202, 25, 0.4)); }
+
+
+/* Weekly Race leaderboard row premium effects */
+.race-row-base { position: relative; overflow: hidden; transition: transform 250ms ease, box-shadow 250ms ease, filter 250ms ease; }
+.race-row-base:hover { transform: translateY(-2px); }
+
+/* Layering control */
+.race-row-base .race-row-bg { z-index: 0; }
+.race-row-base .race-row-shine { z-index: 1; }
+.race-row-elite::before, .race-row-pro::before { z-index: 2; }
+.race-row-elite::after, .race-row-pro::after { z-index: 3; }
+
+/* Background layer base */
+.race-row-bg { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; filter: saturate(1.02); will-change: transform, filter; animation: rowBgFloat 14s ease-in-out infinite; }
+
+/* Elite body background: deep slate with gold+emerald glows and subtle texture */
+.race-row-elite .race-row-bg { background:
+  radial-gradient(100px 120px at 0% 50%, rgba(234,179,8,0.22), transparent 62%),
+  radial-gradient(100px 120px at 100% 50%, rgba(34,197,94,0.22), transparent 62%),
+  linear-gradient(135deg, rgba(17,24,39,0.92), rgba(17,24,39,0.96)),
+  repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 4px);
+}
+.race-row-elite:hover .race-row-bg { filter: brightness(1.05) saturate(1.06); }
+
+/* Pro body background: deep slate with cyan+violet glows and subtle texture */
+.race-row-pro .race-row-bg { background:
+  radial-gradient(120px 140px at 8% 50%, rgba(56,189,248,0.24), transparent 64%),
+  radial-gradient(120px 140px at 92% 50%, rgba(168,85,247,0.24), transparent 64%),
+  linear-gradient(135deg, rgba(17,24,39,0.92), rgba(17,24,39,0.96)),
+  repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 4px);
+  animation: rowBgFloat 12s ease-in-out infinite, proHuePulse 9s ease-in-out infinite;
+}
+
+@keyframes proHuePulse {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(6deg); }
+}
+.race-row-pro:hover .race-row-bg { filter: brightness(1.05) saturate(1.06); }
+
+/* Elite: 4th–6th, gold + emerald glow */
+.race-row-elite::before { content: ""; position: absolute; inset: 0; border-radius: 12px; background:
+  linear-gradient(90deg, rgba(234,179,8,0.35) 0%, rgba(234,179,8,0.35) 50%, transparent 100%) top / 220% 2px no-repeat,
+  linear-gradient(90deg, rgba(34,197,94,0.35) 0%, rgba(34,197,94,0.35) 50%, transparent 100%) bottom / 220% 2px no-repeat,
+  linear-gradient(0deg, rgba(234,179,8,0.35) 0%, rgba(234,179,8,0.35) 50%, transparent 100%) left / 2px 220% no-repeat,
+  linear-gradient(0deg, rgba(34,197,94,0.35) 0%, rgba(34,197,94,0.35) 50%, transparent 100%) right / 2px 220% no-repeat; animation: edgeSweep 7s ease-in-out infinite; pointer-events: none; opacity: 0.28; }
+.race-row-elite::after { content: ""; position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(120deg, transparent 42%, rgba(255,255,255,0.14) 50%, transparent 58%); animation: shineSweep 5.2s ease-in-out infinite; mix-blend-mode: screen; opacity: 0.18; pointer-events: none; }
+.race-row-elite:hover { box-shadow: 0 14px 28px rgba(0,0,0,0.35), 0 0 20px rgba(234,179,8,0.35), 0 0 24px rgba(34,197,94,0.25); filter: brightness(1.05) saturate(1.03); }
+
+/* Pro: 7th–10th, cyan + violet edge sweep */
+.race-row-pro::before { content: ""; position: absolute; inset: 0; border-radius: 12px; background:
+  linear-gradient(90deg, rgba(56,189,248,0.35) 0%, rgba(56,189,248,0.35) 50%, transparent 100%) top / 220% 2px no-repeat,
+  linear-gradient(90deg, rgba(168,85,247,0.35) 0%, rgba(168,85,247,0.35) 50%, transparent 100%) bottom / 220% 2px no-repeat,
+  linear-gradient(0deg, rgba(56,189,248,0.35) 0%, rgba(56,189,248,0.35) 50%, transparent 100%) left / 2px 220% no-repeat,
+  linear-gradient(0deg, rgba(168,85,247,0.35) 0%, rgba(168,85,247,0.35) 50%, transparent 100%) right / 2px 220% no-repeat; animation: edgeSweep 6.5s ease-in-out infinite; pointer-events: none; opacity: 0.28; }
+.race-row-pro::after { content: ""; position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(120deg, transparent 42%, rgba(255,255,255,0.14) 50%, transparent 58%); animation: shineSweep 5s ease-in-out infinite; mix-blend-mode: screen; opacity: 0.16; pointer-events: none; }
+.race-row-pro:hover { box-shadow: 0 14px 28px rgba(0,0,0,0.35), 0 0 20px rgba(56,189,248,0.35), 0 0 24px rgba(168,85,247,0.25); filter: brightness(1.05) saturate(1.03); }
+
+/* Subtle inner shine overlay element */
+.race-row-shine { position: absolute; inset: 0; border-radius: 12px; background:
+  radial-gradient(24px 24px at 8% 50%, rgba(255,255,255,0.08), transparent 60%),
+  radial-gradient(24px 24px at 92% 50%, rgba(255,255,255,0.08), transparent 60%); opacity: 0.20; pointer-events: none; }
+
+/* Float background slightly for premium feel */
+@keyframes rowBgFloat {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(0,-1px,0); }
+}
+
+/* Ensure row content stays above effects */
+.race-row-base { position: relative; }
+.race-row-base > .flex { position: relative; z-index: 4; }
+.race-row-base .race-row-bg { z-index: 0; }
+.race-row-base .race-row-shine { z-index: 1; }
+.race-row-elite::before, .race-row-pro::before { z-index: 2; }
+.race-row-elite::after, .race-row-pro::after { z-index: 3; }
+
+/* Background layer base */
+.race-row-bg { position: absolute; inset: 0; border-radius: 12px; overflow: hidden; filter: saturate(1.02); will-change: transform, filter; animation: rowBgFloat 14s ease-in-out infinite; }
+
+/* Elite body background: deep slate with gold+emerald glows and subtle texture */
+.race-row-elite .race-row-bg { background:
+  radial-gradient(100px 120px at 0% 50%, rgba(234,179,8,0.22), transparent 62%),
+  radial-gradient(100px 120px at 100% 50%, rgba(34,197,94,0.22), transparent 62%),
+  linear-gradient(135deg, rgba(17,24,39,0.92), rgba(17,24,39,0.96)),
+  repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 4px);
+}
+.race-row-elite:hover .race-row-bg { filter: brightness(1.05) saturate(1.06); }
+
+/* Pro body background: deep slate with cyan+violet glows and subtle texture */
+.race-row-pro .race-row-bg { background:
+  radial-gradient(120px 140px at 8% 50%, rgba(56,189,248,0.24), transparent 64%),
+  radial-gradient(120px 140px at 92% 50%, rgba(168,85,247,0.24), transparent 64%),
+  linear-gradient(135deg, rgba(17,24,39,0.92), rgba(17,24,39,0.96)),
+  repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 4px);
+  animation: rowBgFloat 12s ease-in-out infinite, proHuePulse 9s ease-in-out infinite;
+}
+
+@keyframes proHuePulse {
+  0%, 100% { filter: hue-rotate(0deg); }
+  50% { filter: hue-rotate(6deg); }
+}
+.race-row-pro:hover .race-row-bg { filter: brightness(1.05) saturate(1.06); }
+
+/* Elite: 4th–6th, gold + emerald glow */
+.race-row-elite::before { content: ""; position: absolute; inset: 0; border-radius: 12px; background:
+  linear-gradient(90deg, rgba(234,179,8,0.35) 0%, rgba(234,179,8,0.35) 50%, transparent 100%) top / 220% 2px no-repeat,
+  linear-gradient(90deg, rgba(34,197,94,0.35) 0%, rgba(34,197,94,0.35) 50%, transparent 100%) bottom / 220% 2px no-repeat,
+  linear-gradient(0deg, rgba(234,179,8,0.35) 0%, rgba(234,179,8,0.35) 50%, transparent 100%) left / 2px 220% no-repeat,
+  linear-gradient(0deg, rgba(34,197,94,0.35) 0%, rgba(34,197,94,0.35) 50%, transparent 100%) right / 2px 220% no-repeat; animation: edgeSweep 7s ease-in-out infinite; pointer-events: none; opacity: 0.28; }
+.race-row-elite::after { content: ""; position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(120deg, transparent 42%, rgba(255,255,255,0.14) 50%, transparent 58%); animation: shineSweep 5.2s ease-in-out infinite; mix-blend-mode: screen; opacity: 0.18; pointer-events: none; }
+.race-row-elite:hover { box-shadow: 0 14px 28px rgba(0,0,0,0.35), 0 0 20px rgba(234,179,8,0.35), 0 0 24px rgba(34,197,94,0.25); filter: brightness(1.05) saturate(1.03); }
+
+/* Pro: 7th–10th, cyan + violet edge sweep */
+.race-row-pro::before { content: ""; position: absolute; inset: 0; border-radius: 12px; background:
+  linear-gradient(90deg, rgba(56,189,248,0.35) 0%, rgba(56,189,248,0.35) 50%, transparent 100%) top / 220% 2px no-repeat,
+  linear-gradient(90deg, rgba(168,85,247,0.35) 0%, rgba(168,85,247,0.35) 50%, transparent 100%) bottom / 220% 2px no-repeat,
+  linear-gradient(0deg, rgba(56,189,248,0.35) 0%, rgba(56,189,248,0.35) 50%, transparent 100%) left / 2px 220% no-repeat,
+  linear-gradient(0deg, rgba(168,85,247,0.35) 0%, rgba(168,85,247,0.35) 50%, transparent 100%) right / 2px 220% no-repeat; animation: edgeSweep 6.5s ease-in-out infinite; pointer-events: none; opacity: 0.28; }
+.race-row-pro::after { content: ""; position: absolute; inset: 0; border-radius: 12px; background: linear-gradient(120deg, transparent 42%, rgba(255,255,255,0.14) 50%, transparent 58%); animation: shineSweep 5s ease-in-out infinite; mix-blend-mode: screen; opacity: 0.16; pointer-events: none; }
+.race-row-pro:hover { box-shadow: 0 14px 28px rgba(0,0,0,0.35), 0 0 20px rgba(56,189,248,0.35), 0 0 24px rgba(168,85,247,0.25); filter: brightness(1.05) saturate(1.03); }
+
+/* Subtle inner shine overlay element */
+.race-row-shine { position: absolute; inset: 0; border-radius: 12px; background:
+  radial-gradient(24px 24px at 8% 50%, rgba(255,255,255,0.08), transparent 60%),
+  radial-gradient(24px 24px at 92% 50%, rgba(255,255,255,0.08), transparent 60%); opacity: 0.20; pointer-events: none; }
+
+/* Float background slightly for premium feel */
+@keyframes rowBgFloat {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(0,-1px,0); }
+}
