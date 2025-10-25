@@ -118,7 +118,7 @@ export function RillaboxHeader() {
 
   return (
     <>
-      <header id="header" className="sticky top-0 z-50 bg-card/95 border-b border-border backdrop-blur-sm relative">
+      <header id="header" className="sticky top-0 z-50 border-b border-border relative bg-card lg:bg-card/95 lg:backdrop-blur-sm">
         {/* Absolute logo so nav starts at content edge */}
         <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center w-[180px]">
           <Link href="/" className="inline-flex items-center">
@@ -200,8 +200,8 @@ export function RillaboxHeader() {
                 </div>
               </div>
 
-              {/* Earn to Play (was Rewards) */}
-              <Link href="/" className="inline-flex">
+              {/* Earn to Play (moved to mobile drawer) */}
+              <Link href="/earn" className="hidden lg:inline-flex">
                 <Button variant="outline" className="group flex items-center gap-2 transition hover:-translate-y-[1px] hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">
                   <DollarSign className="w-4 h-4" />
                   <span className="text-white group-hover:text-[#52CA19]">Earn to Play</span>
@@ -299,7 +299,7 @@ export function RillaboxHeader() {
           {mobileMenuOpen && (
             <>
               <div className="fixed inset-0 bg-black/50 z-[60] lg:hidden" onClick={() => setMobileMenuOpen(false)} />
-              <aside className="fixed right-0 top-0 h-full w-72 max-w-[80vw] bg-card border-l border-border z-[65] lg:hidden shadow-xl">
+              <aside className="fixed right-0 top-0 h-full w-72 max-w-[80vw] bg-background border-l border-border z-[65] lg:hidden shadow-xl">
                 <div className="flex items-center justify-between p-4 border-b border-border">
                   <span className="text-sm font-semibold">Menu</span>
                   <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
@@ -333,14 +333,9 @@ export function RillaboxHeader() {
                     <Link href="/"><Button variant="outline" className="w-full justify-start"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
                     <Link href="/"><Button variant="outline" className="w-full justify-start"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</Button></Link>
                     <Link href="/"><Button variant="outline" className="w-full justify-start"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
+                    <Link href="/earn"><Button variant="outline" className="w-full justify-start"><DollarSign className="w-4 h-4 mr-2" />Earn to Play</Button></Link>
                   </div>
 
-                  <div className="pt-2 border-t border-border">
-                    <Button variant="secondary" className="w-full justify-start" onClick={openLiveDropsFromHeader}>
-                      <Zap className="w-4 h-4 mr-2" />
-                      Live Drops
-                    </Button>
-                  </div>
                 </div>
               </aside>
             </>
