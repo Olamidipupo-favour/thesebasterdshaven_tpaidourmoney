@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Users, Box } from "lucide-react"
 
 type LiveDropItem = {
@@ -42,6 +42,7 @@ const namePool = [
 
 export function LiveDropsTopbar() {
   const [visibleItems, setVisibleItems] = useState<LiveDropItem[]>([])
+  const queueRef = useRef<LiveDropItem[]>([])
 
   useEffect(() => {
     const initial = liveDropsData.slice(0, 12).map((item, i) => ({
@@ -53,11 +54,25 @@ export function LiveDropsTopbar() {
     const interval = setInterval(() => {
       const randomItem = liveDropsData[Math.floor(Math.random() * liveDropsData.length)]
       const username = namePool[Math.floor(Math.random() * namePool.length)]
-      setVisibleItems((prev) => [{ ...randomItem, username }, ...prev].slice(0, 12))
+      // Buffer incoming updates so current scrollers finish their full run
+      queueRef.current.push({ ...randomItem, username })
+      if (queueRef.current.length > 24) {
+        queueRef.current.shift()
+      }
     }, 2000)
 
     return () => clearInterval(interval)
   }, [])
+
+  const handleMarqueeIteration = () => {
+    if (queueRef.current.length === 0) return
+    setVisibleItems((prev) => {
+      const merged = [...prev, ...queueRef.current]
+      queueRef.current = []
+      // Keep the newest 12 items for the next full cycle
+      return merged.slice(-12)
+    })
+  }
 
   return (
     <section id="live-drops-top" className="w-full bg-[#0a1f1a] rounded-2xl px-3 py-2 shadow-2xl">
@@ -91,7 +106,7 @@ export function LiveDropsTopbar() {
               "linear-gradient(to right, transparent 0, black 84px, black 100%)",
           }}
         >
-          <div className="live-drops-marquee flex items-stretch gap-2">
+          <div className="live-drops-marquee flex items-stretch gap-2" onAnimationIteration={handleMarqueeIteration}>
             {[...visibleItems, ...visibleItems].map((item, index) => (
               <LiveDropCardHorizontal key={`${item.id}-${index}`} item={item} index={index} />
             ))}
