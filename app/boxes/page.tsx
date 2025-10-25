@@ -518,12 +518,12 @@ export default function BoxesPage() {
                   <DialogTitle>{activeBox?.name || "Mystery Box"}</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-4">
-                  <div className="w-full h-48 bg-muted/20 rounded-xl overflow-hidden flex items-center justify-center">
+                  <div className="w-full h-64 md:h-72 bg-muted/20 rounded-xl overflow-hidden flex items-center justify-center">
                     {activeBox && (
                       <img
                         src={activeBox.image}
                         alt={activeBox.name}
-                        className="w-full h-full object-cover"
+                        className="max-w-full max-h-full object-contain"
                         onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg" }}
                       />
                     )}

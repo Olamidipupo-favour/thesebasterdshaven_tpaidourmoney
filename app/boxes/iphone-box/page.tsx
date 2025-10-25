@@ -416,7 +416,13 @@ export default function IPhoneBoxPage() {
       const interval = Math.max(16, minInterval + (maxInterval - minInterval) * easeOutCubic(progress))
 
       if (allLanded || steps >= totalSteps) {
-        const winningItems = targetIndices.map((tIdx, ci) => modifiedColumnsData[ci][tIdx])
+        if (!allLanded) {
+          for (let col = 0; col < numColumns; col++) {
+            currentIndices[col] = targetIndices[col]
+          }
+          setColumnSpinIndices([...currentIndices])
+        }
+        const winningItems = currentIndices.map((idx, ci) => modifiedColumnsData[ci][idx])
         timeouts.current.push(window.setTimeout(() => {
           setWonPrizes(winningItems)
           setIsSpinning(false)

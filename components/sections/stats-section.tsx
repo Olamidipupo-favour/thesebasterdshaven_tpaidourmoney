@@ -27,11 +27,11 @@ export function StatsSection() {
       {/* Stats Card */}
       <div className="relative w-full max-w-2xl overflow-visible rounded-2xl bg-gradient-to-br from-[#0a120f] via-[#0c1411] to-[#0d1612] p-6 md:p-8 shadow-xl border border-emerald-700/30">
         {/* decorative coin image (static) */}
-        <img
+        {/* <img
           src="/new/coin floor.png"
           alt=""
           className="absolute bottom-2 left-4 w-28 h-auto opacity-70 pointer-events-none"
-        />
+        /> */}
 
         {/* Side decorations behind text */}
         <img
@@ -101,7 +101,7 @@ export function StatsSection() {
         <div className="w-32 lg:w-40 h-32 lg:h-40 flex items-center justify-center">
           <img src="/new/mascot.png" alt="Mascot Right" className="w-full h-full object-contain drop-shadow-2xl rounded-lg" />
         </div>
-        
+
       </div> */}
     </div>
   )
