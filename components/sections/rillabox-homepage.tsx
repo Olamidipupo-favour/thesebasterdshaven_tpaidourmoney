@@ -1134,7 +1134,7 @@ export function OSortudoHomepage() {
       </section>
 
       {/* Industry-leading Banner - Rillabox-inspired (Sortudo theme) */}
-      <section className="relative mb-10 rounded-2xl overflow-hidden border border-[#1f6b4a] bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14]">
+      <section className="relative mb-10 rounded-2xl overflow-hidden border border-[#1f6b4a] bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14] min-h-[260px] md:min-h-[300px]">
         {/* Old background disabled per request */}
         {/**
         <video
@@ -1160,20 +1160,28 @@ export function OSortudoHomepage() {
         <div className="hidden md:block absolute z-10 right-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
         */}
 
-        {/* Coin background (scrolling) */}
+        {/* Background: shamrock pattern + rainbow arch */}
         <div
-          className="absolute inset-0 z-0 opacity-60"
+          className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('/new/coin_back.jpeg')",
-            backgroundRepeat: "repeat",
-            backgroundSize: "320px 320px",
-            animation: "coin-scroll 30s linear infinite",
-            willChange: "background-position",
+            backgroundImage: "url('/add/mascot rainbow background.jpg')",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div
+          className="absolute inset-0 z-[5]"
+          style={{
+            backgroundImage: "url('/add/mascot rainbow gold.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "100% auto",
+            backgroundPosition: "center 0%",
           }}
         />
 
         {/* Dark overlay to tone down background */}
-        <div className="absolute inset-0 z-10 bg-black/40 pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-black/20 pointer-events-none" />
 
         <div className="relative z-20 text-center px-6 py-10 md:py-12">
           <h2 className="text-white font-semibold max-w-[824px] mx-auto mb-5 text-[20px] md:text-[24px]">
@@ -1188,10 +1196,7 @@ export function OSortudoHomepage() {
           </Button>
         </div>
 
-        <img src="/new/box_coin.png" alt="Box of coins left" className="hidden md:block absolute z-20 left-3 md:left-4 bottom-0 w-24 h-24 md:w-36 md:h-36 drop-shadow-lg" />
-        <img src="/new/box_coin.png" alt="Box of coins right" className="hidden md:block absolute z-20 right-3 md:right-4 bottom-0 w-24 h-24 md:w-36 md:h-36 drop-shadow-lg scale-x-[-1]" />
-        <div className="hidden md:block absolute z-10 left-6 bottom-2 w-24 md:w-28 h-5 md:h-6 rounded-full bg-black/40 blur-md opacity-40" />
-        <div className="hidden md:block absolute z-10 right-6 bottom-2 w-24 md:w-28 h-5 md:h-6 rounded-full bg-black/40 blur-md opacity-40" />
+        {/* Bottom decorations removed to avoid overlap with the rainbow arch background */}
 
         <style jsx>{`
           .leaf-sprite { transform: translateY(100%); will-change: transform; }

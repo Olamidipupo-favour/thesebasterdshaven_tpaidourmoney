@@ -18,19 +18,31 @@ export function StatsSection() {
       </div>
 
       {/* Left mascot */}
-      <div className="hidden md:block flex-shrink-0 relative z-10">
+      {/* <div className="hidden md:block flex-shrink-0 relative z-10">
         <div className="w-32 lg:w-40 h-32 lg:h-40 flex items-center justify-center">
           <img src="/new/mascot.png" alt="Mascot Left" className="w-full h-full object-contain drop-shadow-2xl rounded-lg" />
         </div>
-      </div>
+      </div> */}
 
       {/* Stats Card */}
-      <div className="relative w-full max-w-2xl overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a120f] via-[#0c1411] to-[#0d1612] p-6 md:p-8 shadow-xl border border-emerald-700/30">
+      <div className="relative w-full max-w-2xl overflow-visible rounded-2xl bg-gradient-to-br from-[#0a120f] via-[#0c1411] to-[#0d1612] p-6 md:p-8 shadow-xl border border-emerald-700/30">
         {/* decorative coin image (static) */}
         <img
           src="/new/coin floor.png"
           alt=""
           className="absolute bottom-2 left-4 w-28 h-auto opacity-70 pointer-events-none"
+        />
+
+        {/* Side decorations behind text */}
+        <img
+          src="/add/win gold plate.png"
+          alt="Win ticket"
+          className="absolute -left-12 md:-left-16 bottom-8 w-28 md:w-36 h-auto opacity-90 drop-shadow-xl pointer-events-none z-[1]"
+        />
+        <img
+          src="/add/coin, cash stash.png"
+          alt="Cash stack"
+          className="absolute -right-10 md:-right-14 bottom-6 w-28 md:w-36 h-auto opacity-90 drop-shadow-xl pointer-events-none z-[1]"
         />
 
         {/* Stats Grid */}
@@ -82,12 +94,15 @@ export function StatsSection() {
         </div>
       </div>
 
+
+
       {/* Right mascot */}
-      <div className="hidden md:block flex-shrink-0 relative z-10">
+      {/* <div className="hidden md:block flex-shrink-0 relative z-10">
         <div className="w-32 lg:w-40 h-32 lg:h-40 flex items-center justify-center">
           <img src="/new/mascot.png" alt="Mascot Right" className="w-full h-full object-contain drop-shadow-2xl rounded-lg" />
         </div>
-      </div>
+        
+      </div> */}
     </div>
   )
 }

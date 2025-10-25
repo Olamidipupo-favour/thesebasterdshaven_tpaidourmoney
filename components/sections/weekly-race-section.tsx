@@ -91,7 +91,7 @@ export function WeeklyRaceSection() {
         </div>
 
         {/* Content grid */}
-        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-3 lg:gap-4 items-center">
+        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-1 lg:gap-0 items-center">
           {/* Left section */}
           <div className="flex items-center gap-4 md:gap-6">
             {/* Trophy */}
@@ -118,12 +118,12 @@ export function WeeklyRaceSection() {
           </div>
 
           {/* Right section - Mascot image with overlay timer and button */}
-          <div className="flex flex-col gap-3 lg:ml-auto items-center">
+          <div className="flex flex-col gap-2 items-center lg:justify-self-start lg:-ml-2">
             <div className="race-mascot-wrap relative z-10 select-none">
               <img
                 src="/new/mascot image countdown.png"
                 alt="Mascot holding box"
-                className="w-[140px] md:w-[180px] lg:w-[200px] h-auto pointer-events-none drop-shadow-xl"
+                className="w-[150px] md:w-[190px] lg:w-[210px] h-auto pointer-events-none drop-shadow-xl"
               />
 
                {/* Overlay timer positioned on the box area */}
