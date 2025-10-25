@@ -323,16 +323,9 @@ export default function WeeklyRacePage() {
             </div>
 
             {leaderboard.map((w, idx) => (
-              <div key={w.name} className="relative flex items-center px-4 py-3 rounded-xl border border-border bg-card overflow-hidden">
-                {/* Four coin markers (rows 4th–10th) */}
-                 {idx <= 6 && (
-                   <div className="pointer-events-none absolute inset-0 z-0">
-                     <img src="/new/coin%20stacked.png" alt="coins left-1" className="coin-img coin-bob-slow absolute top-1/2 left-[32%] -translate-x-1/2 -translate-y-1/2 w-5 h-auto opacity-85" />
-                     <img src="/new/box_coin.png" alt="treasure left-2" className="coin-img coin-bob-fast absolute top-1/2 left-[44%] -translate-x-1/2 -translate-y-1/2 w-6 h-auto opacity-80" />
-                     <img src="/new/coin%20floor.png" alt="coins right-1" className="coin-img coin-bob-medium absolute top-1/2 left-[62%] -translate-x-1/2 -translate-y-1/2 w-5 h-auto opacity-80" />
-                      <img src="/new/coin%20stacked.png" alt="coins right-2" className="coin-img coin-bob-slow absolute top-1/2 left-[78%] -translate-x-1/2 -translate-y-1/2 w-5 h-auto opacity-85" />
-                   </div>
-                 )}
+                <div key={w.name} className={`race-row-base ${idx <= 2 ? 'race-row-elite' : 'race-row-pro'} relative flex items-center px-4 py-3 rounded-xl border border-border bg-card overflow-hidden`}>
+                  <div className="race-row-bg pointer-events-none absolute inset-0 z-0" />
+                  <div className="race-row-shine pointer-events-none absolute inset-0 z-0" />
                  {/* Place label */}
                 <div className="w-16 text-center text-sm font-semibold text-white/80">{w.placeLabel}</div>
                 <div className="relative z-10 flex-1 flex items-center justify-between flex-wrap gap-3">

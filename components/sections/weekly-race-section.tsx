@@ -50,7 +50,9 @@ export function WeeklyRaceSection() {
         <div className="absolute inset-0 rounded-[2rem] border-2 border-emerald-400 animate-glow-green" />
       </div>
 
-      <div className="relative bg-gradient-to-br from-[#0d2818] via-[#1a3d2e] to-[#0d2818] rounded-[2rem] p-6 md:p-8 lg:p-10 overflow-hidden">
+      <div className="relative bg-gradient-to-br from-[#0d2818] via-[#1a3d2e] to-[#0d2818] rounded-[2rem] p-3 md:p-4 lg:p-5 overflow-hidden min-h-[200px] md:min-h-[220px] lg:min-h-[250px]">
+        {/* Leaf background layer */}
+        <div className="race-leaf-bg absolute inset-0 rounded-[2rem] pointer-events-none" />
         {/* Floating boxes */}
         <div className="absolute top-6 left-6 w-16 h-16 md:w-24 md:h-24 animate-float-slow pointer-events-none">
           <img
@@ -75,11 +77,12 @@ export function WeeklyRaceSection() {
             className="w-full h-full object-contain drop-shadow-xl"
           />
         </div>
-        <div className="absolute top-2 right-2 w-28 h-28 md:w-52 md:h-52 lg:w-64 lg:h-64 animate-float-slow rotate-6 z-0 opacity-100 pointer-events-none">
+
+        <div className="absolute inset-0 flex items-center justify-center z-0 opacity-30 pointer-events-none">
           <img
             src="/new/box_coin.png"
-            alt="Adidas box"
-            className="w-full h-full object-contain drop-shadow-2xl"
+            alt="Coins box"
+            className="w-24 md:w-32 lg:w-40 h-auto object-contain drop-shadow-2xl"
           />
         </div>
 
@@ -88,11 +91,11 @@ export function WeeklyRaceSection() {
         </div>
 
         {/* Content grid */}
-        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-6 lg:gap-8 items-center">
+        <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-3 lg:gap-4 items-center">
           {/* Left section */}
           <div className="flex items-center gap-4 md:gap-6">
             {/* Trophy */}
-            <div className="hidden md:block flex-shrink-0 w-24 h-24 lg:w-32 lg:h-32 animate-float-slow">
+            <div className="hidden md:block flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24 animate-float-slow">
               <img
                 src="https://rillabox.com/images/trophy-changed.png"
                 alt="Trophy"
@@ -102,92 +105,44 @@ export function WeeklyRaceSection() {
 
             {/* Text content */}
             <div className="flex-1 min-w-0">
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">$10,000</h2>
-                <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-1.5 rounded-full text-sm md:text-base font-semibold whitespace-nowrap">
-                  Weekly Race
-                </span>
-              </div>
-              <p className="text-gray-300 text-sm md:text-base font-medium">
-                Participate in our Weekly Race simply by playing on RillaBox!
-              </p>
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">$10,000</h2>
+                <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-3 py-1 rounded-full text-xs md:text-sm font-semibold whitespace-nowrap">
+                   Weekly Race
+                 </span>
+               </div>
+              <p className="text-gray-300 text-xs md:text-sm font-medium">
+                 Participate in our Weekly Race simply by playing on RillaBox!
+               </p>
             </div>
           </div>
 
-          {/* Right section - Timer and button */}
-          <div className="flex flex-col gap-4 lg:ml-auto">
-            <div className="relative z-10 bg-gradient-to-br from-emerald-900/40 to-green-800/40 backdrop-blur-sm rounded-2xl p-4 md:p-6 border border-emerald-500/30">
-              <h3 className="text-gray-300 text-xs md:text-sm font-medium text-center mb-3 uppercase tracking-wider">
-                Ends In
-              </h3>
-              <div className="flex items-center justify-center gap-2 md:gap-3">
-                {/* Days */}
-                <div className="flex flex-col items-center gap-1">
-                  <div className="flex gap-1">
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg w-10 h-12 md:w-12 md:h-14 flex items-center justify-center border border-gray-700">
-                      <span className="text-white text-xl md:text-2xl font-bold">{formatNumber(timeLeft.days)[0]}</span>
-                    </div>
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg w-10 h-12 md:w-12 md:h-14 flex items-center justify-center border border-gray-700">
-                      <span className="text-white text-xl md:text-2xl font-bold">{formatNumber(timeLeft.days)[1]}</span>
-                    </div>
-                  </div>
-                  <span className="text-gray-400 text-xs">Days</span>
-                </div>
+          {/* Right section - Mascot image with overlay timer and button */}
+          <div className="flex flex-col gap-3 lg:ml-auto items-center">
+            <div className="race-mascot-wrap relative z-10 select-none">
+              <img
+                src="/new/mascot image countdown.png"
+                alt="Mascot holding box"
+                className="w-[140px] md:w-[180px] lg:w-[200px] h-auto pointer-events-none drop-shadow-xl"
+              />
 
-                {/* Hours */}
-                <div className="flex flex-col items-center gap-1">
-                  <div className="flex gap-1">
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg w-10 h-12 md:w-12 md:h-14 flex items-center justify-center border border-gray-700">
-                      <span className="text-white text-xl md:text-2xl font-bold">
-                        {formatNumber(timeLeft.hours)[0]}
-                      </span>
-                    </div>
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg w-10 h-12 md:w-12 md:h-14 flex items-center justify-center border border-gray-700">
-                      <span className="text-white text-xl md:text-2xl font-bold">
-                        {formatNumber(timeLeft.hours)[1]}
-                      </span>
-                    </div>
-                  </div>
-                  <span className="text-gray-400 text-xs">Hours</span>
-                </div>
+               {/* Overlay timer positioned on the box area */}
 
-                {/* Minutes */}
-                <div className="flex flex-col items-center gap-1">
-                  <div className="flex gap-1">
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg w-10 h-12 md:w-12 md:h-14 flex items-center justify-center border border-gray-700">
-                      <span className="text-white text-xl md:text-2xl font-bold">
-                        {formatNumber(timeLeft.minutes)[0]}
-                      </span>
-                    </div>
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg w-10 h-12 md:w-12 md:h-14 flex items-center justify-center border border-gray-700">
-                      <span className="text-white text-xl md:text-2xl font-bold">
-                        {formatNumber(timeLeft.minutes)[1]}
-                      </span>
-                    </div>
-                  </div>
-                  <span className="text-gray-400 text-xs">Minutes</span>
-                </div>
-
-                {/* Seconds */}
-                <div className="flex flex-col items-center gap-1">
-                  <div className="flex gap-1">
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg w-10 h-12 md:w-12 md:h-14 flex items-center justify-center border border-gray-700">
-                      <span className="text-white text-xl md:text-2xl font-bold">
-                        {formatNumber(timeLeft.seconds)[0]}
-                      </span>
-                    </div>
-                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg w-10 h-12 md:w-12 md:h-14 flex items-center justify-center border border-gray-700">
-                      <span className="text-white text-xl md:text-2xl font-bold">
-                        {formatNumber(timeLeft.seconds)[1]}
-                      </span>
-                    </div>
-                  </div>
-                  <span className="text-gray-400 text-xs">Seconds</span>
+              <div className="absolute left-[18%] right-[18%] bottom-[22%] flex flex-col items-center gap-0.5 md:gap-1">
+                <span className="text-emerald-100 text-[7px] md:text-[9px] font-medium uppercase tracking-wider">Ends in</span>
+                <div className="flex items-center justify-center text-yellow-300 font-bold tracking-wider">
+                  <span className="text-[11px] md:text-xs">{formatNumber(timeLeft.days)}</span>
+                  <span className="text-emerald-200 mx-0.5 md:mx-1">:</span>
+                  <span className="text-[11px] md:text-xs">{formatNumber(timeLeft.hours)}</span>
+                  <span className="text-emerald-200 mx-0.5 md:mx-1">:</span>
+                  <span className="text-[11px] md:text-xs">{formatNumber(timeLeft.minutes)}</span>
+                  <span className="text-emerald-200 mx-0.5 md:mx-1">:</span>
+                  <span className="text-[11px] md:text-xs">{formatNumber(timeLeft.seconds)}</span>
                 </div>
               </div>
             </div>
 
-            <Button className="w-full bg-gradient-to-r from-lime-500 to-green-500 hover:from-lime-600 hover:to-green-600 text-black font-semibold text-base md:text-lg py-6 rounded-xl shadow-lg shadow-lime-500/50 transition-all hover:shadow-lime-500/70 hover:scale-[1.02]">
+            <Button className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-xs md:text-sm py-2 rounded-xl shadow-lg shadow-yellow-500/40 transition-all hover:shadow-yellow-500/60 hover:scale-[1.01]">
               View Race
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
