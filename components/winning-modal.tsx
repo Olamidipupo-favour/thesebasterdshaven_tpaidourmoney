@@ -144,11 +144,11 @@ export default function WinningModal({
 
           <div className={`${isCompact ? 'mb-5 sm:mb-6' : 'mb-6 sm:mb-8'} relative`}>
             <div className="absolute inset-0 bg-gradient-to-r from-gold via-emerald-300 to-gold rounded-3xl blur-2xl opacity-60 animate-pulse-glow-premium" />
-            <div className={`relative bg-gradient-to-br from-white to-emerald-50 rounded-3xl ${isCompact ? 'p-4' : 'p-6'} shadow-2xl border-3 border-gold/80`}>
+            <div className={`relative bg-gradient-to-br from-white to-emerald-50 rounded-3xl ${isCompact ? 'p-4' : 'p-6'} shadow-2xl border-3 border-gold/80 flex items-center justify-center`}>
               <img
                 src={productImage || "/placeholder.svg"}
                 alt={productName}
-                className={`w-full ${isCompact ? 'h-32 sm:h-40 md:h-44' : 'h-40 sm:h-48 md:h-56'} object-cover rounded-2xl shadow-lg`}
+                className={`max-w-full ${isCompact ? 'h-32 sm:h-40 md:h-44' : 'h-40 sm:h-48 md:h-56'} object-contain rounded-2xl shadow-lg`}
               />
             </div>
           </div>
