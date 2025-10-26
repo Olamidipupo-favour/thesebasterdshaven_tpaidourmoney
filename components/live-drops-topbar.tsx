@@ -43,6 +43,15 @@ const namePool = [
 export function LiveDropsTopbar() {
   const [visibleItems, setVisibleItems] = useState<LiveDropItem[]>([])
   const queueRef = useRef<LiveDropItem[]>([])
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)")
+    const update = () => setIsMobile(media.matches)
+    update()
+    media.addEventListener("change", update)
+    return () => media.removeEventListener("change", update)
+  }, [])
 
   useEffect(() => {
     const initial = liveDropsData.slice(0, 12).map((item, i) => ({
@@ -78,7 +87,7 @@ export function LiveDropsTopbar() {
     <section id="live-drops-top" className="w-full bg-[#0a1f1a] rounded-2xl px-3 py-2 shadow-2xl">
       <div className="flex items-stretch gap-3">
         {/* Left label: LIVE DROPS (like AO VIVO) */}
-        <div className="relative flex-shrink-0 min-w-[130px] pl-3 pr-4 py-1.5 flex items-center">
+        <div className="relative flex-shrink-0 min-w-[96px] pl-3 pr-4 py-1.5 flex items-center">
           <div
             className="absolute inset-y-0 -left-2 right-0 md:-right-8 rounded-xl pointer-events-none opacity-80 blur-md"
             style={{
@@ -91,8 +100,8 @@ export function LiveDropsTopbar() {
             <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping" />
           </div>
           <div className="relative z-10 flex flex-col leading-tight">
-            <span className="text-white text-xs md:text-sm xl:text-base font-extrabold tracking-wider">LIVE</span>
-            <span className="text-white text-xs md:text-sm xl:text-base font-extrabold tracking-wider">DROPS</span>
+            <span className="text-white text-[10px] md:text-sm font-extrabold tracking-wider">LIVE</span>
+            <span className="text-white text-[10px] md:text-sm font-extrabold tracking-wider">DROPS</span>
           </div>
         </div>
 
@@ -100,10 +109,8 @@ export function LiveDropsTopbar() {
         <div
           className="flex-1 relative overflow-hidden py-0.5"
           style={{
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent 0, black 56px, black 100%)",
-            maskImage:
-              "linear-gradient(to right, transparent 0, black 56px, black 100%)",
+            WebkitMaskImage: `linear-gradient(to right, transparent 0, black ${isMobile ? 12 : 56}px, black 100%)`,
+            maskImage: `linear-gradient(to right, transparent 0, black ${isMobile ? 12 : 56}px, black 100%)`,
           }}
         >
           <div className="live-drops-marquee flex items-stretch gap-2" onAnimationIteration={handleMarqueeIteration}>
@@ -114,12 +121,12 @@ export function LiveDropsTopbar() {
 
           {/* Soft fades on both edges to avoid hard borders */}
           <div
-            className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-28 z-10"
-            style={{
-              background:
-                "radial-gradient(100% 80% at 0% 50%, rgba(10,31,26,0.95) 0%, rgba(10,31,26,0.8) 40%, transparent 80%)",
-            }}
-          />
+          className="pointer-events-none absolute inset-y-0 left-0 w-10 md:w-28 z-10"
+          style={{
+            background:
+              "radial-gradient(100% 80% at 0% 50%, rgba(10,31,26,0.95) 0%, rgba(10,31,26,0.8) 40%, transparent 80%)",
+          }}
+        />
 
         </div>
       </div>
