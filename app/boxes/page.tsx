@@ -421,7 +421,7 @@ export default function BoxesPage() {
         <div className="mb-8">
           <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-64 xl:h-72 rounded-2xl overflow-hidden">
             <img
-              src="/new/mystery box banner.png"
+              src="/add/new Mystery Boxes.png"
               alt="Mystery Boxes banner"
               className="absolute inset-0 w-full h-full object-cover"
             />
