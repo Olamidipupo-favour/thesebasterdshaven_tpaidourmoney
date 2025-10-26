@@ -134,7 +134,7 @@ export function RillaboxHeader() {
                 <Home className="w-5 h-5" />
               </Button>
             </Link>
-            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(v => !v)} className="ml-auto -mr-1">
+            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(v => !v)} className="ml-[300px] -mr-4">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
