@@ -10,12 +10,12 @@ interface OSortudoLayoutProps {
 export function OSortudoLayout({ children }: OSortudoLayoutProps) {
 
   return (
-    <div className="h-screen overflow-hidden bg-background">
+    <div className="min-h-screen bg-background">
       {/* Navigation is rendered globally via RootLayout; header removed to avoid duplicates */}
 
       {/* Single-column layout with top Live Drops bar and main content */}
-      <div className="flex h-screen overflow-hidden">
-        <div className="flex-1 flex flex-col h-screen overflow-y-auto">
+      <div className="flex min-h-screen">
+        <div className="flex-1 flex flex-col">
           <main className="flex-1">
             <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
               <div className="mt-4">
