@@ -126,37 +126,15 @@ export function RillaboxHeader() {
           </Link>
         </div>
 
-        <div className="max-w-6xl mx-auto flex items-center px-4 sm:px-6 lg:px-8 h-16 lg:pl-[205px]">
-          {/* Mobile: Sign in and Sign up */}
-          <div className="lg:hidden flex items-center ms-auto gap-2 ml-auto">
-            {!isAuthenticated ? (
-              <>
-                <Button variant="outline" size="sm" onClick={() => setShowLoginDialog(true)} className="button-sign-in">Sign in</Button>
-                <Button size="sm" onClick={() => setShowRegisterDialog(true)} className="sign-up">
-                  <Gift className="w-4 h-4 mr-2" />
-                  Sign Up & get Free Box
-                </Button>
-              </>
-            ) : (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="flex items-center">
-                    <Avatar className="w-7 h-7 mr-2">
-                      <AvatarImage src={user?.avatar || "/placeholder.svg"} alt={user?.username || "User"} />
-                      <AvatarFallback>{user?.username?.charAt(0).toUpperCase()}</AvatarFallback>
-                    </Avatar>
-                    <span className="font-medium">{user?.username}</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-44">
-                  <DropdownMenuItem asChild>
-                    <Link href="/dashboard" className="cursor-pointer">Dashboard</Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleLogout} className="text-destructive cursor-pointer">Logout</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-            <Button variant="ghost" size="icon" className="ml-1" onClick={() => setMobileMenuOpen(v => !v)}>
+        <div className="max-w-6xl mx-auto flex items-center pl-4 pr-0 sm:px-6 lg:px-8 h-16 lg:pl-[205px]">
+          {/* Mobile: Home + Menu */}
+          <div className="lg:hidden flex items-center justify-between w-full">
+            <Link href="/" className="inline-flex items-center">
+              <Button variant="outline" size="icon" className="home-btns home-btn">
+                <Home className="w-5 h-5" />
+              </Button>
+            </Link>
+            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(v => !v)} className="ml-[300px] -mr-4">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
@@ -306,17 +284,25 @@ export function RillaboxHeader() {
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="p-4 space-y-3">
+                <div className="p-4 space-y-4">
+                  <div className="space-y-4">
+                    <Link href="/boxes"><Button variant="outline" className="w-full justify-start py-3"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
+                    <Link href="/"><Button variant="outline" className="w-full justify-start py-3"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
+                    <Link href="/"><Button variant="outline" className="w-full justify-start py-3"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</Button></Link>
+                    <Link href="/"><Button variant="outline" className="w-full justify-start py-3"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
+                    <Link href="/earn"><Button variant="outline" className="w-full justify-start py-3"><DollarSign className="w-4 h-4 mr-2" />Earn to Play</Button></Link>
+                  </div>
+
                   {!isAuthenticated ? (
-                    <div className="space-y-2">
-                      <Button variant="outline" className="w-full" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
-                      <Button className="w-full" onClick={() => setShowRegisterDialog(true)}>
+                    <div className="space-y-3 pt-4 border-t border-border">
+                      <Button variant="outline" className="w-full py-3" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
+                      <Button className="w-full py-3" onClick={() => setShowRegisterDialog(true)}>
                         <Gift className="w-4 h-4 mr-2" />
                         Sign Up & get Free Box
                       </Button>
                     </div>
                   ) : (
-                    <div className="flex items-center gap-3 p-3 rounded-md border border-border">
+                    <div className="flex items-center gap-3 p-3 mt-4 rounded-md border border-border">
                       <Avatar className="w-9 h-9">
                         <AvatarImage src={user?.avatar || "/placeholder.svg"} alt={user?.username || "User"} />
                         <AvatarFallback>{user?.username?.charAt(0).toUpperCase()}</AvatarFallback>
@@ -327,15 +313,6 @@ export function RillaboxHeader() {
                       </div>
                     </div>
                   )}
-
-                  <div className="space-y-2">
-                    <Link href="/boxes"><Button variant="outline" className="w-full justify-start"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
-                    <Link href="/"><Button variant="outline" className="w-full justify-start"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
-                    <Link href="/"><Button variant="outline" className="w-full justify-start"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</Button></Link>
-                    <Link href="/"><Button variant="outline" className="w-full justify-start"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
-                    <Link href="/earn"><Button variant="outline" className="w-full justify-start"><DollarSign className="w-4 h-4 mr-2" />Earn to Play</Button></Link>
-                  </div>
-
                 </div>
               </aside>
             </>
