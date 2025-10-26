@@ -1164,7 +1164,7 @@ export function OSortudoHomepage() {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('/add/our.png')",
+            backgroundImage: "url('/add/big banner.png')",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -1174,11 +1174,14 @@ export function OSortudoHomepage() {
         {/* Dark overlay to tone down background */}
         <div className="absolute inset-0 z-10 bg-black/20 pointer-events-none" />
 
-        <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-10 md:py-12 min-h-[220px] md:min-h-[320px]">
-          <h2 className="text-white font-semibold max-w-[570px] mx-auto mb-4 md:mb-5 text-[20px] md:text-[24px]">
+        {/* <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-8 md:py-10 min-h-[260px] md:min-h-[340px] lg:min-h-[360px]"> */}
+        <div className="relative -left-[35px] z-20 flex flex-col items-center justify-center text-center px-6 py-8 md:py-10 min-h-[260px] md:min-h-[340px] lg:min-h-[360px]">
+          {/* <h2 className="text-white font-semibold max-w-[570px] mx-auto mb-4 md:mb-5 text-[20px] md:text-[24px] lg:top-[100px] lg:ml-[345px] lg:mr-[345px]"> */}
+          <h2 className="text-white font-semibold max-w-[570px] mx-auto mb-4 md:mb-5 text-[20px] md:text-[24px] lg:top-[100px] lg:ml-[345px] lg:mr-[345px] mt-[100px]">
+
             Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
           </h2>
-          <span className="block text-muted-foreground mb-4 md:mb-5 text-[14px] md:text-[16px] max-w-[500px] mx-auto">
+          <span className="block text-white/70 mb-4 md:mb-5 text-[14px] md:text-[16px] max-w-[500px] mx-auto">
             We uphold complete transparency and have no means of manipulating the outcome in any manner.
           </span>
           <Button type="button" className="min-w-[248px] justify-center text-sm md:text-base h-10 md:h-12 bg-[#1f6b4a] hover:bg-[#238257] text-white gap-2 mt-1">
@@ -1240,17 +1243,17 @@ export function OSortudoHomepage() {
       {/* Payment Methods Bar - Green theme */}
       <section className="mb-10">
         <div className="rounded-xl border border-[#1f6b4a] bg-gradient-to-r from-[#0a1b14] via-[#0d241b] to-[#0a1b14] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div className="flex items-center gap-3 mb-2 sm:mb-0">
               <div className="w-8 h-8 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-[#22c55e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="9" x2="22" y2="9"></line></svg>
               </div>
               <span className="text-sm md:text-base font-semibold text-foreground">Payment Methods</span>
             </div>
-            <div className="flex items-center gap-4 flex-wrap justify-end">
+            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 w-full sm:w-auto">
               {paymentMethods.map((method) => (
-                <div key={method.name} className="w-14 h-14 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner hover:border-[#28da6a] hover:bg-[#123323] transition-colors">
-                  <img src={method.icon} alt={method.name} className="w-10 h-10 object-contain brightness-110 contrast-110" />
+                <div key={method.name} className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner hover:border-[#28da6a] hover:bg-[#123323] transition-colors">
+                  <img src={method.icon} alt={method.name} className="w-8 h-8 md:w-10 md:h-10 object-contain brightness-110 contrast-110" />
                 </div>
               ))}
             </div>
