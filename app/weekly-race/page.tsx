@@ -349,7 +349,7 @@ export default function WeeklyRacePage() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                      <div className="px-3 py-1 rounded-lg border-2 border-yellow-500 bg-yellow-300/80 text-white font-semibold text-sm shadow-[0_6px_18px_rgba(234,179,8,0.25)]">
+                      <div className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#fed81f] to-[#e67d00] border-4 border-[#e67d00] text-white font-semibold text-sm shadow-[0_6px_18px_rgba(230,125,0,0.25)]">
                         {w.prize}
                       </div>
                     </div>
