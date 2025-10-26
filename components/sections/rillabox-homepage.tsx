@@ -225,7 +225,7 @@ export function OSortudoHomepage() {
     <div className="space-y-6 md:space-y-8">
       {/* Banner Section - Tailwind functional slider */}
       <section className="w-full mb-4 md:mb-6">
-        <div className="grid grid-cols-12 items-stretch gap-x-0 md:gap-x-4">
+        <div className="grid grid-cols-12 items-stretch gap-x-0 md:gap-x-4 gap-y-3 md:gap-y-0">
           {/* Left: Slider */}
           <div className="col-span-12 md:col-span-8 h-auto pl-0">
             <div className="relative w-full overflow-hidden rounded-xl min-h-[140px] sm:min-h-[160px] md:min-h-[200px] lg:min-h-[220px]">

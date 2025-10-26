@@ -444,14 +444,14 @@ export default function BoxesPage() {
               </div>
 
               {/* Category Filter - Exact Rillabox Style */}
-              <div className="flex space-x-2 mb-6">
+              <div className="flex space-x-2 mb-6 overflow-x-auto md:overflow-visible -mx-4 px-4 whitespace-nowrap">
                 {categories.map((category) => (
                   <Button
                     key={category}
                     variant={selectedCategory === category ? "default" : "outline"}
                     size="sm"
                     onClick={() => setSelectedCategory(category)}
-                    className="capitalize"
+                    className="capitalize flex-shrink-0"
                   >
                     {category}
                   </Button>
