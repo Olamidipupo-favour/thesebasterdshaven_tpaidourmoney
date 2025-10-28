@@ -27,7 +27,15 @@ export default function WinningModal({
 
   useEffect(() => {
     const confettiParticles = Array.from({ length: 50 }, (_, i) => {
-      const types = ["🍀", "🪙", "✨", "🌈", "💚", "⭐"]
+      // Use gold assets for coins and pot of gold
+      const types = [
+        "🍀",
+        "img:/new/coin stacked.png",
+        "✨",
+        "🌈",
+        "⭐",
+        "🍯",
+      ]
       return {
         id: i,
         left: Math.random() * 100,
@@ -45,7 +53,7 @@ export default function WinningModal({
     }))
     setParticles(floatingParticles)
 
-    const timer = setTimeout(() => setIsShaking(false), 2500)
+    // Keep shaking continuously (no timer to stop)
  
     const checkCompact = () => setIsCompact(window.innerHeight < 740)
     const computeScale = () => {
@@ -66,7 +74,6 @@ export default function WinningModal({
     window.addEventListener('resize', computeScale)
  
     return () => {
-      clearTimeout(timer)
       window.removeEventListener('resize', checkCompact)
       window.removeEventListener('resize', computeScale)
     }
@@ -84,7 +91,15 @@ export default function WinningModal({
             animationDelay: `${particle.delay}s`,
           }}
         >
-          <span className="text-4xl drop-shadow-lg">{particle.type}</span>
+          {particle.type.startsWith('img:') ? (
+            <img
+              src={particle.type.replace('img:', '')}
+              alt="confetti"
+              className="h-8 w-8 drop-shadow-lg"
+            />
+          ) : (
+            <span className="text-4xl drop-shadow-lg">{particle.type}</span>
+          )}
         </div>
       ))}
 
@@ -125,7 +140,7 @@ export default function WinningModal({
         <div ref={contentRef} style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className={`relative z-10 ${isCompact ? 'p-4 sm:p-6' : 'p-6 sm:p-8'} text-center`}>
             <div className="mb-6 sm:mb-8 space-y-3 sm:space-y-4">
             <div className="inline-block">
-              <h1 className={`font-playfair ${isCompact ? 'text-4xl sm:text-5xl' : 'text-5xl sm:text-6xl'} font-black text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-200 to-gold drop-shadow-2xl animate-title-glow`}>
+              <h1 className={`font-playfair ${isCompact ? 'text-4xl sm:text-5xl' : 'text-5xl sm:text-6xl'} font-black text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-500 to-gold drop-shadow-2xl animate-title-glow`}>
                 YOU WON!
               </h1>
             </div>
@@ -136,10 +151,55 @@ export default function WinningModal({
             </div>
           </div>
 
-          <div className="flex justify-center gap-6 sm:gap-8 mb-8 sm:mb-10 text-3xl sm:text-4xl">
-            <span className="animate-bounce-delayed-1">🍀</span>
-            <span className="animate-bounce-delayed-2">✨</span>
-            <span className="animate-bounce-delayed-3">🍀</span>
+          <div className="flex items-center justify-center gap-3 mb-8 sm:mb-10">
+            <span className="font-poppins font-bold text-emerald-100 text-2xl sm:text-3xl">Congratulations</span>
+            {/* Inline SVG fireworks with gold gradient */}
+            <svg
+              className="w-8 h-8 sm:w-10 sm:h-10"
+              viewBox="0 0 64 64"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <radialGradient id="fw-grad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#FFF6D5" />
+                  <stop offset="55%" stopColor="#FFD54F" />
+                  <stop offset="100%" stopColor="#FFC107" />
+                </radialGradient>
+              </defs>
+              <g className="firework-burst">
+                <circle cx="32" cy="32" r="3" fill="url(#fw-grad)" />
+                <g stroke="url(#fw-grad)" strokeWidth="3" strokeLinecap="round">
+                  <path d="M32 8 L32 18" />
+                  <path d="M32 46 L32 56" />
+                  <path d="M8 32 L18 32" />
+                  <path d="M46 32 L56 32" />
+                  <path d="M14 14 L22 22" />
+                  <path d="M42 42 L50 50" />
+                  <path d="M14 50 L22 42" />
+                  <path d="M42 22 L50 14" />
+                </g>
+                <g fill="url(#fw-grad)">
+                  <circle cx="32" cy="12" r="2" />
+                  <circle cx="32" cy="52" r="2" />
+                  <circle cx="12" cy="32" r="2" />
+                  <circle cx="52" cy="32" r="2" />
+                  <circle cx="19" cy="19" r="1.8" />
+                  <circle cx="45" cy="45" r="1.8" />
+                  <circle cx="19" cy="45" r="1.8" />
+                  <circle cx="45" cy="19" r="1.8" />
+                </g>
+              </g>
+              <g className="firework-burst2">
+                <circle cx="32" cy="32" r="2.5" fill="url(#fw-grad)" />
+                <g stroke="url(#fw-grad)" strokeWidth="2" strokeLinecap="round" transform="rotate(22 32 32)">
+                  <path d="M32 10 L32 18" />
+                  <path d="M32 46 L32 54" />
+                  <path d="M10 32 L18 32" />
+                  <path d="M46 32 L54 32" />
+                </g>
+              </g>
+            </svg>
           </div>
 
           <div className={`${isCompact ? 'mb-5 sm:mb-6' : 'mb-6 sm:mb-8'} relative`}>
@@ -154,23 +214,23 @@ export default function WinningModal({
           </div>
 
           <div className="mb-6 sm:mb-8">
-            <div className={`inline-block bg-gradient-to-r from-gold via-yellow-300 to-gold text-emerald-900 rounded-full font-poppins font-bold shadow-2xl border-3 border-emerald-900 transform hover:scale-105 transition-transform ${isCompact ? 'px-4 py-2.5 text-xl sm:text-2xl' : 'px-6 py-3 text-2xl sm:text-3xl'}`}>
+            <div className={`inline-block bg-gradient-to-r from-gold via-yellow-500 to-gold text-emerald-900 rounded-full font-poppins font-bold shadow-2xl border-3 border-emerald-900 transform hover:scale-105 transition-transform ${isCompact ? 'px-4 py-2.5 text-xl sm:text-2xl' : 'px-6 py-3 text-2xl sm:text-3xl'}`}>
               {productPrice}
             </div>
           </div>
 
           <p className={`font-poppins text-emerald-100 font-semibold tracking-wide ${isCompact ? 'text-sm sm:text-base mb-4 sm:mb-6' : 'text-base sm:text-lg mb-6 sm:mb-8'}`}>{productName}</p>
 
-          {isCompact ? null : (
+          {/* {isCompact ? null : (
             <div className="flex justify-center gap-6 sm:gap-8 mb-6 sm:mb-8 text-2xl sm:text-3xl">
               <span className="animate-bounce-delayed-2">🪙</span>
               <span className="text-5xl sm:text-6xl animate-spin-slow">🍯</span>
               <span className="animate-bounce-delayed-1">🪙</span>
             </div>
-          )}
+          )} */}
 
           <div className="space-y-4">
-            <button className={`w-full bg-gradient-to-r from-gold via-yellow-300 to-gold hover:from-yellow-300 hover:via-gold hover:to-yellow-300 text-emerald-900 font-poppins font-bold rounded-full transition-all hover:shadow-2xl hover:scale-105 shadow-xl border-2 border-emerald-900 transform active:scale-95 ${isCompact ? 'py-2.5 px-5 text-base sm:text-lg' : 'py-3 px-6 text-lg sm:text-xl'}`}>
+            <button className={`w-full bg-gradient-to-r from-gold via-yellow-500 to-gold hover:from-yellow-500 hover:via-gold hover:to-yellow-500 text-emerald-900 font-poppins font-bold rounded-full transition-all hover:shadow-2xl hover:scale-105 shadow-xl border-2 border-emerald-900 transform active:scale-95 ${isCompact ? 'py-2.5 px-5 text-base sm:text-lg' : 'py-3 px-6 text-lg sm:text-xl'}`}>
               Claim Prize
             </button>
             <button
@@ -186,17 +246,20 @@ export default function WinningModal({
             <span>100% Authentic & Secured by Irish Luck</span>
             <Sparkles size={16} className="text-gold" />
           </div>
+          <div className="mt-3 flex justify-center">
+            <img src="/another/corrected white image.png" alt="Mascot holding coin" className="h-20 sm:h-24 w-auto drop-shadow-lg" />
+          </div>
         </div>
       </div>
 
       <style jsx global>{`
         /* Gold utility */
-        .text-gold { color: #f7d87c; }
-        .bg-gold { background-color: #f7d87c; }
-        .border-gold { border-color: #f7d87c; }
-        .via-gold { --tw-gradient-stops: var(--tw-gradient-from), #f7d87c, var(--tw-gradient-to); }
-        .from-gold { --tw-gradient-from: #f7d87c; --tw-gradient-to: color-mix(in oklab, #f7d87c 0%, transparent); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-        .to-gold { --tw-gradient-to: #f7d87c; }
+        .text-gold { color: #FFC107; }
+        .bg-gold { background-color: #FFC107; }
+        .border-gold { border-color: #FFC107; }
+        .via-gold { --tw-gradient-stops: var(--tw-gradient-from), #FFC107, var(--tw-gradient-to); }
+        .from-gold { --tw-gradient-from: #FFC107; --tw-gradient-to: color-mix(in oklab, #FFC107 0%, transparent); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+        .to-gold { --tw-gradient-to: #FFC107; }
         .border-3 { border-width: 3px; }
 
         /* Fonts */
@@ -218,7 +281,7 @@ export default function WinningModal({
           100% { text-shadow: 0 0 22px rgba(247,216,124,0.95), 0 0 52px rgba(247,216,124,0.65), 0 0 78px rgba(34,197,94,0.5); filter: brightness(1.05); }
         }
 
-        .animate-shake-premium { animation: shakePremium 0.9s ease-in-out 1; }
+        .animate-shake-premium { animation: shakePremium 0.9s ease-in-out infinite; }
         @keyframes shakePremium {
           0% { transform: translate3d(0,0,0) rotate(0); }
           10% { transform: translate3d(-2px, -1px, 0) rotate(-0.5deg); }
@@ -244,6 +307,15 @@ export default function WinningModal({
           0% { opacity: 0.45; transform: scale(0.98); }
           50% { opacity: 0.85; transform: scale(1.03); }
           100% { opacity: 0.45; transform: scale(0.98); }
+        }
+
+        /* Fireworks animation */
+        .firework-burst { transform-origin: center; animation: fireworkBurst 1.8s ease-in-out infinite; }
+        .firework-burst2 { transform-origin: center; animation: fireworkBurst 1.8s ease-in-out infinite; animation-delay: 0.5s; }
+        @keyframes fireworkBurst {
+          0% { transform: scale(0.8); opacity: 0.6; }
+          35% { transform: scale(1.05); opacity: 1; }
+          100% { transform: scale(0.85); opacity: 0.7; }
         }
 
         .animate-float-particle { animation: floatParticle 6s ease-in-out infinite; }
