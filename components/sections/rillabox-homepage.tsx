@@ -1134,7 +1134,7 @@ export function OSortudoHomepage() {
       </section>
 
       {/* Industry-leading Banner - Rillabox-inspired (Sortudo theme) */}
-      <section className="relative mb-10 rounded-2xl overflow-hidden border border-[#1f6b4a] bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14] min-h-[260px] md:min-h-[300px]">
+      <section className="relative mb-10 rounded-2xl overflow-hidden border border-[#1f6b4a] bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14] min-h-[220px] md:min-h-[260px]">
         {/* Old background disabled per request */}
         {/**
         <video
@@ -1160,11 +1160,11 @@ export function OSortudoHomepage() {
         <div className="hidden md:block absolute z-10 right-6 bottom-2 w-28 h-6 rounded-full bg-black/40 blur-md opacity-40" />
         */}
 
-        {/* Background: shamrock pattern + rainbow arch */}
+        {/* Background: industry overlay 1 */}
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('/add/big banner.png')",
+            backgroundImage: "url('/another/banner industry overlay 1.jpg')",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -1175,9 +1175,9 @@ export function OSortudoHomepage() {
         <div className="absolute inset-0 z-10 bg-black/20 pointer-events-none" />
 
         {/* <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-8 md:py-10 min-h-[260px] md:min-h-[340px] lg:min-h-[360px]"> */}
-        <div className="relative -left-[35px] z-20 flex flex-col items-center justify-center text-center px-6 py-8 md:py-10 min-h-[260px] md:min-h-[340px] lg:min-h-[360px]">
+        <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-6 md:py-8 min-h-[220px] md:min-h-[260px] lg:min-h-[260px]">
           {/* <h2 className="text-white font-semibold max-w-[570px] mx-auto mb-4 md:mb-5 text-[20px] md:text-[24px] lg:top-[100px] lg:ml-[345px] lg:mr-[345px]"> */}
-          <h2 className="text-white font-semibold max-w-[570px] mx-auto mb-4 md:mb-5 text-[20px] md:text-[24px] lg:top-[100px] lg:ml-[345px] lg:mr-[345px] mt-[100px]">
+          <h2 className="text-white font-semibold max-w-[570px] mx-auto mb-4 md:mb-5 text-[20px] md:text-[24px] lg:ml-[345px] lg:mr-[345px]">
 
             Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
           </h2>
@@ -1203,6 +1203,34 @@ export function OSortudoHomepage() {
             100% { background-position: 0 -320px; }
           }
         `}</style>
+      </section>
+
+      {/* Industry-leading Banner duplicate with different background */}
+      <section className="relative mb-10 rounded-2xl overflow-hidden border border-[#1f6b4a] bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14] min-h-[220px] md:min-h-[260px]">
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: "url('/another/Banner insdustry overlay 2.jpg')",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+
+        <div className="absolute inset-0 z-10 bg-black/20 pointer-events-none" />
+
+        <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 py-6 md:py-8 min-h-[220px] md:min-h-[260px] lg:min-h-[260px]">
+          <h2 className="text-white font-semibold max-w-[570px] mx-auto mb-4 md:mb-5 text-[20px] md:text-[24px] lg:ml-[345px] lg:mr-[345px]">
+            Our industry-leading "Provably Fair" technology ensures that all mystery box draws are completely fair, guaranteeing a 100% fair experience.
+          </h2>
+          <span className="block text-white/70 mb-4 md:mb-5 text-[14px] md:text-[16px] max-w-[500px] mx-auto">
+            We uphold complete transparency and have no means of manipulating the outcome in any manner.
+          </span>
+          <Button type="button" className="min-w-[248px] justify-center text-sm md:text-base h-10 md:h-12 bg-[#1f6b4a] hover:bg-[#238257] text-white gap-2 mt-1">
+            Learn more
+            <img src="/icons/landing/button-right-arrow.svg" alt="button-right-arrow" className="w-4 h-4" />
+          </Button>
+        </div>
       </section>
 
       {/* Features Grid - Three Cards (Green accent) */}

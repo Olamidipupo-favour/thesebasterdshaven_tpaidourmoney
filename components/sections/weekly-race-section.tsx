@@ -56,16 +56,25 @@ export function WeeklyRaceSection() {
         {/* Mascot box overlay: timer + button */}
           <div className="absolute top-[230px] left-[790px] w-[240px] md:w-[280px] lg:w-[320px] flex flex-col items-center gap-3 z-10">
              {/* Removed Ends in label for more space */}
-             <div className="flex items-center justify-center gap-2">
-               <span className="px-2.5 py-1.5 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[16px] md:text-[18px] lg:text-[20px] min-w-[40px] md:min-w-[44px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.days)}</span>
-               <span className="text-emerald-200 text-[16px] md:text-[18px] lg:text-[20px]">:</span>
-               <span className="px-2.5 py-1.5 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[16px] md:text-[18px] lg:text-[20px] min-w-[40px] md:min-w-[44px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.hours)}</span>
-               <span className="text-emerald-200 text-[16px] md:text-[18px] lg:text-[20px]">:</span>
-               <span className="px-2.5 py-1.5 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[16px] md:text-[18px] lg:text-[20px] min-w-[40px] md:min-w-[44px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.minutes)}</span>
-               <span className="text-emerald-200 text-[16px] md:text-[18px] lg:text-[20px]">:</span>
-               <span className="px-2.5 py-1.5 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[16px] md:text-[18px] lg:text-[20px] min-w-[40px] md:min-w-[44px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.seconds)}</span>
+             <div className="flex items-center justify-center gap-4">
+               <div className="flex flex-col items-center">
+                 <span className="px-2.5 py-1.5 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[16px] md:text-[18px] lg:text-[20px] min-w-[40px] md:min-w-[44px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.days)}</span>
+                 <span className="text-emerald-200 text-xs md:text-sm lg:text-base mt-1">Days</span>
+               </div>
+               <div className="flex flex-col items-center">
+                 <span className="px-2.5 py-1.5 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[16px] md:text-[18px] lg:text-[20px] min-w-[40px] md:min-w-[44px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.hours)}</span>
+                 <span className="text-emerald-200 text-xs md:text-sm lg:text-base mt-1">Hours</span>
+               </div>
+               <div className="flex flex-col items-center">
+                 <span className="px-2.5 py-1.5 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[16px] md:text-[18px] lg:text-[20px] min-w-[40px] md:min-w-[44px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.minutes)}</span>
+                 <span className="text-emerald-200 text-xs md:text-sm lg:text-base mt-1">Min</span>
+               </div>
+               <div className="flex flex-col items-center">
+                 <span className="px-2.5 py-1.5 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[16px] md:text-[18px] lg:text-[20px] min-w-[40px] md:min-w-[44px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.seconds)}</span>
+                 <span className="text-emerald-200 text-xs md:text-sm lg:text-base mt-1">Sec</span>
+               </div>
              </div>
-             <Button className="mt-2 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-xs md:text-sm py-2 px-4 rounded-xl shadow-lg shadow-yellow-500/40 transition-all hover:shadow-yellow-500/60">
+             <Button className="mt-2 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-sm md:text-base lg:text-lg py-2.5 px-5 rounded-xl shadow-lg shadow-yellow-500/40 transition-all hover:shadow-yellow-500/60">
                View Race
                <ArrowRight className="ml-2 h-5 w-5" />
              </Button>
