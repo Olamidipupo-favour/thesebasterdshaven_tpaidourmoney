@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Users, Box } from "lucide-react"
 
 type LiveDropItem = {
   id: number
@@ -40,7 +39,7 @@ const namePool = [
   "Juliana V****",
 ]
 
-export function LiveDropsTopbar() {
+export default function LiveDropsTopbar() {
   const [visibleItems, setVisibleItems] = useState<LiveDropItem[]>([])
   const queueRef = useRef<LiveDropItem[]>([])
   const [isMobile, setIsMobile] = useState(false)
@@ -63,7 +62,6 @@ export function LiveDropsTopbar() {
     const interval = setInterval(() => {
       const randomItem = liveDropsData[Math.floor(Math.random() * liveDropsData.length)]
       const username = namePool[Math.floor(Math.random() * namePool.length)]
-      // Buffer incoming updates so current scrollers finish their full run
       queueRef.current.push({ ...randomItem, username })
       if (queueRef.current.length > 24) {
         queueRef.current.shift()
@@ -78,65 +76,101 @@ export function LiveDropsTopbar() {
     setVisibleItems((prev) => {
       const merged = [...prev, ...queueRef.current]
       queueRef.current = []
-      // Keep the newest 12 items for the next full cycle
       return merged.slice(-12)
     })
   }
 
   return (
-    // <section id="live-drops-top" className="w-full bg-[#0a1f1a] rounded-2xl px-3 py-2 shadow-2xl">
-    <section
-      id="live-drops-top"
-      className="relative w-full overflow-x-hidden bg-[#0a1f1a] rounded-2xl px-3 py-2 shadow-2xl max-w-screen"
-      style={{ maxWidth: "96vw" }}
-    >
+    <>
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        
+        @keyframes neon-pulse {
+          0%, 100% { 
+            background-position: 0% 50%;
+            opacity: 0.7;
+          }
+          50% { 
+            background-position: 100% 50%;
+            opacity: 0.9;
+          }
+        }
+        
+        @keyframes neon-pulse-outer {
+          0%, 100% { 
+            background-position: 0% 50%;
+            opacity: 0.3;
+          }
+          50% { 
+            background-position: 100% 50%;
+            opacity: 0.5;
+          }
+        }
+        
+        .live-drops-marquee {
+          animation: marquee 30s linear infinite;
+          will-change: transform;
+        }
+        
+        .animate-neon-pulse {
+          animation: neon-pulse 3s ease-in-out infinite;
+        }
+        
+        .animate-neon-pulse-outer {
+          animation: neon-pulse-outer 3s ease-in-out infinite;
+        }
+      `}</style>
+      
+      <section className="w-full overflow-x-hidden bg-[#0a1f1a] rounded-2xl px-3 py-2 shadow-2xl">
+        <div className="flex items-stretch gap-3">
+          {/* Left label: LIVE DROPS */}
+          <div className="relative flex-shrink-0 min-w-[96px] pl-3 pr-4 py-1.5 flex items-center">
+            <div
+              className="absolute inset-y-0 -left-2 right-0 md:-right-8 rounded-xl pointer-events-none opacity-80 blur-md"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(16,185,129,0.35) 0%, rgba(16,185,129,0.2) 40%, transparent 100%)",
+              }}
+            />
+            <div className="relative mr-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping" />
+            </div>
+            <div className="relative z-10 flex flex-col leading-tight">
+              <span className="text-white text-[10px] md:text-sm font-extrabold tracking-wider">LIVE</span>
+              <span className="text-white text-[10px] md:text-sm font-extrabold tracking-wider">DROPS</span>
+            </div>
+          </div>
 
-      <div className="flex items-stretch gap-3">
-        {/* Left label: LIVE DROPS (like AO VIVO) */}
-        <div className="relative flex-shrink-0 min-w-[96px] pl-3 pr-4 py-1.5 flex items-center">
+          {/* Items to the right */}
           <div
-            className="absolute inset-y-0 -left-2 right-0 md:-right-8 rounded-xl pointer-events-none opacity-80 blur-md"
+            className="flex-1 relative overflow-hidden py-0.5"
             style={{
-              background:
-                "linear-gradient(90deg, rgba(16,185,129,0.35) 0%, rgba(16,185,129,0.2) 40%, transparent 100%)",
+              WebkitMaskImage: `linear-gradient(to right, transparent 0, black ${isMobile ? 12 : 56}px, black 100%)`,
+              maskImage: `linear-gradient(to right, transparent 0, black ${isMobile ? 12 : 56}px, black 100%)`,
             }}
-          />
-          <div className="relative mr-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-            <div className="absolute inset-0 w-2 h-2 bg-green-500 rounded-full animate-ping" />
-          </div>
-          <div className="relative z-10 flex flex-col leading-tight">
-            <span className="text-white text-[10px] md:text-sm font-extrabold tracking-wider">LIVE</span>
-            <span className="text-white text-[10px] md:text-sm font-extrabold tracking-wider">DROPS</span>
+          >
+            <div className="live-drops-marquee flex items-stretch gap-2" onAnimationIteration={handleMarqueeIteration}>
+              {[...visibleItems, ...visibleItems].map((item, index) => (
+                <LiveDropCardHorizontal key={`${item.id}-${index}`} item={item} index={index} />
+              ))}
+            </div>
+
+            {/* Soft fades on both edges */}
+            <div
+              className="pointer-events-none absolute inset-y-0 left-0 w-10 md:w-28 z-10"
+              style={{
+                background:
+                  "radial-gradient(100% 80% at 0% 50%, rgba(10,31,26,0.95) 0%, rgba(10,31,26,0.8) 40%, transparent 80%)",
+              }}
+            />
           </div>
         </div>
-
-        {/* Items to the right */}
-        <div
-          className="flex-1 relative overflow-hidden py-0.5"
-          style={{
-            WebkitMaskImage: `linear-gradient(to right, transparent 0, black ${isMobile ? 12 : 56}px, black 100%)`,
-            maskImage: `linear-gradient(to right, transparent 0, black ${isMobile ? 12 : 56}px, black 100%)`,
-          }}
-        >
-          <div className="live-drops-marquee flex items-stretch gap-2" onAnimationIteration={handleMarqueeIteration}>
-            {[...visibleItems, ...visibleItems].map((item, index) => (
-              <LiveDropCardHorizontal key={`${item.id}-${index}`} item={item} index={index} />
-            ))}
-          </div>
-
-          {/* Soft fades on both edges to avoid hard borders */}
-          <div
-          className="pointer-events-none absolute inset-y-0 left-0 w-10 md:w-28 z-10"
-          style={{
-            background:
-              "radial-gradient(100% 80% at 0% 50%, rgba(10,31,26,0.95) 0%, rgba(10,31,26,0.8) 40%, transparent 80%)",
-          }}
-        />
-
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
 
@@ -144,7 +178,7 @@ function LiveDropCardHorizontal({ item, index }: { item: LiveDropItem; index: nu
   const [isHovered, setIsHovered] = useState(false)
 
   return (
-    <div className="relative min-w-[180px] max-w-[220px]">
+    <div className="relative min-w-[160px] md:min-w-[180px] max-w-[200px] md:max-w-[220px] flex-shrink-0">
       <div
         className="absolute -inset-[2px] rounded-xl animate-neon-pulse opacity-70"
         style={{
@@ -181,8 +215,16 @@ function LiveDropCardHorizontal({ item, index }: { item: LiveDropItem; index: nu
 
         <div className="flex items-center gap-2.5">
           <div className="relative w-10 h-10 flex-shrink-0">
-            <img src={item.image || "/placeholder.svg"} alt={item.name} className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`} />
-            <img src={item.hoverImage || "/placeholder.svg"} alt={`${item.name} box`} className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`} />
+            <img 
+              src={item.image || "/placeholder.svg"} 
+              alt={item.name} 
+              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`} 
+            />
+            <img 
+              src={item.hoverImage || "/placeholder.svg"} 
+              alt={`${item.name} box`} 
+              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`} 
+            />
           </div>
 
           <div className="flex-1 min-w-0 text-left">

@@ -316,6 +316,13 @@ export function OSortudoHomepage() {
         <LiveDropsTopbar />
       </section>
 
+      {/* <section 
+        className="relative w-full overflow-x-hidden bg-[#0a1f1a] rounded-2xl px-3 py-2 shadow-2xl max-w-screen"
+        style={{ maxWidth: "100vw" }}
+      >
+        <LiveDropsTopbar />
+      </section> */}
+
       {/* Game Modes Section - Exact user-provided gamemodes markup */}
       <GamesSection />
       {false && (<section className="w-full mb-8">
