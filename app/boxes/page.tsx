@@ -443,20 +443,25 @@ export default function BoxesPage() {
                 )}
               </div>
 
-              {/* Category Filter - Exact Rillabox Style */}
-              <div className="flex space-x-2 mb-6 overflow-x-auto md:overflow-visible -mx-4 px-4 whitespace-nowrap">
-                {categories.map((category) => (
-                  <Button
-                    key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedCategory(category)}
-                    className="capitalize flex-shrink-0"
-                  >
-                    {category}
-                  </Button>
-                ))}
-              </div>
+              {/* Category Filter - viewport bounded like LiveDrops */}
+              <section
+                className="relative w-full overflow-x-hidden max-w-screen mb-6"
+                style={{ maxWidth: "90vw" }}
+              >
+                <div className="flex gap-2 overflow-x-auto scrollbar-hide px-1 sm:px-0 whitespace-nowrap w-full">
+                  {categories.map((category) => (
+                    <Button
+                      key={category}
+                      variant={selectedCategory === category ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedCategory(category)}
+                      className="capitalize flex-shrink-0"
+                    >
+                      {category}
+                    </Button>
+                  ))}
+                </div>
+              </section>
             </div>
 
             {/* Boxes Grid - Homepage card markup */}

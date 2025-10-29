@@ -46,10 +46,10 @@ export function WeeklyRaceSection() {
     <div className="relative w-full max-w-7xl mx-auto">
       {/* Mobile-only version using mobilr.png */}
       <div className="md:hidden">
-        <div className="relative rounded-[1.5rem] overflow-hidden min-h-[240px] bg-[url('/add/mobilr.png')] bg-cover bg-center">
+        <div className="relative rounded-[1.5rem] overflow-hidden min-h-[260px] bg-[url('/add/mobilr.png')] bg-cover bg-center">
           <div className="absolute inset-0 bg-black/10 pointer-events-none" />
           {/* Left-side text cluster */}
-          <div className="relative z-10 px-4 py-5 pr-[46%]">
+          <div className="relative z-10 px-4 pr-[46%] min-h-[260px] flex flex-col justify-center">
             <h2 className="text-[30px] font-extrabold text-white tracking-tight">$10,000</h2>
             <span className="mt-1 inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-1.5 rounded-full text-[13px] font-semibold">Weekly Race</span>
             <p className="mt-2 text-gray-200 text-[12px] leading-snug font-medium max-w-[300px]">Participate in our Weekly Race simply by playing on RillaBox!</p>
