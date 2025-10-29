@@ -260,14 +260,14 @@ export default function WeeklyRacePage() {
               {/* Left: Trophy + Text */}
               <div className="flex items-center gap-4">
                 <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0">
-                  <img src="https://rillabox.com/images/trophy-changed.png" alt="Trophy" className="w-full h-full object-contain" />
+                  <img src="https://rillabox.com/images/trophy-changed.png" alt="Trophy" className="w-full h-full object-contain trophy-float" />
                 </div>
                 <div>
                   <div className="flex flex-wrap items-center gap-3">
                     <h2 className="text-4xl md:text-5xl font-bold text-white">$10,000</h2>
                     <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-1.5 rounded-full text-sm font-semibold whitespace-nowrap">Weekly Race</span>
                   </div>
-                  <p className="text-muted-foreground mt-2">Every week, you can join our Weekly Race on RillaBox, where users can win amazing rewards just by participating!</p>
+                  <p className="mt-2 text-white/80 font-light">Every week, you can join our Weekly Race on RillaBox, where users can win amazing rewards just by participating!</p>
                 </div>
               </div>
 

@@ -152,9 +152,9 @@ export default function WinningModal({
           </div>
 
           <div className="flex items-center justify-center gap-3 mb-8 sm:mb-10">
-            <span className="font-poppins font-bold text-emerald-100 text-2xl sm:text-3xl">Congratulations</span>
+            <span className="font-poppins font-bold text-emerald-100 text-2xl sm:text-3xl">Congratulations 🎉</span>
             {/* Inline SVG fireworks with gold gradient */}
-            <svg
+            {/* <svg
               className="w-8 h-8 sm:w-10 sm:h-10"
               viewBox="0 0 64 64"
               fill="none"
@@ -199,7 +199,7 @@ export default function WinningModal({
                   <path d="M46 32 L54 32" />
                 </g>
               </g>
-            </svg>
+            </svg> */}
           </div>
 
           <div className={`${isCompact ? 'mb-5 sm:mb-6' : 'mb-6 sm:mb-8'} relative`}>
