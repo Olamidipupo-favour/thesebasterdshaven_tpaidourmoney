@@ -246,7 +246,7 @@ export default function WeeklyRacePage() {
            <div
              className="absolute inset-0"
              style={{
-               backgroundImage: "url('/another/banner industry overlay 1.jpg')",
+               backgroundImage: "url('/another/banner industry 1.jpg')",
                backgroundRepeat: 'no-repeat',
                backgroundSize: 'cover',
                backgroundPosition: 'center'

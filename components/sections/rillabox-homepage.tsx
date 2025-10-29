@@ -1146,7 +1146,7 @@ export function OSortudoHomepage() {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: "url('/another/Banner insdustry overlay 2.jpg')",
+            backgroundImage: "url('/another/banner insdustry 2.jpg')",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
