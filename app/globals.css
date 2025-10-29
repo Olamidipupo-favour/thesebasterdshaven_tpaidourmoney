@@ -972,6 +972,13 @@
 }
 .mascot-peek { animation: mascotPeek 5.5s ease-in-out infinite; filter: drop-shadow(0 0 12px rgba(82, 202, 25, 0.4)); }
 
+/* Trophy subtle float for Weekly Race hero */
+@keyframes trophyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.trophy-float { animation: trophyFloat 4.5s ease-in-out infinite; filter: drop-shadow(0 6px 12px rgba(234, 179, 8, 0.35)); will-change: transform; }
+
 
 
 @keyframes heroBorderPop {
