@@ -49,14 +49,14 @@ export function WeeklyRaceSection() {
         <div className="relative rounded-[1.5rem] overflow-hidden min-h-[260px] bg-[url('/add/mobilr.png')] bg-cover bg-center">
           <div className="absolute inset-0 bg-black/10 pointer-events-none" />
           {/* Left-side text cluster */}
-          <div className="relative z-10 px-4 pr-[46%] min-h-[260px] flex flex-col justify-center">
+          <div className="relative z-10 px-4 pr-[52%] min-h-[260px] flex flex-col justify-center">
             <h2 className="text-[30px] font-extrabold text-white tracking-tight">$10,000</h2>
-            <span className="mt-1 inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-1.5 rounded-full text-[13px] font-semibold">Weekly Race</span>
+            <span className="mt-1 w-fit inline-block bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-3 py-1 rounded-full text-[12px] font-semibold">Weekly Race</span>
             <p className="mt-2 text-gray-200 text-[12px] leading-snug font-medium max-w-[300px]">Participate in our Weekly Race simply by playing on RillaBox!</p>
           </div>
 
           {/* Mascot box overlay: timer + button (anchored inside right green box) */}
-          <div className="absolute right-3 bottom-4 z-10 w-[50%] max-w-[210px]">
+          <div className="absolute right-3 bottom-4 z-10 w-[50%] max-w-[210px] flex flex-col items-center">
             <div className="flex items-center justify-center gap-2">
               <div className="flex flex-col items-center">
                 <span className="px-1.5 py-1 rounded-md bg-emerald-900/70 border border-emerald-600/40 text-yellow-300 font-bold text-[12px] min-w-[32px] text-center shadow-inner backdrop-blur-[1px]">{formatNumber(timeLeft.days)}</span>
@@ -75,7 +75,7 @@ export function WeeklyRaceSection() {
                 <span className="text-emerald-200 text-[10px] mt-1">Sec</span>
               </div>
             </div>
-            <Button className="mt-2 w-full bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-xs py-1.5 px-4 rounded-xl shadow-lg shadow-yellow-500/40 transition-all hover:shadow-yellow-500/60">
+            <Button className="mt-2 w-auto self-center translate-x-1 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-xs py-1.5 px-3 rounded-lg shadow-md shadow-yellow-500/20 transition-all">
               View Race
               <ArrowRight className="ml-2 h-3 w-3" />
             </Button>
