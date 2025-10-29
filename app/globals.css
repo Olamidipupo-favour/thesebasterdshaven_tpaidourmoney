@@ -117,6 +117,22 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* html, body {
+  overflow-x: hidden !important;
+  max-width: 100%;
+} */
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
