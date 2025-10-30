@@ -369,12 +369,12 @@ export default function IPhoneBoxPage() {
     const fastIntervalMs = 16 // ~60fps for smooth fast movement
     const fastSteps = Math.floor(fastDurationMs / fastIntervalMs)
 
-    const decelDurationMs = 2000
-    const endMaxIntervalMs = 140 // final step interval at full stop
+    const decelDurationMs = 3500
+    const endMaxIntervalMs = 220 // slower final step interval for more natural stop
     // Faster early reduction: easeOutExpo grows quickly at the start
     const easeOutExpo = (t: number) => (t === 0 ? 0 : 1 - Math.pow(2, -10 * t))
     // Build deceleration interval schedule and scale to exactly decelDurationMs
-    const slowSteps = 45 // number of steps during deceleration
+    const slowSteps = 70 // more steps during deceleration for smoother, longer slowdown
     const rawIntervals = Array.from({ length: slowSteps }, (_, i) => {
       const t = i / (slowSteps - 1)
       return fastIntervalMs + (endMaxIntervalMs - fastIntervalMs) * easeOutExpo(t)
