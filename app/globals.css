@@ -976,6 +976,9 @@ html, body {
 }
 
 .live-drops-marquee {
+  /* Ensure the track width equals its content so -50% loop is seamless */
+  display: flex;
+  width: max-content;
   animation: liveDropsMarquee 28s linear infinite;
   will-change: transform;
 }

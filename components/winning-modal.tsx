@@ -34,7 +34,7 @@ export default function WinningModal({
         "✨",
         "🌈",
         "⭐",
-        "🍯",
+        "img:/new/pot coin.png",
       ]
       return {
         id: i,
