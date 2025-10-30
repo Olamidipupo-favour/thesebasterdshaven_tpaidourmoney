@@ -66,14 +66,14 @@ export function Navigation() {
                     className="z-[60] mt-2 min-w-[260px] p-0 rounded-xl overflow-hidden bg-popover shadow-xl border border-border"
                   >
                     <DropdownMenuItem asChild className="px-4 py-3 text-base">
-                      <Link href="/shop/buy" className="cursor-pointer flex items-center gap-3 w-full">
+                      <Link href="/" className="cursor-pointer flex items-center gap-3 w-full">
                         <ShoppingCart className="w-5 h-5" />
                          <span>Buy</span>
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem asChild className="px-4 py-3 text-base">
-                      <Link href="/shop/trade" className="cursor-pointer flex items-center gap-3 w-full">
+                      <Link href="/" className="cursor-pointer flex items-center gap-3 w-full">
                         <ArrowLeftRight className="w-5 h-5" />
                         <span>Trade</span>
                       </Link>
@@ -171,10 +171,10 @@ export function Navigation() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-full">
                     <DropdownMenuItem asChild>
-                      <Link href="/shop/buy" className="cursor-pointer w-full">Buy</Link>
+                      <Link href="/" className="cursor-pointer w-full">Buy</Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
-                      <Link href="/shop/trade" className="cursor-pointer w-full">Trade</Link>
+                      <Link href="/" className="cursor-pointer w-full">Trade</Link>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

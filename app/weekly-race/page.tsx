@@ -252,10 +252,10 @@ export default function WeeklyRacePage() {
                backgroundPosition: 'center'
              }}
            ></div>
-           <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+           {/* <div className="absolute inset-0 bg-black/30 pointer-events-none" /> */}
            <div className="relative rounded-3xl p-6 md:p-8 lg:p-10 hero-lightpop overflow-hidden">
              {/* <video src="/new/10k.mp4" autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0" /> */}
-             <div className="absolute inset-0 bg-black/45 z-10 pointer-events-none" />
+             {/* <div className="absolute inset-0 bg-black/45 z-10 pointer-events-none" /> */}
              <div className="relative z-20 grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 items-center">
               {/* Left: Trophy + Text */}
               <div className="flex items-center gap-4">
