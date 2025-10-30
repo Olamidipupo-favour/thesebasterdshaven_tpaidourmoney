@@ -29,7 +29,7 @@ function FootballIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ShoppingCart, ArrowLeftRight, Target, Egg, Goal } from "lucide-react"
+import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ShoppingCart, ArrowLeftRight, Target, Egg, Goal, ChevronDown } from "lucide-react"
 
 export function RillaboxHeader() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -40,6 +40,7 @@ export function RillaboxHeader() {
   const [shopOpen, setShopOpen] = useState(false)
   const gamesCloseRef = useRef<number | null>(null)
   const shopCloseRef = useRef<number | null>(null)
+  const [mobileShopOpen, setMobileShopOpen] = useState(false)
 
   const openGames = () => {
     if (gamesCloseRef.current) clearTimeout(gamesCloseRef.current)
@@ -162,16 +163,16 @@ export function RillaboxHeader() {
                     <Boxes className="w-4 h-4" />
                     <span>Mystery Boxes</span>
                   </Link>
-                  <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                  <Link href="#" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <Target className="w-4 h-4" />
                     <span>Find the Prize</span>
                   </Link>
-                  <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                  <Link href="#" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     {/* Replace icon with soccer.png */}
                     <img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 object-contain" />
                     <span>Soccer Game</span>
                   </Link>
-                  <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                  <Link href="#" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <Egg className="w-4 h-4" />
                     <span>Chicken Road</span>
                   </Link>
@@ -179,7 +180,7 @@ export function RillaboxHeader() {
               </div>
 
               {/* Earn to Play (moved to mobile drawer) */}
-              <Link href="/earn" className="hidden lg:inline-flex">
+              <Link href="/" className="hidden lg:inline-flex">
                 <Button variant="outline" className="group flex items-center gap-2 transition hover:-translate-y-[1px] hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">
                   <DollarSign className="w-4 h-4" />
                   <span className="text-white group-hover:text-[#52CA19]">Earn to Play</span>
@@ -194,11 +195,11 @@ export function RillaboxHeader() {
                 </Button>
                 <div aria-hidden className="absolute left-0 top-full w-full h-2"></div>
                 <div className="absolute left-0 top-full mt-1 min-w-[200px] z-[60] block opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto rounded-md border border-border bg-card shadow-md p-1 transition-opacity duration-150">
-                  <Link href="/shop/buy" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                  <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <ShoppingCart className="w-4 h-4" />
                     <span>Buy</span>
                   </Link>
-                  <Link href="/shop/trade" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
+                  <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <ArrowLeftRight className="w-4 h-4" />
                     <span>Trade</span>
                   </Link>
@@ -287,10 +288,65 @@ export function RillaboxHeader() {
                 <div className="p-4 space-y-4">
                   <div className="space-y-4">
                     <Link href="/boxes"><Button variant="outline" className="w-full justify-start py-3"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
-                    <Link href="/"><Button variant="outline" className="w-full justify-start py-3"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
-                    <Link href="/"><Button variant="outline" className="w-full justify-start py-3"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</Button></Link>
-                    <Link href="/"><Button variant="outline" className="w-full justify-start py-3"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
+                    <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
+                    <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</Button></Link>
+                    <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
                     <Link href="/earn"><Button variant="outline" className="w-full justify-start py-3"><DollarSign className="w-4 h-4 mr-2" />Earn to Play</Button></Link>
+
+                    {/* Shop collapsible below Earn to Play */}
+                    <button
+                      type="button"
+                      className="w-full flex items-center justify-between rounded-md border border-border px-3 py-3 text-sm hover:bg-accent hover:text-accent-foreground"
+                      onClick={() => setMobileShopOpen((v) => !v)}
+                    >
+                      <span className="flex items-center"><Gift className="w-4 h-4 mr-2" />Shop</span>
+                      <ChevronDown className={`w-4 h-4 transition-transform ${mobileShopOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    {mobileShopOpen && (
+                      <div className="pl-6 space-y-2">
+                        <Link href="#">
+                          <Button variant="ghost" className="w-full justify-start">
+                            <ShoppingBag className="w-4 h-4 mr-2" />
+                            Buy
+                          </Button>
+                        </Link>
+                        <Link href="#">
+                          <Button variant="ghost" className="w-full justify-start">
+                            <ArrowLeftRight className="w-4 h-4 mr-2" />
+                            Trade
+                          </Button>
+                        </Link>
+                      </div>
+                    )}
+
+                    {/* Weekly Race 10k banner (desktop design adapted for mobile) */}
+                    <Link href="/weekly-race" title="$10k Race" className="flex group items-center overflow-hidden flex-shrink-0 w-full px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#fed81f] to-[#e67d00] border-4 border-[#e67d00] transition-all duration-300">
+                      <Trophy className="w-5 h-5 text-amber-700 mr-2 group-hover:animate-bounce" />
+                      <div className="flex items-center gap-2 w-full justify-between">
+                        <span className="text-white font-semibold not-italic">$10k Race</span>
+                        <div className="flex items-center gap-1 text-white">
+                          <div className="flex flex-col leading-none items-center">
+                            <span className="font-bold">{timeLeft.days.toString().padStart(2, "0")}</span>
+                            <span className="text-[10px]">D</span>
+                          </div>
+                          <span>:</span>
+                          <div className="flex flex-col leading-none items-center">
+                            <span className="font-bold">{timeLeft.hours.toString().padStart(2, "0")}</span>
+                            <span className="text-[10px]">H</span>
+                          </div>
+                          <span>:</span>
+                          <div className="flex flex-col leading-none items-center">
+                            <span className="font-bold">{timeLeft.minutes.toString().padStart(2, "0")}</span>
+                            <span className="text-[10px]">M</span>
+                          </div>
+                          <span>:</span>
+                          <div className="flex flex-col leading-none items-center">
+                            <span className="font-bold">{timeLeft.seconds.toString().padStart(2, "0")}</span>
+                            <span className="text-[10px]">S</span>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
                   </div>
 
                   {!isAuthenticated ? (

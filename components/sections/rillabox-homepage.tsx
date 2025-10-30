@@ -238,7 +238,7 @@ export function OSortudoHomepage() {
                       index === currentBanner ? 'opacity-100' : 'opacity-0'
                     }`}
                   >
-                    <a href={banner.href} className="inline-block w-full h-full">
+                    <a className="inline-block w-full h-full">
                       {/* Desktop image */}
                       <img
                         src={banner.desktopImage}
@@ -292,7 +292,7 @@ export function OSortudoHomepage() {
           {/* Right: Achievements banner */}
           <div className="col-span-12 md:col-span-4 h-auto pr-0">
             <div className="h-full overflow-hidden">
-              <a href="/" className="block w-full h-full">
+              <a className="block w-full h-full">
                 {/* Desktop */}
                 <img
                   src="/new/acheiment radius.png"
