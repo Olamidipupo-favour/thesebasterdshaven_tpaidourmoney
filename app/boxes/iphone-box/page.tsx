@@ -12,9 +12,13 @@ import dynamic from "next/dynamic"
 import WinningModal from "@/components/winning-modal"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
-const Box3D = dynamic(() => import("@/components/animations/box-3d").then(mod => ({ default: mod.Box3D })), {
+const Box3D = dynamic(() => import("@/components/animations/box-3d"), {
   ssr: false,
-  loading: () => <div className="w-[240px] h-[240px] flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div></div>
+  loading: () => (
+    <div className="w-[240px] h-[240px] flex items-center justify-center">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+    </div>
+  )
 })
 
 import iphoneItemsJson from "@/data/boxes/iphone-1pct.json"
@@ -332,7 +336,9 @@ export default function IPhoneBoxPage() {
           for (let col = 0; col < quantity; col++) {
             const extendedItems: typeof iphoneItems = []
             const shuffledItems = shuffleArray(iphoneItems)
-            for (let i = 0; i < 18; i++) {
+            // Ensure a long track so a 5s fast phase has room
+            const replicateCount = 100 // ~1500 items (15 * 100)
+            for (let i = 0; i < replicateCount; i++) {
               extendedItems.push(...shuffledItems)
             }
             columnsData.push(extendedItems)
@@ -358,11 +364,24 @@ export default function IPhoneBoxPage() {
     const startIndices = columnsData.map(col => Math.floor(col.length / 2))
     const currentIndices = [...startIndices]
 
-    // Smooth timing using easing from fast to slow
-    const totalSteps = isFastSpin ? 40 : 60
-    const minInterval = isFastSpin ? 14 : 18
-    const maxInterval = isFastSpin ? 70 : 95
-    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+    // Two-phase timing: 3s very fast, then 2s deceleration to the target
+    const fastDurationMs = 3000
+    const fastIntervalMs = 16 // ~60fps for smooth fast movement
+    const fastSteps = Math.floor(fastDurationMs / fastIntervalMs)
+
+    const decelDurationMs = 2000
+    const endMaxIntervalMs = 140 // final step interval at full stop
+    // Faster early reduction: easeOutExpo grows quickly at the start
+    const easeOutExpo = (t: number) => (t === 0 ? 0 : 1 - Math.pow(2, -10 * t))
+    // Build deceleration interval schedule and scale to exactly decelDurationMs
+    const slowSteps = 45 // number of steps during deceleration
+    const rawIntervals = Array.from({ length: slowSteps }, (_, i) => {
+      const t = i / (slowSteps - 1)
+      return fastIntervalMs + (endMaxIntervalMs - fastIntervalMs) * easeOutExpo(t)
+    })
+    const rawSum = rawIntervals.reduce((sum, v) => sum + v, 0)
+    const scale = decelDurationMs / rawSum
+    const decelIntervals = rawIntervals.map(v => Math.max(8, v * scale))
 
     // Select different winning items for each column
     const usedItems = new Set<string>()
@@ -378,15 +397,14 @@ export default function IPhoneBoxPage() {
       usedItems.add(iphoneItems[randomIndex].id)
     }
 
-    // Determine forward landing target ahead of the start index for a natural stop
-    const baseOffset = isFastSpin ? 22 : 32
+    // Determine landing target so total distance ~= fastSteps + slowSteps
     const targetIndices: number[] = []
-
     const modifiedColumnsData = columnsData.map((columnArray, colIndex) => {
       const modified = [...columnArray]
       const start = startIndices[colIndex]
-      const offset = baseOffset + Math.floor(Math.random() * 6) // slight variance per column
-      let target = start + offset
+      // small random padding so it doesn't feel mechanical
+      const padding = 6 + Math.floor(Math.random() * 6)
+      let target = start + fastSteps + slowSteps + padding
       if (target >= columnArray.length - 2) target = columnArray.length - 3
       targetIndices.push(target)
       modified[target] = iphoneItems[finalItems[colIndex]]
@@ -395,33 +413,41 @@ export default function IPhoneBoxPage() {
 
     setColumnItems(modifiedColumnsData)
 
-    let steps = 0
+    let step = 0
     const tick = () => {
-      // Advance indices towards their targets
       let allLanded = true
-      for (let col = 0; col < numColumns; col++) {
-        if (currentIndices[col] < targetIndices[col]) {
+
+      if (step < fastSteps) {
+        // Phase 1: very fast constant speed
+        for (let col = 0; col < numColumns; col++) {
           currentIndices[col] += 1
-          allLanded = false
-        } else {
-          currentIndices[col] = targetIndices[col]
+          if (currentIndices[col] < targetIndices[col]) allLanded = false
+        }
+      } else {
+        // Phase 2: smooth deceleration toward target
+        for (let col = 0; col < numColumns; col++) {
+          if (currentIndices[col] < targetIndices[col]) {
+            currentIndices[col] += 1
+            allLanded = false
+          } else {
+            currentIndices[col] = targetIndices[col]
+          }
         }
       }
 
       setColumnSpinIndices([...currentIndices])
       playClick()
 
-      steps++
-      const progress = Math.min(1, steps / totalSteps)
-      const interval = Math.max(16, minInterval + (maxInterval - minInterval) * easeOutCubic(progress))
+      // Compute next interval based on phase
+      let nextInterval = fastIntervalMs
+      if (step >= fastSteps) {
+        const decIndex = Math.min(slowSteps - 1, step - fastSteps)
+        nextInterval = decelIntervals[decIndex]
+      }
 
-      if (allLanded || steps >= totalSteps) {
-        if (!allLanded) {
-          for (let col = 0; col < numColumns; col++) {
-            currentIndices[col] = targetIndices[col]
-          }
-          setColumnSpinIndices([...currentIndices])
-        }
+      step++
+
+      if (allLanded) {
         const winningItems = currentIndices.map((idx, ci) => modifiedColumnsData[ci][idx])
         timeouts.current.push(window.setTimeout(() => {
           setWonPrizes(winningItems)
@@ -431,7 +457,7 @@ export default function IPhoneBoxPage() {
         return
       }
 
-      timeouts.current.push(window.setTimeout(tick, interval))
+      timeouts.current.push(window.setTimeout(tick, Math.max(8, nextInterval)))
     }
 
     tick()
@@ -474,7 +500,9 @@ export default function IPhoneBoxPage() {
           for (let col = 0; col < quantity; col++) {
             const extendedItems: typeof iphoneItems = []
             const shuffledItems = shuffleArray(iphoneItems)
-            for (let i = 0; i < 30; i++) {
+            // Longer track for real spins to accommodate extended timing
+            const replicateCount = 120 // ~1800 items
+            for (let i = 0; i < replicateCount; i++) {
               extendedItems.push(...shuffledItems)
             }
             columnsData.push(extendedItems)
@@ -665,30 +693,32 @@ export default function IPhoneBoxPage() {
                     const isWinningItem = wonPrizes.some(prize => prize.id === item.id) && columnSpinIndices[0] === index
 
                     return (
-                      <div key={`item-${index}`} className="w-24 h-24 mx-3 rounded-xl flex items-center justify-center shrink-0 relative"
+                      <div
+                        key={`item-${index}`}
+                        className="w-24 h-24 mx-3 flex items-center justify-center shrink-0 relative"
                         style={{
-                          backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-                          backdropFilter: 'blur(8px)',
-                          border: isWinningItem ? `2px solid ${rarityColor}` : `1px solid ${rarityColor}80`,
-                          boxShadow: isWinningItem
-                            ? `0 0 60px ${rarityColor}, 0 0 100px ${rarityColor}cc, 0 0 140px ${rarityColor}80`
-                            : `0 0 25px ${rarityColor}, 0 0 40px ${rarityColor}80, 0 0 60px ${rarityColor}40, 0 4px 12px rgba(0,0,0,0.5)`,
-                          transform: isWinningItem ? 'scale(1.12)' : 'scale(1)',
-                          transition: 'transform 250ms ease, box-shadow 250ms ease',
+                          backgroundColor: 'transparent',
+                          backdropFilter: 'none',
+                          border: 'none',
+                          boxShadow: 'none',
+                          transform: isWinningItem ? 'scale(1.10)' : 'scale(1)',
+                          transition: 'transform 250ms ease',
                           zIndex: isWinningItem ? 50 : 'auto'
                         }}
                       >
-                        <img src={item.image} alt={item.name} className={`w-16 h-16 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-90'}`} onError={(e) => { e.currentTarget.src = '/placeholder.svg' }} />
-                        <div
-                          className="absolute inset-0 rounded-xl pointer-events-none"
-                          style={{
-                            background: `radial-gradient(circle at center, ${rarityColor}50 0%, ${rarityColor}25 40%, transparent 70%)`
-                          }}
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className={`w-16 h-16 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-95'}`}
+                          onError={(e) => { e.currentTarget.src = '/placeholder.svg' }}
+                          style={{ filter: `drop-shadow(0 0 12px ${rarityColor}55) drop-shadow(0 0 24px ${rarityColor}30)` }}
                         />
                         {isWinningItem && (
                           <div
-                            className="absolute -inset-1 rounded-2xl pointer-events-none animate-pulse"
-                            style={{ boxShadow: `0 0 40px ${rarityColor}, 0 0 90px ${rarityColor}aa` }}
+                            className="absolute inset-0 pointer-events-none"
+                            style={{
+                              background: `radial-gradient(circle at center, ${rarityColor}40 0%, ${rarityColor}20 45%, transparent 70%)`
+                            }}
                           />
                         )}
                       </div>
@@ -746,20 +776,24 @@ export default function IPhoneBoxPage() {
                             return (
                               <div
                                 key={`item-${columnIndex}-${index}`}
-                                className="w-28 h-28 sm:w-36 sm:h-36 my-6 sm:my-8 rounded-xl flex items-center justify-center shrink-0 relative"
+                                className="w-28 h-28 sm:w-36 sm:h-36 my-6 sm:my-8 flex items-center justify-center shrink-0 relative"
                                 style={{
-                                  backgroundColor: isWinningItem ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.1)',
-                                  backdropFilter: 'blur(8px)',
-                                  border: isWinningItem ? `2px solid ${rarityColor}` : `1px solid ${rarityColor}80`,
-                                  boxShadow: isWinningItem
-                                    ? `0 0 60px ${rarityColor}, 0 0 100px ${rarityColor}cc, 0 0 140px ${rarityColor}80`
-                                    : `0 0 25px ${rarityColor}, 0 0 40px ${rarityColor}80, 0 0 60px ${rarityColor}40, 0 4px 12px rgba(0,0,0,0.5)`,
-                                  transform: isWinningItem ? 'scale(1.08)' : 'scale(1)',
-                                  transition: 'transform 250ms ease, box-shadow 250ms ease',
+                                  backgroundColor: 'transparent',
+                                  backdropFilter: 'none',
+                                  border: 'none',
+                                  boxShadow: 'none',
+                                  transform: isWinningItem ? 'scale(1.06)' : 'scale(1)',
+                                  transition: 'transform 250ms ease',
                                   zIndex: isWinningItem ? 50 : 'auto'
                                 }}
                               >
-                                <img src={item.image} alt={item.name} className={`w-20 h-20 sm:w-24 sm:h-24 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-90'}`} onError={(e) => { e.currentTarget.src = '/placeholder.svg' }} />
+                                <img
+                                  src={item.image}
+                                  alt={item.name}
+                                  className={`w-20 h-20 sm:w-24 sm:h-24 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-95'}`}
+                                  onError={(e) => { e.currentTarget.src = '/placeholder.svg' }}
+                                  style={{ filter: `drop-shadow(0 0 14px ${rarityColor}55) drop-shadow(0 0 28px ${rarityColor}30)` }}
+                                />
                                 <div
                                   className="absolute inset-0 rounded-xl pointer-events-none"
                                   style={{
