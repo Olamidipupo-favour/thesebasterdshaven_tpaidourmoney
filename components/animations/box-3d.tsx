@@ -164,3 +164,5 @@ export function Box3D({ isHovered, boxOpening, boxDisappearing }: Box3DProps) {
   )
 }
 
+export default Box3D
+
