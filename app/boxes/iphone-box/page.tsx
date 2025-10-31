@@ -219,6 +219,8 @@ export default function IPhoneBoxPage() {
   const [columnSpinIndices, setColumnSpinIndices] = useState<number[]>([])
   const [columnItems, setColumnItems] = useState<any[][]>([])
   const [columnOrder, setColumnOrder] = useState<number[]>([])
+  // Match transform transition duration to current step interval for continuous glide
+  const [spinStepDurationMs, setSpinStepDurationMs] = useState<number>(100)
   const [boxOpening, setBoxOpening] = useState(false) // Start closed
   const [boxDisappearing, setBoxDisappearing] = useState(false)
   const [isGameInProgress, setIsGameInProgress] = useState(false)
@@ -451,6 +453,14 @@ export default function IPhoneBoxPage() {
           const tailIdx = Math.min(decIndex - slowSteps, tailIntervals.length - 1)
           nextInterval = tailIntervals[tailIdx]
         }
+      }
+
+      // Match transition duration to interval for smooth continuous movement
+      if (step >= fastSteps) {
+        setSpinStepDurationMs(Math.min(420, Math.max(80, Math.floor(nextInterval))))
+      } else {
+        // Keep short transitions during fast phase so updates feel fluid
+        setSpinStepDurationMs(60)
       }
 
       step++
@@ -688,12 +698,16 @@ export default function IPhoneBoxPage() {
                 }}
               >
                 <div
-                  className={`flex items-center ${(isSpinning || wonPrizes.length > 0) ? 'transition-transform duration-100 ease-out' : ''}`}
+                  className={`flex items-center`}
                   style={{
                     transform: (isSpinning || wonPrizes.length > 0) && columnSpinIndices[0] !== undefined
                       ? `translateX(calc(50% - ${columnSpinIndices[0] * 120}px - 60px))`
                       : 'translateX(calc(50% - 1200px))',
-                    width: ((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? `${columnItems[0].length * 120}px` : 'auto'
+                    width: ((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? `${columnItems[0].length * 120}px` : 'auto',
+                    transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
+                    transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
+                    transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
+                    willChange: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined
                   }}
                 >
                   {(((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? columnItems[0] : Array.from({ length: 20 }).map((_, i) => iphoneItems[i % iphoneItems.length])).map((item, index) => {
@@ -770,11 +784,15 @@ export default function IPhoneBoxPage() {
                         }}
                       >
                         <div
-                          className={`flex flex-col items-center ${(isSpinning || wonPrizes.length > 0) ? 'transition-transform duration-100 ease-out' : ''}`}
+                          className={`flex flex-col items-center`}
                           style={{
                             transform: (isSpinning || wonPrizes.length > 0)
                               ? `translateY(calc(50% - ${spinIndex * ITEM_STEP_PX}px - ${HALF_ITEM_STEP_PX}px))`
-                              : `translateY(calc(50% - ${halfList}px))`
+                              : `translateY(calc(50% - ${halfList}px))`,
+                            transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
+                            transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
+                            transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
+                            willChange: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined
                           }}
                         >
                           {columnItemsArray.map((item, index) => {
