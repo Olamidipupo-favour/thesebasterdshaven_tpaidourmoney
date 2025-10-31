@@ -1,6 +1,6 @@
 export const API_CONFIG = {
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || "http://31.97.35.174:5000",
-  SOCKET_URL: process.env.NEXT_PUBLIC_SOCKET_URL || "http://31.97.35.174:5000",
+  BASE_URL: process.env.NEXT_PUBLIC_API_URL || "http://147.93.112.143:5000",
+  SOCKET_URL: process.env.NEXT_PUBLIC_SOCKET_URL || "http://147.93.112.143:5000",
   TIMEOUT: 30000,
   RETRY_ATTEMPTS: 3,
 } as const

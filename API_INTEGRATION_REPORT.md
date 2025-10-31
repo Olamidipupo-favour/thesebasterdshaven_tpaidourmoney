@@ -165,8 +165,8 @@ This document outlines the complete API integration for the O Sortudo Irish Gami
 - **Type Safety:** Full TypeScript types for all API requests/responses
 
 ### Configuration
-- **Base URL:** `http://31.97.35.174:5000` (configurable via `NEXT_PUBLIC_API_URL`)
-- **Socket URL:** `http://31.97.35.174:5000` (configurable via `NEXT_PUBLIC_SOCKET_URL`)
+- **Base URL:** `http://147.93.112.143:5000` (configurable via `NEXT_PUBLIC_API_URL`)
+- **Socket URL:** `http://147.93.112.143:5000` (configurable via `NEXT_PUBLIC_SOCKET_URL`)
 - **Environment Variables:** `.env.local.example` provided for easy setup
 
 ### Error Handling
