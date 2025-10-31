@@ -219,6 +219,8 @@ export default function IPhoneBoxPage() {
   const [columnSpinIndices, setColumnSpinIndices] = useState<number[]>([])
   const [columnItems, setColumnItems] = useState<any[][]>([])
   const [columnOrder, setColumnOrder] = useState<number[]>([])
+  // Match transform transition duration to current step interval for continuous glide
+  const [spinStepDurationMs, setSpinStepDurationMs] = useState<number>(100)
   const [boxOpening, setBoxOpening] = useState(false) // Start closed
   const [boxDisappearing, setBoxDisappearing] = useState(false)
   const [isGameInProgress, setIsGameInProgress] = useState(false)
@@ -364,17 +366,17 @@ export default function IPhoneBoxPage() {
     const startIndices = columnsData.map(col => Math.floor(col.length / 2))
     const currentIndices = [...startIndices]
 
-    // Two-phase timing: 3s very fast, then 2s deceleration to the target
+    // Two-phase timing: 3s very fast, then ~4s deceleration to the target with a slow tail
     const fastDurationMs = 3000
     const fastIntervalMs = 16 // ~60fps for smooth fast movement
     const fastSteps = Math.floor(fastDurationMs / fastIntervalMs)
 
-    const decelDurationMs = 2000
-    const endMaxIntervalMs = 140 // final step interval at full stop
+    const decelDurationMs = 4000
+    const endMaxIntervalMs = 280 // slower final step interval for more natural stop
     // Faster early reduction: easeOutExpo grows quickly at the start
     const easeOutExpo = (t: number) => (t === 0 ? 0 : 1 - Math.pow(2, -10 * t))
     // Build deceleration interval schedule and scale to exactly decelDurationMs
-    const slowSteps = 45 // number of steps during deceleration
+    const slowSteps = 85 // more steps during deceleration for smoother, longer slowdown
     const rawIntervals = Array.from({ length: slowSteps }, (_, i) => {
       const t = i / (slowSteps - 1)
       return fastIntervalMs + (endMaxIntervalMs - fastIntervalMs) * easeOutExpo(t)
@@ -382,6 +384,9 @@ export default function IPhoneBoxPage() {
     const rawSum = rawIntervals.reduce((sum, v) => sum + v, 0)
     const scale = decelDurationMs / rawSum
     const decelIntervals = rawIntervals.map(v => Math.max(8, v * scale))
+    // Final tail to bring perceived speed near-zero without feeling abrupt
+    const tailIntervals = [300, 340, 380]
+    const totalSlowSteps = slowSteps + tailIntervals.length
 
     // Select different winning items for each column
     const usedItems = new Set<string>()
@@ -397,14 +402,14 @@ export default function IPhoneBoxPage() {
       usedItems.add(iphoneItems[randomIndex].id)
     }
 
-    // Determine landing target so total distance ~= fastSteps + slowSteps
+    // Determine landing target so total distance ~= fastSteps + totalSlowSteps
     const targetIndices: number[] = []
     const modifiedColumnsData = columnsData.map((columnArray, colIndex) => {
       const modified = [...columnArray]
       const start = startIndices[colIndex]
       // small random padding so it doesn't feel mechanical
       const padding = 6 + Math.floor(Math.random() * 6)
-      let target = start + fastSteps + slowSteps + padding
+      let target = start + fastSteps + totalSlowSteps + padding
       if (target >= columnArray.length - 2) target = columnArray.length - 3
       targetIndices.push(target)
       modified[target] = iphoneItems[finalItems[colIndex]]
@@ -441,8 +446,21 @@ export default function IPhoneBoxPage() {
       // Compute next interval based on phase
       let nextInterval = fastIntervalMs
       if (step >= fastSteps) {
-        const decIndex = Math.min(slowSteps - 1, step - fastSteps)
-        nextInterval = decelIntervals[decIndex]
+        const decIndex = step - fastSteps
+        if (decIndex < slowSteps) {
+          nextInterval = decelIntervals[Math.max(0, decIndex)]
+        } else {
+          const tailIdx = Math.min(decIndex - slowSteps, tailIntervals.length - 1)
+          nextInterval = tailIntervals[tailIdx]
+        }
+      }
+
+      // Match transition duration to interval for smooth continuous movement
+      if (step >= fastSteps) {
+        setSpinStepDurationMs(Math.min(420, Math.max(80, Math.floor(nextInterval))))
+      } else {
+        // Keep short transitions during fast phase so updates feel fluid
+        setSpinStepDurationMs(60)
       }
 
       step++
@@ -680,12 +698,16 @@ export default function IPhoneBoxPage() {
                 }}
               >
                 <div
-                  className={`flex items-center ${(isSpinning || wonPrizes.length > 0) ? 'transition-transform duration-100 ease-out' : ''}`}
+                  className={`flex items-center`}
                   style={{
                     transform: (isSpinning || wonPrizes.length > 0) && columnSpinIndices[0] !== undefined
                       ? `translateX(calc(50% - ${columnSpinIndices[0] * 120}px - 60px))`
                       : 'translateX(calc(50% - 1200px))',
-                    width: ((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? `${columnItems[0].length * 120}px` : 'auto'
+                    width: ((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? `${columnItems[0].length * 120}px` : 'auto',
+                    transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
+                    transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
+                    transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
+                    willChange: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined
                   }}
                 >
                   {(((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? columnItems[0] : Array.from({ length: 20 }).map((_, i) => iphoneItems[i % iphoneItems.length])).map((item, index) => {
@@ -762,11 +784,15 @@ export default function IPhoneBoxPage() {
                         }}
                       >
                         <div
-                          className={`flex flex-col items-center ${(isSpinning || wonPrizes.length > 0) ? 'transition-transform duration-100 ease-out' : ''}`}
+                          className={`flex flex-col items-center`}
                           style={{
                             transform: (isSpinning || wonPrizes.length > 0)
                               ? `translateY(calc(50% - ${spinIndex * ITEM_STEP_PX}px - ${HALF_ITEM_STEP_PX}px))`
-                              : `translateY(calc(50% - ${halfList}px))`
+                              : `translateY(calc(50% - ${halfList}px))`,
+                            transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
+                            transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
+                            transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
+                            willChange: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined
                           }}
                         >
                           {columnItemsArray.map((item, index) => {
