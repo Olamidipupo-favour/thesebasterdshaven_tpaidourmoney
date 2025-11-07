@@ -128,22 +128,30 @@ export function RillaboxHeader() {
         </div>
 
         <div className="max-w-6xl mx-auto flex items-center pl-4 pr-0 sm:px-6 lg:px-8 h-16 lg:pl-[205px]">
-          {/* Mobile: Home + Menu */}
-          <div className="lg:hidden flex items-center justify-between w-full">
+          {/* Mobile: Home + Centered Logo + Menu */}
+          <div className="lg:hidden flex items-center justify-between w-full relative">
+            {/* Left: Home */}
             <Link href="/" className="inline-flex items-center">
               <Button variant="outline" size="icon" className="home-btns home-btn">
                 <Home className="w-5 h-5" />
               </Button>
             </Link>
-            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(v => !v)} className="ml-[300px] -mr-4">
+
+            {/* Center: Logo */}
+            <Link href="/" className="absolute left-1/2 -translate-x-1/2 inline-flex items-center">
+              <img src="/logo/OSORTUDO%20LOGO%201.png" alt="Sortudo" className="h-8 w-auto object-contain" />
+            </Link>
+
+            {/* Right: Menu */}
+            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(v => !v)} className="-mr-4">
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
           </div>
 
           {/* Right: Menu and actions */}
-          <div className="flex flex-grow items-center header-rightbox">
+          <div className="flex flex-grow items-center header-rightbox relative">
             {/* Left-aligned navigation cluster */}
-            <div className="flex items-center gap-3 mr-[100px]">
+            <div className="hidden lg:flex items-center gap-3 absolute left-1/2 -translate-x-1/2 -ml-[250px]">
               {/* Desktop Home button */}
               <Link href="/" className="hidden lg:inline-flex items-center justify-center">
                 <Button variant="outline" size="icon" className="home-btns home-btn transition hover:-translate-y-[1px] hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">

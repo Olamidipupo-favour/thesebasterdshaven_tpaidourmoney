@@ -9,6 +9,7 @@ type LiveDropItem = {
   price: number
   image: string
   hoverImage: string
+  otherImage?: string
   badgeColor: string
   username?: string
 }
@@ -159,7 +160,7 @@ function LiveDropCardHorizontal({ item, index }: { item: LiveDropItem; index: nu
         <div className="flex items-center gap-2.5">
           <div className="relative w-10 h-10 flex-shrink-0">
             <img src={item.image || "/placeholder.svg"} alt={item.name} className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`} />
-            <img src={item.hoverImage || "/placeholder.svg"} alt={`${item.name} box`} className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`} />
+            <img src={item.otherImage || item.hoverImage || "/placeholder.svg"} alt={`${item.name} box`} className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`} />
           </div>
 
           <div className="flex-1 min-w-0 text-left">
