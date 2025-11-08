@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -156,6 +156,22 @@ export function GamesSection() {
   const mysteryVideoRef = useRef<HTMLVideoElement | null>(null)
   const [selectedGame, setSelectedGame] = useState<Game | null>(null)
 
+  // Listen for global event to open Soccer modal from other components (e.g., mobile menu)
+  useEffect(() => {
+    const handler = () => {
+      const soccer = games.find((g) => g.name === "Soccer Game")
+      if (soccer) setSelectedGame(soccer)
+    }
+    if (typeof window !== "undefined") {
+      window.addEventListener("open-soccer-coming-soon", handler as EventListener)
+    }
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("open-soccer-coming-soon", handler as EventListener)
+      }
+    }
+  }, [])
+
   const categories = ["all", ...Object.keys(categoryNames)]
   const filteredGames = selectedCategory === "all" ? games : games.filter((game) => game.category === selectedCategory)
 
@@ -207,7 +223,7 @@ export function GamesSection() {
 
         {/* Soccer Game with Coming Soon overlay */}
         <div className="col-span-6 md:col-span-3">
-          <Link href="/" className="block group cursor-pointer">
+          <div className="block group cursor-pointer" onClick={() => openGameModal(games[2])}>
             <div className="rounded-xl border border-border overflow-hidden relative transition-all duration-300 group-hover:ring-2 group-hover:ring-[#22c55e]/50 group-hover:shadow-[0_8px_28px_rgba(34,197,94,0.25)]">
               <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-44 md:h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -217,7 +233,7 @@ export function GamesSection() {
               </div>
             </div>
             <span className="mt-1 md:mt-2 block text-center font-semibold">Soccer Game</span>
-          </Link>
+          </div>
         </div>
 
         {/* Chicken Road with Coming Soon overlay */}
@@ -242,7 +258,7 @@ export function GamesSection() {
             <DialogDescription>{selectedGame?.description}</DialogDescription>
           </DialogHeader>
 
-          {selectedGame?.name === "Chicken Road" ? (
+          {selectedGame?.name === "Chicken Road" || selectedGame?.name === "Soccer Game" ? (
             <div className="mt-3">
               <div className="rounded-lg border border-yellow-400/40 bg-yellow-400/10 p-4 text-yellow-300">
                 This game is coming soon. Check back shortly!

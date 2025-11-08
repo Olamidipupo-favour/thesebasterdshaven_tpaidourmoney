@@ -138,18 +138,31 @@ export function RillaboxHeader() {
         </div>
 
         <div className="max-w-6xl mx-auto flex items-center px-4 sm:px-6 lg:px-8 h-16 lg:pl-[205px]">
-          {/* Mobile: Big logo with Sign in / Sign up on right */}
+          {/* Mobile: Big logo with compact Sign in / Sign up on right */}
           <div className="lg:hidden flex items-center justify-between w-full">
             {/* Left: Bigger wordmark */}
             <Link href="/" className="inline-flex items-center">
               <img src="/logo/OSORTUDO%20LOGO%201.png" alt="Sortudo" className="h-10 w-auto object-contain" />
             </Link>
             {/* Right: Auth buttons (removed from games menu) */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 pl-1">
               {!isAuthenticated ? (
                 <>
-                  <Button variant="outline" size="sm" className="button-sign-in" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
-                  <Button size="sm" className="sign-up" onClick={() => setShowRegisterDialog(true)}>Sign Up & get Free Box</Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="button-sign-in h-7 px-2 text-xs rounded-md leading-none"
+                    onClick={() => setShowLoginDialog(true)}
+                  >
+                    Sign in
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="sign-up h-7 px-2.5 text-xs rounded-md leading-none whitespace-nowrap"
+                    onClick={() => setShowRegisterDialog(true)}
+                  >
+                    Sign Up & get Free Box
+                  </Button>
                 </>
               ) : (
                 <DropdownMenu>
@@ -325,7 +338,19 @@ export function RillaboxHeader() {
                   <div className="space-y-4">
                     <Link href="/boxes"><Button variant="outline" className="w-full justify-start py-3"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
                     <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
-                    <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</Button></Link>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start py-3"
+                      onClick={() => {
+                        if (typeof window !== "undefined") {
+                          window.dispatchEvent(new Event("open-soccer-coming-soon"))
+                        }
+                        setMobileMenuOpen(false)
+                      }}
+                    >
+                      <img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />
+                      Soccer Game
+                    </Button>
                     <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
                     <Link href="/earn"><Button variant="outline" className="w-full justify-start py-3"><DollarSign className="w-4 h-4 mr-2" />Earn to Play</Button></Link>
 

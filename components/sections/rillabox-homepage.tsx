@@ -1214,7 +1214,26 @@ export function OSortudoHomepage() {
               </div>
               <span className="text-sm md:text-base font-semibold text-foreground">Payment Methods</span>
             </div>
-            <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 w-full sm:w-auto">
+            {/* Mobile: compact 4x2 grid with smaller logos */}
+            <div className="w-full sm:w-auto sm:hidden">
+              <div className="grid grid-cols-4 gap-2">
+                {paymentMethods.slice(0,4).map((method) => (
+                  <div key={method.name} className="rounded-md border border-[#1f6b4a] bg-[#0f2a1f] px-2 py-2 flex items-center justify-center">
+                    <img src={method.icon} alt={method.name} className="w-7 h-7 object-contain" />
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-4 gap-2 mt-2">
+                {paymentMethods.slice(4).map((method) => (
+                  <div key={method.name} className="rounded-md border border-[#1f6b4a] bg-[#0f2a1f] px-2 py-2 flex items-center justify-center">
+                    <img src={method.icon} alt={method.name} className="w-7 h-7 object-contain" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Desktop: retain existing layout */}
+            <div className="hidden sm:grid grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4 w-full sm:w-auto">
               {paymentMethods.map((method) => (
                 <div key={method.name} className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner hover:border-[#28da6a] hover:bg-[#123323] transition-colors">
                   <img src={method.icon} alt={method.name} className="w-8 h-8 md:w-10 md:h-10 object-contain brightness-110 contrast-110" />
