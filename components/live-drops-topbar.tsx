@@ -119,7 +119,6 @@ export function LiveDropsTopbar() {
 }
 
 function LiveDropCardHorizontal({ item, index }: { item: LiveDropItem; index: number }) {
-  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <div className="relative min-w-[180px] max-w-[220px]">
@@ -143,24 +142,18 @@ function LiveDropCardHorizontal({ item, index }: { item: LiveDropItem; index: nu
       />
 
       <div
-        className="relative rounded-xl p-1.5 cursor-pointer transition-all duration-300 hover:scale-[1.02] group overflow-hidden"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        className="relative rounded-xl p-1.5 cursor-default overflow-hidden"
         style={{
           background: `linear-gradient(135deg, #0d1f1a 0%, ${item.badgeColor}15 50%, #0d1f1a 100%)`,
           border: `1px solid ${item.badgeColor}60`,
           boxShadow: `inset 0 0 20px ${item.badgeColor}10`,
         }}
       >
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
-          style={{ background: `radial-gradient(circle at center, ${item.badgeColor}80, transparent 60%)` }}
-        />
+        
 
         <div className="flex items-center gap-2.5">
           <div className="relative w-10 h-10 flex-shrink-0">
-            <img src={item.image || "/placeholder.svg"} alt={item.name} className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`} />
-            <img src={item.otherImage || item.hoverImage || "/placeholder.svg"} alt={`${item.name} box`} className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`} />
+            <img src={item.image || "/placeholder.svg"} alt={item.name} className="absolute inset-0 w-full h-full object-contain" />
           </div>
 
           <div className="flex-1 min-w-0 text-left">

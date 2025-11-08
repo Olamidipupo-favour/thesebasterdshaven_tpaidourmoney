@@ -16,30 +16,30 @@ const paymentMethods = [
 
 export function PaymentMethodsSection() {
   return (
-    <section className="mb-16">
+    <section className="mb-8 md:mb-12">
       <Card className="bg-card border-border overflow-hidden">
-        <div className="p-8 md:p-12">
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-4">
-              <CreditCard className="w-8 h-8 text-primary mr-3" />
-              <h2 className="text-3xl font-bold text-foreground">Payment</h2>
+        <div className="px-4 py-5 md:px-8 md:py-7">
+          {/* Header aligned like screenshot: icon + label on one line */}
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-8 h-8 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center">
+              <CreditCard className="w-4 h-4 text-[#22c55e]" />
             </div>
-            <h3 className="text-xl font-semibold text-muted-foreground">Methods</h3>
+            <h2 className="text-lg md:text-xl font-semibold text-foreground">Payment Methods</h2>
           </div>
 
-          {/* Payment Methods Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
-            {paymentMethods.map((method, index) => (
+          {/* Payment Methods Grid styled to match the green card tiles */}
+          <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+            {paymentMethods.map((method) => (
               <div
-                key={index}
-                className="flex flex-col items-center justify-center p-4 bg-muted/20 rounded-lg hover:bg-muted/40 transition-colors duration-300 group"
+                key={method.name}
+                className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shadow-inner hover:border-[#28da6a] hover:bg-[#123323] transition-colors"
               >
-                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                  <div className="w-8 h-8 bg-gradient-to-br from-primary/20 to-secondary/20 rounded flex items-center justify-center">
-                    <span className="text-xs font-bold text-primary">{method.name.charAt(0)}</span>
-                  </div>
-                </div>
-                <span className="text-sm font-medium text-foreground text-center">{method.name}</span>
+                <img
+                  src={method.logo}
+                  alt={method.name}
+                  className="w-8 h-8 md:w-10 md:h-10 object-contain brightness-110 contrast-110"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/placeholder.svg" }}
+                />
               </div>
             ))}
           </div>

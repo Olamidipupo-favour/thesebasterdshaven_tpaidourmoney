@@ -174,7 +174,7 @@ export function GamesSection() {
   }
 
   return (
-    <section className="w-full mb-4 md:mb-6">
+    <section id="games" className="w-full mb-4 md:mb-6">
       {/* Align to the same 12-column grid as the hero banners */}
       <div className="grid grid-cols-12 gap-3 md:gap-4">
         {/* Mystery Boxes - show video paused by default, play on hover */}
