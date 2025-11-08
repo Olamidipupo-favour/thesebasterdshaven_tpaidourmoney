@@ -117,6 +117,16 @@ export function RillaboxHeader() {
     }
   }
 
+  // Listen for bottom nav requests to open the Games menu
+  useEffect(() => {
+    const openGamesHandler = () => setMobileMenuOpen(true)
+    // Custom event triggered from mobile bottom nav
+    window.addEventListener("open-games-menu", openGamesHandler as EventListener)
+    return () => {
+      window.removeEventListener("open-games-menu", openGamesHandler as EventListener)
+    }
+  }, [])
+
   return (
     <>
       <header id="header" className="sticky top-0 z-50 border-b border-border relative bg-card lg:bg-card/95 lg:backdrop-blur-sm">
@@ -127,23 +137,49 @@ export function RillaboxHeader() {
           </Link>
         </div>
 
-        <div className="max-w-6xl mx-auto flex items-center pl-4 pr-0 sm:px-6 lg:px-8 h-16 lg:pl-[205px]">
-          {/* Mobile: Home + Menu */}
+        <div className="max-w-6xl mx-auto flex items-center px-4 sm:px-6 lg:px-8 h-16 lg:pl-[205px]">
+          {/* Mobile: Big logo with Sign in / Sign up on right */}
           <div className="lg:hidden flex items-center justify-between w-full">
+            {/* Left: Bigger wordmark */}
             <Link href="/" className="inline-flex items-center">
-              <Button variant="outline" size="icon" className="home-btns home-btn">
-                <Home className="w-5 h-5" />
-              </Button>
+              <img src="/logo/OSORTUDO%20LOGO%201.png" alt="Sortudo" className="h-10 w-auto object-contain" />
             </Link>
-            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(v => !v)} className="ml-[300px] -mr-4">
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </Button>
+            {/* Right: Auth buttons (removed from games menu) */}
+            <div className="flex items-center gap-2">
+              {!isAuthenticated ? (
+                <>
+                  <Button variant="outline" size="sm" className="button-sign-in" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
+                  <Button size="sm" className="sign-up" onClick={() => setShowRegisterDialog(true)}>Sign Up & get Free Box</Button>
+                </>
+              ) : (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" className="flex items-center space-x-2">
+                      <Avatar className="w-8 h-8">
+                        <AvatarImage src={user?.avatar || "/placeholder.svg"} alt={user?.username || "User"} />
+                        <AvatarFallback>{user?.username?.charAt(0).toUpperCase()}</AvatarFallback>
+                      </Avatar>
+                      <span className="font-medium">{user?.username}</span>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuItem asChild>
+                      <Link href="/dashboard" className="cursor-pointer">Dashboard</Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive">
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+            </div>
           </div>
 
           {/* Right: Menu and actions */}
-          <div className="flex flex-grow items-center header-rightbox">
+          <div className="flex flex-grow items-center header-rightbox relative">
             {/* Left-aligned navigation cluster */}
-            <div className="flex items-center gap-3 mr-[100px]">
+            <div className="hidden lg:flex items-center gap-3 absolute left-1/2 -translate-x-1/2 -ml-[250px]">
               {/* Desktop Home button */}
               <Link href="/" className="hidden lg:inline-flex items-center justify-center">
                 <Button variant="outline" size="icon" className="home-btns home-btn transition hover:-translate-y-[1px] hover:text-[#52CA19] hover:border-[#52CA19]/50 hover:shadow-[0_0_10px_rgba(82,202,25,0.35)]">
@@ -274,18 +310,18 @@ export function RillaboxHeader() {
             {gamesOpen && <div className="dropdown-overlay fixed inset-0 z-40" onClick={() => setGamesOpen(false)} />}
           </div>
 
-          {/* Mobile right-side drawer */}
+          {/* Mobile full-screen Games menu */}
           {mobileMenuOpen && (
             <>
               <div className="fixed inset-0 bg-black/50 z-[60] lg:hidden" onClick={() => setMobileMenuOpen(false)} />
-              <aside className="fixed right-0 top-0 h-full w-72 max-w-[80vw] bg-background border-l border-border z-[65] lg:hidden shadow-xl">
+              <aside className="fixed inset-0 h-full w-full bg-background z-[65] lg:hidden shadow-xl">
                 <div className="flex items-center justify-between p-4 border-b border-border">
-                  <span className="text-sm font-semibold">Menu</span>
+                  <span className="text-base font-semibold">Games</span>
                   <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
                     <X className="w-5 h-5" />
                   </Button>
                 </div>
-                <div className="p-4 space-y-4">
+                <div className="p-4 space-y-4 overflow-y-auto h-[calc(100vh-64px)]">
                   <div className="space-y-4">
                     <Link href="/boxes"><Button variant="outline" className="w-full justify-start py-3"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
                     <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
@@ -319,7 +355,7 @@ export function RillaboxHeader() {
                       </div>
                     )}
 
-                    {/* Weekly Race 10k banner (desktop design adapted for mobile) */}
+                    {/* Weekly Race 10k banner (mobile) */}
                     <Link href="/weekly-race" title="$10k Race" className="flex group items-center overflow-hidden flex-shrink-0 w-full px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#fed81f] to-[#e67d00] border-4 border-[#e67d00] transition-all duration-300">
                       <Trophy className="w-5 h-5 text-amber-700 mr-2 group-hover:animate-bounce" />
                       <div className="flex items-center gap-2 w-full justify-between">
@@ -348,27 +384,7 @@ export function RillaboxHeader() {
                       </div>
                     </Link>
                   </div>
-
-                  {!isAuthenticated ? (
-                    <div className="space-y-3 pt-4 border-t border-border">
-                      <Button variant="outline" className="w-full py-3" onClick={() => setShowLoginDialog(true)}>Sign in</Button>
-                      <Button className="w-full py-3" onClick={() => setShowRegisterDialog(true)}>
-                        <Gift className="w-4 h-4 mr-2" />
-                        Sign Up & get Free Box
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-3 p-3 mt-4 rounded-md border border-border">
-                      <Avatar className="w-9 h-9">
-                        <AvatarImage src={user?.avatar || "/placeholder.svg"} alt={user?.username || "User"} />
-                        <AvatarFallback>{user?.username?.charAt(0).toUpperCase()}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium">{user?.username}</div>
-                        <Link href="/dashboard" className="text-xs text-muted-foreground">Dashboard</Link>
-                      </div>
-                    </div>
-                  )}
+                  {/* Auth actions removed from games menu per mobile design */}
                 </div>
               </aside>
             </>

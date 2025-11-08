@@ -312,7 +312,7 @@ export function OSortudoHomepage() {
       </section>
 
       {/* Live Drops Topbar below banner */}
-      <section className="w-full mb-4 md:mb-6">
+      <section id="live-drops" className="w-full mb-4 md:mb-6">
         <LiveDropsTopbar />
       </section>
 

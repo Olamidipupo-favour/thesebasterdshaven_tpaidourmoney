@@ -151,7 +151,6 @@ export function LiveDropsSidebar() {
 }
 
 function LiveDropCard({ item, index }: { item: LiveDropItem; index: number }) {
-  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <div
@@ -191,9 +190,7 @@ function LiveDropCard({ item, index }: { item: LiveDropItem; index: number }) {
       />
 
       <div
-        className="relative rounded-xl p-3 cursor-pointer transition-all duration-300 hover:scale-[1.02] group overflow-hidden"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        className="relative rounded-xl p-3 cursor-default overflow-hidden"
         style={{
           background: `linear-gradient(135deg, 
             #0d1f1a 0%, 
@@ -203,12 +200,7 @@ function LiveDropCard({ item, index }: { item: LiveDropItem; index: number }) {
           boxShadow: `inset 0 0 20px ${item.badgeColor}10`,
         }}
       >
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500"
-          style={{
-            background: `radial-gradient(circle at center, ${item.badgeColor}80, transparent 60%)`,
-          }}
-        />
+        
 
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden rounded-xl">
           <div
@@ -226,16 +218,7 @@ function LiveDropCard({ item, index }: { item: LiveDropItem; index: number }) {
             <img
               src={item.image || "/placeholder.svg"}
               alt={item.name}
-              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${
-                isHovered ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <img
-              src={item.hoverImage || "/placeholder.svg"}
-              alt={`${item.name} box`}
-              className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-300 ${
-                isHovered ? "opacity-100" : "opacity-0"
-              }`}
+              className="absolute inset-0 w-full h-full object-contain"
             />
           </div>
 

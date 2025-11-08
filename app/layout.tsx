@@ -8,6 +8,7 @@ import "./globals.css"
 import { SocketProvider } from "@/components/socket-provider"
 import { RillaboxHeader } from "@/components/rillabox-header"
 import { TawkWidget } from "@/components/tawk-widget"
+import { MobileBottomNav } from "@/components/mobile-bottom-nav"
 
 export const metadata: Metadata = {
   title: "O Sortudo - Irish Gaming Platform",
@@ -27,6 +28,8 @@ export default function RootLayout({
           <RillaboxHeader />
           <Suspense fallback={null}>{children}</Suspense>
         </SocketProvider>
+        {/* Mobile bottom navigation */}
+        <MobileBottomNav />
         <Analytics />
         {/* Global Tawk.to chat widget */}
         <TawkWidget />
