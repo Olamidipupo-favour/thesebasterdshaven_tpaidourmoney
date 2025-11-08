@@ -311,8 +311,8 @@ export function OSortudoHomepage() {
         </div>
       </section>
 
-      {/* Live Drops Topbar below banner */}
-      <section id="live-drops" className="w-full mb-4 md:mb-6">
+      {/* Live Drops Topbar below banner (hidden on mobile) */}
+      <section id="live-drops" className="w-full mb-4 md:mb-6 hidden md:block">
         <LiveDropsTopbar />
       </section>
 
@@ -1018,9 +1018,9 @@ export function OSortudoHomepage() {
 
       {/* Weekly Race Banner inline block removed to avoid duplication; using <WeeklyRaceSection /> below */}
 
-      {/* Live Drops Section - Real-time Activity */}
+      {/* Live Drops Section - Real-time Activity (hidden on mobile) */}
       {drops && drops.length > 0 && (
-        <section className="mb-6">
+        <section className="mb-6 hidden md:block">
           <div className="text-center mb-4">
             <h2 className="text-xl font-bold text-foreground mb-2">🔥 Live Drops</h2>
             <p className="text-sm text-muted-foreground">See what others are winning right now!</p>

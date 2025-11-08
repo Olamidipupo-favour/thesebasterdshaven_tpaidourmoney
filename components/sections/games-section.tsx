@@ -192,60 +192,60 @@ export function GamesSection() {
   return (
     <section id="games" className="w-full mb-4 md:mb-6">
       {/* Align to the same 12-column grid as the hero banners */}
-      <div className="grid grid-cols-12 gap-3 md:gap-4">
+      <div className="grid grid-cols-12 gap-6 md:gap-6 px-3">
         {/* Mystery Boxes - show video paused by default, play on hover */}
         <div className="col-span-6 md:col-span-3">
           <Link
             href="/boxes"
             className="block group cursor-pointer"
           >
-            <div className="rounded-xl border border-border overflow-hidden relative transition-all duration-300 group-hover:ring-2 group-hover:ring-[#22c55e]/50 group-hover:shadow-[0_8px_28px_rgba(34,197,94,0.25)]">
+            <div className="rounded-xl overflow-hidden relative transition-all duration-300">
               {/* Background fallback image */}
-              <img src="/new/mystery box.jpg" alt="Mystery Boxes" className="w-full h-44 md:h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
+              <img src="/new/mystery box.jpg" alt="Mystery Boxes" className="w-full h-28 md:h-40 object-cover" />
               {/* Subtle highlight overlay on hover */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               {/* Video intentionally disabled for now */}
             </div>
-            <span className="mt-1 md:mt-2 block text-center font-semibold">Mystery Boxes</span>
+            <span className="mt-1 md:mt-2 block text-center text-sm md:text-base font-semibold">Mystery Boxes</span>
           </Link>
         </div>
 
         {/* Find the Prize */}
         <div className="col-span-6 md:col-span-3">
           <Link href="/" className="block group cursor-pointer">
-            <div className="rounded-xl border border-border overflow-hidden relative transition-all duration-300 group-hover:ring-2 group-hover:ring-[#22c55e]/50 group-hover:shadow-[0_8px_28px_rgba(34,197,94,0.25)]">
-              <img src="/new/find_prize_1.jpg" alt="Find the Prize" className="w-full h-44 md:h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
+            <div className="rounded-xl overflow-hidden relative transition-all duration-300">
+              <img src="/new/find_prize_1.jpg" alt="Find the Prize" className="w-full h-28 md:h-40 object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-            <span className="mt-1 md:mt-2 block text-center font-semibold">Find the Prize</span>
+            <span className="mt-1 md:mt-2 block text-center text-sm md:text-base font-semibold">Find the Prize</span>
           </Link>
         </div>
 
         {/* Soccer Game with Coming Soon overlay */}
         <div className="col-span-6 md:col-span-3">
           <div className="block group cursor-pointer" onClick={() => openGameModal(games[2])}>
-            <div className="rounded-xl border border-border overflow-hidden relative transition-all duration-300 group-hover:ring-2 group-hover:ring-[#22c55e]/50 group-hover:shadow-[0_8px_28px_rgba(34,197,94,0.25)]">
-              <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-44 md:h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
+            <div className="rounded-xl overflow-hidden relative transition-all duration-300">
+              <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-28 md:h-40 object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               {/* Coming Soon badge overlay */}
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                 <span className="px-3 py-1 rounded-full bg-yellow-400 text-black font-semibold shadow">Coming Soon</span>
               </div>
             </div>
-            <span className="mt-1 md:mt-2 block text-center font-semibold">Soccer Game</span>
+            <span className="mt-1 md:mt-2 block text-center text-sm md:text-base font-semibold">Soccer Game</span>
           </div>
         </div>
 
         {/* Chicken Road with Coming Soon overlay */}
         <div className="col-span-6 md:col-span-3">
           <div className="block group cursor-pointer relative" onClick={() => openGameModal(games[3])}>
-            <div className="rounded-xl border border-border overflow-hidden relative transition-all duration-300 group-hover:ring-2 group-hover:ring-[#22c55e]/50 group-hover:shadow-[0_8px_28px_rgba(34,197,94,0.25)]">
-              <img src="/new/checken_road_1.jpg" alt="Chicken Road" className="w-full h-44 md:h-48 object-cover transition-transform duration-300 group-hover:scale-105" />
+            <div className="rounded-xl overflow-hidden relative transition-all duration-300">
+              <img src="/new/checken_road_1.jpg" alt="Chicken Road" className="w-full h-28 md:h-40 object-cover" />
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                 <span className="px-3 py-1 rounded-full bg-yellow-400 text-black font-semibold shadow">Coming Soon</span>
               </div>
             </div>
-            <span className="mt-1 md:mt-2 block text-center font-semibold">Chicken Road</span>
+            <span className="mt-1 md:mt-2 block text-center text-sm md:text-base font-semibold">Chicken Road</span>
           </div>
         </div>
       </div>
