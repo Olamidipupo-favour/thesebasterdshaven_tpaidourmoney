@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export function WeeklyRaceSection() {
   const [timeLeft, setTimeLeft] = useState({
@@ -75,9 +76,11 @@ export function WeeklyRaceSection() {
                 <span className="text-emerald-200 text-[10px] mt-1">Sec</span>
               </div>
             </div>
-            <Button className="mt-2 w-auto self-center translate-x-1 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-xs py-1.5 px-3 rounded-lg shadow-md shadow-yellow-500/20 transition-all">
-              View Race
-              <ArrowRight className="ml-2 h-3 w-3" />
+            <Button asChild className="mt-2 w-auto self-center translate-x-1 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-xs py-1.5 px-3 rounded-lg shadow-md shadow-yellow-500/20 transition-all">
+              <Link href="/weekly-race" aria-label="View Weekly Race">
+                View Race
+                <ArrowRight className="ml-2 h-3 w-3" />
+              </Link>
             </Button>
           </div>
         </div>
@@ -115,9 +118,11 @@ export function WeeklyRaceSection() {
                 <span className="text-emerald-200 text-xs md:text-sm lg:text-base mt-1">Sec</span>
               </div>
             </div>
-            <Button className="mt-2 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-sm md:text-base lg:text-lg py-2.5 px-5 rounded-xl shadow-lg shadow-yellow-500/40 transition-all hover:shadow-yellow-500/60">
-              View Race
-              <ArrowRight className="ml-2 h-5 w-5" />
+            <Button asChild className="mt-2 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-black font-semibold text-sm md:text-base lg:text-lg py-2.5 px-5 rounded-xl shadow-lg shadow-yellow-500/40 transition-all hover:shadow-yellow-500/60">
+              <Link href="/weekly-race" aria-label="View Weekly Race">
+                View Race
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </Button>
           </div>
 
