@@ -11,6 +11,14 @@ export function TawkWidget({ propertyId, widgetId }: { propertyId?: string; widg
   const wid = widgetId || process.env.NEXT_PUBLIC_TAWK_WIDGET_ID
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
+    // Do not load Tawk on mobile viewports (<= 767px)
+    const isMobile = window.matchMedia("(max-width: 767px)").matches
+    if (isMobile) {
+      return
+    }
+
     if (!pid || !wid) {
       if (typeof window !== "undefined") {
         // eslint-disable-next-line no-console
