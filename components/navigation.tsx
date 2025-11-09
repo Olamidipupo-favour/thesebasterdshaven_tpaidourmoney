@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Home, Gift, Trophy, Coins, Menu, X, User, LogOut, ShoppingCart, ArrowLeftRight } from "lucide-react"
+import { Home, Gift, Trophy, Coins, Menu, X, User, LogOut, ShoppingCart, ArrowLeftRight, Boxes, Target, Egg, DollarSign, ShoppingBag, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/hooks/use-auth"
 import { LoginDialog } from "@/components/auth/login-dialog"
@@ -13,10 +13,55 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [mobileGamesOpen, setMobileGamesOpen] = useState(false)
+  const [mobileShopOpen, setMobileShopOpen] = useState(false)
   const [showLoginDialog, setShowLoginDialog] = useState(false)
   const [showRegisterDialog, setShowRegisterDialog] = useState(false)
   const { user, isAuthenticated, logout } = useAuth()
   const [shopOpen, setShopOpen] = useState(false)
+
+  // Weekly race countdown to end of Sunday (local time)
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+
+  useEffect(() => {
+    const getNextWeeklySundayEnd = (now: Date) => {
+      const end = new Date(now)
+      const day = now.getDay() // 0 = Sunday
+      const daysToSunday = (7 - day) % 7
+      end.setDate(now.getDate() + daysToSunday)
+      end.setHours(23, 59, 59, 999)
+      if (end.getTime() <= now.getTime()) {
+        end.setDate(end.getDate() + 7)
+      }
+      return end
+    }
+
+    let target = getNextWeeklySundayEnd(new Date())
+
+    const update = () => {
+      const now = new Date()
+      if (target.getTime() - now.getTime() <= 0) {
+        target = getNextWeeklySundayEnd(now)
+      }
+      const diff = target.getTime() - now.getTime()
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+      setTimeLeft({ days, hours, minutes, seconds })
+    }
+
+    update()
+    const id = setInterval(update, 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  // Listen for bottom nav "Games" tab across pages
+  useEffect(() => {
+    const openHandler = () => setMobileGamesOpen(true)
+    window.addEventListener("open-games-menu", openHandler as EventListener)
+    return () => window.removeEventListener("open-games-menu", openHandler as EventListener)
+  }, [])
 
   const handleSwitchToRegister = () => {
     setShowLoginDialog(false)
@@ -242,6 +287,115 @@ export function Navigation() {
           )}
         </div>
       </nav>
+
+      {/* Mobile full-screen Games menu (used on pages with Navigation header) */}
+      {mobileGamesOpen && (
+        <>
+          <div className="fixed inset-0 bg-black/20 z-[60] md:hidden" onClick={() => setMobileGamesOpen(false)} />
+          <aside className="fixed inset-0 h-full w-full bg-card/95 backdrop-blur-sm z-[65] md:hidden shadow-xl">
+            <div className="flex items-center justify-between p-4 border-b border-border">
+              <Link href="/" className="inline-flex items-center">
+                <img src="/logo/OSORTUDO%20LOGO%201.png" alt="Sortudo" className="h-6 w-auto object-contain" />
+              </Link>
+              <div className="flex items-center gap-2">
+                {!isAuthenticated ? (
+                  <>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-7 px-2 text-xs rounded-md leading-none"
+                      onClick={() => setShowLoginDialog(true)}
+                    >
+                      Sign in
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="h-7 px-2.5 text-xs rounded-md leading-none whitespace-nowrap bg-gradient-to-r from-yellow-400 to-yellow-600 text-black"
+                      onClick={() => setShowRegisterDialog(true)}
+                    >
+                      Sign Up & get Free Box
+                    </Button>
+                  </>
+                ) : null}
+                <Button variant="ghost" size="icon" onClick={() => setMobileGamesOpen(false)} aria-label="Close menu">
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+            </div>
+            <div className="p-4 space-y-3.5 overflow-y-auto h-[calc(100vh-64px)]">
+              <div className="space-y-3.5">
+                <Link href="/boxes"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
+                <Link href="#"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
+                <Button
+                  variant="outline"
+                  className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"
+                  onClick={() => setMobileGamesOpen(false)}
+                >
+                  <span className="flex items-center"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</span>
+                  <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"
+                  onClick={() => setMobileGamesOpen(false)}
+                >
+                  <span className="flex items-center"><Egg className="w-5 h-5 mr-2" />Chicken Road</span>
+                  <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
+                </Button>
+                <Link href="/earn"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
+
+                {/* Shop collapsible */}
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-between rounded-2xl bg-card border border-border px-4 py-4 text-sm hover:bg-accent hover:text-accent-foreground transition-colors min-h-[56px]"
+                  onClick={() => setMobileShopOpen((v) => !v)}
+                  aria-expanded={mobileShopOpen}
+                >
+                  <span className="flex items-center"><Gift className="w-5 h-5 mr-2" />Shop</span>
+                  <ChevronDown className={`w-5 h-5 transition-transform ${mobileShopOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {mobileShopOpen && (
+                  <div className="pl-6 space-y-2.5 border-l border-border ml-2">
+                    <Link href="#">
+                      <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5">
+                        <ShoppingBag className="w-4 h-4 mr-2" />
+                        Buy
+                      </Button>
+                    </Link>
+                    <Link href="#">
+                      <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5">
+                        <ArrowLeftRight className="w-4 h-4 mr-2" />
+                        Trade
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+
+                {/* Weekly Race 10k banner (mobile) */}
+                <Link href="/weekly-race" title="$10k Race" className="flex group items-center overflow-hidden flex-shrink-0 w-full px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#fed81f] to-[#e67d00] border-2 border-[#e67d00] transition-all duration-300">
+                  <Trophy className="w-5 h-5 text-amber-700 mr-2 group-hover:animate-bounce" />
+                  <div className="flex items-center gap-2 w-full justify-between">
+                    <span className="text-white font-semibold not-italic">$10k Race</span>
+                    <div className="flex items-center gap-1 text-white">
+                      {[
+                        { label: 'D', value: timeLeft.days },
+                        { label: 'H', value: timeLeft.hours },
+                        { label: 'M', value: timeLeft.minutes },
+                        { label: 'S', value: timeLeft.seconds },
+                      ].map((b) => (
+                        <div key={b.label} className="flex flex-col items-center">
+                          <span className="px-1.5 py-1 rounded-md bg-black/30 border border-white/10 text-white font-bold text-[12px] min-w-[28px] text-center">{b.value.toString().padStart(2, '0')}</span>
+                          <span className="text-white/80 text-[10px] mt-1">{b.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </aside>
+        </>
+      )}
 
       <LoginDialog
         open={showLoginDialog}

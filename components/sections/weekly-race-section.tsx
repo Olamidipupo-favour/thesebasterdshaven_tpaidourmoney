@@ -48,7 +48,7 @@ export function WeeklyRaceSection() {
       {/* Mobile-only version using mobilr.png */}
       <div className="md:hidden">
         <div className="relative rounded-[1.5rem] overflow-hidden min-h-[260px] bg-[url('/add/mobilr.png')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/40 pointer-events-none" />
           {/* Left-side text cluster */}
           <div className="relative z-10 px-4 pr-[52%] min-h-[260px] flex flex-col justify-center">
             <h2 className="text-[30px] font-extrabold text-white tracking-tight">$10,000</h2>
@@ -89,6 +89,7 @@ export function WeeklyRaceSection() {
       {/* Desktop / Tablet version (unchanged) */}
       <div className="hidden md:block">
         <div className="relative rounded-[2rem] overflow-hidden min-h-[240px] md:min-h-[320px] lg:min-h-[380px] bg-[url('/add/weekly%20race%20new%20banner%2022.png')] bg-cover bg-top">
+          <div className="absolute inset-0 bg-black/40" />
           {/* Centered content */}
           <div className="absolute z-10 top-[60px] left-[200px] md:left-[200px] lg:left-[200px] w-auto px-4 text-center">
             <h2 className="text-6xl md:text-8xl lg:text-9xl font-extrabold text-white tracking-tight">$10,000</h2>
