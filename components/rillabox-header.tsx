@@ -357,13 +357,13 @@ export function RillaboxHeader() {
                     </Button>
                   </div>
                 </div>
-                <div className="p-4 space-y-3.5 overflow-y-auto h-[calc(100vh-64px)]">
-                  <div className="space-y-3.5">
-                    <Link href="/boxes"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
-                    <Link href="#"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
+                <div className="px-4 pt-3.5 pb-3.5 overflow-y-auto h-[calc(100vh-64px)]">
+                  <div>
+                    <Link href="/boxes"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
+                    <Link href="#"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
                     <Button
                       variant="outline"
-                      className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"
+                      className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"
                       onClick={() => {
                         if (typeof window !== "undefined") {
                           window.dispatchEvent(new Event("open-soccer-coming-soon"))
@@ -376,18 +376,18 @@ export function RillaboxHeader() {
                     </Button>
                     <Button
                       variant="outline"
-                      className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"
+                      className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span className="flex items-center"><Egg className="w-4 h-4 mr-2" />Chicken Road</span>
                       <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
                     </Button>
-                    <Link href="/earn"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
+                    <Link href="/earn"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
 
                     {/* Shop collapsible below Earn to Play */}
                     <button
                       type="button"
-                      className="w-full flex items-center justify-between rounded-2xl bg-card border border-border px-4 py-4 text-sm hover:bg-accent hover:text-accent-foreground transition-colors min-h-[56px]"
+                      className="w-full flex items-center justify-between rounded-2xl bg-card border border-border px-4 py-4 text-sm hover:bg-accent hover:text-accent-foreground transition-colors min-h-[56px] mb-3.5"
                       onClick={() => setMobileShopOpen((v) => !v)}
                       aria-expanded={mobileShopOpen}
                     >
@@ -395,15 +395,15 @@ export function RillaboxHeader() {
                       <ChevronDown className={`w-4 h-4 transition-transform ${mobileShopOpen ? 'rotate-180' : ''}`} />
                     </button>
                     {mobileShopOpen && (
-                      <div className="pl-6 space-y-2.5 border-l border-border ml-2">
+                      <div className="pl-6 border-l border-border ml-2">
                         <Link href="#">
-                          <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5">
+                          <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5 mb-3.5">
                             <ShoppingBag className="w-4 h-4 mr-2" />
                             Buy
                           </Button>
                         </Link>
                         <Link href="#">
-                          <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5">
+                          <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5 mb-3.5">
                             <ArrowLeftRight className="w-4 h-4 mr-2" />
                             Trade
                           </Button>

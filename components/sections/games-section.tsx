@@ -221,28 +221,28 @@ export function GamesSection() {
           </Link>
         </div>
 
-        {/* Soccer Game with Coming Soon overlay */}
+        {/* Soccer Game with  overlay */}
         <div className="col-span-6 md:col-span-3">
           <div className="block group cursor-pointer" onClick={() => openGameModal(games[2])}>
             <div className="rounded-xl overflow-hidden relative transition-all duration-300">
               <img src="/new/SOCCER.jpg" alt="Soccer Game" className="w-full h-28 md:h-40 object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              {/* Coming Soon badge overlay */}
+              {/*  badge overlay */}
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <span className="px-3 py-1 rounded-full bg-yellow-400 text-black font-semibold shadow">Coming Soon</span>
+                <span className="px-3 py-1 rounded-full bg-yellow-400 text-black font-semibold shadow"></span>
               </div>
             </div>
             <span className="mt-1 md:mt-2 block text-center text-sm md:text-base font-semibold">Soccer Game</span>
           </div>
         </div>
 
-        {/* Chicken Road with Coming Soon overlay */}
+        {/* Chicken Road with  overlay */}
         <div className="col-span-6 md:col-span-3">
           <div className="block group cursor-pointer relative" onClick={() => openGameModal(games[3])}>
             <div className="rounded-xl overflow-hidden relative transition-all duration-300">
               <img src="/new/checken_road_1.jpg" alt="Chicken Road" className="w-full h-28 md:h-40 object-cover" />
               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                <span className="px-3 py-1 rounded-full bg-yellow-400 text-black font-semibold shadow">Coming Soon</span>
+                <span className="px-3 py-1 rounded-full bg-yellow-400 text-black font-semibold shadow"></span>
               </div>
             </div>
             <span className="mt-1 md:mt-2 block text-center text-sm md:text-base font-semibold">Chicken Road</span>
@@ -261,7 +261,7 @@ export function GamesSection() {
           {selectedGame?.name === "Chicken Road" || selectedGame?.name === "Soccer Game" ? (
             <div className="mt-3">
               <div className="rounded-lg border border-yellow-400/40 bg-yellow-400/10 p-4 text-yellow-300">
-                This game is coming soon. Check back shortly!
+                This game is . Check back shortly!
               </div>
             </div>
           ) : (
