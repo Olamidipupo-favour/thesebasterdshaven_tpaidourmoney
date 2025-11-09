@@ -211,6 +211,13 @@ export default function IPhoneBoxPage() {
   const ITEM_STEP_PX = ITEM_BOX_PX + ITEM_MARGIN_Y_TOTAL_PX // 208
   const HALF_ITEM_STEP_PX = ITEM_STEP_PX / 2 // 104
 
+  // Horizontal single-row spinner constants (qty = 1)
+  // Item container w-24 (96px) + mx-3 on both sides (24px total) = 120px per step
+  const H_ITEM_BOX_PX = 96
+  const H_ITEM_MARGIN_X_TOTAL_PX = 24
+  const H_ITEM_STEP_PX = H_ITEM_BOX_PX + H_ITEM_MARGIN_X_TOTAL_PX // 120
+  const H_HALF_ITEM_STEP_PX = H_ITEM_STEP_PX / 2 // 60
+
   const { user, isAuthenticated } = useAuth()
   const [isSpinning, setIsSpinning] = useState(false)
   const [isDemoSpinning, setIsDemoSpinning] = useState(false)
@@ -231,6 +238,7 @@ export default function IPhoneBoxPage() {
   const [showBoxOnWinner, setShowBoxOnWinner] = useState(false)
   const [isFastSpin, setIsFastSpin] = useState(false)
   const [isWinModalOpen, setIsWinModalOpen] = useState(false)
+  const [winningHighlightActive, setWinningHighlightActive] = useState(false)
   const timeouts = useRef<number[]>([])
 
   useEffect(() => {
@@ -251,10 +259,15 @@ export default function IPhoneBoxPage() {
     }
   }, [])
 
-  // Open win modal when prizes are set
+  // Delay opening win modal to spotlight the winner with a bright effect
   useEffect(() => {
     if (wonPrizes.length > 0) {
-      setIsWinModalOpen(true)
+      setWinningHighlightActive(true)
+      const t = window.setTimeout(() => {
+        setIsWinModalOpen(true)
+        setWinningHighlightActive(false)
+      }, 1600) // ~1.6s pause before modal
+      return () => window.clearTimeout(t)
     }
   }, [wonPrizes])
 
@@ -700,10 +713,12 @@ export default function IPhoneBoxPage() {
                 <div
                   className={`flex items-center`}
                   style={{
+                    position: 'relative',
+                    left: '50%',
                     transform: (isSpinning || wonPrizes.length > 0) && columnSpinIndices[0] !== undefined
-                      ? `translateX(calc(50% - ${columnSpinIndices[0] * 120}px - 60px))`
-                      : 'translateX(calc(50% - 1200px))',
-                    width: ((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? `${columnItems[0].length * 120}px` : 'auto',
+                      ? `translateX(calc(-${columnSpinIndices[0] * H_ITEM_STEP_PX}px - ${H_HALF_ITEM_STEP_PX}px))`
+                      : `translateX(calc(-${10 * H_ITEM_STEP_PX}px - ${H_HALF_ITEM_STEP_PX}px))`,
+                    width: ((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? `${columnItems[0].length * H_ITEM_STEP_PX}px` : 'auto',
                     transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
                     transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
                     transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
@@ -723,9 +738,9 @@ export default function IPhoneBoxPage() {
                           backdropFilter: 'none',
                           border: 'none',
                           boxShadow: 'none',
-                          transform: isWinningItem ? 'scale(1.10)' : 'scale(1)',
+                          transform: isWinningItem ? 'scale(1.12)' : 'scale(1)',
                           transition: 'transform 250ms ease',
-                          zIndex: isWinningItem ? 50 : 'auto'
+                          zIndex: isWinningItem ? 60 : 'auto'
                         }}
                       >
                         <img
@@ -733,15 +748,39 @@ export default function IPhoneBoxPage() {
                           alt={item.name}
                           className={`w-16 h-16 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-95'}`}
                           onError={(e) => { e.currentTarget.src = '/placeholder.svg' }}
-                          style={{ filter: `drop-shadow(0 0 12px ${rarityColor}55) drop-shadow(0 0 24px ${rarityColor}30)` }}
+                          style={{ filter: `drop-shadow(0 0 14px ${rarityColor}80) drop-shadow(0 0 28px ${rarityColor}40)` }}
                         />
                         {isWinningItem && (
-                          <div
-                            className="absolute inset-0 pointer-events-none"
-                            style={{
-                              background: `radial-gradient(circle at center, ${rarityColor}40 0%, ${rarityColor}20 45%, transparent 70%)`
-                            }}
-                          />
+                          <>
+                            <div
+                              className="absolute inset-0 pointer-events-none rounded-xl"
+                              style={{
+                                background: `radial-gradient(circle at center, ${rarityColor}55 0%, ${rarityColor}30 45%, transparent 70%)`
+                              }}
+                            />
+                            <div
+                              className="absolute -inset-1 rounded-2xl pointer-events-none animate-pulse"
+                              style={{ boxShadow: `0 0 50px ${rarityColor}, 0 0 110px ${rarityColor}aa` }}
+                            />
+                            {winningHighlightActive && (
+                              <div
+                                className="absolute inset-0 pointer-events-none rounded-xl animate-pulse"
+                                style={{
+                                  background: 'radial-gradient(circle at center, rgba(255,255,255,0.70) 0%, rgba(255,255,255,0.40) 45%, transparent 70%)'
+                                }}
+                              />
+                            )}
+                            {winningHighlightActive && (
+                              <div
+                                className="absolute inset-0 pointer-events-none"
+                                style={{ boxShadow: '0 0 40px rgba(255,255,255,0.75), 0 0 120px rgba(255,255,255,0.55)' }}
+                              />
+                            )}
+                            <div
+                              className="absolute inset-0 rounded-xl border-2"
+                              style={{ borderColor: `${rarityColor}` }}
+                            />
+                          </>
                         )}
                       </div>
                     )
@@ -808,9 +847,9 @@ export default function IPhoneBoxPage() {
                                   backdropFilter: 'none',
                                   border: 'none',
                                   boxShadow: 'none',
-                                  transform: isWinningItem ? 'scale(1.06)' : 'scale(1)',
+                                  transform: isWinningItem ? 'scale(1.10)' : 'scale(1)',
                                   transition: 'transform 250ms ease',
-                                  zIndex: isWinningItem ? 50 : 'auto'
+                                  zIndex: isWinningItem ? 60 : 'auto'
                                 }}
                               >
                                 <img
@@ -818,19 +857,35 @@ export default function IPhoneBoxPage() {
                                   alt={item.name}
                                   className={`w-20 h-20 sm:w-24 sm:h-24 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-95'}`}
                                   onError={(e) => { e.currentTarget.src = '/placeholder.svg' }}
-                                  style={{ filter: `drop-shadow(0 0 14px ${rarityColor}55) drop-shadow(0 0 28px ${rarityColor}30)` }}
+                                  style={{ filter: `drop-shadow(0 0 16px ${rarityColor}80) drop-shadow(0 0 32px ${rarityColor}40)` }}
                                 />
                                 <div
                                   className="absolute inset-0 rounded-xl pointer-events-none"
                                   style={{
-                                    background: `radial-gradient(circle at center, ${rarityColor}50 0%, ${rarityColor}25 40%, transparent 70%)`
+                                    background: `radial-gradient(circle at center, ${rarityColor}60 0%, ${rarityColor}35 40%, transparent 70%)`
                                   }}
                                 />
                                 {isWinningItem && (
-                                  <div
-                                    className="absolute -inset-1 rounded-2xl pointer-events-none animate-pulse"
-                                    style={{ boxShadow: `0 0 50px ${rarityColor}, 0 0 110px ${rarityColor}aa` }}
-                                  />
+                                  <>
+                                    <div
+                                      className="absolute -inset-1 rounded-2xl pointer-events-none animate-pulse"
+                                      style={{ boxShadow: `0 0 65px ${rarityColor}, 0 0 130px ${rarityColor}bb` }}
+                                    />
+                                    {winningHighlightActive && (
+                                      <div
+                                        className="absolute inset-0 rounded-xl pointer-events-none animate-pulse"
+                                        style={{
+                                          background: 'radial-gradient(circle at center, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.45) 40%, transparent 70%)'
+                                        }}
+                                      />
+                                    )}
+                                    {winningHighlightActive && (
+                                      <div
+                                        className="absolute inset-0 pointer-events-none"
+                                        style={{ boxShadow: '0 0 48px rgba(255,255,255,0.80), 0 0 140px rgba(255,255,255,0.60)' }}
+                                      />
+                                    )}
+                                  </>
                                 )}
                               </div>
                             )
