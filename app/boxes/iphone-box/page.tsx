@@ -235,6 +235,7 @@ export default function IPhoneBoxPage() {
   const [quantity, setQuantity] = useState(1)
   const [isBoxHovered, setIsBoxHovered] = useState(false)
   const [isSoundMuted, setIsSoundMuted] = useState(false)
+  const isSoundMutedRef = useRef<boolean>(false)
   const [showBoxOnWinner, setShowBoxOnWinner] = useState(false)
   const [isFastSpin, setIsFastSpin] = useState(false)
   const [isWinModalOpen, setIsWinModalOpen] = useState(false)
@@ -259,6 +260,11 @@ export default function IPhoneBoxPage() {
     }
   }, [])
 
+  // Keep a live ref of mute state so sounds can be silenced mid-spin
+  useEffect(() => {
+    isSoundMutedRef.current = isSoundMuted
+  }, [isSoundMuted])
+
   // Delay opening win modal to spotlight the winner with a bright effect
   useEffect(() => {
     if (wonPrizes.length > 0) {
@@ -272,7 +278,7 @@ export default function IPhoneBoxPage() {
   }, [wonPrizes])
 
   const playClick = () => {
-    if (isSoundMuted) return
+    if (isSoundMutedRef.current) return
     const ctx = audioCtxRef.current
     if (!ctx) return
     const osc = ctx.createOscillator()
