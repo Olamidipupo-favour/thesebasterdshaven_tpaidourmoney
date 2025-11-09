@@ -1153,10 +1153,10 @@ export default function IPhoneBoxPage() {
             <div className="rounded-xl border border-[#1f6b4a] bg-gradient-to-r from-[#0a1b14] via-[#0d241b] to-[#0a1b14] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-center justify-center sm:justify-start gap-3 mb-2 sm:mb-0 mx-auto sm:mx-0">
-                  <div className="w-12 h-12 md:w-8 md:h-8 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shrink-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7 md:w-4 md:h-4 text-[#22c55e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="9" x2="22" y2="9"></line></svg>
+                  <div className="w-14 h-14 md:w-10 md:h-10 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-9 h-9 md:w-6 md:h-6 text-[#22c55e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="9" x2="22" y2="9"></line></svg>
                   </div>
-                  <span className="text-2xl md:text-base font-semibold text-foreground text-center sm:text-left">Payment Methods</span>
+                  <span className="text-xl md:text-base font-semibold text-foreground text-center sm:text-left">Payment Methods</span>
                 </div>
                 <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-end">
                   {[
