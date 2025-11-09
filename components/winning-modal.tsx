@@ -60,7 +60,8 @@ export default function WinningModal({
       const el = contentRef.current
       if (!el) return
       const vh = window.innerHeight
-      const max = vh * 0.82
+      // Reduce overall visual footprint on mobile: cap at ~72% of viewport height
+      const max = vh * 0.72
       const contentHeight = el.scrollHeight
       const ratio = contentHeight / max
       const nextScale = ratio > 1 ? Math.max(0.55, 1 / ratio) : 1
@@ -138,9 +139,9 @@ export default function WinningModal({
         </button>
 
         <div ref={contentRef} style={{ transform: `scale(${scale})`, transformOrigin: 'top center' }} className={`relative z-10 ${isCompact ? 'p-4 sm:p-6' : 'p-6 sm:p-8'} text-center`}>
-            <div className="mb-6 sm:mb-8 space-y-3 sm:space-y-4">
+            <div className="mb-4 sm:mb-6 space-y-2 sm:space-y-3">
             <div className="inline-block">
-              <h1 className={`font-playfair ${isCompact ? 'text-4xl sm:text-5xl' : 'text-5xl sm:text-6xl'} font-black text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-500 to-gold drop-shadow-2xl animate-title-glow`}>
+              <h1 className={`font-playfair ${isCompact ? 'text-3xl sm:text-5xl' : 'text-5xl sm:text-6xl'} font-black text-transparent bg-clip-text bg-gradient-to-r from-gold via-yellow-500 to-gold drop-shadow-2xl animate-title-glow`}>
                 YOU WON!
               </h1>
             </div>
@@ -151,7 +152,7 @@ export default function WinningModal({
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-3 mb-8 sm:mb-10">
+          <div className="flex items-center justify-center gap-3 mb-5 sm:mb-7">
             <span className="font-poppins font-bold text-emerald-100 text-2xl sm:text-3xl">Congratulations 🎉</span>
             {/* Inline SVG fireworks with gold gradient */}
             {/* <svg
@@ -202,19 +203,19 @@ export default function WinningModal({
             </svg> */}
           </div>
 
-          <div className={`${isCompact ? 'mb-5 sm:mb-6' : 'mb-6 sm:mb-8'} relative`}>
+          <div className={`${isCompact ? 'mb-4 sm:mb-6' : 'mb-6 sm:mb-8'} relative`}>
             <div className="absolute inset-0 bg-gradient-to-r from-gold via-emerald-300 to-gold rounded-3xl blur-2xl opacity-60 animate-pulse-glow-premium" />
-            <div className={`relative bg-gradient-to-br from-white to-emerald-50 rounded-3xl ${isCompact ? 'p-4' : 'p-6'} shadow-2xl border-3 border-gold/80 flex items-center justify-center`}>
+            <div className={`relative bg-gradient-to-br from-white to-emerald-50 rounded-3xl ${isCompact ? 'p-3' : 'p-6'} shadow-2xl border-3 border-gold/80 flex items-center justify-center`}>
               <img
                 src={productImage || "/placeholder.svg"}
                 alt={productName}
-                className={`max-w-full ${isCompact ? 'h-32 sm:h-40 md:h-44' : 'h-40 sm:h-48 md:h-56'} object-contain rounded-2xl shadow-lg`}
+                className={`max-w-full ${isCompact ? 'h-28 sm:h-40 md:h-44' : 'h-40 sm:h-48 md:h-56'} object-contain rounded-2xl shadow-lg`}
               />
             </div>
           </div>
 
           <div className="mb-6 sm:mb-8">
-            <div className={`inline-block bg-gradient-to-r from-gold via-yellow-500 to-gold text-emerald-900 rounded-full font-poppins font-bold shadow-2xl border-3 border-emerald-900 transform hover:scale-105 transition-transform ${isCompact ? 'px-4 py-2.5 text-xl sm:text-2xl' : 'px-6 py-3 text-2xl sm:text-3xl'}`}>
+            <div className={`inline-block bg-gradient-to-r from-gold via-yellow-500 to-gold text-emerald-900 rounded-full font-poppins font-bold shadow-2xl border-3 border-emerald-900 transform hover:scale-105 transition-transform ${isCompact ? 'px-4 py-2 text-lg sm:text-xl' : 'px-6 py-3 text-2xl sm:text-3xl'}`}> 
               {productPrice}
             </div>
           </div>
@@ -229,24 +230,24 @@ export default function WinningModal({
             </div>
           )} */}
 
-          <div className="space-y-4">
-            <button className={`w-full bg-gradient-to-r from-gold via-yellow-500 to-gold hover:from-yellow-500 hover:via-gold hover:to-yellow-500 text-emerald-900 font-poppins font-bold rounded-full transition-all hover:shadow-2xl hover:scale-105 shadow-xl border-2 border-emerald-900 transform active:scale-95 ${isCompact ? 'py-2.5 px-5 text-base sm:text-lg' : 'py-3 px-6 text-lg sm:text-xl'}`}>
+          <div className="space-y-3 sm:space-y-4">
+            <button className={`w-full bg-gradient-to-r from-gold via-yellow-500 to-gold hover:from-yellow-500 hover:via-gold hover:to-yellow-500 text-emerald-900 font-poppins font-bold rounded-full transition-all hover:shadow-2xl hover:scale-105 shadow-xl border-2 border-emerald-900 transform active:scale-95 ${isCompact ? 'py-2 px-5 text-base sm:text-lg' : 'py-3 px-6 text-lg sm:text-xl'}`}> 
               Claim Prize
             </button>
             <button
               onClick={onClose}
-              className={`w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-poppins font-bold rounded-full transition-all hover:shadow-xl shadow-lg transform active:scale-95 ${isCompact ? 'py-2.5 px-5 text-sm sm:text-base' : 'py-3 px-6 text-base sm:text-lg'}`}
+              className={`w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-poppins font-bold rounded-full transition-all hover:shadow-xl shadow-lg transform active:scale-95 ${isCompact ? 'py-2 px-5 text-sm sm:text-base' : 'py-3 px-6 text-base sm:text-lg'}`}
             >
               Return to Boxes
             </button>
           </div>
 
-          <div className={`flex items-center justify-center gap-2 text-emerald-200 font-poppins font-semibold ${isCompact ? 'mt-4 text-xs sm:text-sm' : 'mt-6 text-sm'}`}>
+          <div className={`flex items-center justify-center gap-2 text-emerald-200 font-poppins font-semibold ${isCompact ? 'mt-3 text-xs sm:text-sm' : 'mt-6 text-sm'}`}>
             <Sparkles size={16} className="text-gold" />
             <span>100% Authentic & Secured by Irish Luck</span>
             <Sparkles size={16} className="text-gold" />
           </div>
-          <div className="mt-3 flex justify-center">
+          <div className="mt-2 sm:mt-3 flex justify-center">
             <img src="/another/corrected white image.png" alt="Mascot holding coin" className="h-20 sm:h-24 w-auto drop-shadow-lg" />
           </div>
         </div>
