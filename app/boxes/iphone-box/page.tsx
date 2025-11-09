@@ -972,18 +972,18 @@ export default function IPhoneBoxPage() {
               <span>100% Authentic & Secured by Provable Fairness</span>
             </div>
 
-            {/* Action Buttons Row */}
-            <div className="flex items-center gap-3">
+            {/* Action Buttons Row - prevent horizontal overflow on small screens */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 w-full px-2">
               <Button
                 onClick={handleDemoSpin}
-                className="bg-[#2d3548] hover:bg-[#353d52] text-white px-6 py-3 text-sm font-medium rounded-lg border-0"
+                className="bg-[#2d3548] hover:bg-[#353d52] text-white px-5 sm:px-6 py-3 text-sm font-medium rounded-lg border-0 w-full sm:w-auto"
                 disabled={isGameInProgress}
               >
                 DEMO SPIN
               </Button>
               <Button
                 onClick={handleRealSpin}
-                className="bg-[#22c55e] hover:bg-[#16a34a] text-white px-6 py-3 text-sm font-medium rounded-lg border-0 shadow-lg shadow-green-500/30"
+                className="bg-[#22c55e] hover:bg-[#16a34a] text-white px-5 sm:px-6 py-3 text-sm font-medium rounded-lg border-0 shadow-lg shadow-green-500/30 w-full sm:w-auto"
                 disabled={!isAuthenticated || isGameInProgress}
               >
                 <Gift className="w-4 h-4 mr-2" />
@@ -991,7 +991,7 @@ export default function IPhoneBoxPage() {
               </Button>
               <Button
                 onClick={handleFastSpin}
-                className={`px-3 py-3 rounded-lg border-0 transition-all ${isFastSpin
+                className={`px-3 py-3 rounded-lg border-0 transition-all sm:w-auto ${isFastSpin
                     ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
                     : 'bg-[#2d3548] hover:bg-[#353d52] text-white'
                   }`}

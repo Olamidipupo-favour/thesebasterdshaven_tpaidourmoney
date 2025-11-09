@@ -326,21 +326,44 @@ export function RillaboxHeader() {
           {/* Mobile full-screen Games menu */}
           {mobileMenuOpen && (
             <>
-              <div className="fixed inset-0 bg-black/50 z-[60] lg:hidden" onClick={() => setMobileMenuOpen(false)} />
-              <aside className="fixed inset-0 h-full w-full bg-background z-[65] lg:hidden shadow-xl">
+              <div className="fixed inset-0 bg-black/20 z-[60] lg:hidden" onClick={() => setMobileMenuOpen(false)} />
+              <aside className="fixed inset-0 h-full w-full bg-card/95 backdrop-blur-sm z-[65] lg:hidden shadow-xl">
                 <div className="flex items-center justify-between p-4 border-b border-border">
-                  <span className="text-base font-semibold">Games</span>
-                  <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)}>
-                    <X className="w-5 h-5" />
-                  </Button>
+                  <Link href="/" className="inline-flex items-center">
+                    <img src="/logo/OSORTUDO%20LOGO%201.png" alt="Sortudo" className="h-6 w-auto object-contain" />
+                  </Link>
+                  <div className="flex items-center gap-2">
+                    {!isAuthenticated ? (
+                      <>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="h-7 px-2 text-xs rounded-md leading-none"
+                          onClick={() => setShowLoginDialog(true)}
+                        >
+                          Sign in
+                        </Button>
+                        <Button
+                          size="sm"
+                          className="h-7 px-2.5 text-xs rounded-md leading-none whitespace-nowrap bg-gradient-to-r from-yellow-400 to-yellow-600 text-black"
+                          onClick={() => setShowRegisterDialog(true)}
+                        >
+                          Sign Up & get Free Box
+                        </Button>
+                      </>
+                    ) : null}
+                    <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
+                      <X className="w-5 h-5" />
+                    </Button>
+                  </div>
                 </div>
-                <div className="p-4 space-y-4 overflow-y-auto h-[calc(100vh-64px)]">
-                  <div className="space-y-4">
-                    <Link href="/boxes"><Button variant="outline" className="w-full justify-start py-3"><Boxes className="w-4 h-4 mr-2" />Mystery Boxes</Button></Link>
-                    <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><Target className="w-4 h-4 mr-2" />Find the Prize</Button></Link>
+                <div className="p-4 space-y-3.5 overflow-y-auto h-[calc(100vh-64px)]">
+                  <div className="space-y-3.5">
+                    <Link href="/boxes"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
+                    <Link href="#"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
                     <Button
                       variant="outline"
-                      className="w-full justify-start py-3"
+                      className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"
                       onClick={() => {
                         if (typeof window !== "undefined") {
                           window.dispatchEvent(new Event("open-soccer-coming-soon"))
@@ -348,31 +371,39 @@ export function RillaboxHeader() {
                         setMobileMenuOpen(false)
                       }}
                     >
-                      <img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />
-                      Soccer Game
+                      <span className="flex items-center"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</span>
+                      <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
                     </Button>
-                    <Link href="#"><Button variant="outline" className="w-full justify-start py-3"><Egg className="w-4 h-4 mr-2" />Chicken Road</Button></Link>
-                    <Link href="/earn"><Button variant="outline" className="w-full justify-start py-3"><DollarSign className="w-4 h-4 mr-2" />Earn to Play</Button></Link>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <span className="flex items-center"><Egg className="w-4 h-4 mr-2" />Chicken Road</span>
+                      <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
+                    </Button>
+                    <Link href="/earn"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
 
                     {/* Shop collapsible below Earn to Play */}
                     <button
                       type="button"
-                      className="w-full flex items-center justify-between rounded-md border border-border px-3 py-3 text-sm hover:bg-accent hover:text-accent-foreground"
+                      className="w-full flex items-center justify-between rounded-2xl bg-card border border-border px-4 py-4 text-sm hover:bg-accent hover:text-accent-foreground transition-colors min-h-[56px]"
                       onClick={() => setMobileShopOpen((v) => !v)}
+                      aria-expanded={mobileShopOpen}
                     >
                       <span className="flex items-center"><Gift className="w-4 h-4 mr-2" />Shop</span>
                       <ChevronDown className={`w-4 h-4 transition-transform ${mobileShopOpen ? 'rotate-180' : ''}`} />
                     </button>
                     {mobileShopOpen && (
-                      <div className="pl-6 space-y-2">
+                      <div className="pl-6 space-y-2.5 border-l border-border ml-2">
                         <Link href="#">
-                          <Button variant="ghost" className="w-full justify-start">
+                          <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5">
                             <ShoppingBag className="w-4 h-4 mr-2" />
                             Buy
                           </Button>
                         </Link>
                         <Link href="#">
-                          <Button variant="ghost" className="w-full justify-start">
+                          <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5">
                             <ArrowLeftRight className="w-4 h-4 mr-2" />
                             Trade
                           </Button>
@@ -381,30 +412,22 @@ export function RillaboxHeader() {
                     )}
 
                     {/* Weekly Race 10k banner (mobile) */}
-                    <Link href="/weekly-race" title="$10k Race" className="flex group items-center overflow-hidden flex-shrink-0 w-full px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#fed81f] to-[#e67d00] border-4 border-[#e67d00] transition-all duration-300">
+                    <Link href="/weekly-race" title="$10k Race" className="flex group items-center overflow-hidden flex-shrink-0 w-full px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#fed81f] to-[#e67d00] border-2 border-[#e67d00] transition-all duration-300">
                       <Trophy className="w-5 h-5 text-amber-700 mr-2 group-hover:animate-bounce" />
                       <div className="flex items-center gap-2 w-full justify-between">
                         <span className="text-white font-semibold not-italic">$10k Race</span>
                         <div className="flex items-center gap-1 text-white">
-                          <div className="flex flex-col leading-none items-center">
-                            <span className="font-bold">{timeLeft.days.toString().padStart(2, "0")}</span>
-                            <span className="text-[10px]">D</span>
-                          </div>
-                          <span>:</span>
-                          <div className="flex flex-col leading-none items-center">
-                            <span className="font-bold">{timeLeft.hours.toString().padStart(2, "0")}</span>
-                            <span className="text-[10px]">H</span>
-                          </div>
-                          <span>:</span>
-                          <div className="flex flex-col leading-none items-center">
-                            <span className="font-bold">{timeLeft.minutes.toString().padStart(2, "0")}</span>
-                            <span className="text-[10px]">M</span>
-                          </div>
-                          <span>:</span>
-                          <div className="flex flex-col leading-none items-center">
-                            <span className="font-bold">{timeLeft.seconds.toString().padStart(2, "0")}</span>
-                            <span className="text-[10px]">S</span>
-                          </div>
+                          {[
+                            { label: 'D', value: timeLeft.days },
+                            { label: 'H', value: timeLeft.hours },
+                            { label: 'M', value: timeLeft.minutes },
+                            { label: 'S', value: timeLeft.seconds },
+                          ].map((b) => (
+                            <div key={b.label} className="flex flex-col items-center">
+                              <span className="px-1.5 py-1 rounded-md bg-black/30 border border-white/10 text-white font-bold text-[12px] min-w-[28px] text-center">{b.value.toString().padStart(2, '0')}</span>
+                              <span className="text-white/80 text-[10px] mt-1">{b.label}</span>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     </Link>

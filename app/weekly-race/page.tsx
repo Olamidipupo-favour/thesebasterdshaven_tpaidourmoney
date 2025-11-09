@@ -195,10 +195,10 @@ const leaderboard: Winner[] = [
 ]
 
 function WinnerCard({ winner, rankClass, size = "normal" }: { winner: Winner; rankClass: "rank-1" | "rank-2" | "rank-3"; size?: "compact" | "normal" | "big" }) {
-  const pad = size === "big" ? "p-6" : size === "compact" ? "p-3" : "p-4"
-  const nameSize = size === "big" ? "text-xl" : size === "compact" ? "text-base" : "text-lg"
-  const totalPlayedSize = size === "big" ? "text-base" : size === "compact" ? "text-sm" : "text-sm"
-  const cardMinH = size === "big" ? "min-h-[240px]" : size === "compact" ? "min-h-[180px]" : "min-h-[200px]"
+  const pad = size === "big" ? "p-6" : size === "compact" ? "p-2 sm:p-3" : "p-4"
+  const nameSize = size === "big" ? "text-xl" : size === "compact" ? "text-sm sm:text-base" : "text-lg"
+  const totalPlayedSize = size === "big" ? "text-base" : size === "compact" ? "text-xs sm:text-sm" : "text-sm"
+  const cardMinH = size === "big" ? "min-h-[240px]" : size === "compact" ? "min-h-[140px] sm:min-h-[180px]" : "min-h-[200px]"
   return (
     <div className={`relative ${rankClass === "rank-1" ? "md:-translate-y-4 lg:-translate-y-5" : ""}`}>
       <Card className={`winner-card ${rankClass} rounded-2xl overflow-hidden shadow-md ${cardMinH}`}>
@@ -252,7 +252,7 @@ export default function WeeklyRacePage() {
                backgroundPosition: 'center'
              }}
            ></div>
-           {/* <div className="absolute inset-0 bg-black/30 pointer-events-none" /> */}
+           <div className="absolute inset-0 bg-black/45 pointer-events-none" />
            <div className="relative rounded-3xl p-6 md:p-8 lg:p-10 hero-lightpop overflow-hidden">
              {/* <video src="/new/10k.mp4" autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover z-0" /> */}
              {/* <div className="absolute inset-0 bg-black/45 z-10 pointer-events-none" /> */}
@@ -295,10 +295,16 @@ export default function WeeklyRacePage() {
         <section className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-6">
           {/* Left: Top 3 */}
           <div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
-              <WinnerCard winner={topWinners[1]} rankClass="rank-2" size="compact" />
-              <WinnerCard winner={topWinners[0]} rankClass="rank-1" size="compact" />
-              <WinnerCard winner={topWinners[2]} rankClass="rank-3" size="compact" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
+              <div className="order-1 sm:order-2">
+                <WinnerCard winner={topWinners[0]} rankClass="rank-1" size="compact" />
+              </div>
+              <div className="order-2 sm:order-1">
+                <WinnerCard winner={topWinners[1]} rankClass="rank-2" size="compact" />
+              </div>
+              <div className="order-3 sm:order-3">
+                <WinnerCard winner={topWinners[2]} rankClass="rank-3" size="compact" />
+              </div>
             </div>
           </div>
 
@@ -346,19 +352,18 @@ export default function WeeklyRacePage() {
                   {/* Place label */}
                   <div className="w-16 text-center text-sm font-semibold text-yellow-300">{w.placeLabel}</div>
 
-                  <div className="relative z-10 flex-1 flex items-center justify-between flex-wrap gap-3">
-                    <div className="flex items-center gap-3">
+                  <div className="relative z-10 flex-1 grid grid-cols-[auto_1fr_auto] items-center gap-3 min-w-0">
+                    <div className="flex items-center gap-3 min-w-0">
                       <div className="w-12 h-12">
                         <AvatarComposer base={w.avatar.base} skin={w.avatar.skin} face={w.avatar.face} female={w.avatar.female} />
                       </div>
                       <h6 className="text-white text-sm font-medium truncate">{w.name}</h6>
                     </div>
-
-                    <div className="text-white text-sm font-medium">
+                    <div className="text-white text-sm font-medium text-center sm:text-right">
                       <span>{w.totalPlayed}</span>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-end gap-2">
                       <div className="px-4 py-2 rounded-xl bg-[#e67d00] border-4 border-[#fed81f] text-white font-semibold text-sm shadow-[0_6px_18px_rgba(230,125,0,0.25)]">
                         {w.prize}
                       </div>
