@@ -60,8 +60,8 @@ export default function WinningModal({
       const el = contentRef.current
       if (!el) return
       const vh = window.innerHeight
-      // Reduce overall visual footprint on mobile: cap at ~72% of viewport height
-      const max = vh * 0.72
+      // Further reduce mobile footprint: cap at ~68% of viewport height
+      const max = vh * 0.68
       const contentHeight = el.scrollHeight
       const ratio = contentHeight / max
       const nextScale = ratio > 1 ? Math.max(0.55, 1 / ratio) : 1
@@ -121,15 +121,15 @@ export default function WinningModal({
       <div
         ref={wrapperRef}
         style={{ height: wrapperHeight ? `${wrapperHeight}px` : undefined }}
-        className={`relative w-full ${isCompact ? 'max-w-sm' : 'max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl'} bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 rounded-3xl shadow-2xl overflow-hidden border-2 border-gold/50 ${
-          isShaking ? "animate-shake-premium" : ""
+        className={`relative w-full ${isCompact ? 'max-w-sm' : 'max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl'} bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950 ${isCompact ? 'rounded-2xl shadow-xl border border-gold/40' : 'rounded-3xl shadow-2xl border-2 border-gold/50'} overflow-hidden ${
+          !isCompact && isShaking ? "animate-shake-premium" : ""
         }`}
       >
-        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-emerald-400 via-gold via-emerald-300 to-emerald-400 p-0.5 pointer-events-none opacity-80">
+        <div className={`absolute inset-0 rounded-3xl bg-gradient-to-r from-emerald-400 via-gold via-emerald-300 to-emerald-400 p-0.5 pointer-events-none opacity-80 ${isCompact ? 'hidden' : ''}`}>
           <div className="absolute inset-0.5 rounded-3xl bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-950" />
         </div>
 
-        <div className="absolute -inset-20 bg-gradient-to-r from-gold/20 via-emerald-400/20 to-gold/20 blur-3xl rounded-full pointer-events-none animate-pulse" />
+        <div className={`absolute -inset-20 bg-gradient-to-r from-gold/20 via-emerald-400/20 to-gold/20 blur-3xl rounded-full pointer-events-none animate-pulse ${isCompact ? 'hidden' : ''}`} />
 
         <button
           onClick={onClose}
@@ -205,7 +205,7 @@ export default function WinningModal({
 
           <div className={`${isCompact ? 'mb-4 sm:mb-6' : 'mb-6 sm:mb-8'} relative`}>
             <div className="absolute inset-0 bg-gradient-to-r from-gold via-emerald-300 to-gold rounded-3xl blur-2xl opacity-60 animate-pulse-glow-premium" />
-            <div className={`relative bg-gradient-to-br from-white to-emerald-50 rounded-3xl ${isCompact ? 'p-3' : 'p-6'} shadow-2xl border-3 border-gold/80 flex items-center justify-center`}>
+            <div className={`relative bg-gradient-to-br from-white to-emerald-50 rounded-3xl ${isCompact ? 'p-3 border border-gold/60 shadow-xl' : 'p-6 border-3 border-gold/80 shadow-2xl'} flex items-center justify-center`}>
               <img
                 src={productImage || "/placeholder.svg"}
                 alt={productName}
@@ -215,7 +215,7 @@ export default function WinningModal({
           </div>
 
           <div className="mb-6 sm:mb-8">
-            <div className={`inline-block bg-gradient-to-r from-gold via-yellow-500 to-gold text-emerald-900 rounded-full font-poppins font-bold shadow-2xl border-3 border-emerald-900 transform hover:scale-105 transition-transform ${isCompact ? 'px-4 py-2 text-lg sm:text-xl' : 'px-6 py-3 text-2xl sm:text-3xl'}`}> 
+            <div className={`inline-block bg-gradient-to-r from-gold via-yellow-500 to-gold text-emerald-900 rounded-full font-poppins font-bold ${isCompact ? 'shadow-xl border border-emerald-900' : 'shadow-2xl border-3 border-emerald-900'} transform hover:scale-105 transition-transform ${isCompact ? 'px-4 py-2 text-lg sm:text-xl' : 'px-6 py-3 text-2xl sm:text-3xl'}`}> 
               {productPrice}
             </div>
           </div>
@@ -248,7 +248,7 @@ export default function WinningModal({
             <Sparkles size={16} className="text-gold" />
           </div>
           <div className="mt-2 sm:mt-3 flex justify-center">
-            <img src="/another/corrected white image.png" alt="Mascot holding coin" className="h-20 sm:h-24 w-auto drop-shadow-lg" />
+            <img src="/another/corrected white image.png" alt="Mascot holding coin" className="h-16 sm:h-24 w-auto drop-shadow-lg" />
           </div>
         </div>
       </div>
