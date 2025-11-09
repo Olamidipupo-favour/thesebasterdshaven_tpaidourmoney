@@ -21,10 +21,10 @@ export function PaymentMethodsSection() {
         <div className="px-4 py-5 md:px-8 md:py-7">
           {/* Header aligned like screenshot: icon + label on one line */}
           <div className="flex items-center justify-center md:justify-start gap-3 mb-5 mx-auto md:mx-0">
-            <div className="w-12 h-12 md:w-8 md:h-8 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shrink-0">
-              <CreditCard className="w-7 h-7 md:w-4 md:h-4 text-[#22c55e]" />
+            <div className="w-14 h-14 md:w-10 md:h-10 rounded-lg bg-[#0f2a1f] border border-[#1f6b4a] flex items-center justify-center shrink-0">
+              <CreditCard className="w-9 h-9 md:w-6 md:h-6 text-[#22c55e]" />
             </div>
-            <h2 className="text-2xl md:text-xl font-semibold text-foreground text-center md:text-left">Payment Methods</h2>
+            <h2 className="text-xl md:text-base font-semibold text-foreground text-center md:text-left">Payment Methods</h2>
           </div>
           {/* Mobile (<= md) – compact 4x2 layout with reduced logo size */}
           <div className="md:hidden">
