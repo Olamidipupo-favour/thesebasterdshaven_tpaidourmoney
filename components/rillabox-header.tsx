@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useAuth } from "@/hooks/use-auth"
 import { LoginDialog } from "@/components/auth/login-dialog"
 import { RegisterDialog } from "@/components/auth/register-dialog"
@@ -94,6 +95,14 @@ export function RillaboxHeader() {
     const id = setInterval(update, 1000)
     return () => clearInterval(id)
   }, [])
+
+  // Close mobile full-screen menu when path changes to avoid overlay persisting after navigation
+  const pathname = usePathname()
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false)
+    }
+  }, [pathname])
 
   const handleSwitchToRegister = () => {
     setShowLoginDialog(false)
