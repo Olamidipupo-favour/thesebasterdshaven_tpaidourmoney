@@ -221,8 +221,9 @@ function WinnerCard({ winner, rankClass, size = "normal" }: { winner: Winner; ra
           </div>
           <h6 className={`text-white font-semibold ${nameSize} mb-2 text-break`}>{winner.name}</h6>
           <div className="mb-2">
-            <span className="text-muted-foreground/80 text-sm block">Total Played</span>
-            <h6 className={`text-white font-medium ${totalPlayedSize}`}>{winner.totalPlayed}</h6>
+            {/* text-muted-foreground/55  */}
+            <span className="text-sm block">Total Played</span>
+            <h6 className={`text-white/80 font-medium ${totalPlayedSize}`}>{winner.totalPlayed}</h6>
           </div>
           <div className="played-box mt-1">
             <span className="text-white font-medium text-sm block">{winner.placeLabel}</span>
@@ -295,16 +296,22 @@ export default function WeeklyRacePage() {
         <section className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-6">
           {/* Left: Top 3 */}
           <div>
-            <div className="grid grid-cols-1 gap-3 mt-2">
-              {/* 1st place large on top */}
+            {/* Mobile layout: 1st big on top, 2nd/3rd side-by-side */}
+            <div className="grid grid-cols-1 gap-3 mt-2 lg:hidden">
               <div>
                 <WinnerCard winner={topWinners[0]} rankClass="rank-1" size="big" />
               </div>
-              {/* 2nd and 3rd side-by-side below */}
               <div className="grid grid-cols-2 gap-3">
                 <WinnerCard winner={topWinners[1]} rankClass="rank-2" size="compact" />
                 <WinnerCard winner={topWinners[2]} rankClass="rank-3" size="compact" />
               </div>
+            </div>
+
+            {/* Desktop layout: three cards side-by-side with 1st in middle */}
+            <div className="hidden lg:grid grid-cols-3 gap-3 mt-2">
+              <WinnerCard winner={topWinners[1]} rankClass="rank-2" size="normal" />
+              <WinnerCard winner={topWinners[0]} rankClass="rank-1" size="normal" />
+              <WinnerCard winner={topWinners[2]} rankClass="rank-3" size="normal" />
             </div>
           </div>
 
