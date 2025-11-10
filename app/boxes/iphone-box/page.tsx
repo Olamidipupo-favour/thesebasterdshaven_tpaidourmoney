@@ -385,17 +385,19 @@ export default function IPhoneBoxPage() {
     const startIndices = columnsData.map(col => Math.floor(col.length / 2))
     const currentIndices = [...startIndices]
 
-    // Two-phase timing: 3s very fast, then ~4s deceleration to the target with a slow tail
-    const fastDurationMs = 3000
-    const fastIntervalMs = 16 // ~60fps for smooth fast movement
+    // Timing tuned for device and demo vs real spins
+    const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches
+    // Demo on mobile: slower intervals and longer deceleration for visibility
+    const fastIntervalMs = isDemo && isMobile ? 40 : 16
+    const fastDurationMs = isDemo && isMobile ? 2500 : 3000
     const fastSteps = Math.floor(fastDurationMs / fastIntervalMs)
 
-    const decelDurationMs = 4000
-    const endMaxIntervalMs = 280 // slower final step interval for more natural stop
+    const decelDurationMs = isDemo && isMobile ? 5200 : 4000
+    const endMaxIntervalMs = isDemo && isMobile ? 380 : 280 // slower final step interval for more natural stop
     // Faster early reduction: easeOutExpo grows quickly at the start
     const easeOutExpo = (t: number) => (t === 0 ? 0 : 1 - Math.pow(2, -10 * t))
     // Build deceleration interval schedule and scale to exactly decelDurationMs
-    const slowSteps = 85 // more steps during deceleration for smoother, longer slowdown
+    const slowSteps = isDemo && isMobile ? 105 : 85 // more steps during deceleration for smoother, longer slowdown
     const rawIntervals = Array.from({ length: slowSteps }, (_, i) => {
       const t = i / (slowSteps - 1)
       return fastIntervalMs + (endMaxIntervalMs - fastIntervalMs) * easeOutExpo(t)
@@ -404,7 +406,7 @@ export default function IPhoneBoxPage() {
     const scale = decelDurationMs / rawSum
     const decelIntervals = rawIntervals.map(v => Math.max(8, v * scale))
     // Final tail to bring perceived speed near-zero without feeling abrupt
-    const tailIntervals = [300, 340, 380]
+    const tailIntervals = isDemo && isMobile ? [340, 380, 420] : [300, 340, 380]
     const totalSlowSteps = slowSteps + tailIntervals.length
 
     // Select different winning items for each column
@@ -476,10 +478,10 @@ export default function IPhoneBoxPage() {
 
       // Match transition duration to interval for smooth continuous movement
       if (step >= fastSteps) {
-        setSpinStepDurationMs(Math.min(420, Math.max(80, Math.floor(nextInterval))))
+        setSpinStepDurationMs(Math.min(460, Math.max(80, Math.floor(nextInterval))))
       } else {
         // Keep short transitions during fast phase so updates feel fluid
-        setSpinStepDurationMs(60)
+        setSpinStepDurationMs(isDemo && isMobile ? 90 : 60)
       }
 
       step++
@@ -989,7 +991,7 @@ export default function IPhoneBoxPage() {
                 <Gift className="w-4 h-4 mr-2" />
                 Open for ${(2.79 * quantity).toFixed(2)}
               </Button>
-              <Button
+              {/* <Button
                 onClick={handleFastSpin}
                 className={`px-3 py-3 rounded-lg border-0 transition-all sm:w-auto ${isFastSpin
                     ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
@@ -997,7 +999,7 @@ export default function IPhoneBoxPage() {
                   }`}
               >
                 <Zap className={`w-4 h-4 ${isFastSpin ? 'animate-pulse' : ''}`} />
-              </Button>
+              </Button> */}
             </div>
 
             {/* Quantity Selection */}

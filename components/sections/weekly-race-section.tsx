@@ -89,7 +89,7 @@ export function WeeklyRaceSection() {
       {/* Desktop / Tablet version (unchanged) */}
       <div className="hidden md:block">
         <div className="relative rounded-[2rem] overflow-hidden min-h-[240px] md:min-h-[320px] lg:min-h-[380px] bg-[url('/add/weekly%20race%20new%20banner%2022.png')] bg-cover bg-top">
-          <div className="absolute inset-0 bg-black/40" />
+          {/* <div className="absolute inset-0 bg-black/40" /> */}
           {/* Centered content */}
           <div className="absolute z-10 top-[60px] left-[200px] md:left-[200px] lg:left-[200px] w-auto px-4 text-center">
             <h2 className="text-6xl md:text-8xl lg:text-9xl font-extrabold text-white tracking-tight">$10,000</h2>

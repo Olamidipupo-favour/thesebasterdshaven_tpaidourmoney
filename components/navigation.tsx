@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Home, Gift, Trophy, Coins, Menu, X, User, LogOut, ShoppingCart, ArrowLeftRight, Boxes, Target, Egg, DollarSign, ShoppingBag, ChevronDown } from "lucide-react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useAuth } from "@/hooks/use-auth"
 import { LoginDialog } from "@/components/auth/login-dialog"
 import { RegisterDialog } from "@/components/auth/register-dialog"
@@ -59,9 +60,22 @@ export function Navigation() {
   // Listen for bottom nav "Games" tab across pages
   useEffect(() => {
     const openHandler = () => setMobileGamesOpen(true)
+    const closeHandler = () => setMobileGamesOpen(false)
     window.addEventListener("open-games-menu", openHandler as EventListener)
-    return () => window.removeEventListener("open-games-menu", openHandler as EventListener)
+    window.addEventListener("close-games-menu", closeHandler as EventListener)
+    return () => {
+      window.removeEventListener("open-games-menu", openHandler as EventListener)
+      window.removeEventListener("close-games-menu", closeHandler as EventListener)
+    }
   }, [])
+
+  // Auto-close mobile games overlay when the route changes (e.g., bottom nav navigation)
+  const pathname = usePathname()
+  useEffect(() => {
+    if (mobileGamesOpen) {
+      setMobileGamesOpen(false)
+    }
+  }, [pathname])
 
   const handleSwitchToRegister = () => {
     setShowLoginDialog(false)
