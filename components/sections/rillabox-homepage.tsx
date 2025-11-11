@@ -500,7 +500,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>564.99</span></div>
                 <div className="current-price"><span>$</span><span>469.99</span></div>
               </div>
-              <Link href="/boxes/alfa-romeo" className="absolute inset-0 z-10" aria-label="Open Alfa Romeo"><span className="sr-only">Open Alfa Romeo</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open Alfa Romeo"><span className="sr-only">Open Alfa Romeo</span></Link>
             </div>
           </div>
           <div>
@@ -512,7 +512,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>8.49</span></div>
                 <div className="current-price"><span>$</span><span>6.79</span></div>
               </div>
-              <Link href="/boxes/amazon" className="absolute inset-0 z-10" aria-label="Open Amazon"><span className="sr-only">Open Amazon</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open Amazon"><span className="sr-only">Open Amazon</span></Link>
             </div>
           </div>
           <div>
@@ -524,7 +524,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>1999.99</span></div>
                 <div className="current-price"><span>$</span><span>1889.99</span></div>
               </div>
-              <Link href="/boxes/bentley" className="absolute inset-0 z-10" aria-label="Open Bentley"><span className="sr-only">Open Bentley</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open Bentley"><span className="sr-only">Open Bentley</span></Link>
             </div>
           </div>
           <div>
@@ -536,7 +536,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>7.87</span></div>
                 <div className="current-price"><span>$</span><span>5.79</span></div>
               </div>
-              <Link href="/boxes/call-of-duty" className="absolute inset-0 z-10" aria-label="Open Call Of Duty"><span className="sr-only">Open Call Of Duty</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open Call Of Duty"><span className="sr-only">Open Call Of Duty</span></Link>
             </div>
           </div>
           <div>
@@ -548,7 +548,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>10.49</span></div>
                 <div className="current-price"><span>$</span><span>8.29</span></div>
               </div>
-              <Link href="/boxes/holidays" className="absolute inset-0 z-10" aria-label="Open Holidays"><span className="sr-only">Open Holidays</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open Holidays"><span className="sr-only">Open Holidays</span></Link>
             </div>
           </div>
           <div>
@@ -560,7 +560,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>2.99</span></div>
                 <div className="current-price"><span>$</span><span>2.24</span></div>
               </div>
-              <Link href="/boxes/india" className="absolute inset-0 z-10" aria-label="Open India"><span className="sr-only">Open India</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open India"><span className="sr-only">Open India</span></Link>
             </div>
           </div>
           <div>
@@ -572,7 +572,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>544.99</span></div>
                 <div className="current-price"><span>$</span><span>484.99</span></div>
               </div>
-              <Link href="/boxes/nissan" className="absolute inset-0 z-10" aria-label="Open Nissan"><span className="sr-only">Open Nissan</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open Nissan"><span className="sr-only">Open Nissan</span></Link>
             </div>
           </div>
           <div>
@@ -584,7 +584,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>10.49</span></div>
                 <div className="current-price"><span>$</span><span>8.39</span></div>
               </div>
-              <Link href="/boxes/risky-rolex" className="absolute inset-0 z-10" aria-label="Open Risky Rolex"><span className="sr-only">Open Risky Rolex</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open Risky Rolex"><span className="sr-only">Open Risky Rolex</span></Link>
             </div>
           </div>
           <div>
@@ -596,7 +596,7 @@ export function OSortudoHomepage() {
                 <div className="original-price"><span>$</span><span>39.99</span></div>
                 <div className="current-price"><span>$</span><span>33.49</span></div>
               </div>
-              <Link href="/boxes/travis-scott" className="absolute inset-0 z-10" aria-label="Open Travis Scott"><span className="sr-only">Open Travis Scott</span></Link>
+              <Link href="#" className="absolute inset-0 z-10" aria-label="Open Travis Scott"><span className="sr-only">Open Travis Scott</span></Link>
             </div>
           </div>
         </div>

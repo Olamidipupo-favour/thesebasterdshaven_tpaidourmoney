@@ -153,6 +153,19 @@ export function RillaboxHeader() {
     }
   }, [])
 
+  // Lock background scroll while the mobile full-screen menu is open
+  useEffect(() => {
+    const shouldLock = mobileMenuOpen || mobileMenuClosing
+    if (shouldLock) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen, mobileMenuClosing])
+
   return (
     <>
       <header id="header" className="sticky top-0 z-50 border-b border-border relative bg-card lg:bg-card/95 lg:backdrop-blur-sm">
@@ -349,11 +362,11 @@ export function RillaboxHeader() {
             {gamesOpen && <div className="dropdown-overlay fixed inset-0 z-40" onClick={() => setGamesOpen(false)} />}
           </div>
 
-          {/* Mobile full-screen Games menu with slide-out close animation */}
-          {(mobileMenuOpen || mobileMenuClosing) && (
+  {/* Mobile full-screen Games menu with slide-out close animation */}
+  {(mobileMenuOpen || mobileMenuClosing) && (
             <>
-              <div className="fixed inset-0 bg-black/20 z-[60] xl:hidden" onClick={closeMobileMenu} />
-              <aside className={`fixed inset-0 h-full w-full bg-card/95 backdrop-blur-sm z-[65] xl:hidden shadow-xl transform transition-transform duration-300 ${mobileMenuClosing ? '-translate-x-full' : 'translate-x-0'}`}>
+              <div className="fixed inset-0 bg-black/30 z-[75] xl:hidden" onClick={closeMobileMenu} />
+              <aside className={`fixed inset-0 h-full w-full bg-card/95 backdrop-blur-sm z-[80] xl:hidden shadow-xl transform transition-transform duration-300 ${mobileMenuClosing ? '-translate-x-full' : 'translate-x-0'}`}>
                 <div className="flex items-center justify-between p-4 border-b border-border">
                   <Link href="/" className="inline-flex items-center">
                     <img src="/logo/OSORTUDO%20LOGO%201.png" alt="Sortudo" className="h-6 w-auto object-contain" />
@@ -435,7 +448,7 @@ export function RillaboxHeader() {
                           </Button>
                         </Link>
                       </div>
-                    )}
+  )}
 
                     {/* Weekly Race 10k banner (mobile) */}
                     <Link href="/weekly-race" title="$10k Race" className="flex group items-center overflow-hidden flex-shrink-0 w-full px-4 py-2.5 rounded-2xl bg-gradient-to-r from-[#fed81f] to-[#e67d00] border-2 border-[#e67d00] transition-all duration-300">

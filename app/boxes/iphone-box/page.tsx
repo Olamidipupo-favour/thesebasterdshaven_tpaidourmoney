@@ -1088,7 +1088,7 @@ export default function IPhoneBoxPage() {
 
             <div className="boxes-container landing-boxes grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
               {similarBoxes.map((box) => (
-                <Link key={box.id} href={`/boxes/${box.id}`} className="box-item relative">
+                <Link key={box.id} href={`#`} className="box-item relative">
                   {/* <img src="/images/helloween/vector-3.svg" alt="" className="vector-halloween" /> */}
                   <span className="box-name line-clamp-2">{box.name}</span>
                   <img src={box.image} alt={box.name} className="prod-img" onError={(e) => { e.currentTarget.src = '/placeholder.svg' }} />

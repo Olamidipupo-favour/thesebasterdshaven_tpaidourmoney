@@ -44,8 +44,10 @@ export function MobileBottomNav() {
   const isPrizesActive = pathname === "/weekly-race" || pathname?.startsWith("/weekly-race")
   const showGamesActive = gamesActive && !isPrizesActive && !isBoxesActive
 
+  const hideNav = gamesActive
+
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-[70] md:hidden bg-card border-t border-border">
+    <nav className={`${hideNav ? 'hidden' : ''} fixed bottom-0 left-0 right-0 z-[70] xl:hidden bg-card border-t border-border`} aria-hidden={hideNav ? true : undefined}>
       <div className="mx-auto max-w-6xl px-4">
         <div className="grid grid-cols-3 gap-2 py-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
           <button onClick={openGamesMenu} className={`flex flex-col items-center gap-1 text-xs py-1 w-full ${showGamesActive ? 'text-[#22c55e]' : ''}`} aria-current={showGamesActive ? 'page' : undefined}>

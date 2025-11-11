@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three'
 import * as THREE from 'three'
@@ -23,15 +23,15 @@ function Box3DModel({ isHovered, boxOpening, boxDisappearing }: Box3DProps) {
   const boxTexture = useLoader(TextureLoader, '/box.png')
   const lidTexture = useLoader(TextureLoader, '/lid.png')
 
-  // Animation state
-  const [rotation, setRotation] = useState(0)
-  const [openProgress, setOpenProgress] = useState(0) // 0..1 opening of all flaps
-  const [hoverPhase, setHoverPhase] = useState(0)
+  // Animation state (refs to avoid React re-renders on every frame)
+  const rotationRef = useRef(0)
+  const openProgressRef = useRef(0) // 0..1 opening of all flaps
+  const hoverPhaseRef = useRef(0)
 
   // When a new open sequence starts, reset lid and scale so animation plays from start
   useEffect(() => {
     if (boxOpening) {
-      setOpenProgress(0)
+      openProgressRef.current = 0
       if (boxRef.current) {
         boxRef.current.scale.setScalar(1)
       }
@@ -49,25 +49,27 @@ function Box3DModel({ isHovered, boxOpening, boxDisappearing }: Box3DProps) {
 
     // Idle rotation - smooth continuous rotation
     if (!boxOpening && !boxDisappearing) {
-      setRotation((prev) => prev + delta * 0.5)
-      boxRef.current.rotation.y = rotation
-      boxRef.current.rotation.x = Math.sin(rotation * 0.5) * 0.1
+      rotationRef.current += delta * 0.5
+      const r = rotationRef.current
+      boxRef.current.rotation.y = r
+      boxRef.current.rotation.x = Math.sin(r * 0.5) * 0.1
     }
 
     // Lid hover animation
     if (isHovered && lidRef.current && !boxOpening && !boxDisappearing) {
-      setHoverPhase((prev) => prev + delta * 4)
-      const wobble = Math.sin(hoverPhase) * 0.15 + Math.sin(hoverPhase * 1.5) * 0.08
+      hoverPhaseRef.current += delta * 4
+      const p = hoverPhaseRef.current
+      const wobble = Math.sin(p) * 0.15 + Math.sin(p * 1.5) * 0.08
       lidRef.current.rotation.x = wobble
     } else if (lidRef.current) {
       lidRef.current.rotation.x = 0
-      setHoverPhase(0)
+      hoverPhaseRef.current = 0
     }
 
     // Opening animation: flaps fold down, lid rises
     if (boxOpening) {
-      const next = Math.min(openProgress + delta * 0.8, 1)
-      setOpenProgress(next)
+      const next = Math.min(openProgressRef.current + delta * 0.8, 1)
+      openProgressRef.current = next
       const t = easeOutCubic(next)
 
       // Flaps rotate around their bottom hinges, down to lay flat on ground
@@ -147,13 +149,13 @@ export function Box3D({ isHovered, boxOpening, boxDisappearing }: Box3DProps) {
     <div className="w-[240px] h-[240px]">
       <Canvas
         camera={{ position: [0, 0, 6], fov: 50 }}
-        gl={{ alpha: true, antialias: true }}
+        dpr={[1, 1.5]} // limit pixel ratio on mobile for performance
+        gl={{ alpha: true, antialias: false, powerPreference: 'low-power' }}
       >
-        <ambientLight intensity={0.6} />
-        <directionalLight position={[5, 5, 5]} intensity={0.8} castShadow />
-        <directionalLight position={[-5, 3, -5]} intensity={0.4} />
-        <pointLight position={[0, 10, 0]} intensity={0.3} />
-        
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[5, 5, 5]} intensity={0.6} />
+        <directionalLight position={[-5, 3, -5]} intensity={0.3} />
+      
         <Box3DModel 
           isHovered={isHovered}
           boxOpening={boxOpening}
