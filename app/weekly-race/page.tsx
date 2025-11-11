@@ -334,7 +334,7 @@ export default function WeeklyRacePage() {
 
         {/* Leaderboard List */}
         <section>
-          <div className="grid gap-3">
+          <div className="grid gap-2 sm:gap-3">
             {/* Header row */}
             <div className="flex items-center px-4 py-3 rounded-xl border-2 border-yellow-500 bg-gradient-to-r from-yellow-400 to-yellow-600">
               <div className="w-10 sm:w-16 text-center text-sm font-semibold text-black/80"> </div>
@@ -348,7 +348,7 @@ export default function WeeklyRacePage() {
             {leaderboard.map((w, idx) => (
                 <div
                   key={w.name}
-                  className="relative flex items-center px-4 py-2.5 rounded-xl overflow-hidden"
+                  className="relative flex items-center px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl overflow-hidden"
                   style={{
                     backgroundImage: 'url("/add/mascot rainbow background.jpg")',
                     backgroundPosition: 'center',
@@ -359,21 +359,27 @@ export default function WeeklyRacePage() {
                   {/* Subtle dark overlay to improve text contrast over patterned background */}
                   <div className="absolute inset-0 bg-black/30" />
                   {/* Place label */}
-                  <div className="w-10 sm:w-16 text-center text-sm font-semibold text-yellow-300">{w.placeLabel}</div>
+                  <div className="w-8 sm:w-16 text-center text-xs sm:text-sm font-semibold text-yellow-300">{w.placeLabel}</div>
 
-                  <div className="relative z-10 flex-1 grid grid-cols-[2fr_1fr_auto] sm:grid-cols-[1.8fr_1fr_auto] items-center gap-2 sm:gap-3 min-w-0">
+                  <div className="relative z-10 flex-1 grid grid-cols-[2.2fr_0.9fr_auto] sm:grid-cols-[1.8fr_1fr_auto] items-center gap-2 sm:gap-3 min-w-0">
                     <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                      <div className="w-10 h-10 sm:w-12 sm:h-12">
-                        <AvatarComposer base={w.avatar.base} skin={w.avatar.skin} face={w.avatar.face} female={w.avatar.female} />
+                      <div className="w-8 h-8 sm:w-12 sm:h-12">
+                        {/* Mobile: smaller avatar; Desktop: normal size */}
+                        <div className="sm:hidden">
+                          <AvatarComposer base={w.avatar.base} skin={w.avatar.skin} face={w.avatar.face} female={w.avatar.female} size="sm" />
+                        </div>
+                        <div className="hidden sm:block">
+                          <AvatarComposer base={w.avatar.base} skin={w.avatar.skin} face={w.avatar.face} female={w.avatar.female} />
+                        </div>
                       </div>
-                      <h6 className="text-white text-sm sm:text-base font-medium truncate">{w.name}</h6>
+                      <h6 className="text-white text-sm sm:text-base font-medium truncate ml-0.5">{w.name}</h6>
                     </div>
                     <div className="text-white text-xs sm:text-sm font-medium text-center sm:text-right">
                       <span>{w.totalPlayed}</span>
                     </div>
 
                     <div className="flex items-center justify-end gap-2">
-                      <div className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl bg-[#e67d00] border-4 border-[#fed81f] text-white font-semibold text-xs sm:text-sm shadow-[0_6px_18px_rgba(230,125,0,0.25)] whitespace-nowrap">
+                      <div className="min-w-[72px] sm:min-w-[110px] px-1.5 sm:px-4 py-1 sm:py-2 rounded-xl bg-[#e67d00] border-[3px] sm:border-4 border-[#fed81f] text-white font-medium text-[11px] sm:text-sm shadow-[0_6px_18px_rgba(230,125,0,0.25)] whitespace-nowrap leading-none">
                         {w.prize}
                       </div>
                     </div>

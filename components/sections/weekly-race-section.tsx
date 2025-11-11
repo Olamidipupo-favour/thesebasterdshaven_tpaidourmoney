@@ -48,7 +48,7 @@ export function WeeklyRaceSection() {
       {/* Mobile-only version using mobilr.png */}
       <div className="md:hidden">
         <div className="relative rounded-[1.5rem] overflow-hidden min-h-[260px] bg-[url('/add/mobilr.png')] bg-cover bg-center">
-          <div className="absolute inset-0 bg-black/40 pointer-events-none" />
+          {/* <div className="absolute inset-0 bg-black/40 pointer-events-none" /> */}
           {/* Left-side text cluster */}
           <div className="relative z-10 px-4 pr-[52%] min-h-[260px] flex flex-col justify-center">
             <h2 className="text-[30px] font-extrabold text-white tracking-tight">$10,000</h2>
