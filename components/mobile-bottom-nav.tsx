@@ -42,16 +42,17 @@ export function MobileBottomNav() {
 
   const isBoxesActive = pathname?.startsWith("/boxes")
   const isPrizesActive = pathname === "/weekly-race" || pathname?.startsWith("/weekly-race")
+  const showGamesActive = gamesActive && !isPrizesActive && !isBoxesActive
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[70] md:hidden bg-card border-t border-border">
       <div className="mx-auto max-w-6xl px-4">
         <div className="grid grid-cols-3 gap-2 py-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
-          <button onClick={openGamesMenu} className={`flex flex-col items-center gap-1 text-xs py-1 w-full ${gamesActive ? 'text-[#22c55e]' : ''}`} aria-current={gamesActive ? 'page' : undefined}>
-            <Gamepad2 className={`w-5 h-5 ${gamesActive ? 'text-[#22c55e]' : ''}`} />
-            <span className={`${gamesActive ? 'text-[#22c55e]' : ''}`}>Games</span>
+          <button onClick={openGamesMenu} className={`flex flex-col items-center gap-1 text-xs py-1 w-full ${showGamesActive ? 'text-[#22c55e]' : ''}`} aria-current={showGamesActive ? 'page' : undefined}>
+            <Gamepad2 className={`w-5 h-5 ${showGamesActive ? 'text-[#22c55e]' : ''}`} />
+            <span className={`${showGamesActive ? 'text-[#22c55e]' : ''}`}>Games</span>
           </button>
-          <Link href="/weekly-race" className={`flex flex-col items-center gap-1 text-xs py-1 ${isPrizesActive ? 'text-[#22c55e]' : ''}`} aria-current={isPrizesActive ? 'page' : undefined}>
+          <Link href="/weekly-race" className={`flex flex-col items-center gap-1 text-xs py-1 ${isPrizesActive ? 'text-[#22c55e]' : ''}`} onClick={closeGamesMenu} aria-current={isPrizesActive ? 'page' : undefined}>
             <Trophy className={`w-5 h-5 ${isPrizesActive ? 'text-[#22c55e]' : ''}`} />
             <span className={`${isPrizesActive ? 'text-[#22c55e]' : ''}`}>Prizes</span>
           </Link>

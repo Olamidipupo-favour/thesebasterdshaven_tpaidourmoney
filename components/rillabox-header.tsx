@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/hooks/use-auth"
@@ -103,6 +103,14 @@ export function RillaboxHeader() {
       setMobileMenuOpen(false)
     }
   }, [pathname])
+
+  // Unified close for mobile games menu that also notifies bottom nav
+  const closeMobileMenu = useCallback(() => {
+    setMobileMenuOpen(false)
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("close-games-menu"))
+    }
+  }, [])
 
   const handleSwitchToRegister = () => {
     setShowLoginDialog(false)
@@ -338,7 +346,7 @@ export function RillaboxHeader() {
           {/* Mobile full-screen Games menu */}
           {mobileMenuOpen && (
             <>
-              <div className="fixed inset-0 bg-black/20 z-[60] lg:hidden" onClick={() => setMobileMenuOpen(false)} />
+              <div className="fixed inset-0 bg-black/20 z-[60] lg:hidden" onClick={closeMobileMenu} />
               <aside className="fixed inset-0 h-full w-full bg-card/95 backdrop-blur-sm z-[65] lg:hidden shadow-xl">
                 <div className="flex items-center justify-between p-4 border-b border-border">
                   <Link href="/" className="inline-flex items-center">
@@ -364,15 +372,15 @@ export function RillaboxHeader() {
                         </Button>
                       </>
                     ) : null}
-                    <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">
+                    <Button variant="ghost" size="icon" onClick={closeMobileMenu} aria-label="Close menu">
                       <X className="w-5 h-5" />
                     </Button>
                   </div>
                 </div>
                 <div className="px-4 pt-3.5 pb-3.5 overflow-y-auto h-[calc(100vh-64px)]">
                   <div>
-                    <Link href="/boxes"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
-                    <Link href="#"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
+                    <Link href="/boxes" onClick={closeMobileMenu}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
+                    <Link href="#" onClick={closeMobileMenu}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
                     <Button
                       variant="outline"
                       className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"
@@ -380,7 +388,7 @@ export function RillaboxHeader() {
                         if (typeof window !== "undefined") {
                           window.dispatchEvent(new Event("open-soccer-coming-soon"))
                         }
-                        setMobileMenuOpen(false)
+                        closeMobileMenu()
                       }}
                     >
                       <span className="flex items-center"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</span>
@@ -389,12 +397,12 @@ export function RillaboxHeader() {
                     <Button
                       variant="outline"
                       className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"
-                      onClick={() => setMobileMenuOpen(false)}
+                      onClick={closeMobileMenu}
                     >
                       <span className="flex items-center"><Egg className="w-4 h-4 mr-2" />Chicken Road</span>
                       <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
                     </Button>
-                    <Link href="/earn"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
+                    <Link href="/earn" onClick={closeMobileMenu}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
 
                     {/* Shop collapsible below Earn to Play */}
                     <button

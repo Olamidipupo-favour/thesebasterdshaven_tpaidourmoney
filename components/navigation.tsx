@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Home, Gift, Trophy, Coins, Menu, X, User, LogOut, ShoppingCart, ArrowLeftRight, Boxes, Target, Egg, DollarSign, ShoppingBag, ChevronDown } from "lucide-react"
@@ -66,6 +66,14 @@ export function Navigation() {
     return () => {
       window.removeEventListener("open-games-menu", openHandler as EventListener)
       window.removeEventListener("close-games-menu", closeHandler as EventListener)
+    }
+  }, [])
+
+  // Unified close that also notifies bottom nav to reset Games highlight
+  const closeMobileGames = useCallback(() => {
+    setMobileGamesOpen(false)
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("close-games-menu"))
     }
   }, [])
 
@@ -305,7 +313,7 @@ export function Navigation() {
       {/* Mobile full-screen Games menu (used on pages with Navigation header) */}
       {mobileGamesOpen && (
         <>
-          <div className="fixed inset-0 bg-black/20 z-[60] md:hidden" onClick={() => setMobileGamesOpen(false)} />
+          <div className="fixed inset-0 bg-black/20 z-[60] md:hidden" onClick={closeMobileGames} />
           <aside className="fixed inset-0 h-full w-full bg-card/95 backdrop-blur-sm z-[65] md:hidden shadow-xl">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <Link href="/" className="inline-flex items-center">
@@ -331,19 +339,19 @@ export function Navigation() {
                     </Button>
                   </>
                 ) : null}
-                <Button variant="ghost" size="icon" onClick={() => setMobileGamesOpen(false)} aria-label="Close menu">
+                <Button variant="ghost" size="icon" onClick={closeMobileGames} aria-label="Close menu">
                   <X className="w-5 h-5" />
                 </Button>
               </div>
             </div>
             <div className="px-4 pt-3.5 pb-3.5 overflow-y-auto h-[calc(100vh-64px)]">
               <div className="grid grid-cols-1">
-                <Link href="/boxes" className="block"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
+                <Link href="/boxes" className="block" onClick={closeMobileGames}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
                 <Link href="#" className="block"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
                 <Button
                   variant="outline"
                   className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"
-                  onClick={() => setMobileGamesOpen(false)}
+                  onClick={closeMobileGames}
                 >
                   <span className="flex items-center"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</span>
                   <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
@@ -351,12 +359,12 @@ export function Navigation() {
                 <Button
                   variant="outline"
                   className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"
-                  onClick={() => setMobileGamesOpen(false)}
+                  onClick={closeMobileGames}
                 >
                   <span className="flex items-center"><Egg className="w-5 h-5 mr-2" />Chicken Road</span>
                   <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
                 </Button>
-                <Link href="/earn" className="block"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
+                <Link href="/earn" className="block" onClick={closeMobileGames}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground hover:bg-accent hover:text-accent-foreground border-border mb-3.5"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
 
                 {/* Shop collapsible */}
                 <button
