@@ -126,13 +126,16 @@ export function RillaboxHeader() {
     }
   }
 
-  // Listen for bottom nav requests to open the Games menu
+  // Listen for bottom nav requests to open/close the Games menu
   useEffect(() => {
     const openGamesHandler = () => setMobileMenuOpen(true)
-    // Custom event triggered from mobile bottom nav
+    const closeGamesHandler = () => setMobileMenuOpen(false)
+    // Custom events triggered from mobile bottom nav
     window.addEventListener("open-games-menu", openGamesHandler as EventListener)
+    window.addEventListener("close-games-menu", closeGamesHandler as EventListener)
     return () => {
       window.removeEventListener("open-games-menu", openGamesHandler as EventListener)
+      window.removeEventListener("close-games-menu", closeGamesHandler as EventListener)
     }
   }, [])
 
