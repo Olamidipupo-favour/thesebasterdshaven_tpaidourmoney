@@ -17,7 +17,7 @@ export function OSortudoLayout({ children }: OSortudoLayoutProps) {
       <div className="flex min-h-screen">
         <div className="flex-1 flex flex-col">
           <main className="flex-1">
-            <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8">
+            <div className="max-w-6xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-8 pb-16 xl:pb-0">
               <div className="mt-4">
                 {children}
               </div>

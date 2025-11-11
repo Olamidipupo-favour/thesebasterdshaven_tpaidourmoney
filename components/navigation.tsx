@@ -92,6 +92,19 @@ export function Navigation() {
     }
   }, [pathname])
 
+  // Lock background scroll when the mobile Games overlay is open
+  useEffect(() => {
+    const shouldLock = mobileGamesOpen || mobileGamesClosing
+    if (shouldLock) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileGamesOpen, mobileGamesClosing])
+
   const handleSwitchToRegister = () => {
     setShowLoginDialog(false)
     setShowRegisterDialog(true)
@@ -320,8 +333,8 @@ export function Navigation() {
       {/* Mobile full-screen Games menu (used on pages with Navigation header) */}
       {(mobileGamesOpen || mobileGamesClosing) && (
         <>
-          <div className="fixed inset-0 bg-black/20 z-[60] md:hidden" onClick={closeMobileGames} />
-          <aside className={`fixed inset-0 h-full w-full bg-card/95 backdrop-blur-sm z-[65] md:hidden shadow-xl transform transition-transform duration-300 ${mobileGamesClosing ? '-translate-x-full' : 'translate-x-0'}`}>
+          <div className="fixed inset-0 bg-black/30 z-[75] md:hidden" onClick={closeMobileGames} />
+          <aside className={`fixed inset-0 h-full w-full bg-card/95 backdrop-blur-sm z-[80] md:hidden shadow-xl transform transition-transform duration-300 ${mobileGamesClosing ? '-translate-x-full' : 'translate-x-0'}`}>
             <div className="flex items-center justify-between p-4 border-b border-border">
               <Link href="/" className="inline-flex items-center">
                 <img src="/logo/OSORTUDO%20LOGO%201.png" alt="Sortudo" className="h-6 w-auto object-contain" />
