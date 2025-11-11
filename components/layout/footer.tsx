@@ -6,7 +6,7 @@ import { Instagram, Facebook, MessageCircle, Twitter } from "lucide-react"
 export function Footer() {
   return (
     <footer className="mt-16 rounded-t-2xl bg-gradient-to-b from-[#0a1b14] via-[#0d241b] to-[#0a1b14] border-t border-[#1f6b4a]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           {/* Brand & Description */}
           <div className="md:col-span-1">
@@ -82,6 +82,13 @@ export function Footer() {
             </div>
           </div>
         </div>
+
+        {/* Mobile-only trophy on right side (moved further up and enlarged) */}
+        <img
+          src="https://rillabox.com/images/trophy-changed.png"
+          alt="Trophy"
+          className="md:hidden absolute right-4 top-[28%] -translate-y-1/2 w-40 h-auto object-contain drop-shadow-xl pointer-events-none"
+        />
 
         {/* Copyright */}
         <div className="border-t border-[#1f6b4a]/40 mt-8 pt-8 text-center">

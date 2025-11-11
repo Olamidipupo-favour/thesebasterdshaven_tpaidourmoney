@@ -261,7 +261,7 @@ export function GamesSection() {
           {selectedGame?.name === "Chicken Road" || selectedGame?.name === "Soccer Game" ? (
             <div className="mt-3">
               <div className="rounded-lg border border-yellow-400/40 bg-yellow-400/10 p-4 text-yellow-300">
-                This game is . Check back shortly!
+                This game is Unavailable at the moment. Check back shortly!
               </div>
             </div>
           ) : (
