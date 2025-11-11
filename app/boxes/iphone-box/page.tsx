@@ -462,7 +462,11 @@ export default function IPhoneBoxPage() {
       }
 
       setColumnSpinIndices([...currentIndices])
-      playClick()
+      // Only play the tick sound while the columns are still moving.
+      // This prevents an extra click right after the winning item lands.
+      if (!allLanded) {
+        playClick()
+      }
 
       // Compute next interval based on phase
       let nextInterval = fastIntervalMs
