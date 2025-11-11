@@ -335,13 +335,13 @@ export default function WeeklyRacePage() {
         {/* Leaderboard List */}
         <section>
           <div className="grid gap-2 sm:gap-3">
-            {/* Header row */}
+            {/* Header row aligned to content columns */}
             <div className="flex items-center px-4 py-3 rounded-xl border-2 border-yellow-500 bg-gradient-to-r from-yellow-400 to-yellow-600">
-              <div className="w-10 sm:w-16 text-center text-sm font-semibold text-black/80"> </div>
-              <div className="flex-1 flex items-center justify-between">
+              <div className="w-8 sm:w-16 text-center text-sm font-semibold text-black/80"> </div>
+              <div className="flex-1 grid grid-cols-[1.6fr_1.2fr_72px] sm:grid-cols-[1.4fr_1.1fr_110px] items-center gap-2 sm:gap-3">
                 <div className="text-sm font-semibold text-black">User</div>
-                <div className="text-sm font-semibold text-black">Total Played</div>
-                <div className="text-sm font-semibold text-black">Prize</div>
+                <div className="text-sm font-semibold text-black justify-self-start text-left">Total Played</div>
+                <div className="text-sm font-semibold text-black text-center">Prize</div>
               </div>
             </div>
 
@@ -361,7 +361,7 @@ export default function WeeklyRacePage() {
                   {/* Place label */}
                   <div className="w-8 sm:w-16 text-center text-xs sm:text-sm font-semibold text-yellow-300">{w.placeLabel}</div>
 
-                  <div className="relative z-10 flex-1 grid grid-cols-[2.2fr_0.9fr_auto] sm:grid-cols-[1.8fr_1fr_auto] items-center gap-2 sm:gap-3 min-w-0">
+                  <div className="relative z-10 flex-1 grid grid-cols-[1.6fr_1.2fr_72px] sm:grid-cols-[1.4fr_1.1fr_110px] items-center gap-2 sm:gap-3 min-w-0">
                     <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                       <div className="w-8 h-8 sm:w-12 sm:h-12">
                         {/* Mobile: smaller avatar; Desktop: normal size */}
@@ -374,12 +374,12 @@ export default function WeeklyRacePage() {
                       </div>
                       <h6 className="text-white text-sm sm:text-base font-medium truncate ml-0.5">{w.name}</h6>
                     </div>
-                    <div className="text-white text-xs sm:text-sm font-medium text-center sm:text-right">
+                    <div className="text-white text-xs sm:text-sm font-medium text-left">
                       <span>{w.totalPlayed}</span>
                     </div>
 
                     <div className="flex items-center justify-end gap-2">
-                      <div className="min-w-[72px] sm:min-w-[110px] px-1.5 sm:px-4 py-1 sm:py-2 rounded-xl bg-[#e67d00] border-[3px] sm:border-4 border-[#fed81f] text-white font-medium text-[11px] sm:text-sm shadow-[0_6px_18px_rgba(230,125,0,0.25)] whitespace-nowrap leading-none">
+                      <div className="min-w-[72px] sm:min-w-[110px] px-1.5 sm:px-4 py-1 sm:py-2 rounded-xl bg-[#e67d00] border-[3px] sm:border-4 border-[#fed81f] text-white font-medium text-[11px] sm:text-sm shadow-[0_6px_18px_rgba(230,125,0,0.25)] whitespace-nowrap leading-none flex items-center justify-center text-center">
                         {w.prize}
                       </div>
                     </div>
