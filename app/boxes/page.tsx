@@ -548,7 +548,7 @@ export default function BoxesPage() {
                   <div className="flex gap-2">
                     {activeBox && (
                       <Link
-                        href={activeBox.id === "1-percent-iphone" ? "/boxes/iphone-box" : `/boxes/${activeBox.id}`}
+                        href={activeBox.id === "1-percent-iphone" ? "/boxes/iphone-box" : `#`}
                         className="w-full"
                       >
                         <Button className="w-full glow-effect">View Box</Button>
