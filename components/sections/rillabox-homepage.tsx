@@ -20,8 +20,8 @@ import {
   CheckCircle,
   ChevronLeft,
   ChevronRight,
-  Target
-} from "lucide-react"
+  Ticket
+  } from "lucide-react"
 import Link from "next/link"
 import { useBoxes } from "@/hooks/use-boxes"
 import { useLiveDrops, useLiveStats } from "@/hooks/use-socket"
@@ -328,6 +328,15 @@ export function OSortudoHomepage() {
       {false && (<section className="w-full mb-8">
         <div className="flex justify-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-6xl">
+            {/* Shop - FIRST card using provided image */}
+            <Link href="/" className="group block h-full">
+              <div className="bg-card border border-border rounded-xl p-4 text-center hover:border-primary/50 hover:shadow-2xl transition-all duration-300 h-full group-hover:scale-105 group-hover:shadow-primary/20">
+                <div className="w-full h-32 rounded-lg flex items-center justify-center mb-4 relative overflow-hidden">
+                  <img src="/new/storee.png" alt="Shop" className="w-full h-full object-cover" />
+                </div>
+                <span className="text-sm font-bold text-foreground">Shop</span>
+              </div>
+            </Link>
             {/* Mystery Boxes - BIGGER with enhanced box opening animation */}
             <Link href="/boxes" className="group block h-full">
               <div className="bg-card border border-border rounded-xl p-4 text-center hover:border-primary/50 hover:shadow-2xl transition-all duration-300 h-full group-hover:scale-105 group-hover:shadow-primary/20">
@@ -367,7 +376,7 @@ export function OSortudoHomepage() {
             <Link href="/find-prize" className="group block h-full">
               <div className="bg-card border border-border rounded-xl p-4 text-center hover:border-primary/50 hover:shadow-2xl transition-all duration-300 h-full group-hover:scale-105 group-hover:shadow-primary/20">
                 <div className="w-full h-32 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-lg flex items-center justify-center mb-4 group-hover:from-secondary/30 group-hover:to-primary/30 transition-all duration-300 relative overflow-hidden">
-                  <Target className="w-12 h-12 text-secondary group-hover:animate-bounce transition-transform duration-500" />
+                  <Ticket className="w-12 h-12 text-secondary group-hover:animate-bounce transition-transform duration-500" />
                   
                   {/* Enhanced number selection animation */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -426,43 +435,7 @@ export function OSortudoHomepage() {
               </div>
             </Link>
             
-            {/* Chicken Road - BIGGER with enhanced road/car animation */}
-            <Link href="/chicken-road" className="group block h-full">
-              <div className="bg-card border border-border rounded-xl p-4 text-center hover:border-primary/50 hover:shadow-2xl transition-all duration-300 h-full group-hover:scale-105 group-hover:shadow-primary/20">
-                <div className="w-full h-32 bg-gradient-to-br from-chart-3/20 to-chart-4/20 rounded-lg flex items-center justify-center mb-4 group-hover:from-chart-3/30 group-hover:to-chart-4/30 transition-all duration-300 relative overflow-hidden">
-                  <Target className="w-12 h-12 text-chart-3 group-hover:animate-spin transition-transform duration-500" />
-                  
-                  {/* Enhanced road/car animation */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="w-full h-full flex items-end justify-center">
-                      <div className="w-12 h-4 bg-gray-400 rounded-sm relative">
-                        {/* Road lines */}
-                        <div className="absolute top-1 left-2 w-1 h-1 bg-yellow-400 rounded-full animate-ping"></div>
-                        <div className="absolute top-1 left-6 w-1 h-1 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
-                        <div className="absolute top-1 right-2 w-1 h-1 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
-                        
-                        {/* Car lights */}
-                        <div className="absolute -top-2 left-2 w-2 h-2 bg-yellow-400 rounded-full animate-ping"></div>
-                        <div className="absolute -top-2 right-2 w-2 h-2 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.1s' }}></div>
-                        
-                        {/* Moving car effect */}
-                        <div className="absolute -top-1 left-1 w-3 h-2 bg-red-400 rounded-sm animate-pulse"></div>
-                        <div className="absolute -top-1 right-1 w-3 h-2 bg-blue-400 rounded-sm animate-pulse" style={{ animationDelay: '0.3s' }}></div>
-                </div>
-                    </div>
-                  </div>
-                  
-                  {/* Road dust effects */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute bottom-2 left-4 w-1 h-1 bg-gray-300 rounded-full animate-ping"></div>
-                    <div className="absolute bottom-2 right-4 w-1 h-1 bg-gray-300 rounded-full animate-ping" style={{ animationDelay: '0.2s' }}></div>
-                    <div className="absolute bottom-4 left-6 w-1 h-1 bg-gray-300 rounded-full animate-ping" style={{ animationDelay: '0.4s' }}></div>
-                    <div className="absolute bottom-4 right-6 w-1 h-1 bg-gray-300 rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
-                  </div>
-                </div>
-                <span className="text-sm font-bold text-foreground group-hover:text-chart-3 transition-colors duration-300">Chicken Road</span>
-              </div>
-            </Link>
+            {/* Chicken Road card removed */}
           </div>
         </div>
       </section>)}

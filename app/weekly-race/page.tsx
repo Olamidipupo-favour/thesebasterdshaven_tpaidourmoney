@@ -335,10 +335,10 @@ export default function WeeklyRacePage() {
         {/* Leaderboard List */}
         <section>
           <div className="grid gap-2 sm:gap-3">
-            {/* Header row aligned to content columns */}
+            {/* Header row aligned to content columns (desktop: move Total Played further left) */}
             <div className="flex items-center px-4 py-3 rounded-xl border-2 border-yellow-500 bg-gradient-to-r from-yellow-400 to-yellow-600">
               <div className="w-8 sm:w-16 text-center text-sm font-semibold text-black/80"> </div>
-              <div className="flex-1 grid grid-cols-[1.6fr_1.2fr_72px] sm:grid-cols-[1.4fr_1.1fr_110px] items-center gap-2 sm:gap-3">
+              <div className="flex-1 grid grid-cols-[1.1fr_1.35fr_72px] sm:grid-cols-[1fr_1.4fr_110px] items-center gap-1 sm:gap-1">
                 <div className="text-sm font-semibold text-black">User</div>
                 <div className="text-sm font-semibold text-black justify-self-start text-left">Total Played</div>
                 <div className="text-sm font-semibold text-black text-center">Prize</div>
@@ -357,12 +357,12 @@ export default function WeeklyRacePage() {
                   }}
                 >
                   {/* Subtle dark overlay to improve text contrast over patterned background */}
-                  <div className="absolute inset-0 bg-black/30" />
+                  {/* <div className="absolute inset-0 bg-black/30" /> */}
                   {/* Place label */}
-                  <div className="w-8 sm:w-16 text-center text-xs sm:text-sm font-semibold text-yellow-300">{w.placeLabel}</div>
+                  <div className="w-8 sm:w-16 text-center text-xs sm:text-sm font-semibold text-[#fed81f]">{w.placeLabel}</div>
 
-                  <div className="relative z-10 flex-1 grid grid-cols-[1.6fr_1.2fr_72px] sm:grid-cols-[1.4fr_1.1fr_110px] items-center gap-2 sm:gap-3 min-w-0">
-                    <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                  <div className="relative z-10 flex-1 grid grid-cols-[1.1fr_1.35fr_72px] sm:grid-cols-[1fr_1.4fr_110px] items-center gap-1 sm:gap-1 min-w-0">
+                    <div className="flex items-center gap-2 sm:gap-2 min-w-0">
                       <div className="w-8 h-8 sm:w-12 sm:h-12">
                         {/* Mobile: smaller avatar; Desktop: normal size */}
                         <div className="sm:hidden">
