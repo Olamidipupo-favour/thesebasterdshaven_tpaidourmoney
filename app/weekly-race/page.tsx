@@ -362,7 +362,7 @@ export default function WeeklyRacePage() {
                   <div className="w-8 sm:w-16 text-center text-xs sm:text-sm font-semibold text-yellow-300">{w.placeLabel}</div>
 
                   <div className="relative z-10 flex-1 grid grid-cols-[1.6fr_1.2fr_72px] sm:grid-cols-[1.4fr_1.1fr_110px] items-center gap-2 sm:gap-3 min-w-0">
-                    <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                       <div className="w-8 h-8 sm:w-12 sm:h-12">
                         {/* Mobile: smaller avatar; Desktop: normal size */}
                         <div className="sm:hidden">
@@ -372,7 +372,7 @@ export default function WeeklyRacePage() {
                           <AvatarComposer base={w.avatar.base} skin={w.avatar.skin} face={w.avatar.face} female={w.avatar.female} />
                         </div>
                       </div>
-                      <h6 className="text-white text-sm sm:text-base font-medium truncate ml-0.5">{w.name}</h6>
+                      <h6 className="text-white text-sm sm:text-base font-medium truncate">{w.name}</h6>
                     </div>
                     <div className="text-white text-xs sm:text-sm font-medium text-left">
                       <span>{w.totalPlayed}</span>
