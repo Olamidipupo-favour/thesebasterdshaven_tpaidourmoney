@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
@@ -14,6 +14,13 @@ export const metadata: Metadata = {
   title: "O Sortudo - Irish Gaming Platform",
   description: "Experience the luck of the Irish with mystery boxes, live drops, and exciting games!",
   generator: "v0.app",
+}
+
+// Ensure iOS safe area is handled and content can extend to the edges
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 }
 
 export default function RootLayout({

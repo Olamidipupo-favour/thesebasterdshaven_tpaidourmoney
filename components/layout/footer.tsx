@@ -85,7 +85,7 @@ export function Footer() {
 
         {/* Mobile-only trophy on right side (moved further up and enlarged) */}
         <img
-          src="https://rillabox.com/images/trophy-changed.png"
+          src="/new/prize.png"
           alt="Trophy"
           className="md:hidden absolute right-4 top-[35%] -translate-y-1/2 w-40 h-auto object-contain drop-shadow-xl pointer-events-none"
         />
