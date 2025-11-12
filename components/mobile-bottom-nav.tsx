@@ -44,12 +44,13 @@ export function MobileBottomNav() {
   const isPrizesActive = pathname === "/weekly-race" || pathname?.startsWith("/weekly-race")
   const showGamesActive = gamesActive && !isPrizesActive && !isBoxesActive
 
-  const hideNav = gamesActive
+  // Keep bottom nav always visible even when Games overlay is open
+  const hideNav = false
 
   return (
-    <nav className={`${hideNav ? 'hidden' : ''} fixed bottom-0 left-0 right-0 z-[70] xl:hidden bg-card border-t border-border`} aria-hidden={hideNav ? true : undefined}>
+    <nav className={`fixed bottom-0 left-0 right-0 z-[100] xl:hidden bg-card border-t border-border`}>
       <div className="mx-auto max-w-6xl px-4">
-        <div className="grid grid-cols-3 gap-2 py-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]">
+        <div className="grid grid-cols-3 gap-2 py-2 pb-[env(safe-area-inset-bottom)]">
           <button onClick={openGamesMenu} className={`flex flex-col items-center gap-1 text-xs py-1 w-full ${showGamesActive ? 'text-[#22c55e]' : ''}`} aria-current={showGamesActive ? 'page' : undefined}>
             <Gamepad2 className={`w-5 h-5 ${showGamesActive ? 'text-[#22c55e]' : ''}`} />
             <span className={`${showGamesActive ? 'text-[#22c55e]' : ''}`}>Games</span>

@@ -364,7 +364,7 @@ export function Navigation() {
                 </Button>
               </div>
             </div>
-            <div className="px-4 pt-3.5 pb-3.5 overflow-y-auto h-[calc(100vh-64px)]">
+            <div className="px-4 pt-3.5 pb-[env(safe-area-inset-bottom)] overflow-hidden h-full">
               <div className="grid grid-cols-1">
                 <Link href="/boxes" className="block" onClick={closeMobileGames}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
                 <Link href="#" className="block"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>

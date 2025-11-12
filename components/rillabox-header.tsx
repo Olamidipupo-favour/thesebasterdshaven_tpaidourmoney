@@ -396,10 +396,10 @@ export function RillaboxHeader() {
                     </Button>
                   </div>
                 </div>
-                <div className="px-4 pt-3.5 pb-3.5 overflow-y-auto h-[calc(100vh-64px)]">
+            <div className="px-4 pt-3.5 pb-[env(safe-area-inset-bottom)] overflow-hidden h-full">
                   <div>
                     <Link href="/boxes" onClick={closeMobileMenu}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
-                    <Link href="#" onClick={closeMobileMenu}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
+                    <Link href="#" ><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
                     <Button
                       variant="outline"
                       className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"
@@ -421,7 +421,7 @@ export function RillaboxHeader() {
                       <span className="flex items-center"><Egg className="w-4 h-4 mr-2" />Chicken Road</span>
                       <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
                     </Button>
-                    <Link href="/earn" onClick={closeMobileMenu}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
+                    <Link href="#"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
 
                     {/* Shop collapsible below Earn to Play */}
                     <button
