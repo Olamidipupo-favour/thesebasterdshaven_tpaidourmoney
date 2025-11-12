@@ -30,7 +30,7 @@ function FootballIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ShoppingCart, ArrowLeftRight, Target, Egg, Goal, ChevronDown } from "lucide-react"
+import { Home, Gift, Trophy, Gamepad2, Boxes, LogOut, Zap, Menu, X, DollarSign, ShoppingBag, ShoppingCart, ArrowLeftRight, Ticket, Goal, ChevronDown } from "lucide-react"
 
 export function RillaboxHeader() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -252,7 +252,7 @@ export function RillaboxHeader() {
                     <span>Mystery Boxes</span>
                   </Link>
                   <Link href="#" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
-                    <Target className="w-4 h-4" />
+                    <Ticket className="w-4 h-4" />
                     <span>Find the Prize</span>
                   </Link>
                   <Link href="#" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
@@ -260,10 +260,7 @@ export function RillaboxHeader() {
                     <img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 object-contain" />
                     <span>Soccer Game</span>
                   </Link>
-                  <Link href="#" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
-                    <Egg className="w-4 h-4" />
-                    <span>Chicken Road</span>
-                  </Link>
+                  {/** Chicken Road removed from header dropdown **/}
                 </div>
               </div>
 
@@ -287,6 +284,7 @@ export function RillaboxHeader() {
                     <ShoppingCart className="w-4 h-4" />
                     <span>Buy</span>
                   </Link>
+                  <div className="h-px bg-white/70 mx-2" />
                   <Link href="/" className="cursor-pointer flex items-center gap-2 px-3 py-2 hover:bg-muted rounded-sm">
                     <ArrowLeftRight className="w-4 h-4" />
                     <span>Trade</span>
@@ -399,7 +397,7 @@ export function RillaboxHeader() {
             <div className="px-4 pt-3.5 pb-[env(safe-area-inset-bottom)] overflow-hidden h-full">
                   <div>
                     <Link href="/boxes" onClick={closeMobileMenu}><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><Boxes className="w-5 h-5 mr-2" />Mystery Boxes</Button></Link>
-                    <Link href="#" ><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><Target className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
+                    <Link href="#" ><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><Ticket className="w-5 h-5 mr-2" />Find the Prize</Button></Link>
                     <Button
                       variant="outline"
                       className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"
@@ -413,14 +411,7 @@ export function RillaboxHeader() {
                       <span className="flex items-center"><img src="/new/soccer2.png" alt="Soccer" className="w-5 h-5 mr-2 object-contain" />Soccer Game</span>
                       <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
                     </Button>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-between min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"
-                      // onClick={closeMobileMenu}
-                    >
-                      <span className="flex items-center"><Egg className="w-4 h-4 mr-2" />Chicken Road</span>
-                      <span className="ml-2 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-muted text-muted-foreground">Coming Soon</span>
-                    </Button>
+                    {/** Chicken Road removed from mobile menu **/}
                     <Link href="#"><Button variant="outline" className="w-full justify-start min-h-[56px] px-4 py-4 rounded-2xl bg-card text-foreground border border-green-400/40 dark:border-green-400/40 hover:border-green-400/60 dark:hover:border-green-400/60 hover:bg-accent hover:!text-[#52CA19] transition-colors mb-3.5"><DollarSign className="w-5 h-5 mr-2" />Earn to Play</Button></Link>
 
                     {/* Shop collapsible below Earn to Play */}
@@ -441,6 +432,7 @@ export function RillaboxHeader() {
                             Buy
                           </Button>
                         </Link>
+                        <div className="h-px bg-white/70 rounded-full mx-4 mb-3" />
                         <Link href="#">
                           <Button variant="ghost" className="w-full justify-start rounded-xl px-4 py-2.5 mb-3.5 hover:!text-[#52CA19] transition-colors">
                             <ArrowLeftRight className="w-4 h-4 mr-2" />
