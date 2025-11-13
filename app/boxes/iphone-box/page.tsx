@@ -291,13 +291,13 @@ export default function IPhoneBoxPage() {
     filter.type = 'lowpass'
     filter.frequency.value = 1200
     gain.gain.setValueAtTime(0.0001, ctx.currentTime)
-    gain.gain.exponentialRampToValueAtTime(0.28, ctx.currentTime + 0.012)
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.07)
+    gain.gain.exponentialRampToValueAtTime(0.20, ctx.currentTime + 0.008)
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.030)
     osc.connect(filter)
     filter.connect(gain)
     gain.connect(ctx.destination)
     osc.start()
-    osc.stop(ctx.currentTime + 0.08)
+    osc.stop(ctx.currentTime + 0.034)
   }
 
   const handleFastSpin = () => {
@@ -480,13 +480,8 @@ export default function IPhoneBoxPage() {
         }
       }
 
-      // Match transition duration to interval for smooth continuous movement
-      if (step >= fastSteps) {
-        setSpinStepDurationMs(Math.min(460, Math.max(80, Math.floor(nextInterval))))
-      } else {
-        // Keep short transitions during fast phase so updates feel fluid
-        setSpinStepDurationMs(isDemo && isMobile ? 90 : 60)
-      }
+      // Match transition duration to interval at all phases to avoid mid-spin speed bumps
+      setSpinStepDurationMs(Math.min(460, Math.max(16, Math.floor(nextInterval))))
 
       step++
 
@@ -728,8 +723,8 @@ export default function IPhoneBoxPage() {
                     position: 'relative',
                     left: '50%',
                     transform: (isSpinning || wonPrizes.length > 0) && columnSpinIndices[0] !== undefined
-                      ? `translateX(calc(-${columnSpinIndices[0] * H_ITEM_STEP_PX}px - ${H_HALF_ITEM_STEP_PX}px))`
-                      : `translateX(calc(-${10 * H_ITEM_STEP_PX}px - ${H_HALF_ITEM_STEP_PX}px))`,
+                      ? `translate3d(calc(-${columnSpinIndices[0] * H_ITEM_STEP_PX}px - ${H_HALF_ITEM_STEP_PX}px), 0, 0)`
+                      : `translate3d(calc(-${10 * H_ITEM_STEP_PX}px - ${H_HALF_ITEM_STEP_PX}px), 0, 0)`,
                     width: ((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? `${columnItems[0].length * H_ITEM_STEP_PX}px` : 'auto',
                     transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
                     transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
@@ -838,8 +833,8 @@ export default function IPhoneBoxPage() {
                           className={`flex flex-col items-center`}
                           style={{
                             transform: (isSpinning || wonPrizes.length > 0)
-                              ? `translateY(calc(50% - ${spinIndex * ITEM_STEP_PX}px - ${HALF_ITEM_STEP_PX}px))`
-                              : `translateY(calc(50% - ${halfList}px))`,
+                              ? `translate3d(0, calc(50% - ${spinIndex * ITEM_STEP_PX}px - ${HALF_ITEM_STEP_PX}px), 0)`
+                              : `translate3d(0, calc(50% - ${halfList}px), 0)`,
                             transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
                             transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
                             transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
