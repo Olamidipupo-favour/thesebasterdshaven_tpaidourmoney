@@ -241,15 +241,10 @@ export default function IPhoneBoxPage() {
   const [isWinModalOpen, setIsWinModalOpen] = useState(false)
   const [winningHighlightActive, setWinningHighlightActive] = useState(false)
   const timeouts = useRef<number[]>([])
-  const rafIdRef = useRef<number | null>(null)
 
   useEffect(() => {
     return () => {
       timeouts.current.forEach(clearTimeout)
-      if (rafIdRef.current) {
-        cancelAnimationFrame(rafIdRef.current)
-        rafIdRef.current = null
-      }
     }
   }, [])
 
@@ -362,8 +357,8 @@ export default function IPhoneBoxPage() {
           for (let col = 0; col < quantity; col++) {
             const extendedItems: typeof iphoneItems = []
             const shuffledItems = shuffleArray(iphoneItems)
-            const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches
-            const replicateCount = isMobile ? 24 : 48
+            // Ensure a long track so a 5s fast phase has room
+            const replicateCount = 100 // ~1500 items (15 * 100)
             for (let i = 0; i < replicateCount; i++) {
               extendedItems.push(...shuffledItems)
             }
@@ -398,7 +393,7 @@ export default function IPhoneBoxPage() {
     const fastSteps = Math.floor(fastDurationMs / fastIntervalMs)
 
     const decelDurationMs = isDemo && isMobile ? 5200 : 4000
-    const endMaxIntervalMs = isDemo && isMobile ? 600 : 450 // raise near-end decel ceiling for slower crawl
+    const endMaxIntervalMs = isDemo && isMobile ? 380 : 280 // slower final step interval for more natural stop
     // Faster early reduction: easeOutExpo grows quickly at the start
     const easeOutExpo = (t: number) => (t === 0 ? 0 : 1 - Math.pow(2, -10 * t))
     // Build deceleration interval schedule and scale to exactly decelDurationMs
@@ -411,9 +406,7 @@ export default function IPhoneBoxPage() {
     const scale = decelDurationMs / rawSum
     const decelIntervals = rawIntervals.map(v => Math.max(8, v * scale))
     // Final tail to bring perceived speed near-zero without feeling abrupt
-    const tailIntervals = isDemo && isMobile
-      ? [800, 1000, 1200, 1500, 1800, 2100, 2500, 3000, 3600, 4200, 4800, 5600, 6500, 8000, 10000, 12000]
-      : [700, 900, 1100, 1400, 1700, 2000, 2400, 3000, 3600, 4200, 4800, 5600, 8000, 10000, 12000]
+    const tailIntervals = isDemo && isMobile ? [340, 380, 420] : [300, 340, 380]
     const totalSlowSteps = slowSteps + tailIntervals.length
 
     // Select different winning items for each column
@@ -447,77 +440,65 @@ export default function IPhoneBoxPage() {
     setColumnItems(modifiedColumnsData)
 
     let step = 0
-    let nextInterval = fastIntervalMs
-    let lastTs = performance.now()
-    let acc = 0
+    const tick = () => {
+      let allLanded = true
 
-    const loop = (ts: number) => {
-      const delta = ts - lastTs
-      lastTs = ts
-      acc += delta
-
-      while (acc >= nextInterval) {
-        acc -= nextInterval
-
-        let allLanded = true
-        if (step < fastSteps) {
-          for (let col = 0; col < numColumns; col++) {
+      if (step < fastSteps) {
+        // Phase 1: very fast constant speed
+        for (let col = 0; col < numColumns; col++) {
+          currentIndices[col] += 1
+          if (currentIndices[col] < targetIndices[col]) allLanded = false
+        }
+      } else {
+        // Phase 2: smooth deceleration toward target
+        for (let col = 0; col < numColumns; col++) {
+          if (currentIndices[col] < targetIndices[col]) {
             currentIndices[col] += 1
-            if (currentIndices[col] < targetIndices[col]) allLanded = false
-          }
-        } else {
-          for (let col = 0; col < numColumns; col++) {
-            if (currentIndices[col] < targetIndices[col]) {
-              currentIndices[col] += 1
-              allLanded = false
-            } else {
-              currentIndices[col] = targetIndices[col]
-            }
-          }
-        }
-
-        setColumnSpinIndices([...currentIndices])
-
-        if (!allLanded) {
-          if (nextInterval <= 24) {
-            if (step % 3 === 0) playClick()
-          } else if (nextInterval <= 40) {
-            if (step % 2 === 0) playClick()
+            allLanded = false
           } else {
-            playClick()
+            currentIndices[col] = targetIndices[col]
           }
-        }
-
-        if (step >= fastSteps) {
-          const decIndex = step - fastSteps
-          if (decIndex < slowSteps) {
-            nextInterval = decelIntervals[Math.max(0, decIndex)]
-          } else {
-            const tailIdx = Math.min(decIndex - slowSteps, tailIntervals.length - 1)
-            nextInterval = tailIntervals[tailIdx]
-          }
-        } else {
-          nextInterval = fastIntervalMs
-        }
-
-        setSpinStepDurationMs(Math.min(12000, Math.max(16, Math.floor(nextInterval))))
-        step++
-
-        if (allLanded) {
-          const winningItems = currentIndices.map((idx, ci) => modifiedColumnsData[ci][idx])
-          setWonPrizes(winningItems)
-          setIsSpinning(false)
-          if (isDemo) setIsDemoSpinning(false)
-          if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current)
-          rafIdRef.current = null
-          return
         }
       }
 
-      rafIdRef.current = requestAnimationFrame(loop)
+      setColumnSpinIndices([...currentIndices])
+      // Only play the tick sound while the columns are still moving.
+      // This prevents an extra click right after the winning item lands.
+      if (!allLanded) {
+        playClick()
+      }
+
+      // Compute next interval based on phase
+      let nextInterval = fastIntervalMs
+      if (step >= fastSteps) {
+        const decIndex = step - fastSteps
+        if (decIndex < slowSteps) {
+          nextInterval = decelIntervals[Math.max(0, decIndex)]
+        } else {
+          const tailIdx = Math.min(decIndex - slowSteps, tailIntervals.length - 1)
+          nextInterval = tailIntervals[tailIdx]
+        }
+      }
+
+      // Match transition duration to interval at all phases to avoid mid-spin speed bumps
+      setSpinStepDurationMs(Math.min(460, Math.max(16, Math.floor(nextInterval))))
+
+      step++
+
+      if (allLanded) {
+        const winningItems = currentIndices.map((idx, ci) => modifiedColumnsData[ci][idx])
+        timeouts.current.push(window.setTimeout(() => {
+          setWonPrizes(winningItems)
+          setIsSpinning(false)
+          if (isDemo) setIsDemoSpinning(false)
+        }, 400))
+        return
+      }
+
+      timeouts.current.push(window.setTimeout(tick, Math.max(8, nextInterval)))
     }
 
-    rafIdRef.current = requestAnimationFrame(loop)
+    tick()
   }
 
   // Real spin function - Multi-column version
@@ -557,8 +538,8 @@ export default function IPhoneBoxPage() {
           for (let col = 0; col < quantity; col++) {
             const extendedItems: typeof iphoneItems = []
             const shuffledItems = shuffleArray(iphoneItems)
-            const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches
-            const replicateCount = isMobile ? 48 : 72
+            // Longer track for real spins to accommodate extended timing
+            const replicateCount = 120 // ~1800 items
             for (let i = 0; i < replicateCount; i++) {
               extendedItems.push(...shuffledItems)
             }
@@ -713,9 +694,7 @@ export default function IPhoneBoxPage() {
             className="relative mb-8 h-[450px] rounded-2xl overflow-hidden"
             style={{
               background: 'linear-gradient(135deg, rgba(15, 23, 41, 0.95) 0%, rgba(26, 27, 61, 0.95) 50%, rgba(45, 27, 78, 0.95) 100%)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-              contentVisibility: 'auto',
-              contain: 'paint'
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
             }}
           >
             {/* Center arrows */}
@@ -750,9 +729,7 @@ export default function IPhoneBoxPage() {
                     transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
                     transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
                     transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
-                    willChange: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
-                    contentVisibility: 'auto',
-                    contain: 'paint'
+                    willChange: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined
                   }}
                 >
                   {(((isSpinning || wonPrizes.length > 0) && columnItems[0]) ? columnItems[0] : Array.from({ length: 20 }).map((_, i) => iphoneItems[i % iphoneItems.length])).map((item, index) => {
@@ -776,7 +753,6 @@ export default function IPhoneBoxPage() {
                         <img
                           src={item.image}
                           alt={item.name}
-                          decoding="async"
                           className={`w-16 h-16 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-95'}`}
                           onError={(e) => { e.currentTarget.src = '/placeholder.svg' }}
                           style={{ filter: `drop-shadow(0 0 14px ${rarityColor}80) drop-shadow(0 0 28px ${rarityColor}40)` }}
@@ -853,20 +829,18 @@ export default function IPhoneBoxPage() {
                           maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)'
                         }}
                       >
-                <div
-                  className={`flex flex-col items-center`}
-                  style={{
-                    transform: (isSpinning || wonPrizes.length > 0)
-                      ? `translate3d(0, calc(50% - ${spinIndex * ITEM_STEP_PX}px - ${HALF_ITEM_STEP_PX}px), 0)`
-                      : `translate3d(0, calc(50% - ${halfList}px), 0)`,
-                    transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
-                    transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
-                    transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
-                    willChange: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
-                    contentVisibility: 'auto',
-                    contain: 'paint'
-                  }}
-                >
+                        <div
+                          className={`flex flex-col items-center`}
+                          style={{
+                            transform: (isSpinning || wonPrizes.length > 0)
+                              ? `translate3d(0, calc(50% - ${spinIndex * ITEM_STEP_PX}px - ${HALF_ITEM_STEP_PX}px), 0)`
+                              : `translate3d(0, calc(50% - ${halfList}px), 0)`,
+                            transitionProperty: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined,
+                            transitionTimingFunction: (isSpinning || wonPrizes.length > 0) ? 'cubic-bezier(0.22, 1, 0.36, 1)' : undefined,
+                            transitionDuration: (isSpinning || wonPrizes.length > 0) ? `${spinStepDurationMs}ms` : undefined,
+                            willChange: (isSpinning || wonPrizes.length > 0) ? 'transform' : undefined
+                          }}
+                        >
                           {columnItemsArray.map((item, index) => {
                             const rarityColor = getRarityColor(item.rarity)
                             const isWinningItem = wonPrizes.some(prize => prize.id === item.id) && spinIndex === index
@@ -888,19 +862,16 @@ export default function IPhoneBoxPage() {
                                 <img
                                   src={item.image}
                                   alt={item.name}
-                                  decoding="async"
                                   className={`w-20 h-20 sm:w-24 sm:h-24 object-contain ${isWinningItem ? 'opacity-100' : 'opacity-95'}`}
                                   onError={(e) => { e.currentTarget.src = '/placeholder.svg' }}
                                   style={{ filter: `drop-shadow(0 0 16px ${rarityColor}80) drop-shadow(0 0 32px ${rarityColor}40)` }}
                                 />
-                                {!isSpinning && (
-                                  <div
-                                    className="absolute inset-0 rounded-xl pointer-events-none"
-                                    style={{
-                                      background: `radial-gradient(circle at center, ${rarityColor}60 0%, ${rarityColor}35 40%, transparent 70%)`
-                                    }}
-                                  />
-                                )}
+                                <div
+                                  className="absolute inset-0 rounded-xl pointer-events-none"
+                                  style={{
+                                    background: `radial-gradient(circle at center, ${rarityColor}60 0%, ${rarityColor}35 40%, transparent 70%)`
+                                  }}
+                                />
                                 {isWinningItem && (
                                   <>
                                     <div
